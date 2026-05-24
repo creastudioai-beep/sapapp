@@ -110,6 +110,7 @@ from .templates import (
     render_footer,
     render_numbered_pagination,
     render_ad_blocks,
+    render_ad_category_buttons,
     render_shop_widget,
     render_breadcrumbs,
     render_matrix_bg,
@@ -681,9 +682,12 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
     # Pagination
     pagination_html = render_numbered_pagination(1, total_pages, _lang_base(lang), lang)
 
-    # Body content
+    # Ad category buttons (matching original site)
+    ad_category_buttons = render_ad_category_buttons(lang)
+
     body = f"""
 <div class="container">
+{ad_category_buttons}
 <div class="posts-feed">
 {posts_html}
 </div>
@@ -1069,11 +1073,18 @@ def generate_articles_page(data: dict, lang: str, output_dir: str, page: int = 1
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
 
+    # Ad blocks on articles page (matching original site)
+    admitad_programs = get_admitad_programs(data)
+    articles_ads_html = ""
+    if admitad_programs:
+        articles_ads_html = render_ad_blocks(admitad_programs, lang)
+
     body = f"""
 <div class="container">
 {breadcrumbs}
 <h1 style="margin:1rem 0;">{page_title}</h1>
 <p style="color:var(--text-muted);margin-bottom:1.5rem;">{page_desc}</p>
+{articles_ads_html}
 <div class="posts-feed">
 {articles_html}
 </div>
@@ -1254,7 +1265,7 @@ def generate_archive_page(data: dict, lang: str, output_dir: str, archive_data_d
         cards_html += render_archive_post_card(arch_post, lang)
 
     # Pagination (archive-style prev/next)
-    archive_pagination = _render_archive_pagination(page, total_pages, page_url, lang)
+    archive_pagination = render_numbered_pagination(page, total_pages, page_url, lang)
 
     # Counter
     if lang == "ru":
@@ -1487,67 +1498,78 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
 
-    # Client-side JS for loading products
+    # Pre-load product data for static rendering
+    products_json = json.dumps(data.get("products", [])[:200], ensure_ascii=True)
     currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
     empty_text = t("shop_empty", lang)
-    empty_reset = t("shop_empty_reset", lang)
+    empty_reset = t("shop_empty_reset", lang) if lang == "ru" else "Reset"
+    in_stock_text = "В наличии" if lang == "ru" else "In Stock"
+    backorder_text = "Под заказ" if lang == "ru" else "Backorder"
 
     shop_js = f"""
 <script>
 (function() {{
+  var allProducts = {products_json};
   var grid = document.getElementById('shopProductGrid');
   var searchInput = document.getElementById('shopSearchInput');
   var categoryBtns = document.querySelectorAll('.shop-category-btn');
   var loadMoreBtn = document.getElementById('shopLoadMore');
   var currentCategory = '';
   var currentQuery = '';
-  var currentPage = 1;
-  var loading = false;
+  var displayed = 0;
+  var PER_PAGE = {PRODUCTS_PER_PAGE};
 
-  function loadProducts() {{
-    if (loading) return;
-    loading = true;
-    var params = '?page=' + currentPage + '&lang={lang}';
-    if (currentCategory) params += '&category=' + encodeURIComponent(currentCategory);
-    if (currentQuery) params += '&q=' + encodeURIComponent(currentQuery);
-    fetch('/api/shop/products' + params)
-      .then(function(res) {{ return res.json(); }})
-      .then(function(data) {{
-        var products = data.products || [];
-        if (products.length === 0 && currentPage === 1) {{
-          grid.innerHTML = '<div style="text-align:center;padding:2rem;"><p>{escape_html(empty_text)}</p><button onclick="resetShop()" style="margin-top:1rem;padding:8px 20px;border-radius:9999px;background:var(--primary);color:#fff;border:none;cursor:pointer;">{escape_html(empty_reset)}</button></div>';
-          if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-          return;
-        }}
-        var html = '';
-        products.forEach(function(p) {{
-          var price = p.price ? Number(p.price).toLocaleString() + ' {currency}' : '';
-          var avail = p.available ? '<div class="product-availability in-stock">{("В наличии" if lang == "ru" else "In Stock")}</div>' : '<div class="product-availability out-of-stock">{("Под заказ" if lang == "ru" else "Backorder")}</div>';
-          html += '<div class="shop-product-card"><div class="product-image">';
-          if (p.image) html += '<img src="' + p.image + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\\'none\\'">';
-          html += '</div><div class="product-info"><div class="product-name"><a href="/{_lang_path(lang).lstrip("/") if _lang_path(lang) else ""}product/' + p.id + '">' + (p.name || '').substring(0, 80) + '</a></div>';
-          if (price) html += '<div class="product-price">' + price + '</div>';
-          html += avail + '</div></div>';
-        }});
-        if (currentPage === 1) grid.innerHTML = html;
-        else grid.innerHTML += html;
-        if (products.length < {PRODUCTS_PER_PAGE}) {{
-          if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-        }} else {{
-          if (loadMoreBtn) loadMoreBtn.style.display = 'inline-flex';
-        }}
-        loading = false;
-      }})
-      .catch(function() {{ loading = false; }});
+  function filterProducts() {{
+    var filtered = allProducts.filter(function(p) {{
+      if (currentCategory && p.category) {{
+        var catSlug = String(p.category).toLowerCase().trim().replace(/ /g, '-');
+        if (catSlug !== currentCategory) return false;
+      }}
+      if (currentQuery) {{
+        var q = currentQuery.toLowerCase();
+        var name = (p.name || '').toLowerCase();
+        var desc = (p.description || '').toLowerCase();
+        if (name.indexOf(q) === -1 && desc.indexOf(q) === -1) return false;
+      }}
+      return true;
+    }});
+    return filtered;
+  }}
+
+  function renderProducts(reset) {{
+    var products = filterProducts();
+    if (reset) {{ displayed = 0; grid.innerHTML = ''; }}
+    var end = Math.min(displayed + PER_PAGE, products.length);
+    if (products.length === 0) {{
+      grid.innerHTML = '<div style="text-align:center;padding:2rem;"><p>{escape_html(empty_text)}</p></div>';
+      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+      return;
+    }}
+    var html = '';
+    for (var i = displayed; i < end; i++) {{
+      var p = products[i];
+      var price = p.price ? Number(p.price).toLocaleString() + ' {currency}' : '';
+      var avail = p.available ? '<div class="product-availability in-stock">{in_stock_text}</div>' : '<div class="product-availability out-of-stock">{backorder_text}</div>';
+      html += '<div class="shop-product-card"><div class="product-image">';
+      if (p.image) html += '<img src="' + p.image + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">';
+      html += '</div><div class="product-info"><div class="product-name">';
+      var pid = p.id || '';
+      var langPrefix = '{_lang_path(lang)}';
+      html += '<a href="' + langPrefix + '/product/' + pid + '">' + (p.name || '').substring(0, 80) + '</a></div>';
+      if (price) html += '<div class="product-price">' + price + '</div>';
+      html += avail + '</div></div>';
+    }}
+    grid.innerHTML += html;
+    displayed = end;
+    if (loadMoreBtn) loadMoreBtn.style.display = displayed < products.length ? 'inline-flex' : 'none';
   }}
 
   window.resetShop = function() {{
     currentCategory = '';
     currentQuery = '';
-    currentPage = 1;
     searchInput.value = '';
     categoryBtns.forEach(function(b) {{ b.classList.remove('active'); }});
-    loadProducts();
+    renderProducts(true);
   }};
 
   if (searchInput) {{
@@ -1556,8 +1578,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
       clearTimeout(timeout);
       timeout = setTimeout(function() {{
         currentQuery = searchInput.value.trim();
-        currentPage = 1;
-        loadProducts();
+        renderProducts(true);
       }}, 300);
     }});
   }}
@@ -1565,21 +1586,19 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
   categoryBtns.forEach(function(btn) {{
     btn.addEventListener('click', function() {{
       currentCategory = this.dataset.category;
-      currentPage = 1;
       categoryBtns.forEach(function(b) {{ b.classList.remove('active'); }});
       this.classList.add('active');
-      loadProducts();
+      renderProducts(true);
     }});
   }});
 
   if (loadMoreBtn) {{
     loadMoreBtn.addEventListener('click', function() {{
-      currentPage++;
-      loadProducts();
+      renderProducts(false);
     }});
   }}
 
-  loadProducts();
+  renderProducts(true);
 }})();
 </script>"""
 
@@ -1703,12 +1722,14 @@ def generate_product_page(data: dict, product_id: str, lang: str, output_dir: st
     if cat_id or cat_name:
         cat_slug = str(cat_name).lower().strip().replace(" ", "-") if cat_name else str(cat_id)
         cat_url = f"{_lang_path(lang)}/shop/category/{cat_slug}"
-        category_html = f'<div class="product-category"><span>{t("product_category", lang)}:</span> <a href="{cat_url}">{escape_html(str(cat_name))}</a></div>'
+        _cat_label = t("product_category", lang)
+        category_html = f'<div class="product-category"><span>{_cat_label}:</span> <a href="{cat_url}">{escape_html(str(cat_name))}</a></div>'
 
     # Vendor
     vendor_html = ""
     if vendor:
-        vendor_html = f'<div class="product-vendor"><span>{t("product_vendor", lang)}:</span> {escape_html(vendor)}</div>'
+        _vendor_label = t("product_vendor", lang)
+        vendor_html = f'<div class="product-vendor"><span>{_vendor_label}:</span> {escape_html(vendor)}</div>'
 
     # Model
     model_html = ""
@@ -1718,7 +1739,7 @@ def generate_product_page(data: dict, product_id: str, lang: str, output_dir: st
     # Image
     image_html = ""
     if image:
-        image_html = f'<div class="product-detail-image"><img src="{escape_html(image)}" alt="{escape_html(name)}" referrerpolicy="no-referrer" style="width:100%;border-radius:12px;" onerror="this.style.display=\'none\'" /></div>'
+        image_html = f'<div class="product-detail-image"><img src="{escape_html(image)}" alt="{escape_html(name)}" referrerpolicy="no-referrer" style="width:100%;border-radius:12px;" onerror="this.remove()" /></div>'
 
     # Telegram link
     telegram_link = f"https://t.me/{CHANNEL_USERNAME}"
@@ -1821,9 +1842,13 @@ def generate_category_page(data: dict, category_id: str, lang: str, output_dir: 
 
         product_url = f"{_lang_path(lang)}/product/{pid}"
 
+        # Build product image HTML separately to avoid backslash in f-string
+        # (Python 3.11 does not allow backslashes inside f-string expressions)
+        _img_onerror = "this.style.display='none'"
+        _img_html = f'<img src="{escape_html(image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="{_img_onerror}">' if image else ''
         products_html += f"""
 <div class="shop-product-card">
-<div class="product-image">{'<img src="' + escape_html(image) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">' if image else ''}</div>
+<div class="product-image">{_img_html}</div>
 <div class="product-info">
 <div class="product-name"><a href="{product_url}">{escape_html(name)}</a></div>
 <div class="product-price">{price_formatted}</div>
@@ -2112,6 +2137,13 @@ def generate_contacts_page(lang: str, output_dir: str) -> str:
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
 
+    phone_section = ""
+    if CONTACT_PHONE:
+        phone_section = f'''<div style="margin:1.5rem 0;">
+<h2>📞 {"Телефон" if lang == "ru" else "Phone"}</h2>
+<p><a href="{CONTACT_PHONE_HREF}">{escape_html(CONTACT_PHONE)}</a></p>
+</div>'''
+
     body = f"""
 <div class="container">
 <div class="article-content">
@@ -2122,10 +2154,7 @@ def generate_contacts_page(lang: str, output_dir: str) -> str:
 <h2>📍 {"Адрес" if lang == "ru" else "Address"}</h2>
 <p>{escape_html(address)}</p>
 </div>
-<div style="margin:1.5rem 0;">
-<h2>📞 {"Телефон" if lang == "ru" else "Phone"}</h2>
-<p><a href="{CONTACT_PHONE_HREF}">{escape_html(CONTACT_PHONE)}</a></p>
-</div>
+{phone_section}
 <div style="margin:1.5rem 0;">
 <h2>📧 {email_label}</h2>
 <p><a href="{CONTACT_EMAIL_HREF}">{escape_html(CONTACT_EMAIL)}</a></p>
@@ -2180,6 +2209,22 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
     cat_url = cat_config.get("url", "#")
     cat_logo = cat_config.get("logo", "")
 
+    # Also get matching programs from pipeline data
+    admitad_programs = get_admitad_programs(data)
+    matching_programs = []
+    for prog in admitad_programs:
+        if not isinstance(prog, dict):
+            continue
+        prog_cat = prog.get("jsonCategory", "")
+        if prog_cat == category:
+            matching_programs.append(prog)
+    
+    # If no config name, try pipeline data
+    if not cat_config and matching_programs:
+        first_prog = matching_programs[0]
+        cat_name = first_prog.get("name", category)
+        cat_logo = first_prog.get("image") or first_prog.get("logo", "")
+
     if lang == "en":
         page_url = f"{SITE_URL}/en/ads/{category}"
         path = f"/en/ads/{category}"
@@ -2195,7 +2240,7 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
     # Logo
     logo_html = ""
     if cat_logo:
-        logo_html = f'<img src="{escape_html(cat_logo)}" alt="{escape_html(cat_name)}" style="max-width:200px;margin-bottom:1rem;" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'" />'
+        logo_html = f'<img src="{escape_html(cat_logo)}" alt="{escape_html(cat_name)}" style="max-width:200px;margin-bottom:1rem;" referrerpolicy="no-referrer" onerror="this.remove()" />'
 
     # Description
     if lang == "ru":
@@ -2206,6 +2251,28 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
         desc_text = f"Partner program {cat_name}. Follow the link for special offers and discounts on auto parts."
         visit_text = "Visit partner website"
         legal_text = "Advertisement. Compensation for placement."
+
+    # Programs cards HTML
+    programs_cards_html = ""
+    for prog in matching_programs:
+        prog_name = prog.get("name", "")
+        prog_desc = prog.get("description", "")
+        prog_image = prog.get("image") or prog.get("logo", "")
+        prog_url = prog.get("affiliateUrl") or prog.get("url") or prog.get("gotoLink", cat_url)
+        
+        card_html = f'<div class="ad-block-item">'
+        if prog_image:
+            card_html += f'<div class="ad-block-media"><img src="{escape_html(prog_image)}" alt="{escape_html(prog_name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"></div>'
+        card_html += f'<h4 class="ad-block-title">{escape_html(prog_name)}</h4>'
+        if prog_desc:
+            card_html += f'<p class="ad-block-desc">{escape_html(prog_desc[:200])}</p>'
+        card_html += f'<a href="{escape_html(prog_url)}" class="btn-cta" target="_blank" rel="nofollow noopener sponsored">{visit_text}</a>'
+        card_html += '</div>'
+        programs_cards_html += card_html
+    
+    programs_section = ""
+    if programs_cards_html:
+        programs_section = f'<div class="ad-blocks-container">{programs_cards_html}</div>'
 
     # Breadcrumbs
     bc_items = [
@@ -2226,6 +2293,7 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
 <div style="text-align:center;margin:2rem 0;">
 <a href="{cat_url}" class="btn-cta" target="_blank" rel="nofollow noopener sponsored">{visit_text}</a>
 </div>
+{programs_section}
 <p style="font-size:0.75rem;color:var(--text-light);text-align:center;">{legal_text}</p>
 </div>
 </div>"""

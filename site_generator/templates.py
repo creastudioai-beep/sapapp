@@ -24,6 +24,7 @@ from .config import (
     CURRENT_YEAR,
     PRODUCTS_CURRENCY_RU,
     PRODUCTS_CURRENCY_EN,
+    ADMITAD_CONFIG,
 )
 
 
@@ -516,9 +517,10 @@ def render_archive_post_card(post: dict, lang: str = "ru") -> str:
 
     media_html = ""
     if has_video and has_video_thumb:
+        thumb_url = escape_html(video_thumbnails[0])
+        bg_style = f"background-image:url('{thumb_url}');background-size:cover;background-position:center"
         media_html = (
-            f'<div class="archive-video-card" style="background-image:url(\'{escape_html(video_thumbnails[0])}\');'
-            f'background-size:cover;background-position:center">'
+            f'<div class="archive-video-card" style="{bg_style}">'
             f'<div class="archive-video-play-btn"></div></div>'
         )
     elif has_video:
@@ -538,15 +540,20 @@ def render_archive_post_card(post: dict, lang: str = "ru") -> str:
     post_id = post.get("postId") or post.get("id", "")
     views = post.get("views", "")
 
+    _video_label = "Видео" if is_ru else "Video"
+    _date_span = f'<span>📅 {escape_html(date_display)}</span>' if date_display else ""
+    _video_span = f'<span>🎬 {escape_html(_video_label)}</span>' if has_video else ""
+    _views_span = f'<span>👁 {escape_html(str(views))}</span>' if views else ""
+    
     return (
         f'<a href="{archive_base}{url_quote(str(post_id))}" class="archive-card">'
         f'{media_html}'
         f'<div class="archive-card-body">'
         f'<div class="archive-card-text">{escape_html(trunc_text)}</div>'
         f'<div class="archive-card-meta">'
-        f'{f"<span>📅 {escape_html(date_display)}</span>" if date_display else ""}'
-        f'{f"<span>🎬 {escape_html("Видео" if is_ru else "Video")}</span>" if has_video else ""}'
-        f'{f"<span>👁 {escape_html(str(views))}</span>" if views else ""}'
+        f'{_date_span}'
+        f'{_video_span}'
+        f'{_views_span}'
         f'</div>'
         f'</div>'
         f'</a>'
@@ -813,11 +820,31 @@ def render_numbered_pagination(
 # render_ad_blocks
 # =============================================================================
 
+def render_ad_category_buttons(lang: str = "ru") -> str:
+    """Render ad category pill-buttons for the homepage (matching original site).
+
+    Shows 7 category buttons: Автозапчасти, Автострахование, Шины и диски,
+    Проверка авто, Прокат авто, Инструменты, Купоны и скидки.
+    Each links to /ads/{category_key}.
+    """
+    if not ADMITAD_CONFIG:
+        return ""
+
+    buttons_html = ""
+    for cat_key, cat_data in ADMITAD_CONFIG.items():
+        cat_label = cat_data.get(lang, cat_data.get("ru", cat_key))
+        cat_icon = cat_data.get("icon", "")
+        cat_url = f"{_lang_path(lang)}/ads/{cat_key}"
+        buttons_html += f'<a href="{cat_url}" class="ad-category-btn">{cat_icon} {escape_html(cat_label)}</a>\n'
+
+    return f'<div class="ad-section-buttons">{buttons_html}</div>'
+
+
 def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> str:
     """Render Admitad ad blocks.
 
     Shows category buttons + ad cards with images, titles, descriptions, and affiliate links.
-    URLs format: /api/{program_id} (simplified affiliate links)
+    Uses actual affiliate URLs from program data when available, falls back to /ads/{category}.
     """
     if not programs or len(programs) == 0:
         return ""
@@ -854,25 +881,32 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
         prog_name = prog.get("name", "")
         prog_id = prog.get("id", "")
 
+        # Build affiliate URL - use actual affiliate link from program data
+        affiliate_url = prog.get("affiliateUrl") or prog.get("url") or prog.get("gotoLink", "")
+        if not affiliate_url:
+            # Fall back to /ads/{category} page
+            affiliate_url = f"{_lang_path(lang)}/ads/{json_category}"
+
         # Legal info
         legal_html = ""
         advertiser_info = prog.get("advertiser_legal_info")
         if isinstance(advertiser_info, dict) and advertiser_info.get("name"):
             ad_label = "Реклама" if lang == "ru" else "Ad"
-            legal_html = f'<div class="ad-block-legal">{ad_label}: {escape_html(advertiser_info["name"])}</div>'
+            _adv_name = advertiser_info["name"]
+            legal_html = f'<div class="ad-block-legal">{ad_label}: {escape_html(_adv_name)}</div>'
 
         desc_truncated = description[:150] + ("..." if len(description) > 150 else "")
 
         ads_html_parts.append(
             f"""
-<a href="/api/{escape_html(str(prog_id))}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;display:block;">
+<a href="{escape_html(affiliate_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;display:block;">
 <div class="ad-block-item">
   <div class="ad-block-media">
     <img src="{escape_html(raw_image_url)}"
          alt="{escape_html(prog_name)}"
          loading="lazy"
          referrerpolicy="no-referrer"
-         onerror="this.onerror=null; this.style.display='none'; this.parentNode.innerHTML='<span style=\\'color:var(--text-muted);font-size:2rem;\\'>🛒</span>'">
+         onerror="this.onerror=null;this.remove()">
   </div>
   <span class="ad-block-category">{escape_html(category_label)}</span>
   <h4 class="ad-block-title">{escape_html(prog_name)}</h4>
@@ -929,7 +963,7 @@ def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
 
         product_cards_html += (
             f'<a href="{escape_html(url)}" class="widget-product" target="_blank" rel="nofollow noopener sponsored">'
-            f'<img src="{escape_html(image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">'
+            f'<img src="{escape_html(image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">'
             f'<div class="wp-name">{escape_html(name)}</div>'
             f'<div class="wp-price">{price_formatted}</div>'
             f'</a>'

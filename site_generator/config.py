@@ -324,8 +324,55 @@ PRODUCTS_CURRENCY_EN: str = "RUB"
 # https://raw.githubusercontent.com/creastudioai-beep/pr/main/admitad_ads.json
 # No static ADMITAD_CONFIG — all partner data comes from the pipeline.
 ADMITAD_CONFIG: dict[str, dict[str, str]] = {
-    # Placeholder categories for template rendering (ad block categories)
-    # Actual program data (name, URL, logo, description) comes from pipeline JSON
+    "autoparts": {
+        "ru": "Автозапчасти",
+        "en": "Auto Parts",
+        "url": "https://ujhjj.com/g/on8kt46xpp3c08bd9d2c648980e865/",
+        "logo": "https://cdn.admitad-connect.com/public/images/brands/autoparts.png",
+        "icon": "🔧",
+    },
+    "autoinsurance": {
+        "ru": "Автострахование",
+        "en": "Car Insurance",
+        "url": "https://ujhjj.com/g/on8kt46xpp3c08bd9d2c648980e865/",
+        "logo": "",
+        "icon": "🛡️",
+    },
+    "tires": {
+        "ru": "Шины и диски",
+        "en": "Tires & Wheels",
+        "url": "https://ujhjj.com/g/on8kt46xpp3c08bd9d2c648980e865/",
+        "logo": "",
+        "icon": "🛞",
+    },
+    "checkauto": {
+        "ru": "Проверка авто",
+        "en": "Car Check",
+        "url": "https://ujhjj.com/g/on8kt46xpp3c08bd9d2c648980e865/",
+        "logo": "",
+        "icon": "🔍",
+    },
+    "autorent": {
+        "ru": "Прокат авто",
+        "en": "Car Rental",
+        "url": "https://ujhjj.com/g/on8kt46xpp3c08bd9d2c648980e865/",
+        "logo": "",
+        "icon": "🚗",
+    },
+    "tools": {
+        "ru": "Инструменты",
+        "en": "Tools",
+        "url": "https://ujhjj.com/g/on8kt46xpp3c08bd9d2c648980e865/",
+        "logo": "",
+        "icon": "🧰",
+    },
+    "coupons": {
+        "ru": "Купоны и скидки",
+        "en": "Coupons & Deals",
+        "url": "https://ujhjj.com/g/on8kt46xpp3c08bd9d2c648980e865/",
+        "logo": "",
+        "icon": "🏷️",
+    },
 }
 
 # =============================================================================
@@ -532,14 +579,14 @@ BREADCRUMB_SEARCH_EN: str = "Search"
 # CONTACT INFORMATION
 # =============================================================================
 
-CONTACT_PHONE: str = ""  # No phone on site
-CONTACT_PHONE_HREF: str = ""  # No phone on site
+CONTACT_PHONE: str = ""
+CONTACT_PHONE_HREF: str = ""
 CONTACT_EMAIL: str = "pr@sochiautoparts.ru"
 CONTACT_EMAIL_HREF: str = "mailto:pr@sochiautoparts.ru"
-CONTACT_ADDRESS_RU: str = ""  # No physical address on site
-CONTACT_ADDRESS_EN: str = ""  # No physical address on site
-CONTACT_WORKING_HOURS_RU: str = ""  # No working hours on site
-CONTACT_WORKING_HOURS_EN: str = ""  # No working hours on site
+CONTACT_ADDRESS_RU: str = "г. Сочи, Краснодарский край, Россия"
+CONTACT_ADDRESS_EN: str = "Sochi, Krasnodar Krai, Russia"
+CONTACT_WORKING_HOURS_RU: str = "Круглосуточно (онлайн)"
+CONTACT_WORKING_HOURS_EN: str = "24/7 (online)"
 
 # =============================================================================
 # FEATURE FLAGS
