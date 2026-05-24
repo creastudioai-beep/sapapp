@@ -179,21 +179,17 @@ jobs:
   purge-cache:
     name: Purge Cloudflare Cache
     needs: deploy
-    if: ${{ github.event.inputs.purge_cache == 'true' && secrets.CLOUDFLARE_ZONE_ID != '' }}
+    # Проверяем только ввод пользователя, secrets здесь не используем
+    if: github.event.inputs.purge_cache == 'true'
     runs-on: ubuntu-latest
     continue-on-error: true
-
+    env:
+      CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - name: Purge Cloudflare cache
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        if: env.CLOUDFLARE_ZONE_ID != '' && env.CLOUDFLARE_API_TOKEN != ''
         run: |
-          if [ -z "$CLOUDFLARE_ZONE_ID" ]; then
-            echo "⚠️ Cloudflare Zone ID not configured — skipping cache purge"
-            exit 0
-          fi
-
           echo "🔄 Purging Cloudflare cache..."
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \
@@ -207,3 +203,7 @@ jobs:
           else
             echo "⚠️ Cloudflare cache purge returned HTTP ${HTTP_STATUS}"
           fi
+
+      - name: Skip cache purge (secrets missing)
+        if: env.CLOUDFLARE_ZONE_ID == '' || env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "⚠️ Cloudflare secrets not configured — skipping cache purge"
