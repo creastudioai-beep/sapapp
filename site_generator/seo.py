@@ -47,10 +47,10 @@ from .config import (
 # =============================================================================
 
 SITE_AUTHOR: str = "SOCHIAUTOPARTS"
-LOGO_EXTERNAL_URL: str = "/logo.jpg"
+LOGO_EXTERNAL_URL: str = f"{SITE_URL}/logo.jpg"
 LOGO_WIDTH: int = 640
 LOGO_HEIGHT: int = 640
-DEFAULT_THUMBNAIL: str = "/logo.jpg"
+DEFAULT_THUMBNAIL: str = f"{SITE_URL}/logo.jpg"
 TWITTER_SITE: str = "@sochiautoparts"
 GOOGLE_NEWS_CATEGORY: str = "Autos"
 PR_EMAIL: str = "pr@sochiautoparts.ru"

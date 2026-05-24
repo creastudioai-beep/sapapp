@@ -202,6 +202,11 @@ def _lang_base(lang: str) -> str:
     return BASE_PATH + "/"
 
 
+def _canonical_lang_path(lang: str) -> str:
+    """Return language path WITHOUT BASE_PATH for canonical/OG URLs (production domain)."""
+    return "/en" if lang == "en" else ""
+
+
 def _bp(path: str) -> str:
     """Prefix a path with BASE_PATH."""
     if path.startswith("/"):
@@ -698,7 +703,7 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
     # SEO
     site_name = SITE_NAME_RU if lang == "ru" else SITE_NAME_EN
     site_desc = SITE_DESCRIPTION_RU if lang == "ru" else SITE_DESCRIPTION_EN
-    page_url = f"{SITE_URL}{_lang_path(lang)}/"
+    page_url = f"{SITE_URL}{_canonical_lang_path(lang)}/"
     if lang == "ru":
         title = "SOCHIAUTOPARTS - Мировые автоновости, обзоры и тест-драйвы"
     else:
@@ -758,7 +763,7 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
         path="/" if lang == "ru" else "/en/",
         body_content=body,
         og_type="website",
-        canonical=f"{SITE_URL}{_lang_path(lang)}/",
+        canonical=f"{SITE_URL}{_canonical_lang_path(lang)}/",
         extra_schema=schemas,
         active_page="home",
         show_hero=True,
