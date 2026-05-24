@@ -172,30 +172,30 @@ PRODUCT_CATEGORIES: dict[str, dict[str, str]] = {
 # =============================================================================
 
 COLORS: dict[str, str] = {
-    "primary": "#E53935",         # Red accent
-    "primary_dark": "#B71C1C",
-    "primary_light": "#EF5350",
-    "secondary": "#1B5E20",       # Dark green
-    "secondary_light": "#4CAF50",
-    "accent": "#FF6F00",          # Amber/orange
+    "primary": "#2481CC",         # Blue (matching live site)
+    "primary_dark": "#1D6FAD",
+    "primary_light": "#E6F3FF",
+    "secondary": "#2AABEE",       # Light blue
+    "secondary_light": "#58A6FF",
+    "accent": "#0088cc",          # Telegram blue
     "background": "#FFFFFF",
-    "surface": "#F5F5F5",
-    "text_primary": "#212121",
-    "text_secondary": "#757575",
+    "surface": "#F4F4F5",
+    "text_primary": "#000000",
+    "text_secondary": "#707579",
     "text_on_primary": "#FFFFFF",
-    "divider": "#E0E0E0",
+    "divider": "#DADCE0",
     "error": "#D32F2F",
     "success": "#388E3C",
     "warning": "#F57C00",
     "info": "#1976D2",
-    "header_bg": "#1A1A2E",
-    "header_text": "#FFFFFF",
-    "footer_bg": "#16213E",
-    "footer_text": "#E0E0E0",
+    "header_bg": "#FFFFFF",
+    "header_text": "#000000",
+    "footer_bg": "#FFFFFF",
+    "footer_text": "#707579",
     "card_bg": "#FFFFFF",
-    "card_border": "#EEEEEE",
-    "tag_bg": "#E3F2FD",
-    "tag_text": "#1565C0",
+    "card_border": "#E8E8E8",
+    "tag_bg": "#E6F3FF",
+    "tag_text": "#2481CC",
 }
 
 # =============================================================================
@@ -212,7 +212,7 @@ SEO_OG_IMAGE: str = f"{SITE_URL}/og-image.png"
 SEO_OG_TYPE: str = "website"
 SEO_TWITTER_CARD: str = "summary_large_image"
 SEO_CANONICAL_OVERRIDE: str | None = None  # Set to override canonical URL
-SEO_ROBOTS_DEFAULT: str = "index, follow"
+SEO_ROBOTS_DEFAULT: str = "index, follow, max-image-preview:large"
 SEO_NOINDEX_PATTERNS: list[str] = [
     "/search?",
     "/page/",
