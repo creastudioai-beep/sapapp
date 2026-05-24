@@ -153,7 +153,7 @@ if not logger.handlers:
 # Constants
 # ---------------------------------------------------------------------------
 
-MAX_ARCHIVE_POST_PAGES: int = 5000  # Only generate first 5000 archive post pages
+MAX_ARCHIVE_POST_PAGES: int = 100000  # Generate all archive post pages (87K+ posts)
 
 
 # ---------------------------------------------------------------------------
@@ -459,9 +459,9 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
                         _write_file(os.path.join(output_dir, "archive", f"page-{page_num}.html"), html)
                 else:
                     if page_num == 1:
-                        _write_file(os.path.join(output_dir, "archive", "en", "index.html"), html)
+                        _write_file(os.path.join(output_dir, "en", "archive", "index.html"), html)
                     else:
-                        _write_file(os.path.join(output_dir, "archive", "en", f"page-{page_num}.html"), html)
+                        _write_file(os.path.join(output_dir, "en", "archive", f"page-{page_num}.html"), html)
 
     # ------------------------------------------------------------------
     # 6. Archive post pages (ru + en) — limited to first 5000
@@ -486,7 +486,7 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
                     if lang == "ru":
                         _write_file(os.path.join(output_dir, "archive", "post", f"{arch_post_id}.html"), html)
                     else:
-                        _write_file(os.path.join(output_dir, "archive", "en", "post", f"{arch_post_id}.html"), html)
+                        _write_file(os.path.join(output_dir, "en", "archive", "post", f"{arch_post_id}.html"), html)
                 generated_count += 1
             if generated_count % 500 == 0 and generated_count > 0:
                 logger.info("  Generated %d archive post pages", generated_count)
