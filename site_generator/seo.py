@@ -1976,7 +1976,7 @@ def generate_cookie_consent_html(lang: str = "ru") -> str:
     Returns:
         HTML string for the cookie consent banner.
     """
-    privacy_url = f"{SITE_URL}{PRIVACY_PATH}" if lang == "ru" else f"{SITE_URL}/en{PRIVACY_PATH}"
+    privacy_url = f"/{PRIVACY_PATH.lstrip('/')}" if lang == "ru" else f"/en{PRIVACY_PATH}"
 
     if lang == "ru":
         text = f'Мы используем cookies для улучшения работы сайта. <a href="{privacy_url}">Подробнее</a>'
@@ -2022,7 +2022,7 @@ def get_common_client_scripts(lang: str = "ru") -> str:
     Returns:
         HTML <script> tag with all client-side JavaScript.
     """
-    privacy_url = f"{SITE_URL}{PRIVACY_PATH}" if lang == "ru" else f"{SITE_URL}/en{PRIVACY_PATH}"
+    privacy_url = f"/{PRIVACY_PATH.lstrip('/')}" if lang == "ru" else f"/en{PRIVACY_PATH}"
 
     if lang == "ru":
         consent_text = "Мы используем файлы cookie для аналитики и улучшения работы сайта. Продолжая использование, вы соглашаетесь с нашей"

@@ -193,10 +193,10 @@ def _lang_path(lang: str) -> str:
 
 
 def _lang_base(lang: str) -> str:
-    """Return the base URL for the given language."""
+    """Return the base URL for the given language (relative paths)."""
     if lang == "en":
-        return f"{SITE_URL}/en/"
-    return f"{SITE_URL}/"
+        return "/en/"
+    return "/"
 
 
 # ---------------------------------------------------------------------------
@@ -308,6 +308,21 @@ def _build_page(
     # Always include Organization schema
     org_schema_tag = f'<script type="application/ld+json">{STATIC_ORG_SCHEMA}</script>'
 
+    # AMP link for post pages
+    amp_link = ""
+    if post_id:
+        amp_link = f'<link rel="amphtml" href="{_lang_path(lang)}/post/{post_id}/amp" />'
+
+    # Preconnect hints for performance (matching production site)
+    preconnect_hints = (
+        '<link rel="preconnect" href="https://fonts.googleapis.com" />\n'
+        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n'
+        '<link rel="preconnect" href="https://t.me" />\n'
+        '<link rel="preconnect" href="https://www.googletagmanager.com" />\n'
+        '<link rel="dns-prefetch" href="https://raw.githubusercontent.com" />\n'
+        '<link rel="dns-prefetch" href="https://cdn.ampproject.org" />'
+    )
+
     # Build full page
     page = f"""<!DOCTYPE html>
 <html lang="{html_lang}" data-theme="dark">
@@ -316,13 +331,13 @@ def _build_page(
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {meta_tags}
 {hreflang}
-<link rel="icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-<link rel="manifest" href="{_lang_path(lang)}/manifest.json" />
+{amp_link}
+<link rel="icon" href="https://raw.githubusercontent.com/creastudioai-beep/sap/main/main/assets/logo.jpg" type="image/jpeg" />
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/creastudioai-beep/sap/main/main/assets/logo.jpg" />
+<link rel="manifest" href="/manifest.json" />
 <meta name="theme-color" content="#2481CC" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet" />
+{preconnect_hints}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>{css_content}</style>
 {org_schema_tag}
 {schema_tags}
@@ -705,6 +720,7 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
         path="/" if lang == "ru" else "/en/",
         body_content=body,
         og_type="website",
+        canonical=f"{SITE_URL}{_lang_path(lang)}/",
         extra_schema=schemas,
         active_page="home",
         show_hero=True,
@@ -736,46 +752,53 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
     seo_posts = data.get("seo_posts", {})
     seo_data = seo_posts.get(str(post_id), seo_posts.get(post_id, {}))
 
-    # Build URLs
+    # Build URLs - canonical/OG use absolute, content links use relative
     if lang == "en":
-        post_url = f"{SITE_URL}/en/post/{post_id}"
-        amp_url = f"{SITE_URL}/en/post/{post_id}/amp"
+        canonical_url = f"{SITE_URL}/en/post/{post_id}"
+        post_url_rel = f"/en/post/{post_id}"
+        amp_url_rel = f"/en/post/{post_id}/amp"
     else:
-        post_url = f"{SITE_URL}/post/{post_id}"
-        amp_url = f"{SITE_URL}/post/{post_id}/amp"
+        canonical_url = f"{SITE_URL}/post/{post_id}"
+        post_url_rel = f"/post/{post_id}"
+        amp_url_rel = f"/post/{post_id}/amp"
 
-    # Title and description
+    # Title and description - use per-post SEO data when available
     title = post.get("title", "")
-    description = seo_data.get("description", "") or (SITE_DESCRIPTION_RU if lang == "ru" else SITE_DESCRIPTION_EN)
+    # Generate description from post text if no SEO data available
+    post_text_raw = post.get("textWithHashtags") or post.get("text") or ""
+    auto_description = post_text_raw[:200].replace("\n", " ").strip() if post_text_raw else ""
+    description = seo_data.get("description", "") or auto_description or (SITE_DESCRIPTION_RU if lang == "ru" else SITE_DESCRIPTION_EN)
     seo_title = seo_data.get("title", title)
     if seo_title:
-        if lang == "ru":
-            page_title = f"{seo_title} | SOCHIAUTOPARTS"
-        else:
-            page_title = f"{seo_title} | SOCHIAUTOPARTS"
+        page_title = f"{seo_title} | SOCHIAUTOPARTS"
     else:
         page_title = title
+
+    # Keywords from SEO data or hashtags
+    post_keywords = seo_data.get("keywords", "")
+    if not post_keywords and post.get("hashtags"):
+        post_keywords = ", ".join(str(h).lstrip("#") for h in post.get("hashtags", [])[:10])
 
     # Published/modified time
     published_time = seo_data.get("publishedTime", post.get("date", ""))
     modified_time = seo_data.get("modifiedTime", post.get("date", ""))
 
-    # OG image
+    # OG image - use actual post image, not generic logo
     og_image = seo_data.get("ogImage") or extract_first_image(post) or DEFAULT_THUMBNAIL
 
     # Schema
     news_schema = generate_news_article_schema(post, {
-        "ogUrl": post_url,
+        "ogUrl": canonical_url,
         "publishedTime": published_time,
         "modifiedTime": modified_time,
         "description": description,
     }, lang)
 
-    # Breadcrumbs
+    # Breadcrumbs (relative URLs for clickable links)
     bc_home = t("bc_home", lang)
     bc_items = [
         {"name": bc_home, "url": _lang_base(lang)},
-        {"name": post.get("title", "")[:50], "url": post_url},
+        {"name": post.get("title", "")[:50], "url": post_url_rel},
     ]
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
     breadcrumbs = render_breadcrumbs(bc_items, lang)
@@ -791,8 +814,8 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
     date_str = post.get("date", "")
     date_display = _format_date_display(date_str, lang)
 
-    # AMP link
-    amp_link_html = f'<a href="{amp_url}" class="amp-badge">AMP</a>'
+    # AMP link (relative)
+    amp_link_html = f'<a href="{amp_url_rel}" class="amp-badge">AMP</a>'
 
     # Related posts
     related = get_related_posts(data, post_id, limit=RELATED_POSTS_COUNT)
@@ -856,14 +879,15 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
         lang=lang,
         title=page_title,
         description=description[:200],
-        url=post_url,
+        url=canonical_url,
         path=f"/post/{post_id}" if lang == "ru" else f"/en/post/{post_id}",
         body_content=body,
         og_type="article",
         image=og_image,
-        canonical=post_url,
+        canonical=canonical_url,
         article_published=published_time,
         article_modified=modified_time,
+        article_tag=post_keywords,
         extra_schema=[news_schema, breadcrumb_schema],
         active_page="home",
         post_id=post_id,
@@ -1037,6 +1061,8 @@ def generate_articles_page(data: dict, lang: str, output_dir: str, page: int = 1
         page_url = f"{SITE_URL}/articles"
         path = "/articles"
 
+    page_url_rel = f"{_lang_path(lang)}/articles"
+
     # Articles grid
     articles_html = ""
     for article in page_articles:
@@ -1063,12 +1089,12 @@ def generate_articles_page(data: dict, lang: str, output_dir: str, page: int = 1
 </article>"""
 
     # Pagination
-    pagination_html = render_numbered_pagination(page, total_pages, page_url, lang)
+    pagination_html = render_numbered_pagination(page, total_pages, page_url_rel, lang)
 
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_articles", lang), "url": page_url},
+        {"name": t("bc_articles", lang), "url": page_url_rel},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
@@ -1140,6 +1166,8 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
     else:
         article_url = f"{SITE_URL}/article/{article_id}"
 
+    article_url_rel = f"{_lang_path(lang)}/article/{article_id}"
+
     title = article.get("title", "")
     description = seo_data.get("description") or article.get("plainDescription") or ""
     og_image = article.get("thumbnail") or DEFAULT_THUMBNAIL
@@ -1163,8 +1191,8 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_articles", lang), "url": f"{SITE_URL}{_lang_path(lang)}/articles"},
-        {"name": title[:50], "url": article_url},
+        {"name": t("bc_articles", lang), "url": f"{_lang_path(lang)}/articles"},
+        {"name": title[:50], "url": article_url_rel},
     ]
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
     breadcrumbs = render_breadcrumbs(bc_items, lang)
@@ -1259,13 +1287,15 @@ def generate_archive_page(data: dict, lang: str, output_dir: str, archive_data_d
         page_url = f"{SITE_URL}/archive"
         path = "/archive"
 
+    page_url_rel = f"{_lang_path(lang)}/archive"
+
     # Archive cards
     cards_html = ""
     for arch_post in page_posts:
         cards_html += render_archive_post_card(arch_post, lang)
 
     # Pagination (archive-style prev/next)
-    archive_pagination = render_numbered_pagination(page, total_pages, page_url, lang)
+    archive_pagination = render_numbered_pagination(page, total_pages, page_url_rel, lang)
 
     # Counter
     if lang == "ru":
@@ -1277,7 +1307,7 @@ def generate_archive_page(data: dict, lang: str, output_dir: str, archive_data_d
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_archive", lang), "url": page_url},
+        {"name": t("bc_archive", lang), "url": page_url_rel},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
@@ -1354,6 +1384,8 @@ def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: 
     else:
         post_url = f"{SITE_URL}/archive/post/{post_id}"
 
+    post_url_rel = f"{_lang_path(lang)}/archive/post/{post_id}"
+
     # Title - use first line of text or post ID
     raw_text = post.get("text", "")
     title_line = raw_text.split("\n")[0][:100] if raw_text else f"Post #{post_id}"
@@ -1398,11 +1430,10 @@ def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: 
     open_in_tg = "Открыть в Telegram" if lang == "ru" else "Open in Telegram"
 
     # Breadcrumbs
-    archive_base = f"{SITE_URL}{_lang_path(lang)}/archive"
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_archive", lang), "url": archive_base},
-        {"name": f"#{post_id}", "url": post_url},
+        {"name": t("bc_archive", lang), "url": f"{_lang_path(lang)}/archive"},
+        {"name": f"#{post_id}", "url": post_url_rel},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
@@ -1507,7 +1538,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_shop", lang), "url": page_url},
+        {"name": t("bc_shop", lang), "url": f"{_lang_path(lang)}/shop"},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
@@ -1700,6 +1731,8 @@ def generate_product_page(data: dict, product_id: str, lang: str, output_dir: st
     else:
         product_url = f"{SITE_URL}/product/{product_id}"
 
+    product_url_rel = f"{_lang_path(lang)}/product/{product_id}"
+
     name = product.get("name", "")
     description = (product.get("description") or name)[:200]
     price = product.get("price", 0)
@@ -1724,8 +1757,8 @@ def generate_product_page(data: dict, product_id: str, lang: str, output_dir: st
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_shop", lang), "url": f"{SITE_URL}{_lang_path(lang)}/shop"},
-        {"name": name[:50], "url": product_url},
+        {"name": t("bc_shop", lang), "url": f"{_lang_path(lang)}/shop"},
+        {"name": name[:50], "url": product_url_rel},
     ]
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
     breadcrumbs = render_breadcrumbs(bc_items, lang)
@@ -1843,6 +1876,8 @@ def generate_category_page(data: dict, category_id: str, lang: str, output_dir: 
         page_url = f"{SITE_URL}/shop/category/{category_id}"
         path = f"/shop/category/{category_id}"
 
+    page_url_rel = f"{_lang_path(lang)}/shop/category/{category_id}"
+
     page_title = f"{cat_display} | SOCHIAUTOPARTS"
     currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
 
@@ -1884,8 +1919,8 @@ def generate_category_page(data: dict, category_id: str, lang: str, output_dir: 
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_shop", lang), "url": f"{SITE_URL}{_lang_path(lang)}/shop"},
-        {"name": cat_display, "url": page_url},
+        {"name": t("bc_shop", lang), "url": f"{_lang_path(lang)}/shop"},
+        {"name": cat_display, "url": page_url_rel},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
@@ -1940,6 +1975,8 @@ def generate_tag_page(data: dict, tag: str, lang: str, output_dir: str, page: in
         page_url = f"{SITE_URL}/tag/{tag}"
         path = f"/tag/{tag}"
 
+    page_url_rel = f"{_lang_path(lang)}/tag/{tag}"
+
     if lang == "ru":
         page_title = f"#{tag} | SOCHIAUTOPARTS"
     else:
@@ -1951,12 +1988,12 @@ def generate_tag_page(data: dict, tag: str, lang: str, output_dir: str, page: in
         posts_html += render_post_card(post, lang)
 
     # Pagination
-    pagination_html = render_numbered_pagination(page, total_pages, page_url, lang)
+    pagination_html = render_numbered_pagination(page, total_pages, page_url_rel, lang)
 
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": f"#{tag}", "url": page_url},
+        {"name": f"#{tag}", "url": page_url_rel},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
@@ -2091,7 +2128,7 @@ def generate_privacy_page(lang: str, output_dir: str) -> str:
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("nav_privacy", lang), "url": page_url},
+        {"name": t("nav_privacy", lang), "url": f"{_lang_path(lang)}/privacy"},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
 
@@ -2158,7 +2195,7 @@ def generate_contacts_page(lang: str, output_dir: str) -> str:
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("nav_contacts", lang), "url": page_url},
+        {"name": t("nav_contacts", lang), "url": f"{_lang_path(lang)}/contacts"},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
 
@@ -2257,6 +2294,8 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
         page_url = f"{SITE_URL}/ads/{category}"
         path = f"/ads/{category}"
 
+    page_url_rel = f"{_lang_path(lang)}/ads/{category}"
+
     if lang == "ru":
         full_title = f"{cat_name} | SOCHIAUTOPARTS"
     else:
@@ -2302,7 +2341,7 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": cat_name, "url": page_url},
+        {"name": cat_name, "url": page_url_rel},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
 

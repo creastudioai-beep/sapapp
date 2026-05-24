@@ -246,10 +246,10 @@ def _lang_path(lang: str) -> str:
 
 
 def _lang_base(lang: str) -> str:
-    """Return the base URL for the given language."""
+    """Return the base URL for the given language (relative paths)."""
     if lang == "en":
-        return f"{SITE_URL}/en/"
-    return f"{SITE_URL}/"
+        return "/en/"
+    return "/"
 
 
 # =============================================================================
@@ -277,30 +277,30 @@ def render_header(lang: str = "ru", active_page: str = "") -> str:
     active_archive = " active" if active_page == "archive" else ""
 
     logo_href = _lang_base(lang)
-    shop_url = f"{SITE_URL}{SHOP_PATH_EN if lang == 'en' else SHOP_PATH}"
-    contacts_url = f"{SITE_URL}{_lang_path(lang)}{CONTACTS_PATH}"
+    shop_url = f"{_lang_path(lang)}{SHOP_PATH}"
+    contacts_url = f"{_lang_path(lang)}{CONTACTS_PATH}"
     menu_label = t('nav_home', lang) if lang == 'ru' else 'Menu'
 
     return f"""<header class="site-header">
 <div class="container">
 <div class="header-content">
 <a href="{logo_href}" class="logo">
-<img src="/logo.jpg" alt="SOCHIAUTOPARTS Logo" class="logo-icon" width="44" height="44" loading="eager" fetchpriority="high" referrerpolicy="no-referrer" onerror="this.classList.add('error');">
-<span class="logo-fallback">🚗</span>
+<img src="https://raw.githubusercontent.com/creastudioai-beep/sap/main/main/assets/logo.jpg" alt="SOCHIAUTOPARTS Logo" class="logo-icon" width="44" height="44" loading="eager" fetchpriority="high" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
+<span class="logo-fallback" style="display:none;font-size:1.5rem;">🚗</span>
 SOCHIAUTOPARTS
 </a>
 <nav class="main-nav" id="mainNav">
-<a href="{base_path}" class="{active_home}">{t('nav_home', lang)}</a>
-<a href="{base_path}articles" class="{active_articles}">{t('nav_articles', lang)}</a>
-<a href="{base_path}archive" class="{active_archive}">📁 {'Архив' if lang == 'ru' else 'Archive'}</a>
+<a href="{_lang_path(lang)}/" class="{active_home}">{t('nav_home', lang)}</a>
+<a href="{_lang_path(lang)}/articles" class="{active_articles}">{t('nav_articles', lang)}</a>
+<a href="{_lang_path(lang)}/archive" class="{active_archive}">📁 {'Архив' if lang == 'ru' else 'Archive'}</a>
 <a href="{shop_url}" class="{active_shop}">🛒 {t('nav_shop', lang)}</a>
 <a href="{contacts_url}" class="{active_contacts}">{t('nav_contacts', lang)}</a>
 </nav>
 <div class="controls-group">
 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="{menu_label}">☰</button>
 <nav class="lang-switcher">
-<a href="{SITE_URL}/" class="lang-btn {'active' if lang == 'ru' else ''}">RU</a>
-<a href="{SITE_URL}/en/" class="lang-btn {'active' if lang == 'en' else ''}">EN</a>
+<a href="/" class="lang-btn {'active' if lang == 'ru' else ''}">RU</a>
+<a href="/en/" class="lang-btn {'active' if lang == 'en' else ''}">EN</a>
 </nav>
 <div class="theme-toggle">
 <button class="theme-btn" data-theme="light" aria-label="Light theme">{SUN_ICON}</button>
@@ -457,14 +457,14 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
                         f'</div>'
                     )
 
-    # Build URLs
+    # Build URLs (relative paths)
     post_url = post.get("postUrl") if lang == "ru" else post.get("postUrlEn", "")
-    if not post_url:
-        post_url = f"{SITE_URL}{_lang_path(lang)}/post/{post_id}"
+    if not post_url or post_url.startswith("http"):
+        post_url = f"{_lang_path(lang)}/post/{post_id}"
 
     amp_url = post.get("ampUrl") if lang == "ru" else post.get("ampUrlEn", "")
-    if not amp_url:
-        amp_url = f"{SITE_URL}{_lang_path(lang)}/post/{post_id}/amp"
+    if not amp_url or amp_url.startswith("http"):
+        amp_url = f"{_lang_path(lang)}/post/{post_id}/amp"
 
     btn_text = "Подробнее" if lang == "ru" else "More Details"
     date_display = _format_date(date_str, lang)
@@ -642,8 +642,8 @@ def render_related_posts(posts: list, lang: str = "ru") -> str:
     cards_html = ""
     for rp in posts:
         rp_url = rp.get("postUrl") if lang == "ru" else rp.get("postUrlEn", "")
-        if not rp_url:
-            rp_url = f"{SITE_URL}{_lang_path(lang)}/post/{rp.get('id', '')}"
+        if not rp_url or rp_url.startswith("http"):
+            rp_url = f"{_lang_path(lang)}/post/{rp.get('id', '')}"
 
         # Get poster image
         rp_media = rp.get("media", [])
@@ -700,8 +700,8 @@ def render_footer(tags: Optional[list] = None, lang: str = "ru") -> str:
     """
     current_year = _get_current_year()
     rights_text = "Все права защищены." if lang == "ru" else "All rights reserved."
-    privacy_url = f"{SITE_URL}{_lang_path(lang)}{PRIVACY_PATH}"
-    contacts_url = f"{SITE_URL}{_lang_path(lang)}{CONTACTS_PATH}"
+    privacy_url = f"{_lang_path(lang)}{PRIVACY_PATH}"
+    contacts_url = f"{_lang_path(lang)}{CONTACTS_PATH}"
 
     home_label = t('nav_home', lang)
     articles_label = t('nav_articles', lang)
@@ -716,8 +716,8 @@ def render_footer(tags: Optional[list] = None, lang: str = "ru") -> str:
     return f"""<footer>
 <p>© {current_year} {SITE_AUTHOR}. {rights_text}</p>
 <div class="footer-links">
-<a href="{SITE_URL}">{home_label}</a> |
-<a href="{SITE_URL}{_lang_path(lang)}/articles">{articles_label}</a> |
+<a href="/">{home_label}</a> |
+<a href="{_lang_path(lang)}/articles">{articles_label}</a> |
 <a href="{contacts_url}">{contacts_label}</a> |
 <a href="/rss.xml">RSS</a> |
 <a href="/sitemap.xml">{"Карта сайта" if lang == "ru" else "Sitemap"}</a> |
@@ -945,7 +945,7 @@ def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
     visit_shop_link = "Перейти в магазин →" if lang == "ru" else "Visit shop →"
     currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
 
-    # Build product cards
+    # Build product cards - skip products without name or price
     product_cards_html = ""
     displayed = 0
     for product in products:
@@ -955,22 +955,43 @@ def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
             continue
 
         name = product.get("name", "")
+        if not name:
+            continue  # Skip products without names
         if len(name) > 50:
             name = name[:50] + "..."
         image = product.get("image", "")
         price = product.get("price", 0)
         url = product.get("url", "#")
+        old_price = product.get("old_price", 0)
+        feed_name = product.get("feed_name", "")
+        available = product.get("available", True)
 
         try:
             price_formatted = f"{int(price):,} {currency}"
         except (ValueError, TypeError):
             price_formatted = f"{price} {currency}"
 
+        # Price display with old price strikethrough if applicable
+        price_html = f'<div class="wp-price">{price_formatted}</div>'
+        if old_price and int(old_price) > int(price):
+            try:
+                old_formatted = f"{int(old_price):,} {currency}"
+                price_html = f'<div class="wp-price"><s style="color:var(--text-muted);font-size:0.8em;">{old_formatted}</s> {price_formatted}</div>'
+            except (ValueError, TypeError):
+                pass
+
+        # Availability badge
+        avail_html = ""
+        if not available:
+            badge_text = "Под заказ" if lang == "ru" else "On order"
+            avail_html = f'<div class="wp-badge" style="font-size:0.7em;color:var(--warning);">{badge_text}</div>'
+
         product_cards_html += (
             f'<a href="{escape_html(url)}" class="widget-product" target="_blank" rel="nofollow noopener sponsored">'
-            f'<img src="{escape_html(image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">'
+            f'<img src="{escape_html(image)}" alt="{escape_html(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\'{LOGO_EXTERNAL_URL}\';">'
             f'<div class="wp-name">{escape_html(name)}</div>'
-            f'<div class="wp-price">{price_formatted}</div>'
+            f'{price_html}'
+            f'{avail_html}'
             f'</a>'
         )
         displayed += 1

@@ -1,2 +1,20 @@
 __pycache__/
 *.pyc
+
+# Generated output
+data/
+output/
+
+# Cloudflare worker (maintained separately)
+cloudflare-worker/
+
+# Legacy workflow file at repo root (NOT .github/workflows)
+/workflows/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

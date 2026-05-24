@@ -93,10 +93,17 @@ PRODUCTS_URL = (
 )
 
 ADMITAD_URL = (
-    "https://raw.githubusercontent.com/creastudioai-beep/pr/main/admitad_ads.json"
+    "https://raw.githubusercontent.com/creastudioai-beep/pr/main/data/admitad_ads.json"
 )
 
-# Mapping of logical key -> (filename, URL)
+# Product field mapping (compressed keys -> readable names)
+_PRODUCT_KEY_MAP = {
+    "n": "name", "p": "price", "o": "old_price", "c": "currency",
+    "u": "url", "i": "image", "v": "vendor", "d": "description",
+    "f": "feed_id", "fn": "feed_name", "fc": "feed_color", "fi": "feed_icon",
+    "cat": "category_id", "a": "available", "sn": "short_note",
+    "m": "model", "tp": "type", "id": "id",
+}
 _DATA_SOURCES = {
     "posts":           ("posts.json",           f"{PIPELINE_BASE_URL}/posts.json"),
     "articles":        ("articles.json",        f"{PIPELINE_BASE_URL}/articles.json"),
@@ -349,6 +356,103 @@ def _generate_product_id(name: str, vendor: str, idx: int) -> str:
     return f"{idx}_{hash_hex}"
 
 
+def _expand_product_keys(products: list) -> list:
+    """Expand compressed product keys (n->name, p->price, etc.) to readable names.
+
+    The products JSON from the pipeline uses abbreviated field names to
+    reduce file size. This function expands them to full names that the
+    rest of the generator expects.
+
+    Args:
+        products: List of product dicts with compressed keys.
+
+    Returns:
+        List of product dicts with expanded keys.
+    """
+    if not products:
+        return []
+
+    expanded = []
+    for product in products:
+        if not isinstance(product, dict):
+            continue
+
+        # Check if keys are already expanded (e.g. 'name' exists)
+        if "name" in product or "n" not in product:
+            expanded.append(product)
+            continue
+
+        new_product = {}
+        for key, value in product.items():
+            readable_key = _PRODUCT_KEY_MAP.get(key, key)
+            new_product[readable_key] = value
+
+        # Ensure 'available' is a boolean
+        if "available" in new_product:
+            new_product["available"] = bool(new_product["available"])
+
+        expanded.append(new_product)
+
+    return expanded
+
+
+def _parse_admitad_data(raw_data) -> list:
+    """Parse Admitad data from the pipeline JSON format.
+
+    The Admitad JSON may be:
+    - A dict with 'programs' key containing the list of programs
+    - A list of programs directly
+    - Empty/default
+
+    This function normalizes to a flat list of program dicts with
+    standard keys (name, image, category, gotoLink, etc.).
+
+    Args:
+        raw_data: Raw Admitad data from the pipeline.
+
+    Returns:
+        List of Admitad program dicts.
+    """
+    if not raw_data:
+        return []
+
+    # If it's already a list, return as-is
+    if isinstance(raw_data, list):
+        return raw_data
+
+    # If it's a dict with 'programs' key, extract the programs
+    if isinstance(raw_data, dict):
+        programs = raw_data.get("programs", [])
+        if isinstance(programs, list):
+            # Normalize each program's keys
+            normalized = []
+            for prog in programs:
+                if not isinstance(prog, dict):
+                    continue
+
+                # Map 'goto_link' -> 'affiliateUrl' for template compatibility
+                if "goto_link" in prog and "affiliateUrl" not in prog:
+                    prog["affiliateUrl"] = prog["goto_link"]
+                elif "gotoLink" not in prog and "goto_link" in prog:
+                    prog["gotoLink"] = prog["goto_link"]
+
+                # Map 'category' -> 'jsonCategory' for template compatibility
+                if "category" in prog and "jsonCategory" not in prog:
+                    prog["jsonCategory"] = prog["category"]
+
+                # Map 'allowed_regions' -> 'regions'
+                if "allowed_regions" in prog and "regions" not in prog:
+                    prog["regions"] = prog["allowed_regions"]
+
+                # Map 'advertiser_legal_info' stays as-is (templates check for it)
+
+                normalized.append(prog)
+
+            return normalized
+
+    return []
+
+
 # ===========================================================================
 # Date validation & sorting
 # ===========================================================================
@@ -543,6 +647,14 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     # Sort posts by date (newest first)
     result["posts"] = _sort_posts_by_date(result["posts"])
     logger.info("Loaded %d posts (sorted by date, newest first)", len(result["posts"]))
+
+    # Expand compressed product keys to readable names
+    result["products"] = _expand_product_keys(result["products"])
+    logger.info("Expanded %d products from compressed keys", len(result["products"]))
+
+    # Parse Admitad data (may be a dict with 'programs' key, or a list)
+    result["admitad_programs"] = _parse_admitad_data(result["admitad_programs"])
+    logger.info("Parsed %d Admitad programs", len(result["admitad_programs"]))
 
     # Build post_map for O(1) lookups
     result["post_map"] = _build_post_map(result["posts"])
@@ -783,20 +895,21 @@ def search_posts(data: dict, query: str, limit: int = 200) -> list:
 
 
 def format_post_text(text: str, lang: str = "ru") -> str:
-    """Format post text: convert hashtags to links, escape HTML.
+    """Format post text: convert URLs to links, hashtags to links, escape HTML.
 
     - Escapes all HTML entities in the text body to prevent XSS.
+    - Converts ``https://...`` and ``http://...`` URLs into clickable links.
+    - Converts ``@username`` Telegram mentions into clickable links.
     - Converts ``#hashtag`` patterns into clickable links pointing to
       ``/tag/hashtag``.
     - Preserves line breaks by converting newlines to ``<br>`` tags.
 
     Args:
         text: Raw post text.
-        lang: Language code (for potential locale-specific formatting).
-            Defaults to ``"ru"``.
+        lang: Language code (for URL path prefix).
 
     Returns:
-        HTML-formatted string with escaped entities and hashtag links.
+        HTML-formatted string with escaped entities, linkified URLs, and hashtag links.
     """
     if not text:
         return ""
@@ -804,14 +917,43 @@ def format_post_text(text: str, lang: str = "ru") -> str:
     # Step 1: Escape HTML entities
     safe = html.escape(str(text))
 
-    # Step 2: Convert hashtags to links
+    # Step 2: Convert URLs to clickable links (before hashtag processing)
+    prefix = "/en/" if lang == "en" else "/"
+    def _url_link(match: re.Match) -> str:
+        url = match.group(0)
+        escaped_url = html.escape(url)
+        # Shorten display URL if too long
+        display = escaped_url
+        if len(display) > 60:
+            display = display[:57] + "..."
+        return f'<a href="{escaped_url}" target="_blank" rel="nofollow noopener noreferrer">{display}</a>'
+
+    safe = re.sub(
+        r"https?://[^\s<>\"]+",
+        _url_link,
+        safe,
+    )
+
+    # Step 3: Convert @username to Telegram links
+    def _mention_link(match: re.Match) -> str:
+        username = match.group(1)
+        escaped_name = html.escape(username)
+        return f'<a href="https://t.me/{escaped_name}" target="_blank" rel="nofollow noopener noreferrer">@{escaped_name}</a>'
+
+    safe = re.sub(
+        r"@([a-zA-Z0-9_]{5,32})",
+        _mention_link,
+        safe,
+    )
+
+    # Step 4: Convert hashtags to links
     # Match #word patterns (Cyrillic, Latin, numbers, underscores)
     def _hashtag_link(match: re.Match) -> str:
         hashtag = match.group(0)       # e.g. "#автозапчасти"
         tag_name = match.group(1)      # e.g. "автозапчасти"
         escaped_hashtag = html.escape(hashtag)
         escaped_tag = html.escape(tag_name)
-        return f'<a href="/tag/{escaped_tag}" class="hashtag-link">{escaped_hashtag}</a>'
+        return f'<a href="{prefix}tag/{escaped_tag}" class="hashtag-link">{escaped_hashtag}</a>'
 
     safe = re.sub(
         r"#([a-zA-Zа-яА-ЯёЁ0-9_]+)",
@@ -819,7 +961,7 @@ def format_post_text(text: str, lang: str = "ru") -> str:
         safe,
     )
 
-    # Step 3: Convert newlines to <br>
+    # Step 5: Convert newlines to <br>
     safe = safe.replace("\n", "<br>\n")
 
     return safe
@@ -931,15 +1073,20 @@ def get_admitad_programs(data: dict, category: str = None, region: str = None) -
     """Get Admitad programs, optionally filtered by category and region.
 
     Each program in ``admitad_programs`` is expected to be a dict with
-    fields like ``name``, ``category``, ``regions``, ``url``, etc.
+    fields like ``name``, ``category``/``jsonCategory``, ``regions``/``allowed_regions``,
+    ``affiliateUrl``/``gotoLink``, etc.
+
+    Region matching checks both ``regions`` (list of country codes) and
+    ``allowed_regions`` (list). The special value "RU" matches programs
+    that target Russian users.
 
     Args:
         data: The data dict returned by :func:`load_data`.
         category: Optional category string to filter by (case-insensitive
-            substring match against the program's ``category`` field).
-        region: Optional region string to filter by (case-insensitive
-            substring match against the program's ``regions`` field or
-            list of regions).
+            substring match against the program's ``category`` or ``jsonCategory`` field).
+        region: Optional region/country code to filter by (case-insensitive
+            match against the program's ``regions`` or ``allowed_regions`` list).
+            If None, returns programs available in Russia ("RU") or worldwide.
 
     Returns:
         List of matching Admitad program dicts.
@@ -949,8 +1096,25 @@ def get_admitad_programs(data: dict, category: str = None, region: str = None) -
     if not isinstance(programs, list):
         return []
 
+    # If no filters, return programs relevant to RU audience (RU + WW/global)
     if category is None and region is None:
-        return programs
+        # Filter to programs that target RU or are worldwide
+        relevant = []
+        for program in programs:
+            if not isinstance(program, dict):
+                continue
+            regions_val = program.get("regions", program.get("allowed_regions", []))
+            if isinstance(regions_val, list):
+                # Include if RU in regions or if regions contains many countries (worldwide)
+                if "RU" in regions_val or len(regions_val) > 50 or len(regions_val) == 0:
+                    relevant.append(program)
+            elif isinstance(regions_val, str):
+                if "RU" in regions_val.upper() or "WW" in regions_val.upper():
+                    relevant.append(program)
+            else:
+                # No region info - include it
+                relevant.append(program)
+        return relevant
 
     results = []
     for program in programs:
@@ -959,18 +1123,18 @@ def get_admitad_programs(data: dict, category: str = None, region: str = None) -
 
         # Category filter
         if category is not None:
-            prog_category = str(program.get("category", "")).lower()
+            prog_category = str(program.get("category", program.get("jsonCategory", ""))).lower()
             if category.lower() not in prog_category:
                 continue
 
         # Region filter
         if region is not None:
-            regions_val = program.get("regions", program.get("region", ""))
+            regions_val = program.get("regions", program.get("allowed_regions", ""))
             if isinstance(regions_val, list):
-                regions_str = " ".join(str(r) for r in regions_val).lower()
+                region_str = " ".join(str(r) for r in regions_val).upper()
             else:
-                regions_str = str(regions_val).lower()
-            if region.lower() not in regions_str:
+                region_str = str(regions_val).upper()
+            if region.upper() not in region_str and len(regions_val) <= 50:
                 continue
 
         results.append(program)
