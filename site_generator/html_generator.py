@@ -154,7 +154,7 @@ if not logger.handlers:
 # Constants
 # ---------------------------------------------------------------------------
 
-MAX_ARCHIVE_POST_PAGES: int = 100000  # Generate all archive post pages (87K+ posts)
+MAX_ARCHIVE_POST_PAGES: int = 90000  # Generate archive post pages — new posts push old ones out
 
 
 # ---------------------------------------------------------------------------
@@ -1407,6 +1407,18 @@ def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: 
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
 
+    # Partner ad blocks (matching production site)
+    admitad_programs = get_admitad_programs(data)
+    ads_html = ""
+    if admitad_programs:
+        ads_html = render_ad_blocks(admitad_programs, lang, max_blocks=4)
+
+    # Shop widget
+    shop_widget = ""
+    if FEATURE_SHOP_ENABLED:
+        products = data.get("products", [])[:6]
+        shop_widget = render_shop_widget(products, lang, count=4)
+
     body = f"""
 <div class="archive-post-container">
 {breadcrumbs}
@@ -1421,6 +1433,8 @@ def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: 
 <a href="{telegram_link}" class="btn-cta" target="_blank" rel="nofollow noopener noreferrer">💬 {open_in_tg}</a>
 </div>
 </article>
+{ads_html}
+{shop_widget}
 </div>"""
 
     return _build_page(
@@ -1605,6 +1619,15 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     # Load more button text
     load_more_text = "Загрузить ещё" if lang == "ru" else "Load more"
 
+    # Partner ad blocks (matching production site)
+    admitad_programs = get_admitad_programs(data)
+    ads_html = ""
+    if admitad_programs:
+        ads_html = render_ad_blocks(admitad_programs, lang, max_blocks=5)
+
+    # Ad category buttons (matching production site)
+    ad_category_buttons = render_ad_category_buttons(lang)
+
     body = f"""
 <div class="shop-hero">
 <h1>{page_title}</h1>
@@ -1616,6 +1639,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 <input type="search" id="shopSearchInput" placeholder="{search_placeholder}" autocomplete="off" />
 <button id="shopSearchBtn">{search_btn}</button>
 </div>
+{ad_category_buttons}
 <div class="ad-section-buttons">
 {categories_html}
 </div>
@@ -1625,6 +1649,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 <div style="text-align:center;margin:1.5rem 0;">
 <button id="shopLoadMore" style="display:none;padding:12px 32px;border-radius:12px;background:var(--primary);color:#fff;border:none;font-weight:600;cursor:pointer;font-size:0.9375rem;">{load_more_text}</button>
 </div>
+{ads_html}
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;margin:2rem 0;">
 <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-light);">🚚 {feature_delivery}</div>
 <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-light);">✅ {feature_verified}</div>
@@ -2662,7 +2687,7 @@ def _format_date_display(date_str: str, lang: str = "ru") -> str:
                 if lang == "ru":
                     months = ["января", "февраля", "марта", "апреля", "мая", "июня",
                               "июля", "августа", "сентября", "октября", "ноября", "декабря"]
-                    return f"{dt.day} {months[dt.month - 1]} {dt.year}, {dt.strftime('%H:%M')}"
+                    return f"{dt.day} {months[dt.month - 1]} {dt.year} г. в {dt.strftime('%H:%M')}"
                 else:
                     return dt.strftime("%B %d, %Y, %I:%M %p")
             except (ValueError, TypeError):

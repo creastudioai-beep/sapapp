@@ -80,7 +80,7 @@ RSS_DATA_URL: str = f"{PIPELINE_BASE_URL}/rss_data.json"
 # =============================================================================
 
 POSTS_PER_PAGE: int = 30
-MAX_POSTS: int = 5000
+MAX_POSTS: int = 10000
 ARTICLES_PER_PAGE: int = 30
 
 # =============================================================================
@@ -251,7 +251,7 @@ SOCIAL_LINKS: dict[str, str] = {
 # =============================================================================
 
 ARCHIVE_POSTS_PER_PAGE: int = 50  # Changed from 20 for 87K posts
-ARCHIVE_MAX_POSTS_TOTAL: int = 100000
+ARCHIVE_MAX_POSTS_TOTAL: int = 90000
 ARCHIVE_INCREMENTAL: bool = True
 ARCHIVE_DATA_DIR: str = "data/telegram_archive"  # Relative to project root; stores paginated JSON
 ARCHIVE_BATCH_SIZE: int = 20  # Telegram API page size (messages per request)

@@ -178,9 +178,13 @@ def _format_post_text_no_tags(text: str, lang: str = "ru") -> str:
 # =============================================================================
 
 def _format_date(date_str: str, lang: str = "ru") -> str:
-    """Format a date string for display."""
+    """Format a date string for display with proper Russian month names."""
     if not date_str:
         return ""
+    _RU_MONTHS = [
+        "января", "февраля", "марта", "апреля", "мая", "июня",
+        "июля", "августа", "сентября", "октября", "ноября", "декабря",
+    ]
     try:
         for fmt in (
             "%Y-%m-%dT%H:%M:%S",
@@ -193,9 +197,10 @@ def _format_date(date_str: str, lang: str = "ru") -> str:
             try:
                 dt = datetime.strptime(str(date_str).strip(), fmt)
                 if lang == "ru":
-                    return dt.strftime("%d %B %Y, %H:%M")
+                    month_name = _RU_MONTHS[dt.month - 1]
+                    return f"{dt.day} {month_name} {dt.year} г. в {dt.hour:02d}:{dt.minute:02d}"
                 else:
-                    return dt.strftime("%B %d, %Y, %I:%M %p")
+                    return dt.strftime("%B %d, %Y at %I:%M %p")
             except (ValueError, TypeError):
                 continue
     except Exception:

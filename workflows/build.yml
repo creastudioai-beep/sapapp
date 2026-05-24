@@ -1,0 +1,209 @@
+name: Build & Deploy Site
+
+on:
+  schedule:
+    # Run every 2 hours to pick up new Telegram posts and pipeline data
+    - cron: '0 */2 * * *'
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      full_fetch:
+        description: 'Run full Telegram archive fetch (not incremental)'
+        required: false
+        default: 'false'
+        type: boolean
+      purge_cache:
+        description: 'Purge Cloudflare cache after deploy'
+        required: false
+        default: 'true'
+        type: boolean
+
+# Prevent parallel builds — only one at a time, cancel older runs
+concurrency:
+  group: build-deploy-pages
+  cancel-in-progress: true
+
+# Permissions needed for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  PYTHON_VERSION: '3.11'
+  PIP_CACHE_DIR: ~/.cache/pip
+
+jobs:
+  build:
+    name: Generate Static Site
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      build_status: ${{ steps.build_result.outputs.status }}
+      posts_count: ${{ steps.build_summary.outputs.posts_count }}
+      build_duration: ${{ steps.build_summary.outputs.build_duration }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run site generator (incremental Telegram update)
+        if: ${{ github.event.inputs.full_fetch != 'true' }}
+        timeout-minutes: 55
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
+        run: |
+          echo "::group::Site Generator — Incremental Fetch"
+          START_TIME=$(date +%s)
+          python -m site_generator --fetch-archive 2>&1 | tee build.log
+          EXIT_CODE=${PIPESTATUS[0]}
+          END_TIME=$(date +%s)
+          DURATION=$(( END_TIME - START_TIME ))
+          echo "::endgroup::"
+
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "::error::Site generator failed with exit code $EXIT_CODE"
+            exit $EXIT_CODE
+          fi
+
+          echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
+          echo "✅ Build completed in ${DURATION}s"
+
+      - name: Run site generator (full Telegram archive fetch)
+        if: ${{ github.event.inputs.full_fetch == 'true' }}
+        timeout-minutes: 55
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
+        run: |
+          echo "::group::Site Generator — Full Archive Fetch"
+          START_TIME=$(date +%s)
+          python -m site_generator --fetch-archive --full-archive 2>&1 | tee build.log
+          EXIT_CODE=${PIPESTATUS[0]}
+          END_TIME=$(date +%s)
+          DURATION=$(( END_TIME - START_TIME ))
+          echo "::endgroup::"
+
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "::error::Site generator failed with exit code $EXIT_CODE"
+            exit $EXIT_CODE
+          fi
+
+          echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
+          echo "✅ Full build completed in ${DURATION}s"
+
+      - name: Validate output
+        run: |
+          if [ ! -d "output" ]; then
+            echo "::error::output/ directory not found — build failed"
+            exit 1
+          fi
+
+          HTML_COUNT=$(find output -name '*.html' | wc -l)
+          echo "html_files_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
+
+          if [ "$HTML_COUNT" -eq 0 ]; then
+            echo "::warning::No HTML files generated in output/"
+          fi
+
+          echo "📊 Output validation: ${HTML_COUNT} HTML file(s) found"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output/
+
+      - name: Set build result
+        id: build_result
+        run: echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Build summary
+        id: build_summary
+        run: |
+          HTML_COUNT=$(find output -name '*.html' | wc -l)
+          TOTAL_SIZE=$(du -sh output/ | cut -f1)
+
+          echo "posts_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
+          echo "build_duration=${DURATION:-N/A}" >> $GITHUB_OUTPUT
+
+          echo "## 🏗️ Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          echo "| HTML Pages | ${HTML_COUNT} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Output Size | ${TOTAL_SIZE} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Full Fetch | ${{ github.event.inputs.full_fetch || 'false' }} |" >> $GITHUB_STEP_SUMMARY
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: ${{ needs.build.outputs.build_status == 'success' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Deploy summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| URL | ${{ steps.deployment.outputs.page_url }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Pages | ${{ needs.build.outputs.posts_count }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Duration | ${{ needs.build.outputs.build_duration }} |" >> $GITHUB_STEP_SUMMARY
+
+  purge-cache:
+    name: Purge Cloudflare Cache
+    needs: deploy
+    if: ${{ github.event.inputs.purge_cache == 'true' && secrets.CLOUDFLARE_ZONE_ID != '' }}
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Purge Cloudflare cache
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_ZONE_ID" ]; then
+            echo "⚠️ Cloudflare Zone ID not configured — skipping cache purge"
+            exit 0
+          fi
+
+          echo "🔄 Purging Cloudflare cache..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')
+
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "✅ Cloudflare cache purged successfully"
+          else
+            echo "⚠️ Cloudflare cache purge returned HTTP ${HTTP_STATUS}"
+          fi

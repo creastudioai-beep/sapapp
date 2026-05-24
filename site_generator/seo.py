@@ -856,12 +856,16 @@ def generate_verification_meta_tags() -> str:
         if not isinstance(tag, dict):
             continue
         if tag.get("name") and tag.get("content"):
+            _tag_name = tag["name"]
+            _tag_content = tag["content"]
             tags.append(
-                f'<meta name="{escape_html(tag["name"])}" content="{escape_html(tag["content"])}" />'
+                f'<meta name="{escape_html(_tag_name)}" content="{escape_html(_tag_content)}" />'
             )
         elif tag.get("property") and tag.get("content"):
+            _tag_prop = tag["property"]
+            _tag_content = tag["content"]
             tags.append(
-                f'<meta property="{escape_html(tag["property"])}" content="{escape_html(tag["content"])}" />'
+                f'<meta property="{escape_html(_tag_prop)}" content="{escape_html(_tag_content)}" />'
             )
 
     return "\n".join(tags)
@@ -1805,9 +1809,9 @@ def generate_rss_feed(posts: list, articles: list, lang: str = "ru") -> str:
                     height = first_media.get("height", 600)
                     media_elements = (
                         f'<media:content url="{media_url}" type="image/jpeg" medium="image" width="{width}" height="{height}">\n'
-                        f"<media:title type=\"plain\">{media_title}</media:title>\n"
-                        f"<media:credit>{SITE_AUTHOR}</media:credit>\n"
-                        f"</media:content>\n"
+                        f'<media:title type="plain">{media_title}</media:title>\n'
+                        f'<media:credit>{SITE_AUTHOR}</media:credit>\n'
+                        f'</media:content>\n'
                         f'<media:thumbnail url="{media_url}" width="{width}" height="{height}"/>'
                     )
                     enclosure_tags = f'<enclosure url="{media_url}" type="image/jpeg" />'
@@ -1819,11 +1823,11 @@ def generate_rss_feed(posts: list, articles: list, lang: str = "ru") -> str:
                     telegram_link = escape_xml(post.get("telegramLink", ""))
                     media_elements = (
                         f'<media:content url="{media_url}" type="video/mp4" medium="video" width="{width}" height="{height}">\n'
-                        f"<media:title type=\"plain\">{media_title}</media:title>\n"
+                        f'<media:title type="plain">{media_title}</media:title>\n'
                         f'<media:thumbnail url="{poster_url}" width="{width}" height="{height}"/>\n'
-                        f"<media:credit>{SITE_AUTHOR}</media:credit>\n"
+                        f'<media:credit>{SITE_AUTHOR}</media:credit>\n'
                         f'<media:player url="{telegram_link}"/>\n'
-                        f"</media:content>"
+                        f'</media:content>'
                     )
                     enclosure_tags = f'<enclosure url="{media_url}" type="video/mp4" />'
 
@@ -1872,9 +1876,10 @@ def generate_rss_feed(posts: list, articles: list, lang: str = "ru") -> str:
         enclosure_tags = ""
         if article.get("thumbnail"):
             media_url = escape_xml(article["thumbnail"])
+            _article_title = article.get("title", "")
             media_elements = (
                 f'<media:content url="{media_url}" type="image/jpeg" medium="image">\n'
-                f'<media:title type="plain">{escape_xml(article.get("title", ""))}</media:title>\n'
+                f'<media:title type="plain">{escape_xml(_article_title)}</media:title>\n'
                 f"<media:credit>{SITE_AUTHOR}</media:credit>\n"
                 f"</media:content>\n"
                 f'<media:thumbnail url="{media_url}"/>'
@@ -1982,18 +1987,16 @@ def generate_cookie_consent_html(lang: str = "ru") -> str:
         accept = "Accept"
         decline = "Decline"
 
+    accept_onclick = "localStorage.setItem('cookie_consent','accepted');document.getElementById('cookieConsent').classList.remove('active');"
+    decline_onclick = "localStorage.setItem('cookie_consent','declined');document.getElementById('cookieConsent').classList.remove('active');"
     return (
         f'<div class="cookie-consent" id="cookieConsent">\n'
         f'<div class="cookie-consent-content">\n'
         f'<p class="cookie-consent-text">{text}</p>\n'
         f'<div class="cookie-consent-actions">\n'
-        f'<button class="cookie-btn cookie-btn-accept" '
-        f"onclick=\"localStorage.setItem('cookie_consent','accepted');"
-        f'document.getElementById(\'cookieConsent\').classList.remove(\'active\');">{accept}</button>\n'
-        f'<button class="cookie-btn cookie-btn-decline" '
-        f"onclick=\"localStorage.setItem('cookie_consent','declined');"
-        f'document.getElementById(\'cookieConsent\').classList.remove(\'active\');">{decline}</button>\n'
-        f"</div>\n</div>\n</div>"
+        f'<button class="cookie-btn cookie-btn-accept" onclick="{accept_onclick}">{accept}</button>\n'
+        f'<button class="cookie-btn cookie-btn-decline" onclick="{decline_onclick}">{decline}</button>\n'
+        f'</div>\n</div>\n</div>'
     )
 
 

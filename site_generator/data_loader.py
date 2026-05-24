@@ -244,11 +244,14 @@ def _save_to_cache(data_dir: str, filename: str, data: Any) -> None:
         # Sanitize surrogate characters that may be present in pipeline data
         clean_data = _sanitize_surrogates(data)
 
-        with open(filepath, "w", encoding="utf-8", errors="replace") as fh:
-            json.dump(clean_data, fh, ensure_ascii=False, indent=2)
+        # Use ensure_ascii=True as a safety net to avoid UnicodeEncodeError
+        # from stray surrogate characters that _sanitize_surrogates might miss.
+        # This produces ASCII-safe JSON with \uXXXX escapes but is bulletproof.
+        with open(filepath, "w", encoding="utf-8") as fh:
+            json.dump(clean_data, fh, ensure_ascii=True, indent=2)
 
         logger.debug("Saved to cache: %s", filepath)
-    except OSError as exc:
+    except (OSError, UnicodeEncodeError) as exc:
         logger.warning("Cannot write cache file %s/%s: %s", data_dir, filename, exc)
 
 
