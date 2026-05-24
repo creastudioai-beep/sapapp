@@ -39,7 +39,7 @@ jobs:
   build:
     name: Generate Static Site
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     outputs:
       build_status: ${{ steps.build_result.outputs.status }}
       posts_count: ${{ steps.build_summary.outputs.posts_count }}
@@ -48,6 +48,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v5
@@ -61,12 +63,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Restore Telegram archive cache
+        uses: actions/cache@v4
+        with:
+          path: data/telegram_archive
+          key: telegram-archive-${{ github.run_id }}
+          restore-keys: |
+            telegram-archive-
+
+      - name: Restore pipeline data cache
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: pipeline-data-${{ github.run_id }}
+          restore-keys: |
+            pipeline-data-
+
       - name: Run site generator (incremental Telegram update)
         if: ${{ github.event.inputs.full_fetch != 'true' }}
-        timeout-minutes: 55
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
+        timeout-minutes: 90
         run: |
           echo "::group::Site Generator — Incremental Fetch"
           START_TIME=$(date +%s)
@@ -82,18 +97,15 @@ jobs:
           fi
 
           echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
-          echo "✅ Build completed in ${DURATION}s"
+          echo "Build completed in ${DURATION}s"
 
       - name: Run site generator (full Telegram archive fetch)
         if: ${{ github.event.inputs.full_fetch == 'true' }}
-        timeout-minutes: 55
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
+        timeout-minutes: 110
         run: |
           echo "::group::Site Generator — Full Archive Fetch"
           START_TIME=$(date +%s)
-          python -m site_generator --fetch-archive --full 2>&1 | tee build.log
+          python -m site_generator --full-archive 2>&1 | tee build.log
           EXIT_CODE=${PIPESTATUS[0]}
           END_TIME=$(date +%s)
           DURATION=$(( END_TIME - START_TIME ))
@@ -105,7 +117,7 @@ jobs:
           fi
 
           echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
-          echo "✅ Full build completed in ${DURATION}s"
+          echo "Full build completed in ${DURATION}s"
 
       - name: Validate output
         run: |
@@ -121,7 +133,7 @@ jobs:
             echo "::warning::No HTML files generated in output/"
           fi
 
-          echo "📊 Output validation: ${HTML_COUNT} HTML file(s) found"
+          echo "Output validation: ${HTML_COUNT} HTML file(s) found"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -141,11 +153,11 @@ jobs:
           echo "posts_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
           echo "build_duration=${DURATION:-N/A}" >> $GITHUB_OUTPUT
 
-          echo "## 🏗️ Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Status | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | Success |" >> $GITHUB_STEP_SUMMARY
           echo "| HTML Pages | ${HTML_COUNT} |" >> $GITHUB_STEP_SUMMARY
           echo "| Output Size | ${TOTAL_SIZE} |" >> $GITHUB_STEP_SUMMARY
           echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
@@ -168,7 +180,7 @@ jobs:
 
       - name: Deploy summary
         run: |
-          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
@@ -182,21 +194,25 @@ jobs:
     if: ${{ github.event.inputs.purge_cache == 'true' }}
     runs-on: ubuntu-latest
     continue-on-error: true
-    env:
-      CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
 
     steps:
-      - name: Purge Cloudflare cache
-        if: ${{ env.CLOUDFLARE_ZONE_ID != '' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - name: Check Cloudflare secrets
+        id: check_secrets
         run: |
-          if [ -z "$CLOUDFLARE_ZONE_ID" ]; then
-            echo "⚠️ Cloudflare Zone ID not configured — skipping cache purge"
-            exit 0
+          if [ -z "${{ secrets.CLOUDFLARE_ZONE_ID }}" ]; then
+            echo "configured=false" >> $GITHUB_OUTPUT
+            echo "Cloudflare Zone ID not configured — skipping cache purge"
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
           fi
 
-          echo "🔄 Purging Cloudflare cache..."
+      - name: Purge Cloudflare cache
+        if: steps.check_secrets.outputs.configured == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          echo "Purging Cloudflare cache..."
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \
             "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
@@ -205,7 +221,7 @@ jobs:
             --data '{"purge_everything":true}')
 
           if [ "$HTTP_STATUS" -eq 200 ]; then
-            echo "✅ Cloudflare cache purged successfully"
+            echo "Cloudflare cache purged successfully"
           else
-            echo "⚠️ Cloudflare cache purge returned HTTP ${HTTP_STATUS}"
+            echo "Cloudflare cache purge returned HTTP ${HTTP_STATUS}"
           fi
