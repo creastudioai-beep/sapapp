@@ -35,6 +35,40 @@ from typing import Any, Optional
 
 import requests
 
+
+# ---------------------------------------------------------------------------
+# Surrogate character sanitization
+# ---------------------------------------------------------------------------
+
+def _sanitize_surrogates(obj):
+    """Recursively remove UTF-16 surrogate characters from data structures.
+
+    Pipeline JSON from GitHub may contain stray surrogate code points
+    (U+D800..U+DFFF) which are invalid in UTF-8 and cause
+    UnicodeEncodeError when written with ``json.dump(ensure_ascii=False)``.
+    This function walks dicts and lists and replaces any string containing
+    surrogates with a cleaned version.
+
+    Args:
+        obj: Any JSON-serializable object (dict, list, str, int, float, None).
+
+    Returns:
+        The same structure with all surrogate characters removed from strings.
+    """
+    if isinstance(obj, str):
+        # Encode with surrogatepass then decode ignoring errors to strip surrogates
+        try:
+            obj.encode('utf-8')
+            return obj  # No surrogates
+        except UnicodeEncodeError:
+            # Remove surrogates by encoding with surrogatepass and replacing
+            return obj.encode('utf-8', errors='surrogatepass').decode('utf-8', errors='replace')
+    elif isinstance(obj, dict):
+        return {_sanitize_surrogates(k): _sanitize_surrogates(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [_sanitize_surrogates(item) for item in obj]
+    return obj
+
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
@@ -195,7 +229,8 @@ def _save_to_cache(data_dir: str, filename: str, data: Any) -> None:
     """Save to local cache.
 
     Creates the ``data_dir`` directory if it doesn't exist, then writes
-    the data as pretty-printed JSON.
+    the data as pretty-printed JSON. Sanitizes any UTF-16 surrogate
+    characters before writing to prevent UnicodeEncodeError.
 
     Args:
         data_dir: Directory to store the cache file.
@@ -206,8 +241,11 @@ def _save_to_cache(data_dir: str, filename: str, data: Any) -> None:
         os.makedirs(data_dir, exist_ok=True)
         filepath = os.path.join(data_dir, filename)
 
-        with open(filepath, "w", encoding="utf-8") as fh:
-            json.dump(data, fh, ensure_ascii=False, indent=2)
+        # Sanitize surrogate characters that may be present in pipeline data
+        clean_data = _sanitize_surrogates(data)
+
+        with open(filepath, "w", encoding="utf-8", errors="replace") as fh:
+            json.dump(clean_data, fh, ensure_ascii=False, indent=2)
 
         logger.debug("Saved to cache: %s", filepath)
     except OSError as exc:

@@ -163,6 +163,9 @@ MAX_ARCHIVE_POST_PAGES: int = 100000  # Generate all archive post pages (87K+ po
 def _write_file(path: str, content: str):
     """Write content to file, creating directories as needed.
 
+    Handles surrogate characters that may appear in Telegram data
+    by using 'surrogatepass' error handling to avoid UnicodeEncodeError.
+
     Args:
         path: Absolute or relative file path.
         content: String content to write.
@@ -170,8 +173,13 @@ def _write_file(path: str, content: str):
     dir_path = os.path.dirname(path)
     if dir_path:
         os.makedirs(dir_path, exist_ok=True)
+    # Sanitize surrogates: encode with surrogatepass, then re-encode cleanly
+    try:
+        sanitized = content.encode('utf-8', errors='surrogatepass').decode('utf-8', errors='replace')
+    except Exception:
+        sanitized = content.encode('utf-8', errors='replace').decode('utf-8', errors='replace')
     with open(path, "w", encoding="utf-8") as fh:
-        fh.write(content)
+        fh.write(sanitized)
 
 
 # ---------------------------------------------------------------------------

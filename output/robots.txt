@@ -1,0 +1,79 @@
+# robots.txt for https://sochiautoparts.ru
+# Updated: 2026-05-22 | v27.0-AUDITED
+
+# === General ===
+User-agent: *
+Allow: /
+Allow: /ads/
+Allow: /archive/
+Allow: /product/
+Allow: /shop/category/
+Disallow: /api/
+Disallow: /m/
+Crawl-delay: 1
+
+# === Google ===
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+
+# === Bing ===
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Crawl-delay: 0
+
+# === Yandex ===
+User-agent: Yandex
+Allow: /
+Disallow: /api/
+Disallow: /m/
+Crawl-delay: 0
+Clean-param: page /
+Clean-param: ysclid&yclid&_openstat&utm_source&utm_medium&utm_campaign&utm_content&utm_term&fbclid&gclid /
+
+# === Petalbot (Huawei) ===
+User-agent: PetalBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 0
+
+# === Baidu ===
+User-agent: Baiduspider
+Allow: /
+Disallow: /api/
+Crawl-delay: 0
+
+# === Yahoo ===
+User-agent: Slurp
+Allow: /
+Disallow: /api/
+Crawl-delay: 0
+
+# === AI Crawlers - Limited Access ===
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 10
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 10
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+# === Sitemaps ===
+Sitemap: https://sochiautoparts.ru/sitemap-index.xml

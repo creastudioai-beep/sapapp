@@ -144,7 +144,8 @@ class TelegramPostParser(HTMLParser):
         attr_dict = dict(attrs)
 
         # --- Detect the messages container with data-before ----------------
-        if tag == "div" and "data-before" in attr_dict:
+        # Note: data-before may appear on <a> or <div> tags depending on Telegram's HTML version
+        if "data-before" in attr_dict:
             before_val = attr_dict.get("data-before")
             if before_val:
                 try:
@@ -160,7 +161,7 @@ class TelegramPostParser(HTMLParser):
             self._reset_post()
             self._in_message_wrap = True
 
-            # Extract post ID from data-post="channel/POSTID"
+            # Extract post ID from data-post="channel/POSTID" (may be on this div or a nested one)
             data_post = attr_dict.get("data-post", "")
             if "/" in data_post:
                 try:
@@ -170,6 +171,15 @@ class TelegramPostParser(HTMLParser):
 
         # --- Inside a post -------------------------------------------------
         if self._in_message_wrap and self._current_post is not None:
+
+            # Extract post ID from nested data-post div (Telegram puts data-post on inner div)
+            if self._current_post["id"] is None and "data-post" in attr_dict:
+                data_post = attr_dict.get("data-post", "")
+                if "/" in data_post:
+                    try:
+                        self._current_post["id"] = int(data_post.rsplit("/", 1)[1])
+                    except (ValueError, IndexError):
+                        pass
 
             # Text body
             classes = attr_dict.get("class", "")
@@ -728,10 +738,31 @@ def fetch_all_posts(
     meta = load_meta(data_dir)
 
     # --- Incremental update path -------------------------------------------
-    if meta and not force_full:
+    # Only use incremental update if we have a valid last_post_id.
+    # If meta exists but last_post_id is None, we need a full fetch
+    # (otherwise we get infinite recursion with incremental_update).
+    if meta and not force_full and meta.get("last_post_id") is not None and meta.get("total_posts", 0) > 0:
         return incremental_update(channel, data_dir)
 
     # --- Full fetch path ---------------------------------------------------
+    # Support resuming a previously interrupted full fetch.
+    # If meta exists with pages but no last_post_id (incomplete fetch),
+    # we can resume by fetching from the oldest post we already have.
+    resume_mode = False
+    if not force_full and meta and meta.get("pages_count", 0) > 0 and meta.get("last_post_id") is None:
+        # Incomplete previous fetch — resume from where we left off
+        resume_mode = True
+        last_page_num = meta.get("pages_count", 0)
+        last_page = load_page(data_dir, last_page_num) if last_page_num > 0 else []
+        if last_page:
+            oldest_id = min(p.get("id", 0) for p in last_page if p.get("id"))
+            print(f"[telegram_fetcher] Resuming previous fetch from post ID {oldest_id} (page {last_page_num})")
+        else:
+            resume_mode = False  # Can't resume, start fresh
+    elif not force_full and meta and meta.get("pages_count", 0) > 0 and meta.get("total_posts", 0) > 0 and meta.get("last_post_id") is not None:
+        # We have a complete archive — this should have been caught by the incremental path above
+        return incremental_update(channel, data_dir)
+
     if force_full and meta:
         # Back up existing data
         backup_dir = data_dir + "_backup_" + str(int(time.time()))
@@ -739,20 +770,32 @@ def fetch_all_posts(
         _ensure_dir(data_dir)
         print(f"[telegram_fetcher] Existing data backed up to {backup_dir}")
 
-    meta = {
-        "total_posts": 0,
-        "last_post_id": None,
-        "last_updated": "",
-        "pages_count": 0,
-        "channel": channel,
-    }
+    if resume_mode:
+        # Continue from existing state
+        page_num = meta.get("pages_count", 0) + 1
+        fetched_count = meta.get("total_posts", 0)
+        # Get the before_id from the oldest post in the last page
+        last_page = load_page(data_dir, meta.get("pages_count", 0))
+        if last_page:
+            oldest_id = min(p.get("id", 0) for p in last_page if p.get("id"))
+            before_id = oldest_id
+        else:
+            before_id = None
+        all_posts: list = []
+    else:
+        meta = {
+            "total_posts": 0,
+            "last_post_id": None,
+            "last_updated": "",
+            "pages_count": 0,
+            "channel": channel,
+        }
+        all_posts: list = []
+        before_id: Optional[int] = None
+        fetched_count = 0
+        page_num = 1
 
-    all_posts: list = []
-    before_id: Optional[int] = None
-    fetched_count = 0
-    page_num = 1
-
-    print(f"[telegram_fetcher] Starting full fetch of @{channel} …")
+    print(f"[telegram_fetcher] Starting full fetch of @{channel} {'(resuming)' if resume_mode else ''}…")
 
     while fetched_count < max_posts:
         try:
@@ -781,12 +824,17 @@ def fetch_all_posts(
             all_posts = all_posts[POSTS_PER_PAGE:]
             page_num += 1
 
-            # Update meta periodically
+            # Update meta and save to disk after each page flush
+            # This ensures progress is NOT lost if the process is interrupted
             meta["pages_count"] = page_num - 1
             meta["total_posts"] = fetched_count - len(all_posts)
             if page_posts:
                 if meta.get("last_post_id") is None:
                     meta["last_post_id"] = page_posts[0].get("id")
+            # Save meta after every 10 pages to minimize I/O but still be safe
+            if (page_num - 1) % 10 == 0:
+                meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                save_meta(data_dir, meta)
 
         # Progress log
         if fetched_count % 1000 < 25:
@@ -870,11 +918,12 @@ def incremental_update(channel: str, data_dir: str) -> dict:
     meta = load_meta(data_dir)
     if not meta:
         # No existing archive — fall back to full fetch
-        return fetch_all_posts(channel, data_dir)
+        return fetch_all_posts(channel, data_dir, force_full=True)
 
     last_known_id = meta.get("last_post_id")
-    if last_known_id is None:
-        return fetch_all_posts(channel, data_dir)
+    if last_known_id is None or meta.get("total_posts", 0) == 0:
+        # Archive exists but is empty/corrupt — need a full fetch
+        return fetch_all_posts(channel, data_dir, force_full=True)
 
     print(f"[telegram_fetcher] Incremental update for @{channel}, last known ID: {last_known_id}")
 

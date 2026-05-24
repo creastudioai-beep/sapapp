@@ -253,15 +253,15 @@ SOCIAL_LINKS: dict[str, str] = {
 ARCHIVE_POSTS_PER_PAGE: int = 50  # Changed from 20 for 87K posts
 ARCHIVE_MAX_POSTS_TOTAL: int = 100000
 ARCHIVE_INCREMENTAL: bool = True
-ARCHIVE_DATA_DIR: str = "data/archive"  # Relative to project root; stores paginated JSON
+ARCHIVE_DATA_DIR: str = "data/telegram_archive"  # Relative to project root; stores paginated JSON
 ARCHIVE_BATCH_SIZE: int = 20  # Telegram API page size (messages per request)
 ARCHIVE_FETCH_DELAY: float = 0.5  # Delay between Telegram fetches in seconds
 ARCHIVE_FORCE_FULL_REBUILD: bool = False
 
 # Incremental update tracking
-LAST_POST_ID_FILE: str = "data/archive/.last_post_id"
-LAST_UPDATE_TIMESTAMP_FILE: str = "data/archive/.last_update_ts"
-ARCHIVE_STATE_FILE: str = "data/archive/state.json"
+LAST_POST_ID_FILE: str = "data/telegram_archive/.last_post_id"
+LAST_UPDATE_TIMESTAMP_FILE: str = "data/telegram_archive/.last_update_ts"
+ARCHIVE_STATE_FILE: str = "data/telegram_archive/state.json"
 
 # NOTE: The Bot API endpoint "getChatMessages" does NOT exist in Telegram Bot API.
 # The telegram_fetcher.py module correctly uses the PUBLIC channel preview
@@ -269,8 +269,8 @@ ARCHIVE_STATE_FILE: str = "data/archive/state.json"
 # This dead reference has been removed to avoid confusion.
 
 # Archive pagination output
-ARCHIVE_PAGES_DIR: str = "data/archive/pages"
-ARCHIVE_INDEX_FILE: str = "data/archive/index.json"
+ARCHIVE_PAGES_DIR: str = "data/telegram_archive/pages"
+ARCHIVE_INDEX_FILE: str = "data/telegram_archive/index.json"
 
 # =============================================================================
 # GITHUB PAGES OUTPUT
