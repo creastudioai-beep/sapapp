@@ -263,11 +263,10 @@ LAST_POST_ID_FILE: str = "data/archive/.last_post_id"
 LAST_UPDATE_TIMESTAMP_FILE: str = "data/archive/.last_update_ts"
 ARCHIVE_STATE_FILE: str = "data/archive/state.json"
 
-# Telegram API endpoint for fetching channel messages
-ARCHIVE_TELEGRAM_API_URL: str = (
-    f"https://api.telegram.org/bot{{BOT_TOKEN}}/getChatMessages"
-)
-# Note: Replace {{BOT_TOKEN}} at runtime with actual bot token from env
+# NOTE: The Bot API endpoint "getChatMessages" does NOT exist in Telegram Bot API.
+# The telegram_fetcher.py module correctly uses the PUBLIC channel preview
+# at https://t.me/s/{channel} — no Bot API token required.
+# This dead reference has been removed to avoid confusion.
 
 # Archive pagination output
 ARCHIVE_PAGES_DIR: str = "data/archive/pages"
@@ -632,7 +631,6 @@ CONFIG: dict = {
     "archive_max_posts_total": ARCHIVE_MAX_POSTS_TOTAL,
     "archive_incremental": ARCHIVE_INCREMENTAL,
     "archive_data_dir": ARCHIVE_DATA_DIR,
-    "archive_batch_size": ARCHIVE_BATCH_SIZE,
     "archive_fetch_delay": ARCHIVE_FETCH_DELAY,
     "archive_force_full_rebuild": ARCHIVE_FORCE_FULL_REBUILD,
     "last_post_id_file": LAST_POST_ID_FILE,
