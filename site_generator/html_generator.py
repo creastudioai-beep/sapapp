@@ -879,7 +879,7 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
         for ht in hashtags:
             tag_name = re.sub(r"^#+", "", str(ht))
             if tag_name:
-                tag_url = f"{_lang_path(lang)}/tag/{url_quote(tag_name)}"
+                tag_url = f"{_lang_path(lang)}/tag/{url_quote(tag_name)}.html"
                 tag_links.append(f'<a href="{tag_url}" class="hashtag">#{escape_html(tag_name)}</a>')
         tags_html = '<div class="post-tags">' + " ".join(tag_links) + "</div>"
 
@@ -1002,7 +1002,7 @@ def generate_amp_post_page(data: dict, post_id: int, lang: str, output_dir: str)
         for ht in hashtags:
             tag_name = re.sub(r"^#+", "", str(ht))
             if tag_name:
-                tag_url = f"{_lang_path(lang)}/tag/{url_quote(tag_name)}"
+                tag_url = f"{_lang_path(lang)}/tag/{url_quote(tag_name)}.html"
                 tag_links.append(f'<a href="{tag_url}" class="hashtag">#{escape_html(tag_name)}</a>')
         tags_html = '<div class="post-tags">' + " ".join(tag_links) + "</div>"
 
@@ -1251,7 +1251,7 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
         for ht in article_tags:
             tag_name = re.sub(r"^#+", "", str(ht))
             if tag_name:
-                tag_url = f"{_lang_path(lang)}/tag/{url_quote(tag_name)}"
+                tag_url = f"{_lang_path(lang)}/tag/{url_quote(tag_name)}.html"
                 tag_links.append(f'<a href="{tag_url}" class="hashtag">#{escape_html(tag_name)}</a>')
         if tag_links:
             tags_html = '<div class="post-tags" style="margin-top:1.5rem;">' + " ".join(tag_links) + "</div>"

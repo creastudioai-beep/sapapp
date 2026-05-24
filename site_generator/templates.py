@@ -174,7 +174,7 @@ def _format_post_text_no_tags(text: str, lang: str = "ru") -> str:
         escaped_hashtag = escape_html(hashtag)
         escaped_tag = escape_html(tag_name)
         prefix = _bp("/en") + "/" if lang == "en" else _bp("/") 
-        return f'<a href="{prefix}tag/{url_quote(escaped_tag)}" class="hashtag">{escaped_hashtag}</a>'
+        return f'<a href="{prefix}tag/{url_quote(escaped_tag)}.html" class="hashtag">{escaped_hashtag}</a>'
 
     safe = re.sub(r"#([a-zA-Zа-яА-ЯёЁ0-9_]+)", _hashtag_link, safe)
     safe = safe.replace("\n", "<br>\n")
@@ -406,7 +406,7 @@ def render_popular_tags(tags: list, lang: str = "ru") -> str:
             continue
         if not tag_name:
             continue
-        tag_url = f"{_bp('/tag')}/{url_quote(tag_name)}" if lang == "ru" else f"{_bp('/en/tag')}/{url_quote(tag_name)}"
+        tag_url = f"{_bp('/tag')}/{url_quote(tag_name)}.html" if lang == "ru" else f"{_bp('/en/tag')}/{url_quote(tag_name)}.html"
         tags_html_parts.append(f'<a href="{tag_url}" class="footer-tag">#{escape_html(tag_name)}</a>')
 
     tags_html = "".join(tags_html_parts)
