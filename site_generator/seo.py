@@ -23,6 +23,8 @@ from .config import (
     SITE_NAME_EN,
     SITE_DESCRIPTION_RU,
     SITE_DESCRIPTION_EN,
+    SEO_DEFAULT_TITLE_RU,
+    SEO_DEFAULT_TITLE_EN,
     CHANNEL_USERNAME,
     GA4_MEASUREMENT_ID,
     LOGO_URL,
@@ -53,7 +55,10 @@ GOOGLE_NEWS_CATEGORY: str = "Autos"
 PR_EMAIL: str = "pr@sochiautoparts.ru"
 TELEGRAM_WEB_URL: str = f"https://t.me/s/{CHANNEL_USERNAME}"
 INSTAGRAM_URL: str = "https://www.instagram.com/sochi_auto_parts/"
+TWITTER_URL: str = "https://twitter.com/sochiautoparts"
 YOUTUBE_URL: str = f"https://www.youtube.com/@{CHANNEL_USERNAME}"
+FACEBOOK_URL: str = "https://www.facebook.com/sochiautoparts"
+LINKEDIN_URL: str = "https://www.linkedin.com/company/sochiautoparts"
 MAX_POSTS_SITEMAP: int = 5000
 SITEMAP_POSTS_PER_FILE: int = 1000
 MAX_POSTS_RSS: int = 30
@@ -95,16 +100,7 @@ NEWS_KEYWORDS: list = [
     "автострахование", "ОСАГО", "КАСКО", "диагностика авто", "ТО автомобиля",
     "техосмотр", "проверка авто", "автоистория", "автоподбор специалист",
     "автоаукцион", "trade-in",
-    "car insurance", "vehicle inspection", "carfax", "auto auction", "car loan",
-    "Toyota", "BMW", "Mercedes", "Mercedes-Benz", "Audi", "Volkswagen", "Kia",
-    "Hyundai", "Nissan", "Honda", "Mazda", "Ford", "Chevrolet", "Tesla", "Lexus",
-    "Porsche", "Volvo", "Skoda", "Renault", "Peugeot", "Mitsubishi", "Subaru",
-    "Suzuki", "Jeep", "Land Rover", "Jaguar", "Mini", "Cadillac", "Infiniti",
-    "Acura", "Genesis", "Chery", "Haval", "Geely", "Exeed", "Omoda", "Jaecoo",
-    "Tank", "Lixiang", "Zeekr", "Voyah", "Lada", "УАЗ", "ГАЗ", "BYD", "Nio",
-    "Xpeng", "Rivian", "Lucid", "Lotus", "Alfa Romeo", "Maserati", "Bentley",
-    "Rolls-Royce", "Aston Martin", "Lamborghini", "Ferrari", "McLaren",
-    "Range Rover Sport",
+    "car insurance", "vehicle inspection", "carfax", "auto auction",
 ]
 
 
@@ -290,6 +286,7 @@ def generate_meta_tags(
     tags.append(f'<meta property="og:type" content="{og_type}" />')
     tags.append(f'<meta property="og:locale" content="{locale}" />')
     tags.append(f'<meta property="og:locale:alternate" content="{locale_alt}" />')
+    tags.append(f'<meta property="og:locale:alternate" content="{locale}" />')
     tags.append(f'<meta property="og:site_name" content="{escape_html(site_name)}" />')
     tags.append(f'<meta property="og:image" content="{escape_html(og_image)}" />')
     tags.append(f'<meta property="og:image:width" content="{image_width}" />')
@@ -322,6 +319,19 @@ def generate_meta_tags(
 
     # Robots
     tags.append(f'<meta name="robots" content="{robots}" />')
+    tags.append(f'<meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />')
+    tags.append(f'<meta name="bingbot" content="index, follow, max-image-preview:large" />')
+    tags.append(f'<meta name="yandex" content="index, follow" />')
+    tags.append(f'<meta name="slurp" content="index, follow" />')
+    tags.append(f'<meta name="petalbot" content="index, follow" />')
+
+    # Keywords
+    keywords_str = ", ".join(NEWS_KEYWORDS)
+    tags.append(f'<meta name="keywords" content="{escape_html(keywords_str)}" />')
+
+    # Theme color
+    tags.append(f'<meta name="theme-color" content="#2481CC" />')
+    tags.append(f'<meta name="msapplication-TileColor" content="#2481CC" />')
 
     # Author & publisher
     tags.append(f'<meta name="author" content="{escape_html(SITE_AUTHOR)}" />')
@@ -505,12 +515,17 @@ def _static_org_schema() -> str:
         "sameAs": [
             TELEGRAM_WEB_URL,
             INSTAGRAM_URL,
+            TWITTER_URL,
+            YOUTUBE_URL,
+            FACEBOOK_URL,
+            LINKEDIN_URL,
         ],
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer service",
             "email": PR_EMAIL,
             "availableLanguage": ["Russian", "English"],
+            "areaServed": "Worldwide",
         },
     }
     return json.dumps(schema, ensure_ascii=False)
@@ -525,7 +540,7 @@ def generate_web_site_schema(lang: str = "ru") -> str:
     schema = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": SITE_NAME_RU if lang == "ru" else SITE_NAME_EN,
+        "name": SEO_DEFAULT_TITLE_RU if lang == "ru" else SEO_DEFAULT_TITLE_EN,
         "url": SITE_URL,
         "potentialAction": {
             "@type": "SearchAction",
@@ -700,7 +715,7 @@ def generate_item_list_schema(posts: list, lang: str = "ru") -> str:
     schema = {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": t("nav_home", lang) + " — " + (SITE_NAME_RU if lang == "ru" else SITE_NAME_EN),
+        "name": "Лента публикаций SOCHIAUTOPARTS" if lang == "ru" else "Publications Feed SOCHIAUTOPARTS",
         "description": SITE_DESCRIPTION_RU if lang == "ru" else SITE_DESCRIPTION_EN,
         "numberOfItems": len(posts),
         "itemListElement": [
@@ -725,22 +740,22 @@ def generate_faq_schema(lang: str = "ru") -> str:
         [
             {
                 "q": "Что такое SOCHIAUTOPARTS?",
-                "a": "SOCHIAUTOPARTS — канал о мировых автоновостях, экспертных обзорах и тест-драйвах. Ежедневно публикуем актуальные автомобильные новости и аналитику.",
+                "a": "SOCHIAUTOPARTS — глобальный медиа-канал о мировых автомобильных новостях, экспертных обзорах и тест-драйвах.",
             },
             {
                 "q": "Как подписаться на канал?",
-                "a": "Подпишитесь на наш Telegram-канал @sochiautoparts для ежедневных обновлений мировых автоновостей.",
+                "a": "Подпишитесь на наш Telegram-канал @sochiautoparts для ежедневных обновлений автоновостей со всего мира.",
             },
             {
                 "q": "Какие автомобили вы обозреваете?",
-                "a": "Мы обозреваем автомобили всех марок: от бюджетных до премиум сегмента, включая электромобили и гибриды.",
+                "a": "Мы обозреваем автомобили всех марок: от бюджетных до премиум сегмента, включая электромобили.",
             },
         ]
         if lang == "ru"
         else [
             {
                 "q": "What is SOCHIAUTOPARTS?",
-                "a": "SOCHIAUTOPARTS is a channel covering worldwide automotive news, expert reviews and test drives. We publish daily updates on global auto industry trends.",
+                "a": "SOCHIAUTOPARTS is a global media channel covering worldwide automotive news, expert reviews and test drives.",
             },
             {
                 "q": "How to subscribe?",
@@ -748,7 +763,7 @@ def generate_faq_schema(lang: str = "ru") -> str:
             },
             {
                 "q": "What cars do you review?",
-                "a": "We review cars of all brands: from budget to premium segment, including electric vehicles and hybrids.",
+                "a": "We review cars of all brands: from budget to premium segment, including electric vehicles.",
             },
         ]
     )
