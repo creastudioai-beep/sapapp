@@ -32,7 +32,7 @@ from .config import (
 # Constants (matching Worker v27.0)
 # =============================================================================
 
-LOGO_EXTERNAL_URL: str = "https://raw.githubusercontent.com/creastudioai-beep/sap/main/main/assets/logo.jpg"
+LOGO_EXTERNAL_URL: str = "/logo.jpg"
 TELEGRAM_URL: str = "https://t.me/sochiautoparts"
 INSTAGRAM_URL: str = "https://www.instagram.com/sochi_auto_parts/"
 SITE_AUTHOR: str = "SOCHIAUTOPARTS"
@@ -279,14 +279,14 @@ def render_header(lang: str = "ru", active_page: str = "") -> str:
     logo_href = _lang_base(lang)
     shop_url = f"{_lang_path(lang)}{SHOP_PATH}"
     contacts_url = f"{_lang_path(lang)}{CONTACTS_PATH}"
-    menu_label = t('nav_home', lang) if lang == 'ru' else 'Menu'
+    menu_label = "\u041c\u0435\u043d\u044e" if lang == 'ru' else 'Menu'
 
     return f"""<header class="site-header">
 <div class="container">
 <div class="header-content">
 <a href="{logo_href}" class="logo">
-<img src="https://raw.githubusercontent.com/creastudioai-beep/sap/main/main/assets/logo.jpg" alt="SOCHIAUTOPARTS Logo" class="logo-icon" width="44" height="44" loading="eager" fetchpriority="high" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
-<span class="logo-fallback" style="display:none;font-size:1.5rem;">🚗</span>
+<img src="/logo.jpg" alt="SOCHIAUTOPARTS Logo" class="logo-icon" width="44" height="44" loading="eager" fetchpriority="high" referrerpolicy="no-referrer" onerror="this.classList.add('error')">
+<span class="logo-fallback">🚗</span>
 SOCHIAUTOPARTS
 </a>
 <nav class="main-nav" id="mainNav">
@@ -323,11 +323,11 @@ def render_hero(lang: str = "ru") -> str:
     """
     hero_title = "SOCHIAUTOPARTS"
     if lang == "ru":
-        hero_subtitle = "Ежедневные новости, тест-драйвы и обзоры мирового автопрома."
+        hero_subtitle = "Ежедневные новости, тест-драйвы и обзоры мирового автопрома. В архиве 10000 публикаций"
         btn_label = "Подписаться"
         search_placeholder = "Поиск"
     else:
-        hero_subtitle = "Daily news, test drives and reviews of the global automotive industry."
+        hero_subtitle = "Daily news, test drives and reviews of the global automotive industry. 10000 publications in archive"
         btn_label = "Subscribe"
         search_placeholder = "Search"
 
@@ -357,11 +357,11 @@ def render_seo_block(lang: str = "ru") -> str:
     """
     if lang == "ru":
         title = "О канале SOCHIAUTOPARTS"
-        p1 = "Мы ежедневно публикуем актуальные автомобильные новости, обзоры новых моделей и экспертные тест-драйвы. Наша цель — держать вас в курсе последних тенденций мирового автопрома."
+        p1 = "Мы ежедневно публикуем актуальные автомобильные новости, обзоры новых моделей и экспертные тест-драйвы. Наша цель — держать вас в курсе последних тенденций мирового автопрома. 📊 В архиве: <b>10000</b> публикаций"
         p2 = "Подписывайтесь на наш"
     else:
         title = "About SOCHIAUTOPARTS"
-        p1 = "We daily publish the latest automotive news, reviews of new models and expert test drives. Our goal is to keep you updated with the latest global automotive trends."
+        p1 = "We daily publish the latest automotive news, reviews of new models and expert test drives. Our goal is to keep you updated with the latest global automotive trends. 📊 In archive: <b>10000</b> publications"
         p2 = "Subscribe to our"
 
     return f"""
@@ -513,16 +513,17 @@ def render_archive_post_card(post: dict, lang: str = "ru") -> str:
     else:
         trunc_text = raw_text or ("Публикация без текста" if is_ru else "Post without text")
 
-    # Media
-    has_video = bool(post.get("videoUrls") and len(post.get("videoUrls", [])) > 0)
-    has_video_thumb = bool(post.get("videoThumbnails") and len(post.get("videoThumbnails", [])) > 0)
-    photo_urls = post.get("photoUrls", [])
-    video_thumbnails = post.get("videoThumbnails", [])
-    first_img = photo_urls[0] if photo_urls else (video_thumbnails[0] if has_video_thumb else None)
+    # Media - check multiple field name variants (telegram_fetcher uses photos/videos, pipeline uses photoUrls/videoUrls)
+    photos = post.get("photos", post.get("photoUrls", []))
+    videos = post.get("videos", post.get("videoUrls", []))
+    video_thumbs = post.get("video_thumbnails", post.get("videoThumbnails", []))
+    has_video = bool(videos and len(videos) > 0)
+    has_video_thumb = bool(video_thumbs and len(video_thumbs) > 0)
+    first_img = photos[0] if photos else (video_thumbs[0] if has_video_thumb else None)
 
     media_html = ""
     if has_video and has_video_thumb:
-        thumb_url = escape_html(video_thumbnails[0])
+        thumb_url = escape_html(video_thumbs[0])
         bg_style = f"background-image:url('{thumb_url}');background-size:cover;background-position:center"
         media_html = (
             f'<div class="archive-video-card" style="{bg_style}">'
@@ -902,10 +903,15 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
 
         desc_truncated = description[:150] + ("..." if len(description) > 150 else "")
 
+        # Build region data attribute for client-side/Worker filtering
+        regions_val = prog.get("regions", prog.get("allowed_regions", []))
+        regions_str = ",".join(str(r) for r in regions_val) if isinstance(regions_val, list) else ""
+        region_attr = f' data-region="{escape_html(regions_str)}"' if regions_str else ''
+
         ads_html_parts.append(
             f"""
-<a href="{escape_html(affiliate_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;display:block;">
-<div class="ad-block-item">
+<a href="{escape_html(affiliate_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;display:block;"{region_attr}>
+<div class="ad-block-item" data-admitad-id="{escape_html(str(prog_id))}">
   <div class="ad-block-media">
     <img src="{escape_html(raw_image_url)}"
          alt="{escape_html(prog_name)}"

@@ -225,7 +225,7 @@ def _build_page(
     post_id: Optional[int] = None,
     article_id: Optional[int] = None,
     tag: Optional[str] = None,
-    robots: str = "index, follow",
+    robots: str = "index, follow, max-image-preview:large",
     show_hero: bool = False,
     tags_for_footer: Optional[list] = None,
     include_ga: bool = True,
@@ -332,8 +332,8 @@ def _build_page(
 {meta_tags}
 {hreflang}
 {amp_link}
-<link rel="icon" href="https://raw.githubusercontent.com/creastudioai-beep/sap/main/main/assets/logo.jpg" type="image/jpeg" />
-<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/creastudioai-beep/sap/main/main/assets/logo.jpg" />
+<link rel="icon" href="/logo.jpg" type="image/jpeg" />
+<link rel="apple-touch-icon" href="/logo.jpg" />
 <link rel="manifest" href="/manifest.json" />
 <meta name="theme-color" content="#2481CC" />
 {preconnect_hints}
@@ -391,6 +391,30 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
         archive_data_dir: Path to the telegram archive data directory.
     """
     os.makedirs(output_dir, exist_ok=True)
+
+    # Copy logo.jpg to output root for relative /logo.jpg references
+    import shutil
+    logo_src = os.path.join(os.path.dirname(__file__), "..", "static", "logo.jpg")
+    if not os.path.isfile(logo_src):
+        logo_src = os.path.join("static", "logo.jpg")
+    logo_dest = os.path.join(output_dir, "logo.jpg")
+    if os.path.isfile(logo_src):
+        os.makedirs(os.path.dirname(logo_dest), exist_ok=True)
+        shutil.copy2(logo_src, logo_dest)
+        logger.info("Copied logo.jpg to output directory")
+    else:
+        # Download logo from GitHub and save to output
+        try:
+            import requests as _req
+            _logo_url = "https://raw.githubusercontent.com/creastudioai-beep/sap/main/main/assets/logo.jpg"
+            _resp = _req.get(_logo_url, timeout=15)
+            if _resp.status_code == 200:
+                with open(logo_dest, "wb") as _lf:
+                    _lf.write(_resp.content)
+                logger.info("Downloaded logo.jpg to output directory")
+        except Exception as e:
+            logger.warning("Could not download logo.jpg: %s", e)
+
     logger.info("Starting full site generation into %s", output_dir)
 
     posts = data.get("posts", [])
@@ -663,7 +687,7 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
     # SEO
     site_name = SITE_NAME_RU if lang == "ru" else SITE_NAME_EN
     site_desc = SITE_DESCRIPTION_RU if lang == "ru" else SITE_DESCRIPTION_EN
-    page_url = _lang_base(lang)
+    page_url = f"{SITE_URL}{_lang_path(lang)}/"
     if lang == "ru":
         title = "SOCHIAUTOPARTS - Мировые автоновости, обзоры и тест-драйвы"
     else:
@@ -673,7 +697,10 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
     website_schema = generate_web_site_schema(lang)
     item_list_schema = generate_item_list_schema(page_posts, lang)
     faq_schema = generate_faq_schema(lang)
-    schemas = [website_schema, item_list_schema, faq_schema]
+    breadcrumb_schema_home = generate_breadcrumb_schema([
+        {"name": "Главная" if lang == "ru" else "Home", "url": f"{SITE_URL}/"}
+    ])
+    schemas = [website_schema, item_list_schema, faq_schema, breadcrumb_schema_home]
 
     # Post cards
     posts_html = ""
