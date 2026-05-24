@@ -25,6 +25,7 @@ from .config import (
     PRODUCTS_CURRENCY_RU,
     PRODUCTS_CURRENCY_EN,
     ADMITAD_CONFIG,
+    BASE_PATH,
 )
 
 
@@ -40,6 +41,13 @@ SHOP_PATH: str = "/shop"
 SHOP_PATH_EN: str = "/en/shop"
 CONTACTS_PATH: str = "/contacts"
 PRIVACY_PATH: str = "/privacy"
+
+
+def _bp(path: str) -> str:
+    """Prefix a path with BASE_PATH."""
+    if path.startswith("/"):
+        return BASE_PATH + path
+    return BASE_PATH + "/" + path
 
 # SVG icons matching the Worker
 TELEGRAM_SVG: str = '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1.03-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>'
@@ -165,7 +173,7 @@ def _format_post_text_no_tags(text: str, lang: str = "ru") -> str:
         tag_name = match.group(1)
         escaped_hashtag = escape_html(hashtag)
         escaped_tag = escape_html(tag_name)
-        prefix = "/en/" if lang == "en" else "/"
+        prefix = _bp("/en") + "/" if lang == "en" else _bp("/") 
         return f'<a href="{prefix}tag/{url_quote(escaped_tag)}" class="hashtag">{escaped_hashtag}</a>'
 
     safe = re.sub(r"#([a-zA-Zа-яА-ЯёЁ0-9_]+)", _hashtag_link, safe)
@@ -241,15 +249,17 @@ def _format_date_short(date_str: str, lang: str = "ru") -> str:
 # =============================================================================
 
 def _lang_path(lang: str) -> str:
-    """Return the language prefix path segment."""
-    return "/en" if lang == "en" else ""
+    """Return the language prefix path segment (with BASE_PATH)."""
+    if lang == "en":
+        return BASE_PATH + "/en"
+    return BASE_PATH
 
 
 def _lang_base(lang: str) -> str:
-    """Return the base URL for the given language (relative paths)."""
+    """Return the base URL for the given language (relative paths, with BASE_PATH)."""
     if lang == "en":
-        return "/en/"
-    return "/"
+        return BASE_PATH + "/en/"
+    return BASE_PATH + "/"
 
 
 # =============================================================================
@@ -285,7 +295,7 @@ def render_header(lang: str = "ru", active_page: str = "") -> str:
 <div class="container">
 <div class="header-content">
 <a href="{logo_href}" class="logo">
-<img src="/logo.jpg" alt="SOCHIAUTOPARTS Logo" class="logo-icon" width="44" height="44" loading="eager" fetchpriority="high" referrerpolicy="no-referrer" onerror="this.classList.add('error')">
+<img src="{_bp('/logo.jpg')}" alt="SOCHIAUTOPARTS Logo" class="logo-icon" width="44" height="44" loading="eager" fetchpriority="high" referrerpolicy="no-referrer" onerror="this.classList.add('error')">
 <span class="logo-fallback">🚗</span>
 SOCHIAUTOPARTS
 </a>
@@ -299,8 +309,8 @@ SOCHIAUTOPARTS
 <div class="controls-group">
 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="{menu_label}">☰</button>
 <nav class="lang-switcher">
-<a href="/" class="lang-btn {'active' if lang == 'ru' else ''}">RU</a>
-<a href="/en/" class="lang-btn {'active' if lang == 'en' else ''}">EN</a>
+<a href="{_lang_base('ru')}" class="lang-btn {'active' if lang == 'ru' else ''}">RU</a>
+<a href="{_lang_base('en')}" class="lang-btn {'active' if lang == 'en' else ''}">EN</a>
 </nav>
 <div class="theme-toggle">
 <button class="theme-btn" data-theme="light" aria-label="Light theme">{SUN_ICON}</button>
@@ -396,7 +406,7 @@ def render_popular_tags(tags: list, lang: str = "ru") -> str:
             continue
         if not tag_name:
             continue
-        tag_url = f"/tag/{url_quote(tag_name)}" if lang == "ru" else f"/en/tag/{url_quote(tag_name)}"
+        tag_url = f"{_bp('/tag')}/{url_quote(tag_name)}" if lang == "ru" else f"{_bp('/en/tag')}/{url_quote(tag_name)}"
         tags_html_parts.append(f'<a href="{tag_url}" class="footer-tag">#{escape_html(tag_name)}</a>')
 
     tags_html = "".join(tags_html_parts)
@@ -461,10 +471,17 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
     post_url = post.get("postUrl") if lang == "ru" else post.get("postUrlEn", "")
     if not post_url or post_url.startswith("http"):
         post_url = f"{_lang_path(lang)}/post/{post_id}"
+    else:
+        # postUrl/postUrlEn may be relative paths without BASE_PATH
+        if not post_url.startswith(BASE_PATH):
+            post_url = _bp(post_url)
 
     amp_url = post.get("ampUrl") if lang == "ru" else post.get("ampUrlEn", "")
     if not amp_url or amp_url.startswith("http"):
         amp_url = f"{_lang_path(lang)}/post/{post_id}/amp"
+    else:
+        if not amp_url.startswith(BASE_PATH):
+            amp_url = _bp(amp_url)
 
     btn_text = "Подробнее" if lang == "ru" else "More Details"
     date_display = _format_date(date_str, lang)
@@ -542,7 +559,7 @@ def render_archive_post_card(post: dict, lang: str = "ru") -> str:
     else:
         media_html = '<div class="archive-card-noimg">📋</div>'
 
-    archive_base = "/en/archive/post/" if lang == "en" else "/archive/post/"
+    archive_base = _bp("/en/archive/post/") if lang == "en" else _bp("/archive/post/")
     post_id = post.get("postId") or post.get("id", "")
     views = post.get("views", "")
 
@@ -645,6 +662,9 @@ def render_related_posts(posts: list, lang: str = "ru") -> str:
         rp_url = rp.get("postUrl") if lang == "ru" else rp.get("postUrlEn", "")
         if not rp_url or rp_url.startswith("http"):
             rp_url = f"{_lang_path(lang)}/post/{rp.get('id', '')}"
+        else:
+            if not rp_url.startswith(BASE_PATH):
+                rp_url = _bp(rp_url)
 
         # Get poster image
         rp_media = rp.get("media", [])
@@ -717,14 +737,14 @@ def render_footer(tags: Optional[list] = None, lang: str = "ru") -> str:
     return f"""<footer>
 <p>© {current_year} {SITE_AUTHOR}. {rights_text}</p>
 <div class="footer-links">
-<a href="/">{home_label}</a> |
+<a href="{_lang_base('ru')}">{home_label}</a> |
 <a href="{_lang_path(lang)}/articles">{articles_label}</a> |
 <a href="{contacts_url}">{contacts_label}</a> |
-<a href="/rss.xml">RSS</a> |
-<a href="/sitemap.xml">{"Карта сайта" if lang == "ru" else "Sitemap"}</a> |
-<a href="/sitemap-tags.xml">Tags</a> |
-<a href="/sitemap-amp.xml">AMP Sitemap</a> |
-<a href="/api/stats">Stats</a> |
+<a href="{_bp('/rss.xml')}">RSS</a> |
+<a href="{_bp('/sitemap.xml')}">{"Карта сайта" if lang == "ru" else "Sitemap"}</a> |
+<a href="{_bp('/sitemap-tags.xml')}">Tags</a> |
+<a href="{_bp('/sitemap-amp.xml')}">AMP Sitemap</a> |
+<a href="{_bp('/api/stats')}">Stats</a> |
 <a href="{privacy_url}">{privacy_label}</a> |
 <a href="https://t.me/{CHANNEL_USERNAME}" target="_blank" rel="nofollow noopener noreferrer">Telegram</a>
 </div>
@@ -843,6 +863,8 @@ def render_ad_category_buttons(lang: str = "ru") -> str:
         cat_url = f"{_lang_path(lang)}/ads/{cat_key}"
         buttons_html += f'<a href="{cat_url}" class="ad-category-btn">{cat_icon} {escape_html(cat_label)}</a>\n'
 
+    # NOTE: render_ad_category_buttons already uses _lang_path which includes BASE_PATH
+
     return f'<div class="ad-section-buttons">{buttons_html}</div>'
 
 
@@ -945,7 +967,7 @@ def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
     Shows a few products with images, names, prices, and "Visit Shop" link.
     Language-aware: /shop for ru, /en/shop for en.
     """
-    shop_path = SHOP_PATH_EN if lang == "en" else SHOP_PATH
+    shop_path = _bp(SHOP_PATH_EN) if lang == "en" else _bp(SHOP_PATH)
     widget_title = "🛒 Магазин автозапчастей" if lang == "ru" else "🛒 Auto Parts Shop"
     all_products_link = "Все товары →" if lang == "ru" else "All products →"
     visit_shop_link = "Перейти в магазин →" if lang == "ru" else "Visit shop →"

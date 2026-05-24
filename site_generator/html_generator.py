@@ -63,6 +63,7 @@ from .config import (
     LOGO_ICON_192,
     LOGO_ICON_512,
     SOCIAL_LINKS,
+    BASE_PATH,
 )
 from .seo import (
     generate_meta_tags,
@@ -188,15 +189,24 @@ def _write_file(path: str, content: str):
 # ---------------------------------------------------------------------------
 
 def _lang_path(lang: str) -> str:
-    """Return the language prefix path segment."""
-    return "/en" if lang == "en" else ""
+    """Return the language prefix path segment (with BASE_PATH)."""
+    if lang == "en":
+        return BASE_PATH + "/en"
+    return BASE_PATH
 
 
 def _lang_base(lang: str) -> str:
-    """Return the base URL for the given language (relative paths)."""
+    """Return the base URL for the given language (relative paths, with BASE_PATH)."""
     if lang == "en":
-        return "/en/"
-    return "/"
+        return BASE_PATH + "/en/"
+    return BASE_PATH + "/"
+
+
+def _bp(path: str) -> str:
+    """Prefix a path with BASE_PATH."""
+    if path.startswith("/"):
+        return BASE_PATH + path
+    return BASE_PATH + "/" + path
 
 
 # ---------------------------------------------------------------------------
@@ -332,9 +342,9 @@ def _build_page(
 {meta_tags}
 {hreflang}
 {amp_link}
-<link rel="icon" href="/logo.jpg" type="image/jpeg" />
-<link rel="apple-touch-icon" href="/logo.jpg" />
-<link rel="manifest" href="/manifest.json" />
+<link rel="icon" href="{_bp('/logo.jpg')}" type="image/jpeg" />
+<link rel="apple-touch-icon" href="{_bp('/logo.jpg')}" />
+<link rel="manifest" href="{_bp('/manifest.json')}" />
 <meta name="theme-color" content="#2481CC" />
 {preconnect_hints}
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -656,6 +666,7 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
     generate_rss(data, output_dir)
     generate_robots_txt_file(output_dir)
     generate_manifests(output_dir)
+    generate_search_index(data, output_dir)
 
     logger.info("Site generation complete!")
 
@@ -779,15 +790,15 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
     seo_posts = data.get("seo_posts", {})
     seo_data = seo_posts.get(str(post_id), seo_posts.get(post_id, {}))
 
-    # Build URLs - canonical/OG use absolute, content links use relative
+    # Build URLs - canonical/OG use absolute (SITE_URL), content links use relative (with BASE_PATH)
     if lang == "en":
         canonical_url = f"{SITE_URL}/en/post/{post_id}"
-        post_url_rel = f"/en/post/{post_id}"
-        amp_url_rel = f"/en/post/{post_id}/amp"
+        post_url_rel = f"{_lang_path(lang)}/post/{post_id}"
+        amp_url_rel = f"{_lang_path(lang)}/post/{post_id}/amp"
     else:
         canonical_url = f"{SITE_URL}/post/{post_id}"
-        post_url_rel = f"/post/{post_id}"
-        amp_url_rel = f"/post/{post_id}/amp"
+        post_url_rel = f"{_lang_path(lang)}/post/{post_id}"
+        amp_url_rel = f"{_lang_path(lang)}/post/{post_id}/amp"
 
     # Title and description - use per-post SEO data when available
     title = post.get("title", "")
@@ -2761,3 +2772,89 @@ def _format_date_display(date_str: str, lang: str = "ru") -> str:
     except Exception:
         pass
     return str(date_str)
+
+
+# ===========================================================================
+# Search Index (compact, for client-side search)
+# ===========================================================================
+
+def generate_search_index(data: dict, output_dir: str):
+    """Generate compact search-index.json for client-side search.
+
+    Creates an inverted index (token -> list of post IDs) limited to the
+    top 2000 most frequent tokens with at most 20 post IDs per token.
+    Also includes a title lookup table for displaying search results.
+
+    The output file is placed at output/search-index.json so it can be
+    loaded by the client-side JavaScript search in get_common_client_scripts().
+
+    Args:
+        data: The data dict from data_loader.
+        output_dir: Root output directory.
+    """
+    import json as _json
+
+    search_index_data = data.get("search_index", [])
+    if not search_index_data or not isinstance(search_index_data, list):
+        # Try loading from cache file
+        cache_path = os.path.join("data", "search-index.json")
+        if os.path.isfile(cache_path):
+            try:
+                with open(cache_path, "r", encoding="utf-8") as fh:
+                    search_index_data = _json.load(fh)
+            except (json.JSONDecodeError, OSError):
+                pass
+
+    if not search_index_data or not isinstance(search_index_data, list):
+        logger.warning("No search index data available — skipping search-index.json generation")
+        return
+
+    # Count token frequencies
+    token_counts: dict[str, int] = {}
+    for item in search_index_data:
+        if not isinstance(item, dict):
+            continue
+        for t in item.get("tokens", []):
+            t = t.lower()
+            if len(t) >= 3:
+                token_counts[t] = token_counts.get(t, 0) + 1
+
+    # Keep top 2000 tokens
+    top_tokens = sorted(token_counts.items(), key=lambda x: -x[1])[:2000]
+    top_token_set = set(t for t, _ in top_tokens)
+
+    # Build inverted index: token -> list of post IDs
+    inverted: dict[str, list] = {}
+    for item in search_index_data:
+        if not isinstance(item, dict):
+            continue
+        pid = item.get("id")
+        if pid is None:
+            continue
+        for t in item.get("tokens", []):
+            t = t.lower()
+            if t in top_token_set:
+                if t not in inverted:
+                    inverted[t] = []
+                inverted[t].append(pid)
+
+    # Deduplicate and limit IDs per token
+    for t in inverted:
+        inverted[t] = list(set(inverted[t]))[:20]
+
+    # Title lookup for search results: post_id -> title (truncated)
+    titles: dict[str, str] = {}
+    for item in search_index_data:
+        if not isinstance(item, dict):
+            continue
+        pid = item.get("id")
+        if pid is not None:
+            titles[str(pid)] = (item.get("title", "") or "")[:50]
+
+    compact = {"i": inverted, "t": titles}
+    out_path = os.path.join(output_dir, "search-index.json")
+    _write_file(out_path, _json.dumps(compact, ensure_ascii=True))
+
+    size_kb = os.path.getsize(out_path) / 1024
+    logger.info("Generated compact search-index.json (%d tokens, %d titles, %.0f KB)",
+                len(inverted), len(titles), size_kb)

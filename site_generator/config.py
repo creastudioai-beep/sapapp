@@ -276,8 +276,13 @@ ARCHIVE_INDEX_FILE: str = "data/telegram_archive/index.json"
 # GITHUB PAGES OUTPUT
 # =============================================================================
 
-GITHUB_PAGES_URL: str = "https://sochiautoparts.github.io"
-GITHUB_PAGES_BASE_PATH: str = ""  # Empty for root, or e.g. "/site" for subpath
+GITHUB_PAGES_URL: str = "https://creastudioai-beep.github.io/sapapp"
+GITHUB_PAGES_BASE_PATH: str = "/sapapp"  # Subpath for GitHub Pages deployment
+
+# BASE_PATH: Prefix for ALL relative URLs in generated HTML.
+# When deployed to GitHub Pages at https://creastudioai-beep.github.io/sapapp/,
+# every internal href must be prefixed with this path.
+BASE_PATH: str = "/sapapp"
 
 # =============================================================================
 # GITHUB REPOSITORY CONFIG
@@ -685,6 +690,7 @@ CONFIG: dict = {
     "archive_state_file": ARCHIVE_STATE_FILE,
     "github_pages_url": GITHUB_PAGES_URL,
     "github_pages_base_path": GITHUB_PAGES_BASE_PATH,
+    "base_path": BASE_PATH,
     "github_repo": GITHUB_REPO,
     "shop_zap_online_url": SHOP_ZAP_ONLINE_URL,
     "shop_catalog_url": SHOP_CATALOG_URL,

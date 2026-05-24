@@ -38,6 +38,7 @@ from .config import (
     POSTS_PER_PAGE,
     CURRENT_YEAR,
     PRODUCTS_PER_PAGE,
+    BASE_PATH,
 )
 
 
@@ -68,6 +69,13 @@ SHOP_PATH: str = "/shop"
 SHOP_PATH_EN: str = "/en/shop"
 CONTACTS_PATH: str = "/contacts"
 PRIVACY_PATH: str = "/privacy"
+
+
+def _bp(path: str) -> str:
+    """Prefix a path with BASE_PATH."""
+    if path.startswith("/"):
+        return BASE_PATH + path
+    return BASE_PATH + "/" + path
 
 VERIFICATION_META_TAGS: list = [
     {"name": "verify-admitad", "content": "3c08bd9d2c"},
@@ -1976,7 +1984,7 @@ def generate_cookie_consent_html(lang: str = "ru") -> str:
     Returns:
         HTML string for the cookie consent banner.
     """
-    privacy_url = f"/{PRIVACY_PATH.lstrip('/')}" if lang == "ru" else f"/en{PRIVACY_PATH}"
+    privacy_url = _bp(f"/{PRIVACY_PATH.lstrip('/')}") if lang == "ru" else _bp(f"/en{PRIVACY_PATH}")
 
     if lang == "ru":
         text = f'Мы используем cookies для улучшения работы сайта. <a href="{privacy_url}">Подробнее</a>'
@@ -2022,7 +2030,7 @@ def get_common_client_scripts(lang: str = "ru") -> str:
     Returns:
         HTML <script> tag with all client-side JavaScript.
     """
-    privacy_url = f"/{PRIVACY_PATH.lstrip('/')}" if lang == "ru" else f"/en{PRIVACY_PATH}"
+    privacy_url = _bp(f"/{PRIVACY_PATH.lstrip('/')}") if lang == "ru" else _bp(f"/en{PRIVACY_PATH}")
 
     if lang == "ru":
         consent_text = "Мы используем файлы cookie для аналитики и улучшения работы сайта. Продолжая использование, вы соглашаетесь с нашей"
@@ -2117,38 +2125,62 @@ def get_common_client_scripts(lang: str = "ru") -> str:
       return;
     }}
     var currentLang = "{lang}";
-    var apiUrl = "/api/search?q=" + encodeURIComponent(query) + "&lang=" + currentLang;
-    fetch(apiUrl)
-      .then(function(res) {{ return res.json(); }})
-      .then(function(data) {{
-        if (data.success && data.results && data.results.length > 0) {{
-          var html = "";
-          data.results.forEach(function(post) {{
-            var postUrl = currentLang === "ru" ? post.postUrl : post.postUrlEn;
-            var dateStr = new Date(post.date).toLocaleDateString(currentLang === "ru" ? "ru-RU" : "en-US", {{ day: "numeric", month: "short", year: "numeric" }});
-            html += '<a href="' + postUrl + '" class="search-result-item">';
-            html += '<div class="search-result-title">' + escapeHTML(post.title) + '</div>';
-            html += '<div class="search-result-meta">📅 ' + dateStr + '</div>';
-            html += '</a>';
-          }});
-          if (searchResults) {{
-            searchResults.innerHTML = html;
-            searchResults.classList.add("active");
-          }}
-        }} else {{
-          if (searchResults) {{
-            searchResults.innerHTML = '<div class="search-no-results">{no_results}</div>';
-            searchResults.classList.add("active");
-          }}
-        }}
-      }})
-      .catch(function(err) {{
-        console.error("Search error:", err);
+    var basePath = "{BASE_PATH}";
+    if (!window._searchIndex) {{
+      var idxUrl = basePath + "/search-index.json";
+      fetch(idxUrl).then(function(r) {{ return r.json(); }}).then(function(data) {{
+        window._searchIndex = data;
+        doSearch(query, currentLang, basePath);
+      }}).catch(function(err) {{
+        console.error("Search index load error:", err);
         if (searchResults) {{
           searchResults.innerHTML = '<div class="search-no-results">{search_error}</div>';
           searchResults.classList.add("active");
         }}
       }});
+    }} else {{
+      doSearch(query, currentLang, basePath);
+    }}
+  }}
+  function doSearch(query, currentLang, basePath) {{
+    var tokens = query.toLowerCase().split(/\\s+/).filter(function(t) {{ return t.length >= 2; }});
+    if (tokens.length === 0) {{
+      if (searchResults) searchResults.classList.remove("active");
+      return;
+    }}
+    var idx = window._searchIndex;
+    var inverted = idx.i || {{}};
+    var titles = idx.t || {{}};
+    var scoreMap = {{}};
+    for (var ti = 0; ti < tokens.length; ti++) {{
+      var ids = inverted[tokens[ti]];
+      if (ids) {{
+        for (var k = 0; k < ids.length; k++) {{
+          var pid = ids[k];
+          scoreMap[pid] = (scoreMap[pid] || 0) + 1;
+        }}
+      }}
+    }}
+    var sorted = Object.keys(scoreMap).sort(function(a, b) {{ return scoreMap[b] - scoreMap[a]; }}).slice(0, 20);
+    if (sorted.length > 0) {{
+      var html = "";
+      sorted.forEach(function(pid) {{
+        var postUrl = currentLang === "en" ? (basePath + "/en/post/" + pid) : (basePath + "/post/" + pid);
+        var title = titles[pid] || titles[String(pid)] || "";
+        html += '<a href="' + postUrl + '" class="search-result-item">';
+        html += '<div class="search-result-title">' + escapeHTML(title) + '</div>';
+        html += '</a>';
+      }});
+      if (searchResults) {{
+        searchResults.innerHTML = html;
+        searchResults.classList.add("active");
+      }}
+    }} else {{
+      if (searchResults) {{
+        searchResults.innerHTML = '<div class="search-no-results">{no_results}</div>';
+        searchResults.classList.add("active");
+      }}
+    }}
   }}
   if (searchInput) {{
     searchInput.addEventListener("input", function() {{
