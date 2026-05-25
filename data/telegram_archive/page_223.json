@@ -1,0 +1,628 @@
+[
+  {
+    "id": 60265,
+    "text": "Brabus G V12 900\n\nШтатный 4,0-литровый V8 заменили на V12, позаимствованный у S-класса, дополнительно его доработав.\n\nДвигатель: 6.3 V12 \nМощность: 900 л.с. \nКрутящий момент: 1500 Нм (огр. на 1250 Нм)\nМакс. скорость: 280 км/ч \nРазгон до сотни: 3.8 сек \nТираж: 10 экземпляров \nСтоимость: €695 000\n\n \n \n 152 views06:44",
+    "photos": [
+      "https://cdn4.telesco.pe/file/CZT6NqHLGANCEPKej2Ev8IpdNqsholIBaxQa2HLxOYNf5Qstw2GLBhltPHY6CqdoUb9rKYWL27daXnYz-CjY_VhXv2pdewEGuAJc15DTI-q5x5HhOV5NyKQoiItsYU0v_WAy0Rkss_Ii5A9PDKjPfY1_4mfsjdC84REq0uyfHfDK-EpFbM6IFj7JiNZtsfosnFxCep_82e_7RH1_HCzEwpSLAf9ivPFwHTRxNU4vmJjHQxZBGrEvc7I0Sg3qhRMPJW-c2Vwq9-1buHpwL9j-Fh-3W3gyFgN5V7Hn1GdtEjcH25zr8ugd3Sqzi0V3rLGamCRW5-PlQLUHDyt4FZwnVg.jpg",
+      "https://cdn4.telesco.pe/file/vF7MaTmiKbmqFrwVsni30_x_TSh3nJ5FIStgusALLzIxcC2D1L0a3ZLSdoBkzJFcn7DawSPd6Sp5Yu9Nf4X1ljr63yNXBzNhTDKHC-K0TUPoAyTkZBWH6zIkHzrspP74cSPYkKQF_BY93eTQw_Spw-HC6QFS6cd0voA_HAJQrXVG1oGbpZzFEsbPriRH3sOoTWpbHt_KQ5QmAVNkOG2_AYQuLqtlbNNDxelT3J7fmaY5GFUSr9njTZorwbPUgGedpfFf7XxTif8GS_tj65_Jlz4SXNXaWxzZZssmhP8QrV_K2fP88t6KZC8Vk2A-XSYQDmN8MWClmgbNr2hsIJ8egQ.jpg",
+      "https://cdn4.telesco.pe/file/BxAPpHE3P9mlZTjNovgV9en0UqLRuWccPnS8i9PrtWoGGFrMpLNEKFlg_1u6rpXt954f-w-3-MvF8cqezfD0RDEsTd2tOxXrbQFLEc-74IQUIB_QjO0DSIQ_z2a18VsTVBoBwSU9ytDqSWsTxuNIRntgperA1SmLmlkAY3cul3frrf7SOuSYVn5vX9LqP1uvEGiQmKiAwTDZexlU4kHuvdSfuRRa3SkLZG5bVPH5Sr3fi9uBKJo9uiJREpwlL5vBGHIQ6rVUDP-R-RidU7BLQ2hyg234cZE1aFuvkHRd8lb4RSC8gPt4i-a6Mr_xqnQKZ-Z1xyKC0jDltQybYj7SZA.jpg",
+      "https://cdn4.telesco.pe/file/t8d7KPGQW5foApoOx1Q6VWr0v1trJuicARlvTIrO6lv8e_f17SaARWIVzkIqUBHbCIyDavG-KYptHrBTMmCfULEWOgmVrn1gTOLeuaxE8cA-X8k7Oug2KOR8sEZynAX8TsUDiijacF2fj34rZHwwHo9EJLEvOf2Et6P4gLE9nqafX-8-0JnV-WZ-mC1LU3C2b3iLzers_1XxDjF3s_2mM659nWd8pNUellMTqCOHgYDs60CR2qSO2igK0qeo8ayNnMdovQSdEEpigqdsB5UpFqL1f16xEKQ3bRxl-j6qKno0S82wEUitmJ5LAfUek8jy2hgzvRZuNJgWNuILuKeFeg.jpg",
+      "https://cdn4.telesco.pe/file/S--7rX91di8civtTXZpITF62SyH2_u8J3u7TtTFXoIHqbOJ_Y-xquzZcMy8ONMHBy8PRZp3oJ017Z9tBqjZFHkYXoYeNkeTPRklzKkp5vFC-c0SwthYhMPLAiRusHsry_9oaiw25Br-HspT13ttT-KK6ocPNWXkIOTmlgSs4o3qFCEq2ckjJkT5mv--IvoihBorEuXTKbyKzlEnnj-d7jkhoLgDHGuaQu4HiLrULchENCKZRqkkb9ZLcwF3b2bXHhDLanA7IFiVFGI0yH0YjhukVhFqIVetzy2ZqdsIZi7WnX19GLrAkZTwkG7gKRnqN8Tgyqr-soNg_Tx_mxWUfKQ.jpg",
+      "https://cdn4.telesco.pe/file/FI7t55Fm7iHTq5kKgCHCJwcLLWsW639pJMdiYRu1vuOGHypnUF1x9kVm-iKqRgLjV6MPl52IJyv1_fho3DrT3ggKUAil1Cx9fIvalxpUP-MKCDxg8j5YzqjKubZ2pXGcb6lV0zwQw9oaOdD4Zscdc6rXWiSpViD7SQMOzaFkUFGLO32Rgme0CUEUVQ4CPZsnNDR-ZpS9FV1VzHeCgZVmik7KMJLFdOFp-d3RmvvhDTl-Voa9QTONRSg7rV1rjJg98AteFScs3B6qMBggsDwYK1_7umL-v1VNdLlUfuGH3Rp7lwa4AkAY59HkCqC--P3Qisj-kYPLbpBoCtfzXdKSaA.jpg",
+      "https://cdn4.telesco.pe/file/Sbinu2_GRgLlsmYt9rwTUivd73YSpcuIMXJgQ0nxfDB0cvNh5jP_02rWze1GB3C9oYPwL36vZ1AoLvIVENiLrWChURtxCwaKR8FyFAmEO0Ijstt1fJqf7h0ypgTCGqZv8V20DgcIOGjZJEGHBO_xbJOq1z9UPeVFG19yUqA5fAEbHUTh_CrNkj4Mt8jAksxdr7dMLIlwHtnNErh9VfmUFJkAUJ0bCqXcyh1ktv-W336bzG1eTmNCEKjVIn0kKK3Xn7sS32_YIgV0nmzafNRFylbL4bPD50f1tnd-KC22x9eMrfiAKUYs2n7qTjyby5ApekGRnGUbaX7QhdLjlQRIGw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:44:02+00:00",
+    "views": 152
+  },
+  {
+    "id": 60272,
+    "text": "Porsche Cacan Turbo S 😬\n\n \n \n 216 views06:44",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/7989f65980.mp4?token=g_RGXSJnpGRcmaOfSKGQ7TiaJcYzkx-QCQ85vqi1kaLVHESNUhWKRKBuHmWbFtSZkpdQR8LLtFseSduQTpKX80Nl9deEHNam3xylMpxvxDm0HAlMshcWL6uVuYBckNm03AcabXksxzZbR7Dy3wQ2btH6dFAQwaobEHZo179kbcpzUvDOKUtkCSax-2qM2lzt4RhsBdZnnVEFV_4lVV0fJitpcloODfge781A0X_34ORC2DEC84dPUa5REw6KoTvh2P84EgdkIoDgXTk-qaq47evAhLXYbhwd3Ta5jOoK-j1jumPazvHGUpfYxbx8X8kM9xT8ybUm5LhSqRbZSGf8dA",
+      "https://cdn4.telesco.pe/file/7989f65980.mp4?token=g_RGXSJnpGRcmaOfSKGQ7TiaJcYzkx-QCQ85vqi1kaLVHESNUhWKRKBuHmWbFtSZkpdQR8LLtFseSduQTpKX80Nl9deEHNam3xylMpxvxDm0HAlMshcWL6uVuYBckNm03AcabXksxzZbR7Dy3wQ2btH6dFAQwaobEHZo179kbcpzUvDOKUtkCSax-2qM2lzt4RhsBdZnnVEFV_4lVV0fJitpcloODfge781A0X_34ORC2DEC84dPUa5REw6KoTvh2P84EgdkIoDgXTk-qaq47evAhLXYbhwd3Ta5jOoK-j1jumPazvHGUpfYxbx8X8kM9xT8ybUm5LhSqRbZSGf8dA"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:44:22+00:00",
+    "views": 216
+  },
+  {
+    "id": 60273,
+    "text": "VW ID Buzz от Prior Design\n🔥1\n \n \n 128 views06:44",
+    "photos": [
+      "https://cdn4.telesco.pe/file/HxYBXRsSGXMAaiON0E746W1U64SNHNnVnIpDhAKr9Ipw9ptz8CID4MFzo35TUe8cegetPHe8qFuMqqH2UZUcT-Cc8vXyIC2qlHTe9JwlzqouL0yxJyFHK8WL_7WTA6vs5Dlnc6MCxtJQHS9M7IWPqXKwEGDsE0X6bfRUnaOH85Z-GTsEkaiOqMSqsW54dNnBxfu3zqqqPIkbVYLmJNhKMJE4OTM2Sw-OjmX5G93NJtrNdwYbShIrh98BnvWr_VpWs4cfD5pI4cdcz6SzIJ-gy9ukwo2ee1wT4mDuD8_kr2d7ZnOCWN0PExutaoohledj4oRE9UZsvWJSXtOeLd9Q6w.jpg",
+      "https://cdn4.telesco.pe/file/uNWpNIkQx0ZswxwsPH3lrV-t4X7VHgmyeWgyfnCgrl5jr75auFDZxw-91O1G2S6k_cpgdLfpWaWYvwp8bT-9LBmbtreN33-FTjDqvZgGGnWcotrOhvFziWxfaanveFZ5-LuJWdtlca0HLBAQWL4USKB_0WHjTQNAF_xJlkBjBlrzouPchxL2Fwld6HrKEzk5PirSSsPKO--NDgyEKyaBM5-KarlGJQddVVjwY_YbyLj5oACrccynzDJWku_Oz6fRI0SZR2OPmaiPYHizLvHEvnedTA8IFEla7p83sERmVvpZ--oAeotX907QsUvE-Br5T-3rCK75Fp3O0wuknle9WQ.jpg",
+      "https://cdn4.telesco.pe/file/GPXZby0eKY0_zxAuWaO1P590CaZGLM21kw4Vs9YUZLG8Yu7s0le4pygDVFVb4tJbZwNyH6bK-VERelHfxrS67fJSTxOppimXf_yUAr1oJWBQ_lt_D24Tz2RFbL1DtcjbNRUYhJi6suoOKWKldur_EmjDVV6WMQEJWNZnizq6v2fAjx1PVkNZjMXFIZbmRDzV-TUoup_-bbOU7QLVLzikcx6KkxBdOHQ2oGqu6Ev3nvoxr0xTg5g2GG08JdHuXWTeLclvZeTDhUgqSA5Mmy6evJDlVJ421eDsYzjCDoHMAdHLC68ERpMLJ543hplDgjeh6xGoJm2HXrnua1L4VZ4pAg.jpg",
+      "https://cdn4.telesco.pe/file/UYv2lu6shYEdKAMR1cTHdwKvR6Kd21rExEWEoCGeVzONa-U7QfXSafySLlpMlTAhLHdpEyWkU1pT_LpaRO7-TI5UPanb5aEtzWERpctZRySKIOmv56pugfryKMTM-zpDmkWo9NenP16fy8GQ27jp1qKFhmDc0WAUzyD-HMSCxD7pVBzsy9jS88Pbk2_U_BsHpzoUt_xuzQQXA-ReC2-dqJmADRg5FkWypJlyIEYzmy7WmJk6CozipqZhoWMg82QO7OyblOIYahuzZ0oNYDJddOwW_kk5kIUFEajI6NzWV_8f0oJOqa0H8-WbLOElv_tUhWsppmHh3fA4Otdxvi7HZw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:44:36+00:00",
+    "views": 128
+  },
+  {
+    "id": 60277,
+    "text": "+1 фобия\n\n \n \n 116 views06:44",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/26d18ba09a.mp4?token=QIK011VGYEN8nUT1pJx0_ZsximSGN7ZhbUOT6NJKDcpKOn8ngr8JGtC2zqpC89wiqSAMUpp6WgiEtNcIQcPxKxrS546kmYbWMIOpFwnpoOQ5rJS4g7bDfATI-IzKegv85TTPnml2f5CUdZpflYT47FUDJiUP0WayBVpfRRQVo9K-ZxIiiXn967mporeWEQ6DRFH5EJWNTffcangiuJ3i7xuA5eceHTFpvUYd7-bJgz6Pm_E2UK6Gs7UkbPSBqYpKq3lE620ltWm4561qX1kv-E0VcV8Oqd6Xyioy7zQ4tZns8kll52UwdK3-Z5HfpjuNxhBj6XjXAzgQ2U02saRO2Q"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:44:56+00:00",
+    "views": 116
+  },
+  {
+    "id": 60278,
+    "text": "Rolls-Royce Cullinan Mansory получил самый дорогой в мире номер за 15 миллионов долларов\n\nТюнингованный Rolls-Royce Cullinan Mansory в Дубае получил эксклюзивный автономер с цифрой «7». За него владелец кроссовера отдал на аукционе 15 миллионов долларов.\n❤1\n \n \n 120 views06:46",
+    "photos": [
+      "https://cdn4.telesco.pe/file/Hef-ebIsyxwTUQ2bDFuVwRT5gGIgP7GwxHpZAR5gnZT6kw8s_nW1Ucb0Jg9cLdrt3Qm8xthczUEyQCzx-52V96lMz4ctyqeVDSBHzQ7gASmBVtQfxe1R3kkwGQ-bsYs9Zh3cJHS-X8XjPJVvl5kSvJYW7_1LBf500u6LtU05pk5Ta-9Z7WHmS7xnlonAkpnBHJwHwqbUycLyPLqUoHmVlqLpqI-B49BR-a0xglP-N5OuknRDNx21XaFCtC4NQjMUJkPWd3YqiaU4YjM17yA074XDK4Zh-84VB3scavAKcvpAKhcvAP7FpbyO138gijyIY3hXpUtpuzhiY69ILyqhPg.jpg",
+      "https://cdn4.telesco.pe/file/pfOszD2vM2u0hLYY49hyCsIQz60413bd5HSRMBRgEBlfnv7L9uc5NJM96-e-bFNaEn0wsIoTI5XLy8sBm2bws6aD0en1NBJ0UcfUH3Wx3l9UBljBeNJkMIhk9ig8oIjVY9v4azYooBycVm3kJdAIp0Zswm3ORxJkECatbT95BcgFELzfxaxeS6GqSM3qQdk7l2TLCDvrC5xcMvv8kqF7BcErMhYsqqXzn8lHjIF8gpKK83JHheuqUXZBsu7IpfoN-hlruPpgDLznWFZFST9xkhcTFz9ymi2IaTpxi7scuDTUJpRsIqUkGDlFVZz03_IZcTIKxhHigCKYEVgVGFA7GA.jpg",
+      "https://cdn4.telesco.pe/file/JWdcs4Q0hZj96m_1-it3Lz1KYHLQUuFF5Tns3AZdDToYUcdT7nBN0RQOOco8FGSwlqJr05nwmppOFf-_VyAI_2OilWizHi9ci3FY4FiI7xCHXDN6oxJt_LmKWKMscRVL2QwmcOp8sTbwv0enfY_nafSnp2IcG8oDVxhPMVxt6c6wTCRvmr9pKSEdGAqz90kuT7fKZF9fIX1NBMKyAODEewDmwCxqrAEvmWx6ZemHYHCsPNpgi8MXXZG6ZVW5-GsPXUeTZXzfH3ZO_Py8BP7cPt5D-eRvT_PblBWUguAoI8pNSmF5bwehmTQczzYp61S-AiwRuDblHsxHi8nXCfVLBQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:46:21+00:00",
+    "views": 120
+  },
+  {
+    "id": 60281,
+    "text": "В США суперкар Maserati MC20 разорвало пополам \n\nMaserati MC20 вылетел с дороги и врезался в дерево — удар оказался такой силы, что спорткар разорвало пополам. Водитель получил несовместимые с жизнью травмы.\n\n \n \n 116 views06:46",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/90b7be9997.mp4?token=Q65K0qf7qijs_6YcP9ug-j7Ay5cSfxAMJm6-yR8RAAHz6YKzFLNeRqKVxbEI6ZRny8buZbJOblPZBsXQW6Eh7S4N49x0j_a-KDCQe-fcXEtvnTxVcHPedGAUG5exM9AsjJnpR6nhKD53d6b2fQw9T-u5weUgbhgM4mtUYBJXNHvn_R_-iCx5WWU3ihiSlo920EV0VFTbpc30mfybkHNn7ZE2nVXUhcqBTlKK2VDWJcDHR27Qt4OzNR3aQ_Zab6bH_ZITc5cTAN0u74MqzyN0rYG04Iyk7ZdGGmoO7eEeOes056Fzw6ftP0vHOEsP3ecPjbiM3wBs1yxTRg-Zltq4sQ"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:46:44+00:00",
+    "views": 116
+  },
+  {
+    "id": 60282,
+    "text": "На аукцион выставили Jaguar I-Pace короля Чарльза ІІІ\n\nЧарльз III приобрел Jaguar I-Pace, еще будучи принцем. Электрокар перекрасили в эксклюзивный синий цвет, а салон украшен кожей и деревом.\n\nЗа кроссовер планируют получить от 55 000 до 70 000 фунтов стерлингов (69 000 — 88 000 долларов).\n\n \n \n 97 views06:47",
+    "photos": [
+      "https://cdn4.telesco.pe/file/VLogVbxeVh7_pVI-_fKNueFiBPwr4hCguZT9RE1roRmMh5hrmzD2PlUvchZAt_ZyI61zWv4gS8qLfkx3746WOnbxykIqvKcoJx8NaqpexjRyVDRMK8fYCzqANeltxvovfGJBRfgBVix3aOOH2POwqDlFc1WocylqHXc7tzzl7ByRSKI2aovEWIH7rWA4LoQO4GCLijQp2yCcUV2tA2NY6pHH54CVkoyNT4_ZT_RI6fBYQVYBh_vEjyX3pbXCh19XwVQiAoXrFR-l0Dh-r_WmWYBG6ffzJcFQK7VRl7YITJXojYZH1FH7EHKN6TdqMY-TTlMbD81uDVkqQWPM1_5ccg.jpg",
+      "https://cdn4.telesco.pe/file/s0VPwkOv1HQp1KqPLMCLZJEqejxVKLcdjQVtCFYAGMB71SvBF1LiMLMvXJmne8FCDq0f3Lgoeu5wYnT8jiqvpe_dwObYU7PZjtLFUWp4wwi-VYtrecBSDLovuEudJ-A6Yfhu_mP-IrR1V7atnHkbA3RuAKiNM8tP5Che4kqsjDgR0GMWMWeQREp1txT-0y4iFEWNf6C5QYI6S7C7jwaaUQKN3e37d1muJdhv5SUurdpGQceftHQqtWOwedOLNr2V_59lbj9UE_2x1mRHEBQe8X3xjvxWCSRxU52uwqx-xYCrIVqyW5Hf0A868fnu9qX9JjxzK5DRJt7Ok317mtG7PQ.jpg",
+      "https://cdn4.telesco.pe/file/c7YAgDoOpuBoKyHejVxEM8CQU3Nd2y_MNFp6oZgRxdZznvgUKoK3PTuVEY_HTavJiOKEQdTIf-54uA8BieKw-ctkNLsiY9je3Jgc_dqKdGOlvUv7mz6i3PrM_3qLHnxCinv2zdfdWoo2JPwclLj7F-rY0CtYEdpfB51y1A2Koqkx6a4mXgCeszvmaJeOM2nHnCESFx_FUDStOOvGiwxWD1mGKUE3S-fxcoJGpukH41QSic7NsBszSSXDCrjaa2rNmPXli93ClP9LyZXHjNiKT0n_zlT1X7H2M9CZL35YH9SQTkwjHScf-U7AdPoWezUJydlSOnbQ2Ox2w61hLnHd0g.jpg",
+      "https://cdn4.telesco.pe/file/trDr9ngSZAYcYUr1t6Acjt0s5X4uBxIAwoQSwUjQy6LOahOqMJTd1E5-0gbvFefy4lg686dRw6lPwmkMoWAGMqCpzZKD8gnCDAjBNaj7SVw2MyLTl0UZSdsePV5A_Kms7uR_vn2fgrUexsmV2XafKSWYOko1l05Rt3CTY7aCBBjf3FrF9qZfqZFh26tVVEo3p88Ug7y3eKNqwS91w4_axU_Ra74ehgdZi7i7va8M4NfTdFw_R-QMeaRcuJ2wd5BQyBvh7yQlsGY-TdUyzRdTq2miHnsZgrJHhDOUqAV2OS2ye4YYKdaTKHQQhxeefnNjZMiDVCERXHs4ZQvJJneuRw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:47:05+00:00",
+    "views": 97
+  },
+  {
+    "id": 60286,
+    "text": "Mercedes Benz\n\n \n \n 96 views06:48",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/3282efe817.mp4?token=umyjd3mVMGZ6mWe0bus_FEyuueYtX_4h1KeIaDbIk0UjsiDyIX4_3yISTQQ23ePDlvPjC9ADV-7GsSBM4QZhxRF6A2rzpTzIJphzKpbCS1kpZ76lTBZanif1iKdditoG-O2qSh5Opdh9O3EWGsFGAXjkZte9aboLCYsomSkB8uVflkdFQaV1eJuRiOgbRqhgtKVAl88hjpcT4kHVALMRcC1WS6XR41-ievDyer1NJN1LAZKupFWhPAuqgm0bwtvuf5ZVST7saJp2aZGRPEjFNDHTaucGOHlS-TGb3uh-FYNt9V3EuS-3Qm_TjutflrqXD1EP_YqYSnmAYWW-GKye4A",
+      "https://cdn4.telesco.pe/file/3282efe817.mp4?token=umyjd3mVMGZ6mWe0bus_FEyuueYtX_4h1KeIaDbIk0UjsiDyIX4_3yISTQQ23ePDlvPjC9ADV-7GsSBM4QZhxRF6A2rzpTzIJphzKpbCS1kpZ76lTBZanif1iKdditoG-O2qSh5Opdh9O3EWGsFGAXjkZte9aboLCYsomSkB8uVflkdFQaV1eJuRiOgbRqhgtKVAl88hjpcT4kHVALMRcC1WS6XR41-ievDyer1NJN1LAZKupFWhPAuqgm0bwtvuf5ZVST7saJp2aZGRPEjFNDHTaucGOHlS-TGb3uh-FYNt9V3EuS-3Qm_TjutflrqXD1EP_YqYSnmAYWW-GKye4A"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:48:35+00:00",
+    "views": 96
+  },
+  {
+    "id": 60287,
+    "text": "Porsche GT3 RS\n\n \n \n 103 views06:50",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/16ffdaf546.mp4?token=kmjMD6ctE9ZY25UeGOlyfsCkf9NWL1-fx-sCfeQRjuFbX_Y3bs1ZejEJRww_dnuxhJoOrJQe87NBJDx69fP2rIj0XK8yVxuqwkFshFuy76s8pKOnpTUKTvb82gaDoRXZECtet9pUlQQGErDZ55L4Pu5iB5RlHwv4AXxay4hUUxT07VfuTGguQG5S8gc1Tx4diDGokvCokNOEN1qbb3XRMdYYbVd5fW849XL99gB7xrPKIsJLJ-ducm9NkrF9K40AOud_HbUjvYzt6MCqpV83m1UKPIDUn2LAwHF1mex1i1fFUgrx2bffaOHEh393pAIZzDPSDd_2-RHFfVmYBr5bVg",
+      "https://cdn4.telesco.pe/file/16ffdaf546.mp4?token=kmjMD6ctE9ZY25UeGOlyfsCkf9NWL1-fx-sCfeQRjuFbX_Y3bs1ZejEJRww_dnuxhJoOrJQe87NBJDx69fP2rIj0XK8yVxuqwkFshFuy76s8pKOnpTUKTvb82gaDoRXZECtet9pUlQQGErDZ55L4Pu5iB5RlHwv4AXxay4hUUxT07VfuTGguQG5S8gc1Tx4diDGokvCokNOEN1qbb3XRMdYYbVd5fW849XL99gB7xrPKIsJLJ-ducm9NkrF9K40AOud_HbUjvYzt6MCqpV83m1UKPIDUn2LAwHF1mex1i1fFUgrx2bffaOHEh393pAIZzDPSDd_2-RHFfVmYBr5bVg"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:50:41+00:00",
+    "views": 103
+  },
+  {
+    "id": 60288,
+    "text": "Хоба\n\n \n \n 98 views06:50\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/54626f7592.mp4?token=tAWpxYic6pLJCU50ACPVcAyjNmW4ncK0sTk6jrILSVsgigQa2018Zkcxwcg__4lhzpQTX7ALjwVlMMOI5mw0CewdhIGN26q1Bkxm5ICWrJ2VN0IfGS7UJPEdZ2Hvi5QRHG1-dPDUTqkzwYor6-6eTS503BSb-WTxSnEYi7TKsvYg3YHEZ8_rawXsvePDgu2OQ7rTD2OMpLk1gfjG_ybl6CtdOTiy6UADd5lWHWlglUq4-ZA-I3KsXU1eAw57NYHoceveJVS_YilE2F-wv9D7WL4VFoFmyuDEkvNZZuIuZnnQ7JjZn8c68rL0Ikdq-pX4qOLZhnfA-BouhpdtZXY4PQ",
+      "https://cdn4.telesco.pe/file/54626f7592.mp4?token=tAWpxYic6pLJCU50ACPVcAyjNmW4ncK0sTk6jrILSVsgigQa2018Zkcxwcg__4lhzpQTX7ALjwVlMMOI5mw0CewdhIGN26q1Bkxm5ICWrJ2VN0IfGS7UJPEdZ2Hvi5QRHG1-dPDUTqkzwYor6-6eTS503BSb-WTxSnEYi7TKsvYg3YHEZ8_rawXsvePDgu2OQ7rTD2OMpLk1gfjG_ybl6CtdOTiy6UADd5lWHWlglUq4-ZA-I3KsXU1eAw57NYHoceveJVS_YilE2F-wv9D7WL4VFoFmyuDEkvNZZuIuZnnQ7JjZn8c68rL0Ikdq-pX4qOLZhnfA-BouhpdtZXY4PQ"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-18T06:50:45+00:00",
+    "views": 98
+  },
+  {
+    "id": 60243,
+    "text": "Maybach\n\n \n \n 97 views19:18",
+    "photos": [
+      "https://cdn4.telesco.pe/file/WddDRvJ58aaglawrVE3Hhm4WhVqXR_KSdbQA6UIMGxKhWyI8YzWN90lB0stixvg-9h4WZxy64TEwwAJ1MG2VqFnglo-L82K08Z759__d6wGxuOc_NAR7pHE3EmeSXefaVqmiDurbg1SQ7M7WxotJKpLtUN2JxqJt4NKWo3FydsgxmqEUTmROyTJakB34GtKlJ91gaeTB8xCQULFgRbKpfUH93FUhBgIIGgiswHzVOyKqgo9e6hxNPnVkfklgh5FFjtDC-rauNJHRlukE8s8Elpn1DtWydhciesV3z9z30ZjeYHz33FGJEwCGM7gL0o6UhTCPEFYOLmwfzovSMjJGSg.jpg",
+      "https://cdn4.telesco.pe/file/eFStNZLzpla4AAleErZAOMpmrIoyvEwaU_mkrkbqzMN5FulJ_BDuWL1Be9HtYMpydzUoLrk1HurzGL-9fB0NMlsHf-qxrDAV2PO3vcQE45JMvHXX0Ez3uKsSq0IcsMl_asixSEdLoQM-XXR8r1QCxi9EJ2ICmY5knEBV7QDVivyywUHaDh8ZSkF8x4iOj-_m7USqmk37mcAaYEUOP0AK4jbfRBn-0cWx6DmcqrxPvXUpFKMinjTAtzq9oq6OfHAAPocuG4ViYKm_RrNOXt29oJwZE2euw_Eflv7-55kTHYQs0WQbgwulB7otch_4kVZI-Jo4i1aCHmrvBe5o7Y0Qiw.jpg",
+      "https://cdn4.telesco.pe/file/RIH3dWuoOAvkDhwEIaOfC2YxMC1L9WzhtZ8xJrwxPmbWdkentghW4QtsUGVz2JgL1XFDHXwc5aN3win2u35rClcosrO0hUdi2rQMB_Z16kS7_gOCFT-LcGQanG87NequvMCtzVix4T4ediXJmJb4_NI8bAjw1Br51qjhwwyHCfc3iB8QnID2zeaaqnm5o78gw5Tapf2o6irJ4UDVYB4Notlq862nApMAHVS8NpYNBNIuiuhkh4jQx2VnO1c2veAmgmD1eoft_BrS7PfFLmU4rfOtg9iR7K6eJRWW-tE81de0utEJaJI8O5HOW00kGquYmGhz2FrNFFuE6Cdcl2oErQ.jpg",
+      "https://cdn4.telesco.pe/file/j1NUVCC8JYzs1cw0ZS4z45Wssli3gPwIQtJ_BIVsg79AHh13tbI8eM2Y1YsthPgsZ_v3RV_EChzpb498M1NpCwg7muSe1fPcYJ9mztCFVjuRqEyC_0jV8WCVXXcmeAsA4FIjz6SJWi2J4pCravyQa8WL6qp5u5A3m5J761JtvV0SbnbBghjWfh5liq05Wcu7OcnyZDE041R4EszyUmFWTlqYxJZ7Al2DbOpWhqHzC5ZKo8pLb6zQJNCG1ii0bHuObHB-FYHoQdV4oz9e12dvKavfdZ6WDkID-e6LsD5_-g7_mTNvR2FTcDU6z3SXkyNxhrQMNiHsFgCQj_Mj40GrbA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:18:33+00:00",
+    "views": 97
+  },
+  {
+    "id": 60247,
+    "text": "BMW 760i\n👍2\n \n \n 95 views19:19",
+    "photos": [
+      "https://cdn4.telesco.pe/file/mY08yITfIkNYkiF0IcPFX0b8KJPEFR0K6WQtzrzCDc7Kt69zuzagxx6J5tkxJneNiweTL86rrheaP_ljz54DQGmAIBigplpJ17cFyWehGjhm3ci19DbxRiPP5Gc-rPXLPmaQ4KLH4HoApuCBg_fmXCGxtNOUdtkkn4aC3F7aYAc7zTLNUrPUR_EIyo3BBU3EFJl17qjtpFZzGvXFsY_qfO33ndmgnpPBd2O-YdSq0Cu1ilPEG-n4KH9q715BaLFC1ulB4DVM3-3wPMgy_wyQXmPsOhjA6jkDav8DYSZsOWvAsf_-O6s_Lb8jJW4QrsTxB3W3JvA28UhESrsYqMLezQ.jpg",
+      "https://cdn4.telesco.pe/file/WxgSasVQ76QavpqxmcMLdWIVDcTy2FWSmmknDaQRxuCncAL6KaUSyRJpFCLrVSyrTlwdbZM_ulW-ADhFKgvzQcAOIYN1C4uwWbOwW76BRg_obFUdHgvNpsR01aKY1rKUHOQUwOgvTBxXkV6gc_2w6tdHSfxbc4EHMQjR-VjV6FGpnH-mFhIaMdz_gKIPvX9M6bvWscyeRLkwUKCc_EVk1LdH90uiiKMPeOa1favCz011h4HJSggjBHnjICjHggNNUBVnxUONVAqyR-KwOZ4dEbB7BXvZEsh1eE5ge3oTGLE76Vm1-9maq2DqsOJx7cpCX_xKXndXrjXHzShxSfpBbg.jpg",
+      "https://cdn4.telesco.pe/file/YJbVtNoL5JCWj7r4LD7wWriHVSqdPniYbymJ3J9JR4M-ZvqWyhiTYJqY4N12IYlNfzM5XWOmhMSgRtrdV0OOgWJ6w3NBuY8jGe9z57oEITkh_GdehJOLFdu7TDYFTGzDc-whtrdrOVpy1Ow5tCNBZGt-WDGfybyOm-5C5WJrWgKqU05HWLO9dWmll2F_htZMDCJWMN1-2oailpSPjsRy-Hbc6Yn6ZaNRAOagLwa-sV6h_zQZs9L2ZtpY8XVgO4N7Xis7qdx8dnJ1rG_70aIAuUH4ngyQ3ew69oeT2Dkg4oSICOC-snBAt4lAM3n5pPTm08TGACCKSx6XMgGqr6h7tw.jpg",
+      "https://cdn4.telesco.pe/file/K5imkrDYgygrsGhu3prvonSZkH8Q6KSiYaTaUhAziZWtKL1-AaKv-uvngWRmBl2zvndM1rbY9cg--FqqPP1NXIst4q3W8X9Xx7il3sO_QayOdGnNI6wfR0wkfOmErjkVNAjeZzeZbZ0H8B8QEDYP16JlbxRbwpPkledXKrnfz8jOHId0zYQFnD8ke64tL_yd8Y-2uPJkhovEYdkefZxD8IXrMkzGwlxuI4VsSlInEcWIBg6wfnEeCuqV-3QQiVOsplXb_DYkcEOpVdYl3GGHLrVTtRoqLAmj6g_JgDHalRFsJ8KcM3zHXn6MySn6Ffvt5JpePxoEPyhrlRgXIaCwKg.jpg",
+      "https://cdn4.telesco.pe/file/UiiA6uuGJorEmrfpDobhPVIE_nuT4OZj_ku4FeLTkLEMrmscx_vbAhA4og7BJc6JxcgzvOPPTCYXDiEMFa2TNocPfjBD5aM1daif6xjW2lUErTw78bHTObqWZlwuckAHbDnEFuOph4BlZ2brz7iP7MsqUiqxxk1kWRb1MAE5J9_0iejnFEiDTzQnC2lepBQ2Jl5TBLq3f_jhg6LQfe4pN6sFvHtt158mFa7jOEHxwtNrPZ-CSIDYYA1mxScCqfAg1swZQEC48sglCm11i0f1rOF09Mj6xm2FuneG5Od-LqIiG_Jn6N7QU4I-Z7Iw44IoRjv9Hoawr1kssV2P2P1Aiw.jpg",
+      "https://cdn4.telesco.pe/file/oNWsg2ilnnS3agBzCVv3qAzj9A65pAtXvVXBa46bN-JQxKGsl82kc9de489maTZ1lBezPcE6UPSW-D9pD-ENoPii8agclHURkp73PqCNzkct43Csg2ECcPuQlDTBEUycVjP8zqNsbKha2K1HEIvUrmAd4d18v9Ncn0G4RubAEd9LxL5zgJJmDBpymNgX8t4M7wYA1X1UwiI18PARsaN7Afym9ibYyWwxSr-XQmD3bamr-1oI1qW3y4JDUlVLBH3TIkq-fOhaIVDhkPC9X_P_EiK-VCK8g5pm9wSHS0EfQvxd7Xem2Qyv0_8n0fRhcjzD5RJvqrIkGZk-xUlCWBxP9w.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:19:25+00:00",
+    "views": 95
+  },
+  {
+    "id": 60253,
+    "text": "Porsche 911 (991) GT3 RS😎\n😍1\n \n \n 105 views19:21",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/4030034fbd.mp4?token=iFnv0RLxUsw8rQeyxxwFHzh0JYzuvcz09dTo4xgGxiZyMGLy82AyGVvNO1Qintdsj89Zfom64Nm-0jX83E-t8X_ChRtnIx-qvdgzZpgbmeaN92zqt4G3GT5U9wfZQMr17cNtcsW1olylEByJT_Q8_xJniJXJWPT02-R1f5--ttgZrjq-EnxaPi4N-WNZ3cxBxzAPwP0hghJQFXMHKXNxgc9i82virPFeHSiL0Zi3_0gKWhgPWXisOhVEkvG5B74xK6x2rdADS2rhBgRBcBqLkd8gD3kn-yfYufWKvpYM5_fBOhKVjLUWuTQ7K6IrmpCi709JpFcyT1836PGtboqSDQ",
+      "https://cdn4.telesco.pe/file/4030034fbd.mp4?token=iFnv0RLxUsw8rQeyxxwFHzh0JYzuvcz09dTo4xgGxiZyMGLy82AyGVvNO1Qintdsj89Zfom64Nm-0jX83E-t8X_ChRtnIx-qvdgzZpgbmeaN92zqt4G3GT5U9wfZQMr17cNtcsW1olylEByJT_Q8_xJniJXJWPT02-R1f5--ttgZrjq-EnxaPi4N-WNZ3cxBxzAPwP0hghJQFXMHKXNxgc9i82virPFeHSiL0Zi3_0gKWhgPWXisOhVEkvG5B74xK6x2rdADS2rhBgRBcBqLkd8gD3kn-yfYufWKvpYM5_fBOhKVjLUWuTQ7K6IrmpCi709JpFcyT1836PGtboqSDQ"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:21:52+00:00",
+    "views": 105
+  },
+  {
+    "id": 60254,
+    "text": "Audi Skysphere Concept💎\n\n \n \n 99 views19:22",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/7e21156db0.mp4?token=CKXmK2_pzB16cJEZCGwtI4ljgljEddMI_fUSKGb400Sqx6YfS2F_1mZrNB8swqui3YO-HK_etjps6KRe1elvQE0vorObETxxAfT9LzMuesiPELLe8nIMAMbNkIcnzbhpM1u2H6CCH_HLgKl9Cn53gXWcETTMS0CD_BsDDP_TqRVQ_Pz7B09Lx9-VH7-raP6E2oeIP9yYlT_tDbM6MX4mO_W0yvJCzoheun5hDShtH-6f1OceYhncFI2Ubgn3a8m0-VRN-BEZR6c4eUNnVZeksn18wEODjeaZKsN6zjGl5wPPUpqhBOlOPDmEM1kYHERHKsklaBv5vpD-NM4oasEvFA",
+      "https://cdn4.telesco.pe/file/7e21156db0.mp4?token=CKXmK2_pzB16cJEZCGwtI4ljgljEddMI_fUSKGb400Sqx6YfS2F_1mZrNB8swqui3YO-HK_etjps6KRe1elvQE0vorObETxxAfT9LzMuesiPELLe8nIMAMbNkIcnzbhpM1u2H6CCH_HLgKl9Cn53gXWcETTMS0CD_BsDDP_TqRVQ_Pz7B09Lx9-VH7-raP6E2oeIP9yYlT_tDbM6MX4mO_W0yvJCzoheun5hDShtH-6f1OceYhncFI2Ubgn3a8m0-VRN-BEZR6c4eUNnVZeksn18wEODjeaZKsN6zjGl5wPPUpqhBOlOPDmEM1kYHERHKsklaBv5vpD-NM4oasEvFA"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:22:54+00:00",
+    "views": 99
+  },
+  {
+    "id": 60255,
+    "text": "V10 5l\n👍1\n \n \n 107 views19:24",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/08453e7257.mp4?token=kroFGMtpdVmyHhEmJvPcgFXtURCuuRF4nQz9Mp6BAJRRtTVOe7UHuIkqm7R2RzOxRYybCkSK5WLqEVto1xyI1UmzLj39kYc9dgOLImB-iv_9YA6rzTWAmfIp74oZHHBZX-hNO1jpplafT19oXT1CJ7R1LOQZx4m2sobclwMs5yc1RqzsTslp2BBR8awWS6jeKLnXdJjSOOnSUg8atWmG9plfygTQl5nvh8SHzfzLEN3XJ1rJN-RO_Yez2zdX4sjBWSU5yo3stMq0e0nHKhsOzPrMMn4pEmIoe6blOSZ4Fy_I4heuKExwg5mMPDZW7SM--MdT-IepygkCr42Cl_My2w",
+      "https://cdn4.telesco.pe/file/08453e7257.mp4?token=kroFGMtpdVmyHhEmJvPcgFXtURCuuRF4nQz9Mp6BAJRRtTVOe7UHuIkqm7R2RzOxRYybCkSK5WLqEVto1xyI1UmzLj39kYc9dgOLImB-iv_9YA6rzTWAmfIp74oZHHBZX-hNO1jpplafT19oXT1CJ7R1LOQZx4m2sobclwMs5yc1RqzsTslp2BBR8awWS6jeKLnXdJjSOOnSUg8atWmG9plfygTQl5nvh8SHzfzLEN3XJ1rJN-RO_Yez2zdX4sjBWSU5yo3stMq0e0nHKhsOzPrMMn4pEmIoe6blOSZ4Fy_I4heuKExwg5mMPDZW7SM--MdT-IepygkCr42Cl_My2w"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:24:28+00:00",
+    "views": 107
+  },
+  {
+    "id": 60256,
+    "text": "Lotus Eletre\n\n \n \n 139 views19:25",
+    "photos": [
+      "https://cdn4.telesco.pe/file/aARk-MCx7NxKFAWvz_7YUAVcIS1nSuwxHqKTkDkPGL6diuTau5s9JVLQPVEWoWXZZ_dO1Tx-pARqx1Y5rMgW-zoRGI4YzGhFLHx11Tm08DzOoheHxZQ1N2skYhGDBw28Z12yyThrlNYys3hWfHIEpLrZ-IeN2GDK4TI40-SlGnrCLqKq2vh9sx58fgwp0mV7ej1NgDo5_mBcyTeJnC8YFsngT8I7gHxrEwEO8k9oorPU7lqQOzY7b-_Ze4ZCxSfacUNOfZwsDBtQkfuZeX4Kh-JjjuXuv1201aDd2FCoswXhRE5PKRdPMnGukebWdK3JUGBS4u2Kw_LNcIEvqaWrOA.jpg",
+      "https://cdn4.telesco.pe/file/q-iC_v-XzZrQNWCon7bWiDpNIlGxSlT_qr5RDZiziOL4qiaEdF2PrdSEmPsMxltUoE5bQ3yE-FxUlrIHMNIggga2goPUer6pDKZHoedtd-dl5UC7uirL7WokwcackKOR2c7Zqh0rvtN_66PRVsOb1kRG7WlTxw7uhBLyfe1XTpn7-23tdLYtDhqcyNb3CHfSCep1bxWejlGTNXRhhW2kB2S-Y5SLyGa4v4i5pJvEii02Pjf_5uOT8z2lH6y7LGsQAKzwJhI4veXWjlE2ilhOgjRff_46nnnzifZYpLhgKLKwDhWPsQpK_hzDzAcvRihpuBNy-olVAt-7fEjU2w7QCg.jpg",
+      "https://cdn4.telesco.pe/file/v3Kj4Regd_UtWg3EsshartCZKrGYy8I4MpG4oF14mFac2OZPzRV-UvRKtSCAg8zkQ9R0zvWGsy7psxjOeyePq8lJP6b2mpm5NJs3dt-EnRR7KGZh5UaYy-qqO_aT2HU5LHpXZUwZX0wR4oXLeRAHqKq-PtRJz8-FXG9E-5Bj43tWU4FNFhbBRLKmbnrHMGr6oArZkURC_E-RKeM-1yV6P6Bbu2HCkfAdrZWsE28XIzAOF-oSIxz-labHJhb9R70h9a-16CKN01BaMCZibKCzbjcLQU-Z6AumtGTlmWK179DnSLAR_OjrmGgxlwG74PEXFVTO7UwsZrSFkzbBfyuaRQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:25:52+00:00",
+    "views": 139
+  },
+  {
+    "id": 60259,
+    "text": "McLaren Senna👍\n\n4.0L 32v\nTwin-turbocharged V8\n800 PS power\n800 N.m torque\n0-100km/h: 2.8s\nTop speed:340km/h\n\n \n \n 127 views20:24",
+    "photos": [
+      "https://cdn4.telesco.pe/file/eGgU0hcPoh6VdZQjpQWymHAf_N_CtS4FijYtfOoUO0hSy20P1Ci1ZVbiR4snEpHwZbQ-owoVoRkd0IwS0RKdiIYmwUQ7XbQeTy8-EPoiZDVWBppXUDUKXqmQwzFEEDd9zFgCAS08e9mYxmlwO_5D3hlTkyDES-JYCfkwACtPefsYLK7Ea2TzmTKeYo-a_j9umZd202_WRN47qaZpZs00p9Z4k1HZhohUNFHdW3Fn5mrvyxh5vdO-coDjihUNfw0uH9xyVuApQ9k2CvaZBMxDUek9ucLTpCzr37X9qm4PNYU6V2lLH1NIXGTC_ua9gfGDeCF-TciT5ZTEu3GSzfEsjg.jpg",
+      "https://cdn4.telesco.pe/file/hu6gRWo-mkENVHBjwpC0vB-hh8bjy5uxeQAxso5c38F5fDKrX_hu6rqCT7G_gtBaTChD6VBiSCz98NRPLTm85GZSo7eudndkIGCUv3sd1hbuOCPaAuIn-aqK7SgfTJxEyG1_fEDBG9pFMSP2l1AD1oi7DEatenGFakTngBd3fdxP2MeDfdcEPFwLWubCFL_FIxdXUDIHQ8XxWOa2D1RKGZ4C9Tj85m8BFjt7tjoc_UbY2HmmQ6r6_5wni_l6G1BV9sLRJwWyDivUTczCH1fbkQBdymb2YS8cfH26NapF7gHvLVbZXNnYXQkSMp8q3293wmhJLg86yXi2UIZGzlpvaw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T20:24:01+00:00",
+    "views": 127
+  },
+  {
+    "id": 60261,
+    "text": "Porsche GT3\n\n \n \n 138 views20:42\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/M_fB--8-NiU3IsVG1vklyfRet9V4M_inahgTDu9c3K4f9el_oCwinaGEcpeuBzk-9Jau7im4nWegTbyNNnQR_TzfvFk8n_nyZ_xx50MOCbl_vlPmIcxsPutf3ccpzjvxX8WOL-So8Sg29bE7jk7yLoompES8fWF0prxij7ALivYdUnFE7Ry9qMwqAUrBRZWQ4KSHqpqf-xZubQ61L9-SHeiM9Z9A8qcw47QDuQ416tRJr65Zmp8BkWkOtAiTCHhmCMVFl9E0Pz-F6n-1-SY0Bup0klClOKdWSVIqq7chyMWmB-nBWv7PNvcHJVvqgdpA9PMXuhZHAvLUB9gHJ52WEg.jpg",
+      "https://cdn4.telesco.pe/file/XUtBZvTD9UJ1f5fnutR9Dej1XDUAwofW3w0YiWRD7qFujT4WCgyhIoxU0XrF8zIIgEmwOjHgokin62ZFI2YPf62KENyqttQoyA-PliaWVYT7vPlRPzcK8TuStCx2tS-agIb6ulyuHVsgumungeU85wSivwFxJ_wj-s8p7OYrkgm7q0ybpw17F04CVrxhkMeA2QxW9uaLrXS8l7Ya_m7kCh9UQwOnN7-ebuEckEGyb9_znHToi8QJl4JQH4UkGSYeI7EmHHZYbqEWiYgZcg9WpUGmymBp5jc3GFP3PYRQovC9jAiIqglOc2pp63rhWEWstN7keDLY0lQc2OcJICfwJA.jpg",
+      "https://cdn4.telesco.pe/file/hZ9rdq7YQBUa5Q3AwTxy_Izrmipr71LAfasCTtzZjG-PUofW9V94S0Ws77CcHaWTApsbkXykM74_GchWn1XGbpwmq4mFBBu7wOAASsPLdFiB39rhWF3_6irzNtXVjhsjHE5LcpfFyyKTHbcj-S4WB2B_4hLmsh6Germti5ACNL__kVuLBCWaDBud-jGE-xJH806RduJijC-823-ujZxTWj3iyHUPXZUmp3q4yKBXRZp2wjFb7Y4NZbGSbvw9AcqsL1o78BwCPuTsgXb4Q-62oPgQanarnjAbSLuV2m_-5mjuw_U9a0rcToWOgR_QLzSAZgFK-PEdIx0cen8S4c4uNA.jpg",
+      "https://cdn4.telesco.pe/file/pvonh9g-BJ51Wf5MX11iZG-8jsQ5U4LTCv1JwFvk_K_RLEWlo7YmnRftjJBUBuq61tfkymQntEzFs6kVCKVTvdiITNoEIgh1azBr4yGTh6-lWxyhUPNRd0E_8F1W_eHcdiH3N330dVX3HUczCIKm1m3zehQKr-nEaVzncmkEDJN0HYfCgH1sTer3EB82TpyeW5TaDTWRC74LbyWVE9yNCcPO48qsY0m-edVcarK-VuPFIzl7z4Bu96hnyMiXv24d47ABChJHXDbSSk6EZKoKLsxFCm0DmwJmRqlwxYR8m731EYdEWpG8Ktz7n_90HqW00DfR5m8-NBYL4nc5vZ9t_g.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T20:42:01+00:00",
+    "views": 138
+  },
+  {
+    "id": 60223,
+    "text": "ФАС заподозрила «Яндекс Такси» в монополизме, но проверять ее нельзя.\n\n7 февраля в Москве из-за сильного снегопада цены на такси выросли почти в 3 раза, увеличилось время в пути. Так, в 17:30 поездка на такси в пределах Садового кольца до Кремля занимала почти час, что равносильно передвижению своим ходом, и стоила около 1,5 тыс. рублей.\n\n«Яндекс Такси» занимает доминирующее положение (сервис был признан доминирующим еще в 2021) на территории РФ в целом и подавляющего большинства регионов страны. Это нарушение пятой статьи закона «О защите конкуренции».\n\nЗлоупотребление доминирующем положением может стать причиной проверок и принятия антимонопольных мер, но эти меры ограничены правительственным мораторием в отношении IT-компаний. Опять эта проклятая неопределенность!\n\n \n \n 155 views14:06",
+    "photos": [
+      "https://cdn4.telesco.pe/file/rVwtAjXZKyOwdgxbAfO9MvLgA6YVt4rDJZOZ7lNcDiNBXupBHOYkkhcSJBcHe-HMTXL_KQ-g1whECBPA3frAuzAESQ3gIq9Mb5ki1h5aCwVcZV5z9x3oAGn49uauxGpw6rr2iaDTlyEfQZe0WBTgk03VFAiT5kd0BNFZh1buuQziCjeagO2o6F9baQN1kHpqtcfL9jtcRb2q0NOzyrZLe4wipN6wb8Bi0PO6g2hKThmCQcswrGZSW5QsdSd2eCklZarBiHm_fYwcocl7DikhE0Xz9rVAcXHMpiwKhu_yw-V2JG6O6DGWpNsu8A9pq4Iej5XwI1-u2lVVaAgUxf3G6Q.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:06:58+00:00",
+    "views": 155
+  },
+  {
+    "id": 60224,
+    "text": "Выручка 20 крупнейших мировых автопроизводителей за 2023 (визуализация iStatist).\n\nЛидируют, как обычно, VW и Toyota.\n\nTesla даже не в топ-10 (на 11-й позиции, между китайскими SAIC и FAW), но существенно опережает BYD. А еще недавно обозреватели считали компанию Маска переоцененным «пузырем».\n\nВ двадцатке семь китайских компаний. В топ-10 пока только SAIC.\n\nТолько две компании из 20 можно назвать электромобильными (Tesla и BYD), остальные – лишь с долей производства EV.\n\n \n \n 97 views14:07",
+    "photos": [
+      "https://cdn4.telesco.pe/file/UPDWUYL24bJ-0vJ7osLDLT8SaMzq033ENJrIMk7ZdMJROfEcL_hgjU6z0qN9LERUYdeHTMacWinB6xyO2QrJPwDtPAWuNpwEg78KwPK2MEvERZEoX1QSPK0rxNNJ1tMDig_pO3wcdJ0i2_C4ztaDNyBWNV1HVVOmt1Nq7x0Q00pFJsxCx2vN9tRkTaGnbQtsnTB_tWmVBwU01RUMI4csrfFKgp0vhKgvmOQZ0Q6T3eKsKKOSAY-GKtRY8uSdt_Iiwc4nSo7ErNRBMQfTqRT9PYoZnueCmqgaj15cL9JvZWnX4Zx_LASEmeg6zDjyqhWVh5VRdWR9kghVTo5_OTZBog.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:07:43+00:00",
+    "views": 97
+  },
+  {
+    "id": 60225,
+    "text": "Хоба\n\n \n \n 93 views14:10",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/e1d7f7220d.mp4?token=acR87bqswWXx1uYtwxKMz9PMKssWALTdkk_JT4XMJ9VY7IApOzXRpa0X4fzt4ykwbm7gUsglSlj2SGehmUwjyJuEfMbyjEE8OulHiDbVJF149kbatLqlXSdq7FnRNh-H8mz_SDlEZKrNnp3w1VKtC3ZhvxBemS8Whnih-SIiWToRvrho-VX1stZr11WTCFqQXyPkGzRSB35BOqZ7BO-NbGdPVgOC4DmixQWzLiXzOL9UeN_0_SlVYz_I7g3L0_1eSfOP_-7_B6L2NcfTWcj-2M5NGcSYQjcUAKaGx0CbvpU5OBWc0F7cxrNVf3YwqiIhaNFV24ei0na-tE926eTJJQ",
+      "https://cdn4.telesco.pe/file/e1d7f7220d.mp4?token=acR87bqswWXx1uYtwxKMz9PMKssWALTdkk_JT4XMJ9VY7IApOzXRpa0X4fzt4ykwbm7gUsglSlj2SGehmUwjyJuEfMbyjEE8OulHiDbVJF149kbatLqlXSdq7FnRNh-H8mz_SDlEZKrNnp3w1VKtC3ZhvxBemS8Whnih-SIiWToRvrho-VX1stZr11WTCFqQXyPkGzRSB35BOqZ7BO-NbGdPVgOC4DmixQWzLiXzOL9UeN_0_SlVYz_I7g3L0_1eSfOP_-7_B6L2NcfTWcj-2M5NGcSYQjcUAKaGx0CbvpU5OBWc0F7cxrNVf3YwqiIhaNFV24ei0na-tE926eTJJQ"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:10:49+00:00",
+    "views": 93
+  },
+  {
+    "id": 60226,
+    "text": "Экзамен 2024\n\n \n \n 96 views14:13",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/56ed5fa26e.mp4?token=Jho1kwlga6fiI1rJShb7Az78Qr6h3Ha22vCBDLQcAiqt6g_DH-eqaQTYYAeRRVyfPBxdHyMgg6oqHLZYihyCCI6FrkDbVCqVapxqGWihedvI9TqwqPyAabhexpJnVIZAhgCvYESlxtGOZT7qsrvF1KSotSynz98ILpu10SIp20Y00p-zLa3IkMuZn3kELDj1yKdu_jA7Gm95rOI5ezw9qnlJcKyhvupCkSG9TQLU2HqOSrXEXBowBR7pFceun1p4W1A6UuQgaZVde6Y0gGdrqNCANzBMZtLZxnnRLTp5AbzNh5NZ6POsmHMe10qUA8TkeAS7AC7y3mWyvi8j3c4n7g",
+      "https://cdn4.telesco.pe/file/56ed5fa26e.mp4?token=Jho1kwlga6fiI1rJShb7Az78Qr6h3Ha22vCBDLQcAiqt6g_DH-eqaQTYYAeRRVyfPBxdHyMgg6oqHLZYihyCCI6FrkDbVCqVapxqGWihedvI9TqwqPyAabhexpJnVIZAhgCvYESlxtGOZT7qsrvF1KSotSynz98ILpu10SIp20Y00p-zLa3IkMuZn3kELDj1yKdu_jA7Gm95rOI5ezw9qnlJcKyhvupCkSG9TQLU2HqOSrXEXBowBR7pFceun1p4W1A6UuQgaZVde6Y0gGdrqNCANzBMZtLZxnnRLTp5AbzNh5NZ6POsmHMe10qUA8TkeAS7AC7y3mWyvi8j3c4n7g"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:13:55+00:00",
+    "views": 96
+  },
+  {
+    "id": 60227,
+    "text": "Аж колесо вырвало у Li 😨\n\n \n \n 89 views14:14",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/1759209f80.mp4?token=DB1GIOIPGuiycJNoHzD7umLWyc6GqyJ3bQDGhZhhyboeV0sTsJpWLHMJ0CIonCs4rPgfM9hgWRqEnHBgZ92YP3hrVkckPR8ph2-fS_1IwI4HZo7iSZ7aL4UrVPytv2zq3xooCsLVRXotpqytqBRtzfHLpB9sSEUIIqvoguNjq2TRm7jdvr6Y2BUEfpd1iD7ynoHhfC3COCQWAb2WZxH6U8Ripln0hArj4xNo6SDRWWEZ_yj2SpX8hHtcB7-X3DgoBsbN_uZ2Yc1D1dip-3HRJC_LYBCQLxUD9yLdPN-QpXaBdJd5hmGorMbHRZys1jrDD8ixhBEO5mluI5oWa8kDvA",
+      "https://cdn4.telesco.pe/file/1759209f80.mp4?token=DB1GIOIPGuiycJNoHzD7umLWyc6GqyJ3bQDGhZhhyboeV0sTsJpWLHMJ0CIonCs4rPgfM9hgWRqEnHBgZ92YP3hrVkckPR8ph2-fS_1IwI4HZo7iSZ7aL4UrVPytv2zq3xooCsLVRXotpqytqBRtzfHLpB9sSEUIIqvoguNjq2TRm7jdvr6Y2BUEfpd1iD7ynoHhfC3COCQWAb2WZxH6U8Ripln0hArj4xNo6SDRWWEZ_yj2SpX8hHtcB7-X3DgoBsbN_uZ2Yc1D1dip-3HRJC_LYBCQLxUD9yLdPN-QpXaBdJd5hmGorMbHRZys1jrDD8ixhBEO5mluI5oWa8kDvA"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:14:53+00:00",
+    "views": 89
+  },
+  {
+    "id": 60228,
+    "text": "Где то на заводе АвтоВАЗ)\n\n \n \n 85 views14:15",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/6842e8ea7a.mp4?token=KQAq_AiCcPRmG8GCg3_zQRwHNzi3LwvH2iQS2-DkKqgVH7m-HVZ14QwM-Lv4azSVIFN6S1cU8un-qWSQNZq4o12HRdTXohHHS1fgjWluGxxgQpSIsp40gORtiWu0DEVnPdjfkj26XdKB7IVdSDrdr-kYykDMhGrAaqT0_OpditWgSDf4VATc79uJrvQHX6mNSQKQCUfDZbP0_for-dUQdwkweCjWFd3BLV6kTfiJScE5beAwTtpPvZ_eRmyE0pgIYE3X5kIlLjAe0WbeBlG6KwQu4r4SIGoil7Tby3eRHobySfVhMyW5cijGui-5EukFfWB8A_rziVRPwcLlwe4HLg"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:15:28+00:00",
+    "views": 85
+  },
+  {
+    "id": 60229,
+    "text": "Компенсация по ОСАГО при ДТП может быть больше положенной по закону\n\nСтраховщикам придётся заплатить владельцам пострадавших в ДТП авто сумму, превышающую установленные законом лимиты, если они не направят машину в ремонт и не оплатят его.\n\nТакое внезапное решение принято местными судами и поддержано Шестым кассационным судом.\n\nСогласно закону об ОСАГО, страховщик обязан организовать и оплатить восстановительный ремонт поврежденного автомобиля. Однако, есть исключения, главное из которых — соглашение между страховщиком и пострадавшим о выплате вместо ремонта.\n\nЭкспертный совет службы финансового уполномоченного согласился с позицией судов и рекомендовал рассматривать сумму взыскания не как страховое возмещение, а как убытки по Гражданскому кодексу. \n\nУбытки должны быть рассчитаны как действительная стоимость ремонта по рыночным ценам в субъекте РФ, с учётом утраты товарной стоимости и без учета износа на момент рассмотрения спора, а также без ограничения по лимиту страхового возмещения по ОСАГО.\n\nАвтомошенники хором призадумались 🤔\n\n \n \n 81 views14:21",
+    "photos": [
+      "https://cdn4.telesco.pe/file/Ytnt_uV_WUtIA3KbSxbrEaNT3d_dsdvdblqPNH8ypo9WCVBg4OOwoaty_cw2--U_A-9MTNsiUgrP6qJmoC9Cu_T2IbaRNhwLWBSZAqvWGHOxBqOP7TCSyZT4tIXO1cGKzZCdKCkjzsb9cbYYdkS2Y5KERdziTWY328Zdm52uLlS8OxcmwnNcUlRbZwtUTv4ujOowKR17xAAMCaYrxuLY_cSQ31vjW9oLr74ka4J8AqqrDgNgcA-JjRgVBvWN3uG4otJvPN-6GGIRLY8GKPiwBXo9FKVf_X4Lcc0zcXypHuq7eIpnWQhhpKqAOeqVRtFPKCpfWm7vOHeU5VTDymzcaA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:21:14+00:00",
+    "views": 81
+  },
+  {
+    "id": 60230,
+    "text": "Мем дня: нержавеющая сталь на Cybertruck…ржавеет.\n\nПервые владельцы футуристического внедорожника сообщают об оранжевых пятнах на поверхности своих автомобилей. Кое-кто утверждает, что пятна появились после всего двух дней под дождем.\n\n \n \n 125 views14:25",
+    "photos": [
+      "https://cdn4.telesco.pe/file/j9Yipx1NP5Erdcg8_wnU98pODeen8FQxjUF9X-aJhxZRe3x6KyGtsp8pZ83zxOBlcfZMY0d5M7JbqxHTh5Z1TlTAC31JvdoCa5i1gOMpzP4VIQB4XiLpS-gn1UcNc4Ei9lyeQ3MOMJ5mzt0oo22IH7dDuMXVT3AiiW_BHi4KEPn7iM3jm0rwfeDm8UzIpMkCibfGvOhjurbbacOBF1-L0O1fa4MzcRpTsBJkKAQ64zbHCkcCyD36-dHNO2QHpxsLnHhBIf2Ok0bMpKp7qTgSKw85ieT4ieg0RkMEXtxf5-H0We0zNTGRmL9Q9g3VPjIo6kbkIW2VzIwnClM4xxDEFA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:25:18+00:00",
+    "views": 125
+  },
+  {
+    "id": 60231,
+    "text": "https://t.me/sochiautoparts\n\n \n \n 143 views14:42",
+    "photos": [
+      "https://cdn4.telesco.pe/file/LMQLnO4tQMyhSVIIa4BagSgSSY9deeAtJD7yks6VPHroQggGGIlFEn8CU-XaQyT588YoJQ3yDaMHfJcaJLfAmNjsJFSENPgSSoQOIzf4gKrsFLlLk-_VCOYIrSZ_-tELwBPutsHTeamOgnzN784A9_ZVZJIJAH8aSMg3Yk3eat-VDqcbU1Zm1HlpReETJ8IPvMwGdfl94v199tBkqhhmm6uvD3K-uNzFZZjZ8JfslqBdMx465pZ7FRO5xlPLSgRJpsEIgLylSt2fsOf8bcGJFX61soIrB4-YAdTpXiLT4YEsyvjg2wXgBu6TL2wOFNFll7pDkESltHSRUr2K3_8N5g.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:42:26+00:00",
+    "views": 143
+  },
+  {
+    "id": 60232,
+    "text": "Восстание против машин — в США толпа спалила беспилотник\n\nНа прошлой неделе в Сан-Франциско толпа людей праздновавших китайский новый год сожгла беспилотный Jaguar I-Pace компании Waymo.\n\n \n \n 139 views14:52",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/6231be9ab3.mp4?token=BcYvuIKbc-AfcF4Fq0JdGZJnCQjiXXUu2IF2MJR8PaepJlg-qjHzilvk_eIGosRP1WF6wkG_pVY5sm2nNA9zgA6J1eVoDlGcDQfCJb4Fwbb8kffdazh915xuEF6mOapDyix_hIbTWROy3HqJnHvJUdaHLEZq4z18HST00xqGes8M7yxRumL8D8KWuY5YFdXxTPT-XNpe9CgVTfV6ZsETIJYPkYeZ8YE-ZXTeyRFP1PDNlW8TfmmNFYX-ihlOtfmF3oR_DNp8GU9jpP5mp039sgTXdZX11HOjxOzpESbJezTKDClpmBkdFe1nD_kKmlgkdKQhGWos24LjsslkRNIED4vdFwU4Kp1jZjpYom6I6-weY0MHR7ycwlb8Ntz54VE8r3OAUG5EW65zAdooJHbjb2UhMWmnfjFi_AkXepimkIhQFA0RID3cDbW8dws2O9r0Zp368kMARR7OCLa9B6qmRz1XhbYJE3_vwyMBJRzt18imO3wnD7XSXbzCi0Hs4olboHQ4-R-JRajh2Tm5cOyu77ssLn98y1AwJRzkl2DivwuCIaU3B0c16siffA3LdKvvtL4-Y4YHLBchkiw1WFR3mP0l_FP_zLBkZbf40UZtGsd_5JC5GieSgMZ-aNy60OmvaeVHcUxPug8z9GIA70EWEhZ8uvLWI4Aof7xy1DlWeI0"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:52:34+00:00",
+    "views": 139
+  },
+  {
+    "id": 60233,
+    "text": "",
+    "photos": [],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:04:21+00:00",
+    "views": 130
+  },
+  {
+    "id": 60234,
+    "text": "",
+    "photos": [],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:04:56+00:00",
+    "views": 101
+  },
+  {
+    "id": 60235,
+    "text": "Lexus\n\n \n \n 86 views19:09",
+    "photos": [
+      "https://cdn4.telesco.pe/file/Fb2NDgQ2c0N7xS98iNP363vO2W04vjbZYjwr9WuvOwnXA6Uud_yzghKUSoXGMdQp9NB2PuLf9hfAq969Q2QqPlaK7nOViRY_zcxEeT0EJH_3EtDTB3uGePkPg4s_f3yCwmA52u19TQko8h3oRwfSKuHvgS8WrQwvmgnMzQvkRucYXxstajy7iIE06ZOufiF6JzvT_xpNA7RrkCp3FIzZhMZCXoX4cWGvsepu5-_q-uSqmiJ-OczCT4jgROr2RLfVkvHGr86rf8TUJuv28V54cpORmFHZx1Ku_9A8xMokbVVAAgsS44Yfs2n-EdgGpnBEsNg2XWrcMCLDZE9h-R_LiA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:09:10+00:00",
+    "views": 86
+  },
+  {
+    "id": 60236,
+    "text": "SV\n\n \n \n 88 views19:09",
+    "photos": [
+      "https://cdn4.telesco.pe/file/mumk1FrCroM-C2w9naozyZNzuKvInvS_QLLjKtm6P8bnKrUnZk296AYF_ObcBw5c9wxnLANtrnq5Rml0buw4gtbLQzF2VWsmjlskbxZsNnwKhzMToy1LHnNVxV4qieL3pliCCug67O1QVDSQ679WLrUW1xjFxy2O3gN8STUrASqd4UJH8jrMN_Bv1Ik3Vu8vUhV644v90A5ss4ieUBRkb6c0Wamov6eEQ7pqZn1vXk3QzkPjiFm8JWsEZmP6Kaq9KLqNNzgHIOPbEj5ozMj-EA_9-pdAmR1NTH4ha5EH9gFAZP4d13x67hb9G-JImTyDpGUjZ4LW-3tp3fPYe8y3EQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:09:34+00:00",
+    "views": 88
+  },
+  {
+    "id": 60237,
+    "text": "Mercedes-AMG SL 63👌\n\n \n \n 82 views19:10",
+    "photos": [
+      "https://cdn4.telesco.pe/file/LzZqL0rDrzeeuC32oaUzVs9wVV3s5MTLcMmH41dmN7EGqaKCyyaECIbTiyDbbnuWCQdiDhj01BBWifL1xwweIHpU4WPM0-uPYBvVnz8N4MBUkZBIZt-iY9BzposI1PbYyXp59q9ndbpIAYKlrXdJnCYKZaMYnmqOrklAfN8x3Al-j4y-qNmXdQiQfAcXJ8XU1KfccBbNJ0qkBQUl35ksr4b5QZMdIZBuy9OZtrUStXQAnESVB3KdezoXzb-rHjd_QId4I5zvUNFhifaqfIKKE163e-4xAANRPr7IIFjtvmfXBxCXMvDexSGUZnvo-eqkuxObBq2ZkeSP3JrM4gENWw.jpg",
+      "https://cdn4.telesco.pe/file/Vt-83dSCgz8o1dloJUBbTJMV3GZlr2DMGZmDxhHK_6xU0wuVYFXdLfZ4raHX9UsiynCU_jGRHZGAfcmGDAbusJRK9xPogA35j0ORdhL_5YM9rQV-pYyioxO-yzO5yuE6Y-8ifhF2e4ihjLpo0an1cDzkzGgxGEUjVA3tTUVi_Zx7lyaN0Qh-ARPqEjbddXug_3Iwlz2qGUcwxOvfYQmO3SybLGVkLnspUxzo4CZFehuK3JYs_IDAMnruSI_g-et9RlTGOjRIZi_kC_ciRtJSvgKXRIvjLxQ72zlUL0gU3QXWCpPTp-rrnGQXiRf41KIDIGv1dAydSY3i4Bj7ZiGQsA.jpg",
+      "https://cdn4.telesco.pe/file/QWvBuRP9eAZ1bqPkeh7EsAIMfNEaLJzyO6j7iChs86vJYQ56_9lcjxD0YSsApvSlun9PTCM9OXOvGw4tV_l5A2kzcE_RyzPozokiM1u1PT9vZkMhVgt7HzzJAuUJQ_Qcf7UcDDPUBflHZHMMTdb40Fi9tnszFRhkFYn-Bi80VqCQ7U8Y_uXyn_xhYI-r6fOMyHiO3C92t4crn_LcVXbu_lzHEw8qOedNh7NNGgfWiDEKvRqVNFpc4vmCS6hNl8Ch5qkM2F4zMQXzmksrgugjof8mzojUgtGEvmhS5SCyNEonyxlMFOINwosJjDtWi8d1bWC8hK5qeEyh3sEwZVyPbg.jpg",
+      "https://cdn4.telesco.pe/file/I5z_SQt3ogI8nL6lx5Vn0XJGHRNE6QsHBPgcUE70W-_QHAVNPyv3tJyXgmLtAkHpd086UaFu4a-a90sfJPSpNt5bIaslrIEEt4KRYozwK-Flm9e-lWVu1VYj3L2tGLCR8SDilp0A_XGHMq8WHvH5pM_mornjbXzHpB1ueP0WhuKOg7q8STcW0XiBicJgTU3ynPa0yMUchDkGMpELei57sDj5v2K03xK1Yoh2ZN6I6EsbVAQG0RChR7l6xqJcSba7IAlCrdlr_Lifa-9MinZZtQ3DqL76P559TMq12QZZrOmgZxXg8rzAB0a3Mr05REEcgYYtZ4NMbatzpW_-qLj1cQ.jpg",
+      "https://cdn4.telesco.pe/file/UaIxWK86sEmAikhJFVlTuzy8iwUkWStkygzuolpP_qoV_wa1UjDafG3nmAmr7j28PmB-j9MmbWpUSdKY96zGGapaoX0-LnuGnWBTbfQSwnhx6hzj9JILnksJ1IScc2UGVIsSTI9ORRs5njZdXlX5iJbbIOtE-YObDVlnPkDQXZWtGKVLBdb7acGwlm7_JivVTI5GTqCDlI6cnpB3o_nExU1tIBfrgVNUZl8AeWkjoKMVN_yMDElswon_oshp0GaKIXORUPzb2-nMbwqfvaLfG1R3_Hd5hSFLt1j5FEjUxL5JP18wmj3Y2_eEuY5RXg3RX3ZFyHy-tGMOx0weuIbpug.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:10:08+00:00",
+    "views": 82
+  },
+  {
+    "id": 60242,
+    "text": "Хоба\n\n \n \n 88 views19:16\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/09295bffa2.mp4?token=CznvostP6A5noVtEK0eGTW733YUBMfBLuqJp6idiEpuxEdluFTs1AXOdUUFzzWntjl2gkf3_I_PLyhxnPe71JlNYgg2pLWLUsL2hrNb1qAzFaI0Sc5ssYlkh6cTQ6l9XH3Kw3AP_wD2Z6fo0c-GINn62oq2rdkAbViHiKI85B4IlvFHU_tv36U9r8_q5pFNTtLbJIGU5qG9qdvwziPZkhpGKyL-pns1i6ggPCBdIawG4CJa2l1Z03G73zt-YTFaAdMgYq16YIrvSkOaagKB8lgmw-GJk7os-g8wTfb9HJiJj74WJ-Yh8v4r-kZzS7yy7k1mdlsRfvSFH8Sevg1YpMg",
+      "https://cdn4.telesco.pe/file/09295bffa2.mp4?token=CznvostP6A5noVtEK0eGTW733YUBMfBLuqJp6idiEpuxEdluFTs1AXOdUUFzzWntjl2gkf3_I_PLyhxnPe71JlNYgg2pLWLUsL2hrNb1qAzFaI0Sc5ssYlkh6cTQ6l9XH3Kw3AP_wD2Z6fo0c-GINn62oq2rdkAbViHiKI85B4IlvFHU_tv36U9r8_q5pFNTtLbJIGU5qG9qdvwziPZkhpGKyL-pns1i6ggPCBdIawG4CJa2l1Z03G73zt-YTFaAdMgYq16YIrvSkOaagKB8lgmw-GJk7os-g8wTfb9HJiJj74WJ-Yh8v4r-kZzS7yy7k1mdlsRfvSFH8Sevg1YpMg"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T19:16:54+00:00",
+    "views": 88
+  },
+  {
+    "id": 60200,
+    "text": "LEXUS IS 500 F-SPORT\n👍1\n \n \n 122 views20:39",
+    "photos": [
+      "https://cdn4.telesco.pe/file/n_PlBFlWFkPhjLo8vb7WmlJL0c8i5V7AQfM7c_hOS_HXldK7Nqb5w3_bGSJ1_j929RIwIYNbXY3crbeiM6cm0Atqr3GZFvzVwbp82R24HWrgOcAQHAuilnSy2KIjqS__JcsyvfDWNAqZCuIUI7cnJEj1AeqDlCJmmTKaT5dP4amzoRvwjmjnmg81q_OOSS8Y5DzjxiWyjFwOjBwc72140LYmR0woFnpN2oZMjOP5WkXyQWjfhRXSjRnirkO5OykznD-y-Smkbz0jeTQVmaikYt7L8S-KXVgIPIfj32TUDF4ewb-urCbON1t9rU8WMlotYD7kDyeGcCOdNc_zTnYM5Q.jpg",
+      "https://cdn4.telesco.pe/file/I6JyAUfxFYmY4IhS3s8ZWYb3PKUqi8fgyoeqXdwFvcdW1F9I1tdX-rRHqE82sHU_d-j9HjhZ8ZXIWVOxjc5i6fsh45MhEWvFavnj_tVFvb24rm6CvP-YfwvDKOClQQwGklhAA-Iy6QiSz8TCSKklmjDpgqX1v0NLLrxNYzwd4exNG8r8artNHY7UNA_a-OZkUSa0rcTyYhnz8B_C67UbeFFbV41G38MF-9AqBkM1crMOhp1ubx2YmzGt2dduuV4SrlnTQNI3sAaiz50qHN1q40bQmNB8AZh99efr-hiNwRhv8q3W0pX7t8l58m9EAKybBwidyys7sKsDzPYit9xfBA.jpg",
+      "https://cdn4.telesco.pe/file/jkZFTspenJ6P7N_3IZ4mBIH59MGXzOjQLncRNOtTLHo8EX6jwIBG5ugPIUGHqVB7byu1hZzLUvtBN6Ez2ogsaMfT2ErkrLcjcv2FWDcl8fTo0bXr6kie4p_qkkBTwFvCTaBn-hR9fQCR4KlIOTQ6ffHAxpp3DIyG7jKiiNnAm2Yyb5LV2w8yEm27f49BeUcivKRdVEfK9MUdnRvCQYfAb2B2wAzOIUAeWzCzCELUeGHo2zNjwtiYbeN_v5PBZjE_boAK3chPpjMOBgB94iHsd52oNQmJAX7NvjmPZGoQJeTV-YsH8xzFUz2mI8zzCGgSQBFxqHymCbXuL5Rm4LsyVQ.jpg",
+      "https://cdn4.telesco.pe/file/ZFCSpjl7JsmWnafi63ZCj6z8wgNbYVXBkj0XInXpvCW42XzhxdhFHbDtpowtdBgeXW4-tkrFNBMu01YiiqrCa58ZmqIzWHfgM0oTfeuaor4FYSFL8Dfv_WQAkukJ1EQS5QGfZdIfbTwpRjJjTQN0YdOn3jxXT8jUwS_06iaSoitBstJCOJacYItY7SaOlN-W-nOPnJo6RgOkIpr92q09tMN3pC6RUI4aFEa0cM2uqpZ-D9XxWYCZgBJmO9v5e_xmlD1d4JiVzNi0wLh8hD57kgJST21ms41WijRir_fIl3Zk3DVgGBfAn9udzV2N7rApKP5lYFxg29VtpL38BBcPkw.jpg",
+      "https://cdn4.telesco.pe/file/ebe9zWPAiW3Z2wRB1hWK6Oa9BDe9XuH1bE4f-CvzkN7BQc8QGNEz5Rt9eEQE4bHUoQTrwUK0ao7NDIVNcP2Gr1peiMscOx1Jkg0bBkPpiuttybzT7eDUmyGH3GKSKLWmSnIoipquEZEgn0OD1NfirBKPXzar1_uVTZxdkkl3iVvWRWok_VQ1Eb7C1kjMFKZCPVDNQz2b_pKtOk0VVROqMn3LLX789A3e6b5yQc7mOCpswStdGwtS3EGmNTof6RM2NGSt6VVSO0-rbFv2yrc_OW7Kh8iITCIIuPvoT52r7vt6Sa7EVL9tZCzM30xDNbni-H34e_wCgBrRLqfrbeSzXg.jpg",
+      "https://cdn4.telesco.pe/file/jUydo4bsy-9giqZ0uMr9a2s0SxOfiJg9ndrIKOD_P7dM1t4ayUL9bY0UF4XG_7Hf0WTloIo91bzHnd50X7V-v5hVk9mRB3XiFahpz8jwPXjp7671Ib729Aj-aknzODmRRD4dmzADXdCXXOw3ryFAceqbzdVMOAOONUkq7nkBHoD9iDOd4J6k8Oj9eMbS7BPjfFee1losxvGGrg00bQKlMHyfPWH1BIuTzQzhyfItqf2RQuJAGdFS_SBSBnB4rcKeBQ-davdM3WUnH_MxOcdncQx72KDmkoQVikFmjderXeDeW7Hy23iK-bYPNZIIJ-LujHb1nAHrVfMV_tXplG_MhQ.jpg",
+      "https://cdn4.telesco.pe/file/FtBukSyAQoQ5qAHWzS7t5tapDtbuPYZHoyAr-4HflnizeS5i5qSUsTwtlDTBAnAsg6IPl_S1iNRn-tulhrJ2-L8lxRad_MdtbAm6uWcMungKS7GxMlSPTXUSHfFpYKZAfJ1ZpX5P_WJrYIzEAuHjCwf3W_x2ewFtv3F1s1AcsPmspccJRkxXno_WziqWegORsmjsxIbeEDbn0sM6BTWoI1yaTZOKY0PoyN8vsBE0VUhGs5543XYTKMfbSvb3O3wEkeX0iLmHQAc86GWZmesS6FKBdv0-QTNXHK4j3yLGaARoG7e4pTwbqAjutl8ZS7CPCJBplqAnNOhPZZ_ULo7xKw.jpg",
+      "https://cdn4.telesco.pe/file/VPtUpBcBjG_Uwsb_95syrug4nXvGsgtIZE8FbxuYVF3_ZpCUI6-f7JrLjiWCtrLifpnMUAhVJjQxaWmhxOI5XGY8IbLkWGxWOWNUIX0I4_AZI97baAs3Fk1n4si8CAxdSoxHNLSbgltduHCq8Ze7FPyr7R9c16PgR9LhPsbQaEFak9K7dNq0po1pu0yiulqSS_1hVCTi4kj63Ig0sMdKD2-qXaH9o4cCKZbdZIbcYl4W0hgTYhJj34NAR6Ua4m0EnPyvYc9Bn6AnHmIpWs0b4TWV3938OBwGNEBREGoPgVg1ay0f0O6NBG409mCM0hkJyn0vF-mH9l_4tpYZRMCIZg.jpg",
+      "https://cdn4.telesco.pe/file/bAlD1xB1Prx8bbSBgw8uAz1Ld5Ohzrf6bNpVPaycZY4e_i62jNk2QixjmS-WMSMM7MkTO8knyAGcI1-zECNX-hjBkjrjTZqU9UwZrzDaIoP9Rc7F6nKxGprFCd4Nit1MJ5AuBq_jAW2n11IR4Rpy76r53DHyL4uqfhnNmXTFB3PrxICBHOYWEYq2dmxz3_tRf1Iz9VbXZZhJHLoyS5-57vjWP9cRqdCA7kBaMn9CG1WQkauEWRtXk-JsRWRTvrvXi9aXIxNNYkg0O77uLg1wEcGWOjMN30PjGy_MKEeU30209WZ1GC6g7b3uZbhwPENGSXLt3l93YyC5yy7p5bgGXQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-16T20:39:27+00:00",
+    "views": 122
+  },
+  {
+    "id": 60209,
+    "text": "Alfa Romeo снимет с производства «горячие» Giulia и Stelvio Quadrifoglio\n\nВ США и Канаде приём заказов на машины будет завершён в апреле текущего года, а европейский рынок Giulia и Stelvio Quadrifoglio покинут в течение года.\n\nПозже «заряженные» седан и кроссовер должны вернуться в линейку, но они уже будут полностью электрическими.\n\n \n \n 109 views13:59",
+    "photos": [
+      "https://cdn4.telesco.pe/file/A4sI9iR2ClnkiI7KLKwo8a_xojJD8N4qotsnnl5OiBX-1Da_zGyNozezn119xV9i0Nus2tye6WiCBk1viXahFBIAyc5QJyWa8KYaEhObC4bKU-eb0Ir6dGHpJSfNHB-xeKh6zzPy08QJaalINJCqoddz49_fP8N4fr0bIoG-CQ_3q8KAILptq4-31uOL0jSSr1uZ9yRKaX_MTI4iPtzCUI4lzIYMk9YiyZ7pRyJMTYp4tThZX_IheNvS2hH5O9OBvRuJYPyW40yZ9YBRJ9iKv3LnLvdporJvybf5sHWwAVIkd5-tpvcYhUC_f9PhuigzyV1hucyCRf29t1kSeQMFLw.jpg",
+      "https://cdn4.telesco.pe/file/UqwtH5hjCtpGRXGMaZKS3OvHw0v-UjwJv8qdZpCPxf3j7mKaIRacK7J8jB6czIb6oOpsK8HuSVLVo84xCZC6FmfabuIQ-RjIiNIlav8LXJ9ESPUe7YnEpA5tPUOY6Ku-VK5ARSK1CL0ASzCzxBvo0TlSH02DHEOg-vvzhGkk2BcneYS6mt97BdTxxNNLdbBH3S0dDDf9yFuFZ1AnkcTvFfm0Pxo-HKuHuk47pPwQxSZE5Yt0w_Crhx0dul2g24_VPNGpceP2FNd4FGO0wV2hAmhyzChEGrNltRGYoNtBJbH_3M8zJLZRX7yfIg0yHYJLFz6eObarSm6Fe9R8ZbrcbA.jpg",
+      "https://cdn4.telesco.pe/file/VLYlN6uH2grC3RtACWiWJOKTBBh3kMDuONn9p5QQn1f2dmMs0ai5bI2jMGvWYfwAWTton8xP10iE7aRc6w8WQxVZNTKrq7qe_jC-hrOZHSd31VryDkiZtmTV50pXO09b1GnYL-FpMvQliFc6Ix4sNfzMizuO3sSqAASq0c1j4CBpUQ-AVdweX7a4iKDPJPLZbJJ4uLpLSYeZdIQHRsOrDwWOFG_d0MnvOMMqsVKEUYMHDufzbi0eoXp2s9K_Qmi1nCgJ1PBatch3VuwqcXjDD3FTsaN7Py015U2fAhHrgp32gwcCRHkAlKl-wtW3NehxP754c1Ew-qS9UhlIPiL5bQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T13:59:06+00:00",
+    "views": 109
+  },
+  {
+    "id": 60212,
+    "text": "Ателье Brabus выпустило самый мощный автомобиль в своей истории\n\nЭто звание перешло лифтбеку Brabus Rocket 1000 на базе гибрида Mercedes-AMG GT 63 S E-Performance. \n\nИз него выжали — 1000 сил и 1820 Нм, которые по традиции принудительно ограничили 1620 Нм, чтобы продлить срок службы трансмиссии. Объем двигателя V8 вырос с 4,0 до 4,5 литра, добавлены новые турбокомпрессоры, а давление наддува увеличено до 1,4 бара. Электромотор, подпитываемый батареей емкостью 6,1 киловатт-часа, выдает 204 силы и через двухступенчатый редуктор приводит задние либо, в случае их проскальзывая, передние колеса.\n\nBrabus Rocket 1000 разгоняется до 100 км/ч за 2,6 секунды. Максималка — 316 км/ч. Всего будет выпущено 25 автомобилей. Цена в Германии — от 535 500 евро ( 53,2 млн. рублей).\n\n \n \n 134 views14:00",
+    "photos": [
+      "https://cdn4.telesco.pe/file/QWnUBuW9i_op6V_2VItQocQvhWzxCGEAZ3LGYSx-MpIdz_YpVCEeKhyXqqgHX1We8I_bb1GZ3F81PpDnM2w1NvIx4qFRWrHu_w4xTHkrLx4bnu08WPv5t_vYNQltxNxj1n-Xh3hhvTV_JP01_WVdCqVx2K6So2msMTk1G4gZZtK0cnCf-S_I69C2L9qiUub0lPj0NRlWbcf03myBwib1Ki2WG_bpr_oUAFuq9ulwoPoT8AFJD05ba1Ai7U0jPA2a_5NSqUaR1fuUTM_hFyNAQIdiXKaPigv54ph2raNK9nG-DjT_I6YAaeaaVliMxgZiJ0ef9rRIFQu0GvizCt3gFQ.jpg",
+      "https://cdn4.telesco.pe/file/LHufdi1-FnGMYxu_Kx0zKYOslUepCxwPCV9RS8mBXIxVQzurYZ2jkeP_qWNv65zvEfDtqancGLkIvl45CpSXpO5Db87TVr-KKXX4Z-OdrDfdaLc1UNm53iNB-emKnwYcVbOV1R-r2c6dzV1NWeG2KkFzyMYY-vZ9Y6x-LwFQWZvaYRIsCBxXFwN733IcvurSMf0Bk3AU1fNlFbScvc8SpiMKSgALwXp6THSfq4CAV5savVmhaeC_ljg5J6K2xL3lTumcRRI7BP3n_YWKJQCb89RdMHWB_Ai_75qP5Wr-B20YFU6sl5f0Fs8V2MiYAgBcQiMI2wkE9aQax7ahp-v9lw.jpg",
+      "https://cdn4.telesco.pe/file/thaE9HPyg9EL4t9LWU15jHSMZN6OHv_EmV28VP-xWA5qcgbSnfVexYnMFMO1h6zTc6Js6ARXTQzNykr3o_JflJ0qQkPHO4NnHM91q64XouOYyoQT6QK7XmWmT76ok1-fHS4rOkLvVkg4NGwTc5lZZFy8hqWgPIWHnpQwpsHZSkTffDvwbx8iCmRHQCDn5e6jQqQz6lQp785VbN_HTWgfU_y0yXsZ8BujV0E3FpCkLrFhASs5RWb0o1nZ0in9QP_N6YW1KlyUi4Sy3Vm4ur_OcEuOUGFXznb6x_FFa2qk0In5jJTnuKcoph1NNd2VG-YcxQCvxvx8CZuerVF8QioZjQ.jpg",
+      "https://cdn4.telesco.pe/file/JK8v1jijRTQBwRUlw3KnirJYdD_nU0pd6U6XwhEmvzh9M7HQPG_H6zCFBesKfSjfaZt91Y1aS1zHP-q4gDKVZBBpB1677Nsxy_UEpqXwXDj0-OiDCiwcL10Htqzy6led05LKgzKYMGl65XAYt5FuL8OuCmoduzn1SkBgMewGd1i8inb12-oMN-Jo_6tx8T9nqsIVbRHhwFEMnWjBhXlp8yFevnFl80fr7Kqw_P2XxsUfUQVUAy5ljoNI5SBcFDsaH5UxBUHAUvunLCcuytNreFBp43RDMyTIGEttEH2RdgaPFZ3fgwyUp031jc45OCiY3sKCivuH5K-oM1gR_6_viw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:00:22+00:00",
+    "views": 134
+  },
+  {
+    "id": 60216,
+    "text": "Автолайфхак. Продолжаем бороться с запотеванием стекл\n\nЕсли стёкла запотели изнутри, то быстро осушить их можно, просто включив кондиционер. Он поможет убрать излишнюю влажность в салоне, которая и является причиной запотевания.\n\n \n \n 123 views14:00",
+    "photos": [
+      "https://cdn4.telesco.pe/file/EsQgAhSQSxVJejRmN_Ac_3ZVMh_nh3K3ZgDHRx5SqAvd85d-MmpnagQCn-KYGaR3g77Mx0Qp3SknJGjsnk26leNANcpT1GGymNw_wQs8UQZGrZoAjSw6Yb0fHdUf-4lm0YRQ_67nPG8kWMpJrdzlhoFdDambDhxDEa5CGho5-1_B6LFnoDuSUjxnHuzVCzLEHmCfXAz6zeVulo3_025wrovd11B1YJfxItfgLG09j5qPSLzkrZyLCgGBVEEwhdotb0Ygz9hnj-vYocQpcUtmUiAEVRdj2DhcsSaowap0USUc9rOEmM2i1H9OE7oUxADnwzFjzjko8_vaNE8OrqRJCA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:00:43+00:00",
+    "views": 123
+  },
+  {
+    "id": 60217,
+    "text": "Китайцев не остановить. В Россию едет MG Cyberster\n\nНа этой неделе MG Motor (этот бренд принадлежит китайской SAIC Motor) громко заявила о себе, пообещав выпуск на Российский рынок 11 моделей автомобилей. Как сообщается сейчас, в их число войдет и родстер Cyberster.\n\nЭто одна из последних новинок MG в Китае, представляющая собой двухместный спортивный электромобиль с автоматически складываемым мягким верхом.\n\nБазовые версии новинки – с одним мотором мощностью 314 или 340 л.с. и задним приводом, топовая версия – с полным приводом и 544 л.с.\nМаксимальная снаряженная масса относительно невелика для электромобиля – 1985 кг. С динамикой у Cyberster все в порядке, разгон до 100 км/ч занимает всего 3,2 с.\n\nЦена официальных Cyberster пока неизвестна, но привезенные единичные экземпляры продаются у нас от 6,5 млн. рублей.\n❤1\n \n \n 87 views14:05",
+    "photos": [
+      "https://cdn4.telesco.pe/file/hq-igemZn5WbnV6-6yatBIoP4RmC40SHfuzHVmHAzEI_UO8NqhKvyXM3TTPE6QvJK4Cf4lEj1cFOLnyMksJE3BeU6_U3cZjifzOnvWT8YvOnnzuxRvX8q0Uf_D2wC5QMMptHqevwQmtDnqa_1OpLUDIUqOO965QDlUI7HHPHr5hPkZ51q9Yl2SwnHOk5jbtX8qA57QxKennYOf7cARI5T13NFSYMMoLchJ0nCmeFsrrP8iIAA8BHMX8xfyt-C2cM8AfdOQI2uNmkJaHjnsNjMA4tRDOxEVnXO7-PQXTlheuirKMG297G8bG7_f8l9ZZmZbIP7TlKwPNhThRkxLD5kQ.jpg",
+      "https://cdn4.telesco.pe/file/JItzeYforWl-9siYtTys1etxRrCB0LHM55qbAhNlzaG_OncpaeqAZZXRuK9EOH4a2J-G-UKK9cJ8Vz8YKLRBP2azLKRqce5tmLlSTMSOuyIZscOZxcKCRBNt-oHSeDl9M1Odmw_nnuw0QvgPwFL51gD1OQvHtdnnYtGKSG-SmK_uN1O4hBK7X9aNz6eHe-oWNMzz98bKljVK7USfuwsy4qlftbPuYeDeycbCl5mOgnyaZ3qzZMcDDMtXez-UhYjxYgYAI7WdjBr_p0t7NAczI4kr9x2j8ICuthLaC6JtHDiFiHEjlQfxmoCeiGXKuNGpcRwjP_4YHVqMGYhlociKLg.jpg",
+      "https://cdn4.telesco.pe/file/KXUj4Jm0YfBai52ILZDyQ-MA_uwzUNqMPbHYC5cgIKfNo54xWdW-Zw64ToJPiJYVrNTXcZQoulf-ke0WHRf7e8bvE7-yG-VqXzXBHB7Ou-sbIUFlQZ2x9wON6_syCtN7RY_1ilOfiiEY_xxboxQzeHIeLA-Ydi0Q42nz6skZZbRzGxnqhYsuneP55-iqICci7BoiPONjSbIp8yrDyLxHqv-1eLllyoUaCjfjB66SqX537ENb9HOuajp6pJgU3Z22XgSUkes0Sj_iPD1CupdTRF3Qxz_wXHfupgsameDIJUYdeKshGwWQq1Qte7l0tCiiouSOXz7EpeDfwJ3bs7rSFQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:05:38+00:00",
+    "views": 87
+  },
+  {
+    "id": 60221,
+    "text": "Audi\n\n \n \n 89 views14:06",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/05e2554076.mp4?token=rqB0F177bjTNgqQWJmaZQQU2YKaApZyQU0cfFnyFzFKCKstyLvT__AQ_IO9bf89cdOS342SS_IFHsjLCb8vfo5sy0X__Gz0hvmR0SA-6mJoecCsbKxnwfHMSFRASl8UvYKs2c4MthlJ-1HY4d4VhTY-obhUMH7WCmR-zbUCaZRfgdEy-FdBlfnhjglHy7_dsf1eFp4b44AuBcfQ2m7zUKgc6UtEG1wqpL9kQerQuh-x97eMpJkh46qn8IXIduwqEYFm99EoKghdkQd0-NM8S8A74xAfJRqTbrpneEWAPdJVMTPlOw-Pjc_tKgA750F4AN9cAah7-ZeJdrConpcqUgw",
+      "https://cdn4.telesco.pe/file/05e2554076.mp4?token=rqB0F177bjTNgqQWJmaZQQU2YKaApZyQU0cfFnyFzFKCKstyLvT__AQ_IO9bf89cdOS342SS_IFHsjLCb8vfo5sy0X__Gz0hvmR0SA-6mJoecCsbKxnwfHMSFRASl8UvYKs2c4MthlJ-1HY4d4VhTY-obhUMH7WCmR-zbUCaZRfgdEy-FdBlfnhjglHy7_dsf1eFp4b44AuBcfQ2m7zUKgc6UtEG1wqpL9kQerQuh-x97eMpJkh46qn8IXIduwqEYFm99EoKghdkQd0-NM8S8A74xAfJRqTbrpneEWAPdJVMTPlOw-Pjc_tKgA750F4AN9cAah7-ZeJdrConpcqUgw"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:06:18+00:00",
+    "views": 89
+  },
+  {
+    "id": 60222,
+    "text": "G class\n\n \n \n 135 views14:06\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/321441eb36.mp4?token=epWOXuQl3WVwxwWogeSFWxU-uFSnAvKY5Zs1xa2KpyhigSU6iqDjga4edTCxj9hzOE2VyiUGWlBntdxKy3RrUwUkEo9KtUjUOjktc35Gq6yiIApPDeIcYoAcuIyzLWQoniXL0Tj2djybRisaEAczU_tVUYLkrDmAqiMAVGqaifCKO-LwXyHU1iXbd95A4BKBVXdLbfkIlCV_m-xqncsYmEY5Mbj1roY53ba3TVv3Bq_Ypgf0pdo918pvjnRvdhiO4txN8PkYfkRq2jIMGJh4SFV7YdsQ_7o7QYpHZ3JLrNl7xxQaOTFjKtnohXxQ0vkUWz6rbLw9pj-7zKnzFIMNjg",
+      "https://cdn4.telesco.pe/file/321441eb36.mp4?token=epWOXuQl3WVwxwWogeSFWxU-uFSnAvKY5Zs1xa2KpyhigSU6iqDjga4edTCxj9hzOE2VyiUGWlBntdxKy3RrUwUkEo9KtUjUOjktc35Gq6yiIApPDeIcYoAcuIyzLWQoniXL0Tj2djybRisaEAczU_tVUYLkrDmAqiMAVGqaifCKO-LwXyHU1iXbd95A4BKBVXdLbfkIlCV_m-xqncsYmEY5Mbj1roY53ba3TVv3Bq_Ypgf0pdo918pvjnRvdhiO4txN8PkYfkRq2jIMGJh4SFV7YdsQ_7o7QYpHZ3JLrNl7xxQaOTFjKtnohXxQ0vkUWz6rbLw9pj-7zKnzFIMNjg"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-17T14:06:23+00:00",
+    "views": 135
+  },
+  {
+    "id": 60175,
+    "text": "Классический Volvo P1800 получил современную версию Cyan GT\n\nЭлегантный рестомод будут собирать вручную и продавать по цене свыше 700 000 долларов. Cyan GT являетcя современной версией знаменитого купе Volvo P1800 1963 года.\n\nВсе кузовные панели выполнены из карбона, также установлен титановый каркас безопасности. Масса купе составляет всего 1100 кг. \n\nПод капотом стоит 2,0-литровый турбомотор от Volvo S60 TC1. Его предлагают в версиях на 350 и 420 л.с. Двигатель работает в паре с 5-ступенчатой «механикой».\n\n \n \n 98 views17:26",
+    "photos": [
+      "https://cdn4.telesco.pe/file/F4BjPtApjFY4BPYQUkTxyzzZKw5-gP_1IFa1uoolft75IjMs7C3_wpXbifx0MUjYmSVIR35vRC5WRk4Ql60OETCC6AEH-qYwInQ8MxdaWEWz3yLbDq6wSFYEUjk7klkjR4epG5ipCvizLq59gwJRTgvGLn5RsNCj2hKNvadZ9g9EpJTgbLdxQAJRInYzb45dKk1H8cnyFqlairPQ3cGhMu1ePxz3c_lB6Ef56etQLpVY6jy3g3jcwcTX77OFj4fnvdPRbO2F_yh6Jx9wiJibSM7diVvZv3LscX4QeWJWlpVskxIoSGkb9P9WSU4r8iQ89I930lV8k9U_w9UTSDnZTQ.jpg",
+      "https://cdn4.telesco.pe/file/Nt18nbEfOvtRAHqiIyHkmG3nr8zPJCJ3GYAiY2-xkMJ3tlhA9SFNnCD1JCPtho1oObUmvf7WY1mXh5TeazuI4YtEpdrIJML6lC_2PeVmc0xDGLWhldbQZieMWk2jlBT33otTAgEMyiA8dHY7dLvoM3awqJPICUY8mYxLM0okcefDD3E5X9bnsjqyCSJVHyZg3OB3SzlAKgln7SiAwVZTZtPzM033NaXbhKxQJdt_j0Ac_8gJv7_aGFeY2WzuRqCpBfPw7sueOnw0YvdeZ_xf0tnsmC0zgffM4EDVFZdoz96xWNWSwlTJaOQwwXwoyhwaevKN7bFEhsLDPo6XLdWysw.jpg",
+      "https://cdn4.telesco.pe/file/fMPGbiU1q6PyM2hOmzLURQN9JMehuKtV4nIPVipkJFwjzyBJGLtU2BP5aMqsvfF7lxPIg-obqBVz4epXVRL2Oc6vvB4ZChU6uVSbXyMaRVAP2xMswlGHEp6ZJ-kff3-3snFk6IPLE3G3hTlopMudvcqYoRnJpDfxI-HnakVFCSE8CH0Q0TQB22iISEDgkPB7agERW_eMkek7BmH-DSXrxhc4PIMZ3Z6Ba8e38coewwLLPXfzU5eoh_mpCgYD6A8rPN8-0aCJTjs5ejIQG5HA-nyupRTcZiTRuYJEwU4FgRwDW9xUDHTkmU2lfSNDS6Y1SSKiwEXnS4Fs7v06ABCs4Q.jpg",
+      "https://cdn4.telesco.pe/file/jioVj6PnOzq68OlnvYQ5O_iL8y0SDW8A6rmwMZ1BwsH13tAtKZsAgkuFWkBnzqowYLpHsD2dP9-xwWjmbrrt-SAuVqTaJnoKAeKCIg-QWPiGbHYQsBekSlzyAR_Gg8IxXmlko7Vta7aGwogI_VkFG3pRS2_DsF8kcf9HC9ij63oBpAyCR7Z_lIXDyMLL_-V7SBP2ANtz50pXtBt7X8MggwbeGskfn9q3251E4Wnif2nIvS51pXWGq6TPYkUC4B3LpbTQGj3vE7Xviu3oDmYig4QVU1f2z3smheJv5yp7F459NDMncm7ICx-BhEcC7-B35PFPUaoZ67rQwkHMRRuhlg.jpg",
+      "https://cdn4.telesco.pe/file/TwqFhib-Gkxh8JPZRBiE1pUZBl1evqPbrx7uUSXakZJ6zaTivcvwYuLCyISjbSmOqyjVr_ghomktu6qojUDomosfjAkZObcAcpt95uz4wtyNBb3alqg-NwwbO9orOQttErLfL2h9v4HHasBFxtXOoJ8jy1YZxlqPSAKGo-RYR7Zk6Dl0s0_F5tjQtW3srpiF1zZwfHq0x8pDXTbxzODHq672bmkZ7MUDC29_pRImbmcX0b6tpTJaQPTKP5f3MwIuZfLB04uBKatrVSspmXP-6eI3Q6Et5aCFKwRJ7Rv4jUtkGEmRCSlLJJwTgvZS7RBMQO4gNEJZ_ShaG6wl1byRKw.jpg",
+      "https://cdn4.telesco.pe/file/NHhueOjenJ7ggADQEF3ZlggiTmhkyP2Gn2FdyHhki-xYmck3n3GFnm-fsnacKBMVQk5F04Cu152Db3fLGQPFz9hxWTt3kResuMEylveeubMNl3QO7hpO6zGuWteSIL6YF158ukCIu5H81g1rPKvR-Jo2UyWGyBa3I4coka0SK0lBgxeIRoX0XjCdqtDn8MMQHcvIQPYUCZeIx7KByoaWkYifUNW123qbr5hanCl01Y0ZwvUt19ACq19Iv2CV9HMdK2NfHP7Dqd6W2_LtzIsnlcASStqMzVNE_g5jM7wXwYuewyo2nEUbPq1ibNC_J-yNsJyjuHitMl8vwzKdQV0q-Q.jpg",
+      "https://cdn4.telesco.pe/file/JAavnXn1o5kVYsephHcp6tS-giHWMiVRcPepM-eVMfNd9hs7AJplsD9N7nsS74AlYO3ySruMQ_bisxNvMtA92LIb4TCzbzaDds7icDke8RqX3viaTgEh9HW_-aRIQWbNTxmqCxxX_mTR-O8jmWxe9kkFkZ09cheMESD55zOaostOJK8twZFbzXBWnUMqAaKcGJLZZTLGmVZ1ntT9w4mX_l2J10GddBxc2PyZJGuZxN6JBbserqwtO8AlUykbjRTKgYsifz1ve1mlg1bIHU25bMR7luMU09p3qbB7_4OWWE9XuUELqxDMNMBNaanTiJ2flPrgIrLVqoc2_NbIubJJ5Q.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-16T17:26:59+00:00",
+    "views": 98
+  },
+  {
+    "id": 60182,
+    "text": "MB\n\n \n \n 83 views17:27",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/95aaf9a36e.mp4?token=gJImW-xc1k-9nl9ii7oPBhZrS_R1mfak5SHaWCxwmbsSgPq3yFc3i-Id_tgEA90stj2on4-nqyHjvNm4jaPrZlcm9mgYEC_RGpABBhALXmzDNIntB3BsuU2xc42KZhcteYBNz5uFyNAeDBUFN3fOZl8GiSOoQY4J3Q83j6SnnNaYnlBLpzDwBy0JKyQ6Wg4QjgKGZHsaBVL-0hgPyS_HZcdlJwj3JO2CgTJUkOAfbfWTPN4FzX-oWXJ91Vszw4_Ls5afhhex4KtJ7RKBiD8BaGb_bJlz5AVMh7LLos89dbW8TgTAx9EMX-wsakGH5TxXt4X40gSFSSTOJNfnH5Qcpg",
+      "https://cdn4.telesco.pe/file/95aaf9a36e.mp4?token=gJImW-xc1k-9nl9ii7oPBhZrS_R1mfak5SHaWCxwmbsSgPq3yFc3i-Id_tgEA90stj2on4-nqyHjvNm4jaPrZlcm9mgYEC_RGpABBhALXmzDNIntB3BsuU2xc42KZhcteYBNz5uFyNAeDBUFN3fOZl8GiSOoQY4J3Q83j6SnnNaYnlBLpzDwBy0JKyQ6Wg4QjgKGZHsaBVL-0hgPyS_HZcdlJwj3JO2CgTJUkOAfbfWTPN4FzX-oWXJ91Vszw4_Ls5afhhex4KtJ7RKBiD8BaGb_bJlz5AVMh7LLos89dbW8TgTAx9EMX-wsakGH5TxXt4X40gSFSSTOJNfnH5Qcpg"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-16T17:27:14+00:00",
+    "views": 83
+  },
+  {
+    "id": 60183,
+    "text": "Продажи подержанных машин в России достигли минимального показателя за последние семь лет\n\nПо данным «Автостата» в январе 2024 года россияне купили 324,7 тысячи подержанных легковых автомобилей — это на 10,1% хуже, чем в том же месяце прошлого года.\n\n \n \n 87 views17:27",
+    "photos": [
+      "https://cdn4.telesco.pe/file/untN6jih4Ww3BG93NqHCRfPGQNDualMq2zwr2x3IZBTy2nfe_4KHCk6pviu_fT3JaIOArY2Zp_sHAesn8tNZgPTYgbUIOk6mRKHdENet3KuElg7pZQ8zPMST7bmY7j65SGFeYAL237wUH1upNpMz16uewNvY8akdnv94vO-lfCRnuQUqlqlwlp_E-k5F7bOiBOjqeIN8FYB_Qbyi7P02JHqxZ01KcJPif79NbzTQ8V3p_wzA8ZYopMbvtRwViAjK8qPSa7Ee-CAAyK1mrXqZ5LY5oh5oOSY-HY9MgHXRQi8C2rrFQ7WvzDQiYosSC59CzdTavF5tH_AQnslWUNA5dQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-16T17:27:41+00:00",
+    "views": 87
+  },
+  {
+    "id": 60184,
+    "text": "https://t.me/sochiautoparts\n\n \n \n 88 views17:59",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/00d2e08f12.mp4?token=VIsIa04qp1E4ozQHe6K9BU39R3bwxVb3dWNaNAA5EluIlkF28DQ8gl5Z1XNx1aZb965KsDfMJguZLiq58Jr5BuOOgIHEeWHIXmwZhntoprJGHDUDYqaOE1UEqD9fbcA1Xu0eYTQ9nMLmjXLmhsjEpbqwqpYkHw0tVlIRS6MxkSfqfbdemlGfMoPpYe8uILViNZ5bX_Oq0pSrn84eUQsAXAK5fnI025hTP9Rym4OORC1Q9Crg-B65PH7zS-dMr_gpD052m_-SnYxynKLzA3LFaxmVt6OpPlTAybi1LhI0NthEtjtA0pORQZnO3uTI3Ns05OL4IpkntvcqOvx9d7W5Yw",
+      "https://cdn4.telesco.pe/file/00d2e08f12.mp4?token=VIsIa04qp1E4ozQHe6K9BU39R3bwxVb3dWNaNAA5EluIlkF28DQ8gl5Z1XNx1aZb965KsDfMJguZLiq58Jr5BuOOgIHEeWHIXmwZhntoprJGHDUDYqaOE1UEqD9fbcA1Xu0eYTQ9nMLmjXLmhsjEpbqwqpYkHw0tVlIRS6MxkSfqfbdemlGfMoPpYe8uILViNZ5bX_Oq0pSrn84eUQsAXAK5fnI025hTP9Rym4OORC1Q9Crg-B65PH7zS-dMr_gpD052m_-SnYxynKLzA3LFaxmVt6OpPlTAybi1LhI0NthEtjtA0pORQZnO3uTI3Ns05OL4IpkntvcqOvx9d7W5Yw"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-16T17:59:58+00:00",
+    "views": 88
+  },
+  {
+    "id": 60185,
+    "text": "https://t.me/sochiautoparts\n\n \n \n 95 views18:00",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/22b6faa432.mp4?token=W8yyxfqc5QhDe3tVvZ0OXoO-bhghTlHHLAeD9Rx6KtgAmGt60d6DrR6QTLVuDzKOIKD9XTALQf3-aYYzBr4Zm9PdsJzQJ6d1bj9rUiVL1eAJ1hr3u31PEMEUH7t-c-MlVI_3vUsQbLsSGhcfJjC4hbLD416VUldARL2LTxFXWYIV7x6K8fYO4-6UN8eVc-kqObi-l8N1814LtxQH84S_VqQdoXfyd6AfqL-9HuiY2k82tIKtLgCwr4qH5c7StV_GMa8WUDYnRGHP-dlzubR8x0ab-PIGOMSS4ZrCLGvC0GF8mgnzCJEEG4znb6OOoMIpyLo_IyCc8yoyw1L_k3xkjA",
+      "https://cdn4.telesco.pe/file/22b6faa432.mp4?token=W8yyxfqc5QhDe3tVvZ0OXoO-bhghTlHHLAeD9Rx6KtgAmGt60d6DrR6QTLVuDzKOIKD9XTALQf3-aYYzBr4Zm9PdsJzQJ6d1bj9rUiVL1eAJ1hr3u31PEMEUH7t-c-MlVI_3vUsQbLsSGhcfJjC4hbLD416VUldARL2LTxFXWYIV7x6K8fYO4-6UN8eVc-kqObi-l8N1814LtxQH84S_VqQdoXfyd6AfqL-9HuiY2k82tIKtLgCwr4qH5c7StV_GMa8WUDYnRGHP-dlzubR8x0ab-PIGOMSS4ZrCLGvC0GF8mgnzCJEEG4znb6OOoMIpyLo_IyCc8yoyw1L_k3xkjA"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-16T18:00:00+00:00",
+    "views": 95
+  },
+  {
+    "id": 60186,
+    "text": "Porsche\n\n \n \n 110 views18:00",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/d9da5e2234.mp4?token=WYz0tM4ln07mEkZAHLJEpe9IVpmNMRUzKANr4QU5zC3juJXvSFpJB6HZtfY5PpUgn8V3ctCideNmxftIdLE2gnnfVRy7AschgpVWtmFfhYRHJODpPPezbEfBXJAuR6EZ44ihwU_Tij5-SOuqFbpVFKa5u7MOUqadTSKkt-9miazw-Uz7YW1bGXDrZ1k-vw37PZsQaUnGparTrZ7B89Kb5wU2tHm7VScP3ZyFb1kBHAIf9m0F0SSixVEHdrsr1eMefynOTq4Edytd4Skz6PVrsdMdZSxYZea3aJUHtt7ticF_TMtTjSXhRShbUdNvASAd4fhzUZ1DjzIdN2SDGm9Nxg",
+      "https://cdn4.telesco.pe/file/d9da5e2234.mp4?token=WYz0tM4ln07mEkZAHLJEpe9IVpmNMRUzKANr4QU5zC3juJXvSFpJB6HZtfY5PpUgn8V3ctCideNmxftIdLE2gnnfVRy7AschgpVWtmFfhYRHJODpPPezbEfBXJAuR6EZ44ihwU_Tij5-SOuqFbpVFKa5u7MOUqadTSKkt-9miazw-Uz7YW1bGXDrZ1k-vw37PZsQaUnGparTrZ7B89Kb5wU2tHm7VScP3ZyFb1kBHAIf9m0F0SSixVEHdrsr1eMefynOTq4Edytd4Skz6PVrsdMdZSxYZea3aJUHtt7ticF_TMtTjSXhRShbUdNvASAd4fhzUZ1DjzIdN2SDGm9Nxg"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-16T18:00:03+00:00",
+    "views": 110
+  },
+  {
+    "id": 60187,
+    "text": "Обновленный Volkswagen Golf поступил в продажу в Европе\n\nVolkswagen Golf 2024 подорожала и стоит от 27 180 евро за базовый хэтчбек и 28 280 евро — за универсал. \n\nЛимитированный Golf Edition 50, созданный к 50-летию модели, стоит от 36 820 евро. Он оборудован бесключевым доступом, навигацией и встроенным ChatGPT. За доплату положены матричные фары, панорамную крышу и проекцию на лобовое стекло.\n\nОбновленный Golf 8 изначально предложат с бензиновыми турбомоторами объемом 1,0 л (115 л.с.) и 1,5 л (150 л.с.). \n\nПозже к ним присоединятся бензиновые двигатели объемом 2,0 л (204 и 265 л.с.), 2,0-литровые турбодизели на 115 и 150 л.с., а также пагин-гибридные установки на 204 и 272 л.с.\n\n \n \n 101 views19:29",
+    "photos": [
+      "https://cdn4.telesco.pe/file/aKpGBwFfMkR2eGAnIriofFj4L4T90-1nL-A949Jlo8OE81JgYlCt35SYNoKYymNzxWM785mrUjgLX5ml4e_YjSDFoulQv7-rw2_1I3nDVkaqqNq_r86G-6PbWEs-MeScouCdU9eGbHmOTRkSZrfO5-JjKyR1dJfMdX0bGWUsuMl2XfYscvQ01ACtHkyri59u6rdqI5GjRrc6nu5na_mk-vQ12akZBzhrGYR8W1uD3rRnZGvGtsFtv9vW9W_2NeMA_gf5L8CKEV0WqgA5EgVNhi-z6LnWFLxOMsvwCGQNroHkrHQAf-hNutsAD9jdpIPKZ6tVOhEgQbLq8nCulP7bwA.jpg",
+      "https://cdn4.telesco.pe/file/T7KpssNXWAc40TGfg3ZeJsgdK8Aw5qUvd5kBGLvVjK6SS3Ef0HG32sPZSit2kHOV4dMu3JgJ2dFkZWig_f2qNU45IcO0m8EKsF4RJKpSNhUCWAOYpjiY3FC5ZcuwnltuOqENiNiL_1QkzIKmZbzf3_21Hhx0EjbZ00S_96G7cQ5JY5ZhLwC0FDIa4bLaiVTDx-YChITovvGwcTfMMPAFuiuU1auvi9Prg5JHAMZ4UBkxUCDP4gHFujTO5EoN3CoD9mcLyGFcUAB1vHkKO1AJaqY0jM_8c83hDHi77Ohh_SGM_9lBPlDiHej9FdwrR5RPuYLZlltJkCSIsXmZC_TcEw.jpg",
+      "https://cdn4.telesco.pe/file/UuVPlqv6xQKj-_aMRLf35BVZkXsQtqxdjHXDZ9qDa38d6rCmUdCx_aH-nx6NPN1OWwh4pQTuMBdQHooU8vLB1QwUSq_vA-RgCHU4-ZGhGbtXL7-lNulgxXARkYUpIMOM73jJcbz_7_RdAHsLhbttg6WGumH-kOwgKN40YTLhPH5rTqbxJGifE-Evjayvsvn35Hes4lccM-NVzgH4UEK9e2PtHJRaC89nwtcipQsYGnnP2zKDacedhLkyEsRRXtAMfH72eDy-aH70FMHO-2le1JzkbRjVtHs-gAlMcRYoiuX5wj4eerOLn9FLUsXSFSiyCn1ooDlJXYZn1P0Lj3tTPg.jpg",
+      "https://cdn4.telesco.pe/file/hmXt6S-wWMp8tvRo7hFjnzv16f-t0LYQzBcv318nndEmVXeZHSNBcf6VVlq_yYA_ylA469OTCpCao5Y5mdKlS4-dghSbOQ73ZfVKKXRus8X7iF21Ry7LBto2sMfwkBsd1PuWgW6Irq426hrt8el-7Cza3lJNKo7s3SIhVU7dodJ5xunwF2C0YRTzK66HocwemfvzYHtIOUBr80C6hEt1XLK1h838s4rgSgn3TJJF79kGwLlCoEQcl_TH1JiwQIxCxFKdsrCRQRTzKIlspBC_4YrMqc6qb3ju-OT0ySyLAbxtcnbXTKzA0SkznuejJKiETzrnc0OYQ6FvMVsqlh_oNQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-16T19:29:01+00:00",
+    "views": 101
+  },
+  {
+    "id": 60191,
+    "text": "Rezvani представил 1014-сильный бронированный суперкар Beast за 485 тысяч долларов\n\nНовый Rezvani Beast построен на базе Chevrolet Corvette C8, но кардинально переделан. Beast оснащен 6,2 л 1014-сильным V8 твин-турбо и стартует до 100 км/ч за 2,5 с.\n\nЗа 55 тысяч долларов предложен комплект пуленепробиваемых панелей кузова и стекол.\n\nЗа 45 тысяч долларов предложен набор «007» с стробоскопами, сиреной, переговорным устройством, противогазом, тепловизором, распылитель перцового газа, дымовая завеса, дверные ручки с электрошокерами, защита от электромагнитных импульсов, магнитные засовы и металлоискатель.\n👍1\n \n \n 107 views20:29",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/5919bf10f7.mp4?token=X9HY4aMpz-HLW0sqELKhPapvPx1XGwu_FcriDwnpuxjWwgqZx9Fe9I4Bh-8x5cGjWKChOkHaLom28iuX0uw81vxRb30e-sWNNq8DQTAC4YS7O37h9DWC7TGIBg1ogAtH8HysquXrl5mRXElPdHTGDas2HL9U6zNqeWcdFhQKRZgH4ujTvq5m09XqzZK4OfQ61Gy4yetLc4glWQvs9Rd0ry2KBVzmkWwa34QzHUg4Zfbioy_lC1D-5R64JGy63cJDPsEA6vhbo5xgpqtqmglFeyQk6j-CzCUTbVvYDvW2qOZPcaIDpEfUAn1skNWuelsypHbLjPX8N_4vpusPXOUIw4WOpGPPJgrUDPjvR3m_yJOfwRxPGsEpzEljmzYPM_ib305LxFaLPd8quvZ40nG9StDJNw4Nax8aoRuL-b8n-6oBPvwGr8dv3EhiyaKqNfG_gV9yGSa5ZYGah72x-eD3NdPOT5KFLz0rHzzCgVpF21iBWL2Mh-pu7emhKtuQ6RrzYc-exPxNBiFoTJJ4PSz4BcA7I0RbPUvvLPVvJS478EhQjqh_St8RHpk-3Wpaz8lMgpmY2V0l6NDEKTgkiX0IrwOxzwQ6jsb7EQRO3f6H6YGX2g2aDZYSErWvG97giqxzjDm64dEXG5M0_9VmmbDUMpm4EEasNpxSft6FvnJPxA8"
+    ],
+    "video_thumbnails": [],
+    "date": "2024-02-16T20:29:01+00:00",
+    "views": 107
+  },
+  {
+    "id": 60192,
+    "text": "2021 Audi R8 V10 Spyder RWD\n\n \n \n 129 views20:38\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/CI4GtUo4oXYcycJyfukv8eKlfibs8NWTnUtZEeNatKZb97Opp20-0igCqxOKU75lmO2FvAudqfam4nGyjN8SlUsmvN6qCo9d_AgO-YxxcKqCEYF95Ve44zrqiQ0NvmFECau8q5iKHb-iCf6RfmWXD3Oowhxzlc8oSHtqu_7lsIwVK1wYXJiTIYzkbO7aqx6-CZs34yiSYLc6MEWU-Of8yidDij8fta_HUc1PNn2Ru9l-L8S0Bt-_b4lxPCDqaXMITBfYzTXMb02EueJnOy9sMQJvOXm8cGmlHgkV9FkHF8ZjxZ6CYOEV4_jrU3xYWT8-Kq7tVNi6o6ZUgCP7_9vttQ.jpg",
+      "https://cdn4.telesco.pe/file/A99VXf2qG2LExMHhI2Z4v-0-hm2gJXCRZ4_LBqAYCLMDUe0uHUIhGHwMCqLVaVfwrsdIhVMp2pEqOmWMDK1MWzIJvQtqBJdNBR_5KNMvURlN0TXLWGRo7kVStABGyXxprhnbr4v5sXujafz23ExOvoDYzqP8narj8EZpHVlkaoEt9bJPLIDuPM5q4SDHdxfk438RJ5gScQElhfBFAAJw-f6G5bEGKQVn5MpX9IV869XS7UDOMfcUObPjKktUc-N0aTRRoww-NSKIbfgNockzn7-3ATlmQt45Vk7gUhWndloVwm-TznknWl4VqJUwvRiOXychcqfotjXo5gaElziH8Q.jpg",
+      "https://cdn4.telesco.pe/file/QDeSb4XvP0AHIx9om7SrDDCovLJL0I27DwFxAGeLrGyelfzAA6vQcE5_SBVwuYCENGK260CRxTAvgViBVCNePf9RcH541AVXGX0s2DpsA4fyOmz9-IGF7Ky8KvrTpH5DHZ_lGqD9Z-0BucoJGFjSDe5EiOewlsM4evnTWEvzyiWmep7VXIzefI7lSFIk09MDf0YLqcJnYJZA4InfcUUnzHDYx1fR3D0uQD-bmZKNSLBDZTUqKuRI7zFa99o6VpzBlkEX9fTItD0g7LuzJLp11vQUhpSXZZ4gSUp1H7kM9XDkXG07nWGx3Rw2pLx-pBRO90ls9UIPSmW1id_cq5BgIA.jpg",
+      "https://cdn4.telesco.pe/file/fi9NkNW6RKse3iN29Xw7CCPKOIS4CZ7kEsvPqgunRVQK_n7ov0e-ppR87egQS-q95SlB1g2NrKypsvdH-zmHoFJu4EL1cg7xHttgE9_zR_q-1gCNT86uw6ajlLV8qwZbj2hu7hrYQ1rWQfLLpMsjgvXMP-MdKeItUyWlqinptXWmnXgDpdIanOUmKvlPUTcX3tqfHWrf7PxSGdpJC-KM8IH1n8FZ3HrDKOwes18UtPThBT0hoTiOBdabHcz4rBRPXsNELAPjIWVtIcdcJgHfeAZu24Q9rcqUJN7Tp15zvGWOcp-swRbhOMAJImAljo56KcIuviPUH_EyqxnLEYLngQ.jpg",
+      "https://cdn4.telesco.pe/file/JlzRUl-qrzVILBJECcq5eq15dK7dZypACOpU0EwvnfMapKPKJlqPqbHnjKzpHavnPpgM0PeLIE3uberzVp76naW9jrXogTTcEyfWEK9M6Dk7xVaRuV_MZPFUyoPAsM6fnUoMUAgFI1S9Pbtjuu6fcS2EC5PgAMTJxIahfR0AQGy-ra97lwwj2PmcedyoHSbokViz2dnvVpzSz6aCms3SMPV-2yG9AXWVoYMkd4hLffTbfKFD8UiCvJvz0wDTWNb19QPGYs_CvFMPDJ004flsbeVko8P_jalaVYDaFAkIgtlgPyC9gXd9yLwUtCjc3AF6nntObwI5e_BwJpYYdDbkGQ.jpg",
+      "https://cdn4.telesco.pe/file/twuW0wKd-YbJQ4Vx1iCuTgIg0wQOgXmwUt_Kh9mFwUmeUhKawVVaTa1pbmDtENn21Kn524VNqijl0ujTF13fFwoZXVBPWrD0jTod3O1mox-GM3PNn9muKle7Io5thPhWVXnm5iZL7tE3PtL8roSETn8yciIRfMkv4gym10NQevaXA6V3zmEbdret1Al9Mr7mzA6T4Rzle-dn3o_U6VpqSnHo13wL9BLOvs8TIb03E8pwI1XTsaZ2G7EspTNY_-dTKhmr22AYVi_tWuJVEqCX-tUwPSU-5oICCqVa8yKhPdPL-_rrn-BRtGqbFw7V3kzlRThwluexokU2lFSXsY9Z1Q.jpg",
+      "https://cdn4.telesco.pe/file/tMwPo54lttOcsu9Zf_xvR0VZPcqpnr0arZzyNhUm8oBJrJTycH_JSdHKbF97U9k91U6saIQb2pcNDhZsT9LCkdr4rdm_lzyRKFHnjQbPRx3I26v23__qA0Xeu1q7wF8qUO3Rp2GqsNe832qMmHU06qs0H3VUkXa2HvADl2pMfd-GL7pSoO2sRaqBb1K6w-4q1xhSybM-s-uqIuKjmH3AScLDm-5BAJPT8hz9wAQDD7MySlAkFtcQpWqnJakfzpmnAZy3FXNUM6f0pyizhEbLHHO-8BxFvJAuO06yLEdoJuDvjeGirpIMcnAJoM3C6DrkIQ1u0wFBobDda8CmI9bUqQ.jpg",
+      "https://cdn4.telesco.pe/file/vVwVDw0xdrxyumVfBVwM8UBP-NgqDFM5tnDvFbnXqZqppJbXMLkthRR07BhfqTW_h4InBCkWFnLXTHi-4WpSGePHbqQok7RGTnJCyMduvuhawiwrPMESE-ZtXmMerq6O2uhjjRhN3B24o1CUcTQ4QBR5LNpUdQ_nuXwuz9AZFeHcqOigeLQcGknJ2HXhJAkuF9CrcaZPtoEWJD8rTibmtuSOxRIKP0tlQceZp5yTbEfQRGJ4pP4Ko9s0hgP0Jei8RFM05yOw6VsToNt2MMA983T4Si2MCqZbgiEU0CsLPD9XrREGdB7ERPEWhrm1qZtkC5u9piaN7zCNu4OrHOF6gw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2024-02-16T20:38:55+00:00",
+    "views": 129
+  }
+]
