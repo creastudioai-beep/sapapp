@@ -2225,6 +2225,54 @@ def get_common_client_scripts(lang: str = "ru") -> str:
       window.location.href = newPath;
     }});
   }}
+  // Video click-to-play handler
+  document.addEventListener("click", function(e) {{
+    var thumb = e.target.closest(".video-thumbnail");
+    if (thumb) {{
+      var src = thumb.getAttribute("data-video-src");
+      var type = thumb.getAttribute("data-video-type") || "video/mp4";
+      if (src) {{
+        var container = thumb.closest(".video-container");
+        if (container) {{
+          container.innerHTML = '<video src="' + src + '" controls autoplay playsinline referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:contain"><source src="' + src + '" type="' + type + '"></video>';
+        }}
+      }}
+    }}
+  }});
+  // Matrix background animation
+  var matrixCanvas = document.getElementById("matrix-bg");
+  if (matrixCanvas) {{
+    var mctx = matrixCanvas.getContext("2d");
+    matrixCanvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+    var matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+    var fontSize = 14;
+    var columns = Math.floor(matrixCanvas.width / fontSize);
+    var drops = [];
+    for (var mi = 0; mi < columns; mi++) {{ drops[mi] = 1; }}
+    function drawMatrix() {{
+      mctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+      mctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      mctx.fillStyle = document.documentElement.getAttribute("data-theme") === "dark" ? "rgba(36, 129, 204, 0.15)" : "rgba(36, 129, 204, 0.08)";
+      mctx.font = fontSize + "px monospace";
+      for (var mj = 0; mj < drops.length; mj++) {{
+        var text = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
+        mctx.fillText(text, mj * fontSize, drops[mj] * fontSize);
+        if (drops[mj] * fontSize > matrixCanvas.height && Math.random() > 0.975) {{
+          drops[mj] = 0;
+        }}
+        drops[mj]++;
+      }}
+    }}
+    setInterval(drawMatrix, 50);
+    window.addEventListener("resize", function() {{
+      matrixCanvas.width = window.innerWidth;
+      matrixCanvas.height = window.innerHeight;
+      columns = Math.floor(matrixCanvas.width / fontSize);
+      drops = [];
+      for (var ri = 0; ri < columns; ri++) {{ drops[ri] = 1; }}
+    }});
+  }}
 }})();
 </script>"""
 
