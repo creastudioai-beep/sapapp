@@ -1,12 +1,12 @@
 /**
- * SochiAutoParts Cloudflare Worker v6.0
+ * SochiAutoParts Cloudflare Worker v6.1
  *
  * Proxies sochiautoparts.ru → GitHub Pages static site.
  * Dynamically generates /archive/post/{id} pages from Telegram archive data.
  *
  * Architecture:
  *   1. /api/{id}              → Admitad affiliate redirect (lookup by program ID)
- *   2. /archive/post/{id}     → Dynamic archive post page (from Telegram data)
+ *   2. /archive/post/{id}     → Dynamic archive post page (from Telegram data on GH Pages)
  *   3. /rss.xml               → serve from GitHub Pages /rss.xml
  *   4. /feed.xml              → serve from GitHub Pages /rss.xml (compat alias)
  *   5. All other requests     → proxy from GitHub Pages
@@ -30,7 +30,10 @@ let admitadCacheTime = 0;
 const ADMITAD_CACHE_TTL = 3600000; // 1 hour in ms
 
 // Telegram archive data — cached per-page
-const TELEGRAM_ARCHIVE_BASE = 'https://raw.githubusercontent.com/creastudioai-beep/sapapp/main/data/telegram_archive';
+// Primary: GitHub Pages (deployed from build output)
+// Fallback: raw.githubusercontent.com (if GH Pages not yet deployed)
+const TELEGRAM_ARCHIVE_BASE = GITHUB_PAGES_BASE + '/data/telegram_archive';
+const TELEGRAM_ARCHIVE_FALLBACK = 'https://raw.githubusercontent.com/creastudioai-beep/sapapp/main/data/telegram_archive';
 let telegramIndexCache = null;
 let telegramIndexCacheTime = 0;
 const TELEGRAM_INDEX_CACHE_TTL = 3600000; // 1 hour in ms
@@ -226,21 +229,25 @@ async function getTelegramIndex(ctx) {
     return telegramIndexCache;
   }
 
-  try {
-    const response = await fetch(`${TELEGRAM_ARCHIVE_BASE}/posts_index.json`, {
-      headers: { 'User-Agent': 'SochiAutoParts-Worker/6.0' },
-      cf: { cacheTtl: 3600, cacheEverything: true },
-    });
+  // Try primary (GitHub Pages) then fallback (raw.githubusercontent.com)
+  for (const baseUrl of [TELEGRAM_ARCHIVE_BASE, TELEGRAM_ARCHIVE_FALLBACK]) {
+    try {
+      const response = await fetch(`${baseUrl}/posts_index.json`, {
+        headers: { 'User-Agent': 'SochiAutoParts-Worker/6.1' },
+        cf: { cacheTtl: 3600, cacheEverything: true },
+      });
 
-    if (!response.ok) return null;
-    const data = await response.json();
-    telegramIndexCache = data;
-    telegramIndexCacheTime = now;
-    return data;
-  } catch (e) {
-    console.error('Failed to fetch Telegram index:', e);
-    return telegramIndexCache || null;
+      if (response.ok) {
+        const data = await response.json();
+        telegramIndexCache = data;
+        telegramIndexCacheTime = now;
+        return data;
+      }
+    } catch (e) {
+      console.error(`Failed to fetch Telegram index from ${baseUrl}:`, e);
+    }
   }
+  return telegramIndexCache || null;
 }
 
 
@@ -251,20 +258,24 @@ async function getTelegramPage(pageNum, ctx) {
     return cached.data;
   }
 
-  try {
-    const response = await fetch(`${TELEGRAM_ARCHIVE_BASE}/page_${pageNum}.json`, {
-      headers: { 'User-Agent': 'SochiAutoParts-Worker/6.0' },
-      cf: { cacheTtl: 3600, cacheEverything: true },
-    });
+  // Try primary (GitHub Pages) then fallback (raw.githubusercontent.com)
+  for (const baseUrl of [TELEGRAM_ARCHIVE_BASE, TELEGRAM_ARCHIVE_FALLBACK]) {
+    try {
+      const response = await fetch(`${baseUrl}/page_${pageNum}.json`, {
+        headers: { 'User-Agent': 'SochiAutoParts-Worker/6.1' },
+        cf: { cacheTtl: 3600, cacheEverything: true },
+      });
 
-    if (!response.ok) return null;
-    const data = await response.json();
-    telegramPageCache[pageNum] = { data, time: now };
-    return data;
-  } catch (e) {
-    console.error(`Failed to fetch Telegram page ${pageNum}:`, e);
-    return cached ? cached.data : null;
+      if (response.ok) {
+        const data = await response.json();
+        telegramPageCache[pageNum] = { data, time: now };
+        return data;
+      }
+    } catch (e) {
+      console.error(`Failed to fetch Telegram page ${pageNum} from ${baseUrl}:`, e);
+    }
   }
+  return cached ? cached.data : null;
 }
 
 

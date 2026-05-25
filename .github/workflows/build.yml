@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       full_fetch:
-        description: 'Run full Telegram archive fetch (not incremental)'
+        description: 'Run full Telegram archive fetch (all ~87K posts, takes ~60 min)'
         required: false
         default: 'false'
         type: boolean
@@ -40,6 +40,7 @@ jobs:
     outputs:
       build_status: ${{ steps.build_result.outputs.status }}
       posts_count: ${{ steps.build_summary.outputs.posts_count }}
+      archive_count: ${{ steps.build_summary.outputs.archive_count }}
       build_duration: ${{ steps.build_summary.outputs.build_duration }}
 
     steps:
@@ -73,12 +74,10 @@ jobs:
           echo "::group::Site Generator"
           START_TIME=$(date +%s)
 
-          # Always try incremental Telegram update first (fast — 1-2 API calls)
-          # Then build the site with whatever archive data is available
           BUILD_SUCCESS=0
 
           if [ "${{ github.event.inputs.full_fetch }}" == "true" ]; then
-            echo "Full archive fetch requested"
+            echo "Full archive fetch requested — fetching ALL posts from Telegram (~60 min)"
             python -m site_generator --full-archive 2>&1 | tee build.log && BUILD_SUCCESS=1 || {
               echo "::warning::Full archive fetch failed, trying with incremental"
               rm -rf output
@@ -142,6 +141,14 @@ jobs:
 
           echo "Output validation: ${HTML_COUNT} HTML file(s) found"
 
+          # Check archive data
+          if [ -d "output/data/telegram_archive" ]; then
+            ARCHIVE_FILES=$(find output/data/telegram_archive -name '*.json' | wc -l)
+            echo "Telegram archive data: ${ARCHIVE_FILES} JSON files deployed"
+          else
+            echo "::warning::No Telegram archive data deployed — /archive/post/{id} will return 404"
+          fi
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -157,7 +164,14 @@ jobs:
           HTML_COUNT=$(find output -name '*.html' | wc -l)
           TOTAL_SIZE=$(du -sh output/ | cut -f1)
 
+          # Count archive posts from meta.json
+          ARCHIVE_COUNT=0
+          if [ -f "output/data/telegram_archive/meta.json" ]; then
+            ARCHIVE_COUNT=$(python3 -c "import json; print(json.load(open('output/data/telegram_archive/meta.json')).get('total_posts', 0))" 2>/dev/null || echo "0")
+          fi
+
           echo "posts_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
+          echo "archive_count=${ARCHIVE_COUNT}" >> $GITHUB_OUTPUT
           echo "build_duration=${DURATION:-N/A}" >> $GITHUB_OUTPUT
 
           echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
@@ -166,9 +180,11 @@ jobs:
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| Status | Success |" >> $GITHUB_STEP_SUMMARY
           echo "| HTML Pages | ${HTML_COUNT} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Archive Posts | ${ARCHIVE_COUNT} |" >> $GITHUB_STEP_SUMMARY
           echo "| Output Size | ${TOTAL_SIZE} |" >> $GITHUB_STEP_SUMMARY
           echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Full Fetch | ${{ github.event.inputs.full_fetch || 'false' }} |" >> $GITHUB_STEP_SUMMARY
 
   deploy:
     name: Deploy to GitHub Pages
@@ -191,13 +207,14 @@ jobs:
           echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| URL | ${{ steps.deployment.outputs.page_url }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Pages | ${{ needs.build.outputs.posts_count }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| HTML Pages | ${{ needs.build.outputs.posts_count }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Archive Posts | ${{ needs.build.outputs.archive_count }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Duration | ${{ needs.build.outputs.build_duration }} |" >> $GITHUB_STEP_SUMMARY
 
   purge-cache:
     name: Purge Cloudflare Cache
     needs: deploy
-    if: ${{ github.event.inputs.purge_cache == 'true' }}
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     continue-on-error: true
 

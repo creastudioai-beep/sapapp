@@ -575,33 +575,15 @@ def generate_all_pages(data: dict, output_dir: str):
             logger.info("Generated %d archive pages (%s)", total_archive_pages, lang)
 
     # ------------------------------------------------------------------
-    # 5b. Individual archive post pages (ru + en)
-    # Generate /archive/post/{id}.html and /en/archive/post/{id}.html
-    # Only generate for the pipeline posts (10K) that have rich SEO data.
-    # The remaining 80K+ posts are served dynamically by the Cloudflare Worker
-    # which looks up post data from the Telegram archive JSON files.
+    # 5b. Individual archive post pages are NO LONGER generated as static HTML.
+    # The Cloudflare Worker generates /archive/post/{id} pages dynamically
+    # from Telegram archive JSON data deployed to GitHub Pages.
+    # See: sochiautoparts-worker-proxy.js → handleArchivePost()
     # ------------------------------------------------------------------
-    if FEATURE_ARCHIVE_ENABLED:
-        archive_posts_for_pages = posts[:MAX_POST_PAGES]  # Only pipeline posts with SEO data
-        total_archive = len(archive_posts_for_pages)
-        logger.info(
-            "Generating %d archive post pages (pipeline posts with SEO data). "
-            "Remaining archive posts served dynamically by Worker.",
-            total_archive,
-        )
-        for idx, post in enumerate(archive_posts_for_pages):
-            post_id = post.get("id")
-            if post_id is None:
-                continue
-            for lang in ("ru", "en"):
-                html = generate_archive_post_page(data, post_id, lang, output_dir)
-                if lang == "ru":
-                    _write_file(os.path.join(output_dir, "archive", "post", f"{post_id}.html"), html)
-                else:
-                    _write_file(os.path.join(output_dir, "en", "archive", "post", f"{post_id}.html"), html)
-
-            if (idx + 1) % 100 == 0:
-                logger.info("  Generated %d/%d archive post pages", idx + 1, total_archive)
+    logger.info(
+        "Skipping individual archive post page generation — "
+        "Worker handles /archive/post/{id} dynamically from deployed JSON data."
+    )
 
     # ------------------------------------------------------------------
     # 6. Shop page with iframe embed (ru + en)
@@ -716,6 +698,34 @@ def generate_all_pages(data: dict, output_dir: str):
     generate_robots_txt_file(output_dir)
     generate_manifests(output_dir)
     generate_search_index(data, output_dir)
+
+    # ------------------------------------------------------------------
+    # 14. Deploy Telegram archive data to GitHub Pages
+    # The Worker reads these JSON files to generate /archive/post/{id} pages.
+    # Files: data/telegram_archive/{meta.json, posts_index.json, page_N.json}
+    # ------------------------------------------------------------------
+    telegram_archive_src = os.path.join("data", "telegram_archive")
+    telegram_archive_dest = os.path.join(output_dir, "data", "telegram_archive")
+    if os.path.isdir(telegram_archive_src):
+        logger.info("Deploying Telegram archive data to GitHub Pages output…")
+        os.makedirs(telegram_archive_dest, exist_ok=True)
+        _archive_files_copied = 0
+        for fname in os.listdir(telegram_archive_src):
+            if fname.endswith(".json"):
+                src_path = os.path.join(telegram_archive_src, fname)
+                dest_path = os.path.join(telegram_archive_dest, fname)
+                shutil.copy2(src_path, dest_path)
+                _archive_files_copied += 1
+        logger.info(
+            "Copied %d Telegram archive JSON files to output/data/telegram_archive/",
+            _archive_files_copied,
+        )
+    else:
+        logger.warning(
+            "No Telegram archive data found at %s — Worker will not be able to "
+            "generate /archive/post/{id} pages. Run with --fetch-archive or --full-archive.",
+            telegram_archive_src,
+        )
 
     logger.info("Site generation complete!")
 
