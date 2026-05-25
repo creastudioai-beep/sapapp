@@ -131,9 +131,8 @@ from .data_loader import (
     extract_first_image,
     format_post_text,
 )
-# NOTE: telegram_fetcher is no longer imported here.
-# Archive pages are rendered dynamically by the Cloudflare Worker.
-# The Python generator only creates a placeholder /archive page.
+# NOTE: Archive pages are now generated as real static HTML using pipeline data.
+# The Cloudflare Worker proxies these and adds region-based affiliate filtering.
 
 
 # ---------------------------------------------------------------------------
@@ -388,7 +387,7 @@ def generate_all_pages(data: dict, output_dir: str):
     2. All post pages (ru + en) + AMP versions
     3. Articles listing (ru + en)
     4. All article pages (ru + en)
-    5. Archive placeholder page (ru + en) — Worker handles dynamic archive
+    5. Archive pages with pagination (ru + en) — static HTML from pipeline data
     6. Shop page with iframe embed (ru + en)
     7. Tag pages (ru + en)
     8. Privacy page (ru + en)
@@ -398,11 +397,9 @@ def generate_all_pages(data: dict, output_dir: str):
     12. AMP homepage (ru + en)
     13. All sitemaps, robots.txt, RSS, manifest
 
-    NOTE: Archive pages (90,000 posts) are rendered DYNAMICALLY by the
-    Cloudflare Worker. The Python generator only creates a placeholder
-    /archive page that says "Loading archive..." which the Worker intercepts.
-    Individual product pages and category pages are NOT generated — the
-    shop page uses an iframe embed of zap-online.ru instead.
+    NOTE: Archive pages are now generated as real static HTML with pagination
+    using pipeline data. The Cloudflare Worker proxies these and adds region-based
+    affiliate filtering. The shop page uses an iframe embed of zap-online.ru.
 
     Args:
         data: The data dict returned by data_loader.load_data().
@@ -523,44 +520,34 @@ def generate_all_pages(data: dict, output_dir: str):
             logger.info("  Generated %d/%d articles", idx + 1, total_articles)
 
     # ------------------------------------------------------------------
-    # 5. Archive placeholder page (ru + en)
-    # The Cloudflare Worker handles dynamic archive rendering.
-    # We only generate a placeholder that the Worker intercepts.
+    # 5. Archive pages (ru + en) — real static HTML with pagination
+    # Generate /archive/index.html (page 1), /archive/page/2/index.html, etc.
     # ------------------------------------------------------------------
     if FEATURE_ARCHIVE_ENABLED:
-        logger.info("Creating placeholder archive page (Worker handles dynamic archive)")
+        from .config import ARCHIVE_POSTS_PER_PAGE, MAX_ARCHIVE_PAGES
         for lang in ("ru", "en"):
-            html = _build_page(
-                lang=lang,
-                title="Архив публикаций" if lang == "ru" else "Publications Archive",
-                description="Архив публикаций SOCHIAUTOPARTS" if lang == "ru" else "SOCHIAUTOPARTS publications archive",
-                url=f"{SITE_URL}/archive" if lang == "ru" else f"{SITE_URL}/en/archive",
-                path="/archive" if lang == "ru" else "/en/archive",
-                body_content=(
-                    '<div class="archive-page-container">'
-                    f'<h1>{"Архив публикаций" if lang == "ru" else "Publications Archive"}</h1>'
-                    f'<p>{"Загрузка архива..." if lang == "ru" else "Loading archive..."}</p>'
-                    '<noscript><p>'
-                    + (
-                        'Архив всех публикаций канала sochiautoparts в Telegram. '
-                        'Автоновости, обзоры, тест-драйвы и акции. '
-                        'В архиве более 90 000 публикаций.'
-                        if lang == "ru" else
-                        'Archive of all sochiautoparts Telegram channel publications. '
-                        'Auto news, reviews, test drives and promos. '
-                        'Over 90,000 publications in the archive.'
-                    )
-                    + '</p></noscript>'
-                    f'<p><a href="{_lang_base(lang)}" class="btn-outline">'
-                    f'{"← На главную" if lang == "ru" else "← Home"}</a></p>'
-                    '</div>'
-                ),
-                active_page="archive",
+            logger.info("Generating archive pages (%s)", lang)
+            total_archive_posts = len(posts)
+            total_archive_pages = min(
+                max(1, math.ceil(total_archive_posts / ARCHIVE_POSTS_PER_PAGE)),
+                MAX_ARCHIVE_PAGES,
             )
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "archive", "index.html"), html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "archive", "index.html"), html)
+            for archive_page in range(1, total_archive_pages + 1):
+                html = generate_archive_page(data, lang, output_dir, page=archive_page)
+                if archive_page == 1:
+                    archive_file = os.path.join(output_dir, "archive", "index.html")
+                else:
+                    archive_file = os.path.join(output_dir, "archive", "page", str(archive_page), "index.html")
+                if lang == "ru":
+                    _write_file(archive_file, html)
+                else:
+                    # For /en, prepend /en to the path
+                    en_archive_file = os.path.join(
+                        output_dir, "en",
+                        os.path.relpath(archive_file, output_dir)
+                    )
+                    _write_file(en_archive_file, html)
+            logger.info("Generated %d archive pages (%s)", total_archive_pages, lang)
 
     # ------------------------------------------------------------------
     # 6. Shop page with iframe embed (ru + en)
@@ -1308,57 +1295,84 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
 # Archive Listing Page
 # ===========================================================================
 
-def generate_archive_page(data: dict, lang: str, output_dir: str, archive_data_dir: str, page: int = 1) -> str:
-    """Generate archive listing page (50 posts per page) using telegram_fetcher data.
+def generate_archive_page(data: dict, lang: str, output_dir: str, page: int = 1) -> str:
+    """Generate archive listing page (50 posts per page) using pipeline data.
 
     Args:
         data: The data dict from data_loader.
         lang: Language code.
         output_dir: Output directory.
-        archive_data_dir: Path to the telegram archive data directory.
         page: Page number (1-based).
 
     Returns:
         Complete HTML page string.
     """
-    page_posts, total_posts, total_pages = get_archive_page_posts(archive_data_dir, page)
+    from .config import ARCHIVE_POSTS_PER_PAGE, MAX_ARCHIVE_PAGES
+    from .css import ARCHIVE_CSS
+
+    # Use pipeline posts for archive
+    all_posts = data.get("posts", [])
+    total_posts = len(all_posts)
+    total_pages = min(
+        max(1, math.ceil(total_posts / ARCHIVE_POSTS_PER_PAGE)),
+        MAX_ARCHIVE_PAGES,
+    )
+
+    # Paginate
+    start = (page - 1) * ARCHIVE_POSTS_PER_PAGE
+    end = start + ARCHIVE_POSTS_PER_PAGE
+    page_posts = all_posts[start:end]
 
     # SEO
-    page_title = t("archive_title", lang)
-    page_desc = t("archive_subtitle", lang)
-    if lang == "ru":
-        full_title = f"Архив | SOCHIAUTOPARTS (стр. {page})"
+    is_ru = lang == "ru"
+    page_title = "Архив публикаций" if is_ru else "Publications Archive"
+    page_desc = (
+        "Архив всех публикаций канала sochiautoparts в Telegram. Автоновости, обзоры, тест-драйвы и акции."
+        if is_ru else
+        "Archive of all sochiautoparts Telegram channel publications. Auto news, reviews, test drives and promos."
+    )
+    if page == 1:
+        full_title = f"Архив публикаций — SOCHIAUTOPARTS" if is_ru else "Publications Archive — SOCHIAUTOPARTS"
     else:
-        full_title = f"Archive | SOCHIAUTOPARTS (page {page})"
+        full_title = f"Архив публикаций — стр. {page} | SOCHIAUTOPARTS" if is_ru else f"Publications Archive — page {page} | SOCHIAUTOPARTS"
 
     if lang == "en":
-        page_url = f"{SITE_URL}/en/archive"
+        canonical_url = f"{SITE_URL}/en/archive" if page == 1 else f"{SITE_URL}/en/archive/page/{page}/"
         path = "/en/archive"
     else:
-        page_url = f"{SITE_URL}/archive"
+        canonical_url = f"{SITE_URL}/archive" if page == 1 else f"{SITE_URL}/archive/page/{page}/"
         path = "/archive"
 
-    page_url_rel = f"{_lang_path(lang)}/archive"
+    archive_base = f"{_lang_path(lang)}/archive"
 
     # Archive cards
     cards_html = ""
     for arch_post in page_posts:
         cards_html += render_archive_post_card(arch_post, lang)
 
-    # Pagination (archive-style prev/next)
-    archive_pagination = render_numbered_pagination(page, total_pages, page_url_rel, lang)
+    # Link to Telegram for more posts (if last page)
+    telegram_link_html = ""
+    if page == total_pages:
+        tg_text = "Ещё больше публикаций в Telegram →" if is_ru else "More posts on Telegram →"
+        telegram_link_html = (
+            f'<div style="text-align:center;margin:2rem 0;">'
+            f'<a href="https://t.me/s/sochiautoparts" target="_blank" rel="nofollow noopener noreferrer" '
+            f'style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;'
+            f'background:var(--primary);color:white;font-weight:700;text-decoration:none;">'
+            f'📁 {tg_text}</a></div>'
+        )
+
+    # Numbered pagination with real file paths
+    pagination_html = render_numbered_pagination(page, total_pages, f"{archive_base}/", lang)
 
     # Counter
-    if lang == "ru":
-        counter_text = f"Всего {total_posts} публикаций в архиве"
-    else:
-        counter_text = f"Total {total_posts} posts in archive"
+    counter_text = f"Всего {total_posts} публикаций в архиве" if is_ru else f"Total {total_posts} posts in archive"
     counter_html = f'<div class="posts-counter">{counter_text}</div>'
 
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_archive", lang), "url": page_url_rel},
+        {"name": t("bc_archive", lang), "url": archive_base},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
@@ -1372,20 +1386,22 @@ def generate_archive_page(data: dict, lang: str, output_dir: str, archive_data_d
 <div class="archive-grid">
 {cards_html}
 </div>
-{archive_pagination}
+{telegram_link_html}
+{pagination_html}
 </div>"""
 
     return _build_page(
         lang=lang,
         title=full_title,
         description=page_desc,
-        url=page_url if page == 1 else f"{page_url}?page={page}",
+        url=canonical_url,
         path=path,
         body_content=body,
         og_type="website",
         extra_schema=[breadcrumb_schema],
         active_page="archive",
         include_matrix=False,
+        css_override=CSS_STYLES + ARCHIVE_CSS,
     )
 
 

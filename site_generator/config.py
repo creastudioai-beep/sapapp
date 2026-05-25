@@ -250,12 +250,13 @@ SOCIAL_LINKS: dict[str, str] = {
 # ARCHIVE SETTINGS
 # =============================================================================
 
-ARCHIVE_POSTS_PER_PAGE: int = 50  # Used by Worker for reference; Python generator does not produce archive HTML
+ARCHIVE_POSTS_PER_PAGE: int = 50
+MAX_ARCHIVE_PAGES: int = 200  # Limits archive pagination pages for size
+ARCHIVE_ENABLED: bool = True  # Generate static archive pages from pipeline data
 
-# NOTE: Archive pages (90,000 posts) are rendered DYNAMICALLY by the Cloudflare Worker
-# which fetches from Telegram t.me/s/sochiautoparts on each request.
-# The Python generator does NOT generate archive HTML files.
-# It only creates a placeholder /archive page that the Worker intercepts.
+# NOTE: Archive pages are now generated as static HTML by the Python generator
+# using pipeline data (posts.json). The Cloudflare Worker proxies these pages
+# and adds region-based affiliate filtering on top.
 
 # =============================================================================
 # GITHUB PAGES OUTPUT
@@ -589,7 +590,7 @@ CONTACT_WORKING_HOURS_EN: str = "24/7 (online)"
 
 FEATURE_SHOP_ENABLED: bool = True
 FEATURE_ARTICLES_ENABLED: bool = True
-FEATURE_ARCHIVE_ENABLED: bool = True
+FEATURE_ARCHIVE_ENABLED: bool = True  # Generate real archive HTML pages
 FEATURE_SEARCH_ENABLED: bool = True
 FEATURE_RSS_ENABLED: bool = True
 FEATURE_SITEMAP_ENABLED: bool = True

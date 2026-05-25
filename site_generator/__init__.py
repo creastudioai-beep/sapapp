@@ -3,11 +3,11 @@ SochiAutoParts Static Site Generator package.
 
 Generates a complete static website for sochiautoparts.ru from pipeline data,
 including bilingual pages (Russian and English), SEO optimization, sitemaps,
-and RSS feeds.
+RSS feeds, and archive pages with pagination.
 
-NOTE: Archive pages (90,000 posts) are rendered DYNAMICALLY by the
-Cloudflare Worker. The Python generator only creates a placeholder /archive
-page that the Worker intercepts.
+Archive pages are generated as static HTML by the Python generator using
+pipeline data (posts.json). The Cloudflare Worker proxies these pages and
+adds region-based affiliate filtering on top.
 
 Modules:
     main            - CLI entry point and build orchestration

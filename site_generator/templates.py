@@ -302,8 +302,8 @@ SOCHIAUTOPARTS
 <nav class="main-nav" id="mainNav">
 <a href="{_lang_path(lang)}/" class="{active_home}">{t('nav_home', lang)}</a>
 <a href="{_lang_path(lang)}/articles" class="{active_articles}">{t('nav_articles', lang)}</a>
-<a href="{_lang_path(lang)}/archive" class="{active_archive}">{'Архив' if lang == 'ru' else 'Archive'}</a>
-<a href="{shop_url}" class="{active_shop}">{t('nav_shop', lang)}</a>
+<a href="{_lang_path(lang)}/archive" class="{active_archive}">{'📁 Архив' if lang == 'ru' else '📁 Archive'}</a>
+<a href="{shop_url}" class="{active_shop}">{'🛒 Магазин' if lang == 'ru' else '🛒 Shop'}</a>
 <a href="{contacts_url}" class="{active_contacts}">{t('nav_contacts', lang)}</a>
 </nav>
 <div class="controls-group">
@@ -333,11 +333,11 @@ def render_hero(lang: str = "ru") -> str:
     """
     hero_title = "SOCHIAUTOPARTS"
     if lang == "ru":
-        hero_subtitle = "Ежедневные новости, тест-драйвы и обзоры мирового автопрома. В архиве 10000 публикаций"
+        hero_subtitle = "Ежедневные новости, тест-драйвы и обзоры мирового автопрома. В архиве 10000 публикаций"  # totalPosts will be injected
         btn_label = "Подписаться"
         search_placeholder = "Поиск"
     else:
-        hero_subtitle = "Daily news, test drives and reviews of the global automotive industry. 10000 publications in archive"
+        hero_subtitle = "Daily news, test drives and reviews of the global automotive industry. 10000 publications in archive"  # totalPosts will be injected
         btn_label = "Subscribe"
         search_placeholder = "Search"
 

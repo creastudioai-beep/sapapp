@@ -8,9 +8,9 @@ Orchestrates the entire build process:
     4. Generate all HTML pages (bilingual: Russian and English)
     5. Print a build summary with file counts and statistics
 
-NOTE: Archive pages (90,000 posts) are rendered DYNAMICALLY by the
-Cloudflare Worker. The Python generator does NOT generate archive HTML
-files. It only creates a placeholder /archive page that the Worker intercepts.
+NOTE: Archive pages are generated as static HTML by the Python generator
+using pipeline data. The Cloudflare Worker proxies these pages and adds
+region-based affiliate filtering on top.
 
 Usage:
     python -m site_generator [options]
@@ -64,7 +64,9 @@ from .config import (
 )
 from .data_loader import load_data
 from .html_generator import generate_all_pages
-from .telegram_fetcher import fetch_all_posts, incremental_update
+
+# telegram_fetcher is imported lazily inside main() only when --fetch-archive / --full-archive is used.
+# This prevents import errors if telegram_fetcher dependencies are missing.
 
 
 # ---------------------------------------------------------------------------
@@ -418,6 +420,7 @@ def main(argv: Optional[list] = None) -> None:
         print()
         print("Fetching full Telegram archive…")
         try:
+            from .telegram_fetcher import fetch_all_posts
             meta = fetch_all_posts(
                 channel=CHANNEL_USERNAME,
                 data_dir=telegram_data_dir,
@@ -431,6 +434,10 @@ def main(argv: Optional[list] = None) -> None:
                 meta.get("pages_count", 0),
             )
             print(f"  Telegram archive: {meta.get('total_posts', 0)} posts in {meta.get('pages_count', 0)} pages")
+        except ImportError as exc:
+            logger.warning("telegram_fetcher module not available (skipping): %s", exc)
+            print(f"  WARNING: telegram_fetcher not available: {exc}")
+            print("  Continuing with pipeline data only…")
         except Exception as exc:
             logger.warning("Telegram full archive fetch failed (non-fatal): %s", exc)
             print(f"  WARNING: Telegram full archive fetch failed: {exc}")
@@ -441,6 +448,7 @@ def main(argv: Optional[list] = None) -> None:
         print()
         print("Running incremental Telegram update…")
         try:
+            from .telegram_fetcher import fetch_all_posts
             # Limit to a quick incremental update (fetch up to 500 posts only)
             # Full archive takes hours — not suitable for CI builds
             meta = fetch_all_posts(
@@ -456,6 +464,10 @@ def main(argv: Optional[list] = None) -> None:
                 meta.get("pages_count", 0),
             )
             print(f"  Telegram archive: {meta.get('total_posts', 0)} posts in {meta.get('pages_count', 0)} pages")
+        except ImportError as exc:
+            logger.warning("telegram_fetcher module not available (skipping): %s", exc)
+            print(f"  WARNING: telegram_fetcher not available: {exc}")
+            print("  Continuing with pipeline data only…")
         except Exception as exc:
             logger.warning("Telegram incremental update failed (non-fatal): %s", exc)
             print(f"  WARNING: Telegram incremental update failed: {exc}")

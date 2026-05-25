@@ -2,7 +2,6 @@ name: Build & Deploy Site
 
 on:
   schedule:
-    # Run every 2 hours to pick up new Telegram posts and pipeline data
     - cron: '0 */2 * * *'
   push:
     branches:
@@ -20,12 +19,10 @@ on:
         default: 'true'
         type: boolean
 
-# Prevent parallel builds — only one at a time, cancel older runs
 concurrency:
   group: build-deploy-pages
   cancel-in-progress: true
 
-# Permissions needed for GitHub Pages deployment
 permissions:
   contents: read
   pages: write
@@ -48,8 +45,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v5
@@ -63,14 +58,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Restore Telegram archive cache
-        uses: actions/cache@v4
-        with:
-          path: data/telegram_archive
-          key: telegram-archive-${{ github.run_id }}
-          restore-keys: |
-            telegram-archive-
-
       - name: Restore pipeline data cache
         uses: actions/cache@v4
         with:
@@ -79,81 +66,42 @@ jobs:
           restore-keys: |
             pipeline-data-
 
-      - name: Run site generator (incremental Telegram update)
-        id: generator_incremental
-        if: ${{ github.event.inputs.full_fetch != 'true' }}
+      - name: Run site generator
+        id: generator
         timeout-minutes: 90
-        continue-on-error: true
         run: |
-          echo "::group::Site Generator — Incremental Fetch"
+          echo "::group::Site Generator"
           START_TIME=$(date +%s)
-          python -m site_generator --fetch-archive 2>&1 | tee build.log
-          EXIT_CODE=${PIPESTATUS[0]}
+
+          # Try with Telegram fetch first, fall back to without
+          if [ "${{ github.event.inputs.full_fetch }}" == "true" ]; then
+            echo "Full archive fetch requested"
+            python -m site_generator --full-archive 2>&1 | tee build.log || {
+              echo "::warning::Full archive fetch failed, retrying without Telegram fetch"
+              rm -rf output
+              python -m site_generator 2>&1 | tee build-retry.log || {
+                echo "::error::Site generator failed"
+                exit 1
+              }
+            }
+          else
+            echo "Incremental build (with optional Telegram update)"
+            python -m site_generator --fetch-archive 2>&1 | tee build.log || {
+              echo "::warning::Build with Telegram fetch failed, retrying without"
+              rm -rf output
+              python -m site_generator 2>&1 | tee build-retry.log || {
+                echo "::error::Site generator failed"
+                exit 1
+              }
+            }
+          fi
+
           END_TIME=$(date +%s)
           DURATION=$(( END_TIME - START_TIME ))
           echo "::endgroup::"
-
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "::warning::Site generator returned exit code $EXIT_CODE — will retry without Telegram fetch"
-            echo "need_retry=true" >> $GITHUB_OUTPUT
-          else
-            echo "need_retry=false" >> $GITHUB_OUTPUT
-          fi
 
           echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
           echo "Build completed in ${DURATION}s"
-
-      - name: Run site generator (retry without Telegram)
-        if: ${{ steps.generator_incremental.outputs.need_retry == 'true' }}
-        timeout-minutes: 30
-        run: |
-          echo "::group::Site Generator — Retry (no Telegram fetch)"
-          python -m site_generator 2>&1 | tee build-retry.log
-          EXIT_CODE=${PIPESTATUS[0]}
-          echo "::endgroup::"
-
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "::error::Site generator failed even without Telegram fetch"
-            exit $EXIT_CODE
-          fi
-
-      - name: Run site generator (full Telegram archive fetch)
-        id: generator_full
-        if: ${{ github.event.inputs.full_fetch == 'true' }}
-        timeout-minutes: 110
-        continue-on-error: true
-        run: |
-          echo "::group::Site Generator — Full Archive Fetch"
-          START_TIME=$(date +%s)
-          python -m site_generator --full-archive 2>&1 | tee build.log
-          EXIT_CODE=${PIPESTATUS[0]}
-          END_TIME=$(date +%s)
-          DURATION=$(( END_TIME - START_TIME ))
-          echo "::endgroup::"
-
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "::warning::Full archive fetch failed with exit code $EXIT_CODE — retrying without fetch"
-            echo "need_retry=true" >> $GITHUB_OUTPUT
-          else
-            echo "need_retry=false" >> $GITHUB_OUTPUT
-          fi
-
-          echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
-          echo "Full build completed in ${DURATION}s"
-
-      - name: Run site generator (retry full fetch failure)
-        if: ${{ steps.generator_full.outputs.need_retry == 'true' }}
-        timeout-minutes: 30
-        run: |
-          echo "::group::Site Generator — Retry (no Telegram fetch)"
-          python -m site_generator 2>&1 | tee build-retry.log
-          EXIT_CODE=${PIPESTATUS[0]}
-          echo "::endgroup::"
-
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "::error::Site generator failed even without Telegram fetch"
-            exit $EXIT_CODE
-          fi
 
       - name: Validate output
         run: |
@@ -166,7 +114,8 @@ jobs:
           echo "html_files_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
 
           if [ "$HTML_COUNT" -eq 0 ]; then
-            echo "::warning::No HTML files generated in output/"
+            echo "::error::No HTML files generated in output/"
+            exit 1
           fi
 
           echo "Output validation: ${HTML_COUNT} HTML file(s) found"
@@ -198,7 +147,6 @@ jobs:
           echo "| Output Size | ${TOTAL_SIZE} |" >> $GITHUB_STEP_SUMMARY
           echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| Full Fetch | ${{ github.event.inputs.full_fetch || 'false' }} |" >> $GITHUB_STEP_SUMMARY
 
   deploy:
     name: Deploy to GitHub Pages
