@@ -157,6 +157,15 @@ if not logger.handlers:
 
 MAX_ARCHIVE_POST_PAGES: int = 90000  # Generate archive post pages — new posts push old ones out
 
+# GitHub Pages size limits require constraining the number of generated files.
+# Each HTML page is ~80KB; GitHub Pages limit is 1GB total.
+MAX_TAG_PAGES: int = 500  # Only generate tag pages for the top 500 tags
+MAX_POST_PAGES: int = 1000  # Only generate individual post pages for the latest 1000 posts
+MAX_PRODUCT_PAGES: int = 200  # Only generate individual product pages for 200 products
+GENERATE_AMP: bool = False  # Skip AMP pages to reduce output size
+GENERATE_AMP_HOMEPAGE: bool = False  # Skip AMP homepage
+GENERATE_INDIVIDUAL_PRODUCT_PAGES: bool = False  # Skip individual product pages (shop listing page only)
+
 
 # ---------------------------------------------------------------------------
 # Helper: Write file
@@ -450,11 +459,12 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
             _write_file(os.path.join(output_dir, "en", "index.html"), html)
 
     # ------------------------------------------------------------------
-    # 2. All post pages (ru + en) + AMP versions
+    # 2. All post pages (ru + en) — limited for GitHub Pages size
     # ------------------------------------------------------------------
     total_posts = len(posts)
-    logger.info("Generating %d post pages (ru + en + AMP)", total_posts)
-    for idx, post in enumerate(posts):
+    posts_to_generate = posts[:MAX_POST_PAGES]
+    logger.info("Generating %d post pages (ru + en) out of %d total", len(posts_to_generate), total_posts)
+    for idx, post in enumerate(posts_to_generate):
         post_id = post.get("id")
         if post_id is None:
             continue
@@ -465,15 +475,16 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
             else:
                 _write_file(os.path.join(output_dir, "en", "post", f"{post_id}.html"), html)
 
-            # AMP version
-            amp_html = generate_amp_post_page(data, post_id, lang, output_dir)
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "post", str(post_id), "amp.html"), amp_html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "post", str(post_id), "amp.html"), amp_html)
+            # AMP version (optional — skipped by default for size)
+            if GENERATE_AMP:
+                amp_html = generate_amp_post_page(data, post_id, lang, output_dir)
+                if lang == "ru":
+                    _write_file(os.path.join(output_dir, "post", str(post_id), "amp.html"), amp_html)
+                else:
+                    _write_file(os.path.join(output_dir, "en", "post", str(post_id), "amp.html"), amp_html)
 
         if (idx + 1) % 100 == 0:
-            logger.info("  Generated %d/%d posts", idx + 1, total_posts)
+            logger.info("  Generated %d/%d posts", idx + 1, len(posts_to_generate))
 
     # ------------------------------------------------------------------
     # 3. Articles listing (ru + en)
@@ -508,23 +519,41 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
     # ------------------------------------------------------------------
     # 5. Archive pages (ru + en)
     # ------------------------------------------------------------------
-    if FEATURE_ARCHIVE_ENABLED and os.path.isdir(archive_data_dir):
-        archive_meta = load_archive_meta(archive_data_dir)
-        archive_pages_count = archive_meta.get("pages_count", 0)
-        logger.info("Generating %d archive listing pages", archive_pages_count)
-        for page_num in range(1, archive_pages_count + 1):
+    if FEATURE_ARCHIVE_ENABLED:
+        if os.path.isdir(archive_data_dir):
+            archive_meta = load_archive_meta(archive_data_dir)
+            archive_pages_count = archive_meta.get("pages_count", 0)
+            logger.info("Generating %d archive listing pages", archive_pages_count)
+            for page_num in range(1, archive_pages_count + 1):
+                for lang in ("ru", "en"):
+                    html = generate_archive_page(data, lang, output_dir, archive_data_dir, page=page_num)
+                    if lang == "ru":
+                        if page_num == 1:
+                            _write_file(os.path.join(output_dir, "archive", "index.html"), html)
+                        else:
+                            _write_file(os.path.join(output_dir, "archive", f"page-{page_num}.html"), html)
+                    else:
+                        if page_num == 1:
+                            _write_file(os.path.join(output_dir, "en", "archive", "index.html"), html)
+                        else:
+                            _write_file(os.path.join(output_dir, "en", "archive", f"page-{page_num}.html"), html)
+        else:
+            # No archive data — create a placeholder archive page so /archive doesn't 404
+            logger.info("No archive data found — creating placeholder archive page")
             for lang in ("ru", "en"):
-                html = generate_archive_page(data, lang, output_dir, archive_data_dir, page=page_num)
+                html = _build_page(
+                    lang=lang,
+                    title="Архив публикаций" if lang == "ru" else "Publications Archive",
+                    description="Архив публикаций SOCHIAUTOPARTS" if lang == "ru" else "SOCHIAUTOPARTS publications archive",
+                    url=f"{SITE_URL}/archive" if lang == "ru" else f"{SITE_URL}/en/archive",
+                    path="/archive" if lang == "ru" else "/en/archive",
+                    body_content=f'<div class="container"><h1>{"Архив публикаций" if lang == "ru" else "Publications Archive"}</h1><p>{"Архив обновляется. Скоро здесь будут доступны все публикации." if lang == "ru" else "Archive is being updated. All publications will be available here soon."}</p><p><a href="{_lang_base(lang)}" class="btn-outline">{"← На главную" if lang == "ru" else "← Home"}</a></p></div>',
+                    active_page="archive",
+                )
                 if lang == "ru":
-                    if page_num == 1:
-                        _write_file(os.path.join(output_dir, "archive", "index.html"), html)
-                    else:
-                        _write_file(os.path.join(output_dir, "archive", f"page-{page_num}.html"), html)
+                    _write_file(os.path.join(output_dir, "archive", "index.html"), html)
                 else:
-                    if page_num == 1:
-                        _write_file(os.path.join(output_dir, "en", "archive", "index.html"), html)
-                    else:
-                        _write_file(os.path.join(output_dir, "en", "archive", f"page-{page_num}.html"), html)
+                    _write_file(os.path.join(output_dir, "en", "archive", "index.html"), html)
 
     # ------------------------------------------------------------------
     # 6. Archive post pages (ru + en) — limited to first 5000
@@ -567,12 +596,13 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
                 _write_file(os.path.join(output_dir, "en", "shop", "index.html"), html)
 
     # ------------------------------------------------------------------
-    # 8. Product pages (ru + en)
+    # 8. Product pages (ru + en) — limited for GitHub Pages size
     # ------------------------------------------------------------------
-    if FEATURE_SHOP_ENABLED:
+    if FEATURE_SHOP_ENABLED and GENERATE_INDIVIDUAL_PRODUCT_PAGES:
         total_products = len(products)
-        logger.info("Generating %d product pages (ru + en)", total_products)
-        for idx, product in enumerate(products):
+        products_to_generate = products[:MAX_PRODUCT_PAGES]
+        logger.info("Generating %d product pages (ru + en) out of %d total", len(products_to_generate), total_products)
+        for idx, product in enumerate(products_to_generate):
             product_id = product.get("id")
             if product_id is None:
                 continue
@@ -583,7 +613,7 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
                 else:
                     _write_file(os.path.join(output_dir, "en", "product", f"{product_id}.html"), html)
             if (idx + 1) % 100 == 0:
-                logger.info("  Generated %d/%d products", idx + 1, total_products)
+                logger.info("  Generated %d/%d products", idx + 1, len(products_to_generate))
 
     # ------------------------------------------------------------------
     # 9. Category pages (ru + en)
@@ -607,7 +637,13 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
     # Safety: still check for nested structure in case data was loaded differently
     if isinstance(hashtag_index, dict) and "index" in hashtag_index:
         hashtag_index = hashtag_index["index"]
-    logger.info("Generating tag pages for %d tags", len(hashtag_index))
+
+    # Limit tag pages for GitHub Pages size constraints
+    # Sort tags by post count (descending) and take only the top MAX_TAG_PAGES
+    if isinstance(hashtag_index, dict):
+        sorted_tags = sorted(hashtag_index.items(), key=lambda x: len(x[1]) if isinstance(x[1], list) else 0, reverse=True)
+        hashtag_index = dict(sorted_tags[:MAX_TAG_PAGES])
+    logger.info("Generating tag pages for %d tags (limited from full index)", len(hashtag_index))
     for tag_key in hashtag_index:
         # Normalize tag name (strip leading #)
         tag_name = re.sub(r"^#+", "", str(tag_key))
@@ -661,14 +697,17 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
     _write_file(os.path.join(output_dir, "404.html"), html_404)
 
     # ------------------------------------------------------------------
-    # 15. AMP homepage (ru + en)
+    # 15. AMP homepage (ru + en) — optional, skipped for size
     # ------------------------------------------------------------------
-    for lang in ("ru", "en"):
-        html = generate_amp_homepage(data, lang, output_dir)
-        if lang == "ru":
-            _write_file(os.path.join(output_dir, "amp", "index.html"), html)
-        else:
-            _write_file(os.path.join(output_dir, "en", "amp", "index.html"), html)
+    if GENERATE_AMP_HOMEPAGE:
+        for lang in ("ru", "en"):
+            html = generate_amp_homepage(data, lang, output_dir)
+            if lang == "ru":
+                _write_file(os.path.join(output_dir, "amp", "index.html"), html)
+            else:
+                _write_file(os.path.join(output_dir, "en", "amp", "index.html"), html)
+    else:
+        logger.info("Skipping AMP homepage generation (GENERATE_AMP_HOMEPAGE=False)")
 
     # ------------------------------------------------------------------
     # 16. Sitemaps, robots.txt, RSS, manifest
@@ -863,8 +902,8 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
     date_str = post.get("date", "")
     date_display = _format_date_display(date_str, lang)
 
-    # AMP link (relative)
-    amp_link_html = f'<a href="{amp_url_rel}" class="amp-badge">AMP</a>'
+    # AMP link (relative) — only if AMP generation is enabled
+    amp_link_html = f'<a href="{amp_url_rel}" class="amp-badge">AMP</a>' if GENERATE_AMP else ""
 
     # Related posts
     related = get_related_posts(data, post_id, limit=RELATED_POSTS_COUNT)

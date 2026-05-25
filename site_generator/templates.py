@@ -302,8 +302,8 @@ SOCHIAUTOPARTS
 <nav class="main-nav" id="mainNav">
 <a href="{_lang_path(lang)}/" class="{active_home}">{t('nav_home', lang)}</a>
 <a href="{_lang_path(lang)}/articles" class="{active_articles}">{t('nav_articles', lang)}</a>
-<a href="{_lang_path(lang)}/archive" class="{active_archive}">📁 {'Архив' if lang == 'ru' else 'Archive'}</a>
-<a href="{shop_url}" class="{active_shop}">🛒 {t('nav_shop', lang)}</a>
+<a href="{_lang_path(lang)}/archive" class="{active_archive}">{'Архив' if lang == 'ru' else 'Archive'}</a>
+<a href="{shop_url}" class="{active_shop}">{t('nav_shop', lang)}</a>
 <a href="{contacts_url}" class="{active_contacts}">{t('nav_contacts', lang)}</a>
 </nav>
 <div class="controls-group">
@@ -493,7 +493,6 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
         f'<div class="post-feed-content">\n'
         f'<div class="post-feed-meta">\n'
         f'<span>📅 {escape_html(date_display)}</span>\n'
-        f'<a href="{amp_url}" class="amp-badge">AMP</a>\n'
         f'</div>\n'
         f'<h3 class="post-feed-title">\n'
         f'<a href="{post_url}">{escape_html(title)}</a>\n'
@@ -743,8 +742,6 @@ def render_footer(tags: Optional[list] = None, lang: str = "ru") -> str:
 <a href="{_bp('/rss.xml')}">RSS</a> |
 <a href="{_bp('/sitemap.xml')}">{"Карта сайта" if lang == "ru" else "Sitemap"}</a> |
 <a href="{_bp('/sitemap-tags.xml')}">Tags</a> |
-<a href="{_bp('/sitemap-amp.xml')}">AMP Sitemap</a> |
-<a href="{_bp('/api/stats')}">Stats</a> |
 <a href="{privacy_url}">{privacy_label}</a> |
 <a href="https://t.me/{CHANNEL_USERNAME}" target="_blank" rel="nofollow noopener noreferrer">Telegram</a>
 </div>
