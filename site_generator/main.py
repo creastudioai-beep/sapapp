@@ -4,9 +4,13 @@ Main entry point for the SochiAutoParts static site generator.
 Orchestrates the entire build process:
     1. Parse command-line arguments
     2. Load all data from the pipeline (GitHub raw JSON with local caching)
-    3. Optionally fetch / update the Telegram channel archive
-    4. Generate all HTML pages (bilingual: Russian and English)
-    5. Print a build summary with file counts and statistics
+    3. Generate all HTML pages (bilingual: Russian and English)
+    4. Print a build summary with file counts and statistics
+
+NOTE: Archive pages (90,000 posts) are rendered DYNAMICALLY by the
+Cloudflare Worker. The Python generator does NOT fetch Telegram data
+or generate archive HTML files. It only creates a placeholder /archive
+page that the Worker intercepts.
 
 Usage:
     python -m site_generator.main [options]
@@ -14,10 +18,7 @@ Usage:
 Options:
     --output-dir DIR     Output directory (default: output)
     --data-dir DIR       Data cache directory (default: data)
-    --archive-dir DIR    Telegram archive data directory (default: data/telegram_archive)
     --force-refresh      Force refresh data from pipeline (ignore cache)
-    --fetch-archive      Fetch/update Telegram archive
-    --full-archive       Force full archive rebuild (not incremental)
     --no-pages           Skip page generation (only fetch data)
     --no-sitemaps        Skip sitemap generation
     --no-rss             Skip RSS generation
@@ -54,14 +55,12 @@ from .config import (
     GENERATOR_NAME,
     GENERATOR_VERSION,
     OUTPUT_DIR as DEFAULT_OUTPUT_DIR,
-    ARCHIVE_DATA_DIR as DEFAULT_ARCHIVE_DIR,
     SITE_NAME_RU,
     SITE_NAME_EN,
     SITE_URL,
     SUPPORTED_LANGUAGES,
 )
 from .data_loader import load_data
-from .telegram_fetcher import fetch_all_posts, incremental_update, load_meta as load_archive_meta
 from .html_generator import generate_all_pages
 
 
@@ -101,15 +100,14 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         description=(
             f"{GENERATOR_NAME} v{GENERATOR_VERSION} — "
             "Generates a complete static website for sochiautoparts.ru "
-            "from pipeline data and an optional Telegram archive."
+            "from pipeline data. Archive pages are handled dynamically "
+            "by the Cloudflare Worker."
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
             "Examples:\n"
             "  python -m site_generator.main\n"
             "  python -m site_generator.main --force-refresh --verbose\n"
-            "  python -m site_generator.main --fetch-archive --full-archive\n"
-            "  python -m site_generator.main --no-pages --fetch-archive\n"
             "  python -m site_generator.main --lang ru --output-dir /tmp/site\n"
         ),
     )
@@ -127,25 +125,9 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         help="Data cache directory for pipeline JSON files (default: data)",
     )
     parser.add_argument(
-        "--archive-dir",
-        default=DEFAULT_ARCHIVE_DIR,
-        metavar="DIR",
-        help=f"Telegram archive data directory (default: {DEFAULT_ARCHIVE_DIR})",
-    )
-    parser.add_argument(
         "--force-refresh",
         action="store_true",
         help="Force refresh data from pipeline (ignore local cache)",
-    )
-    parser.add_argument(
-        "--fetch-archive",
-        action="store_true",
-        help="Fetch/update Telegram archive before generating pages",
-    )
-    parser.add_argument(
-        "--full-archive",
-        action="store_true",
-        help="Force full archive rebuild (not incremental). Implies --fetch-archive.",
     )
     parser.add_argument(
         "--no-pages",
@@ -179,10 +161,6 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
 
     args = parser.parse_args(argv)
 
-    # --full-archive implies --fetch-archive
-    if args.full_archive:
-        args.fetch_archive = True
-
     # Parse and validate language list
     requested_langs = [lang.strip().lower() for lang in args.lang.split(",")]
     valid_langs = []
@@ -206,17 +184,6 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
 
 def _remove_sitemaps(output_dir: str) -> int:
     """Remove all generated sitemap XML files from the output directory.
-
-    Removes:
-        - sitemap.xml
-        - sitemap-index.xml
-        - sitemap-posts-*.xml
-        - sitemap-products-*.xml
-        - sitemap-ru.xml, sitemap-en.xml
-        - sitemap-amp.xml
-        - sitemap-news.xml
-        - sitemap-tags.xml
-        - sitemap-archive.xml
 
     Args:
         output_dir: Root output directory.
@@ -258,10 +225,6 @@ def _remove_sitemaps(output_dir: str) -> int:
 def _remove_rss(output_dir: str) -> int:
     """Remove all generated RSS feed files from the output directory.
 
-    Removes:
-        - feed.xml (root)
-        - en/feed.xml (English version)
-
     Args:
         output_dir: Root output directory.
 
@@ -286,17 +249,12 @@ def _remove_rss(output_dir: str) -> int:
 def _remove_language(output_dir: str, lang: str) -> int:
     """Remove all generated files for a specific language that is not requested.
 
-    If ``lang`` is "en", removes the entire ``en/`` subdirectory from the
-    output. If ``lang`` is "ru", this is a no-op because Russian pages live
-    at the root of the output directory and cannot be selectively removed
-    without also removing English pages.
-
     Args:
         output_dir: Root output directory.
         lang: Language code to remove ("en" or "ru").
 
     Returns:
-        Number of top-level items removed (1 for the en/ directory, 0 for ru).
+        Number of top-level items removed.
     """
     if lang == "en":
         en_dir = os.path.join(output_dir, "en")
@@ -304,8 +262,6 @@ def _remove_language(output_dir: str, lang: str) -> int:
             shutil.rmtree(en_dir)
             logger.debug("Removed English language directory: %s", en_dir)
             return 1
-    # Russian files are at the root; we cannot selectively remove them
-    # without breaking the site structure, so this is a no-op.
     return 0
 
 
@@ -316,9 +272,6 @@ def _remove_language(output_dir: str, lang: str) -> int:
 
 def print_build_summary(output_dir: str, elapsed_seconds: float = 0.0) -> None:
     """Print a detailed build summary with file counts and statistics.
-
-    Walks the output directory and counts generated files by type,
-    then prints a formatted summary table.
 
     Args:
         output_dir: Root output directory to scan.
@@ -390,23 +343,7 @@ def print_build_summary(output_dir: str, elapsed_seconds: float = 0.0) -> None:
             print(f"    {dir_name:<20} {count:>6}")
         print()
 
-    # Archive status
-    archive_dir = os.path.join(os.path.dirname(output_dir), "data", "telegram_archive")
-    if not os.path.isdir(archive_dir):
-        # Try the default path relative to the project root
-        archive_dir = os.path.join(_PROJECT_ROOT, "data", "telegram_archive")
-
-    if os.path.isdir(archive_dir):
-        archive_meta = load_archive_meta(archive_dir)
-        if archive_meta:
-            print("  Telegram archive:")
-            print(f"    Channel:       @{archive_meta.get('channel', CHANNEL_USERNAME)}")
-            print(f"    Total posts:   {archive_meta.get('total_posts', 0)}")
-            print(f"    Pages:         {archive_meta.get('pages_count', 0)}")
-            print(f"    Last post ID:  {archive_meta.get('last_post_id', 'N/A')}")
-            print(f"    Last updated:  {archive_meta.get('last_updated', 'N/A')}")
-            print()
-
+    print("  Note: Archive pages rendered dynamically by Cloudflare Worker")
     print(f"  Built at: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print("=" * 60)
     print()
@@ -423,10 +360,9 @@ def main(argv: Optional[list] = None) -> None:
     Orchestrates the entire build process:
         1. Parse command-line arguments
         2. Load all data from the pipeline
-        3. Optionally fetch/update Telegram archive posts
-        4. Generate all HTML pages
-        5. Post-generation cleanup (sitemaps, RSS, language filtering)
-        6. Print a build summary
+        3. Generate all HTML pages
+        4. Post-generation cleanup (sitemaps, RSS, language filtering)
+        5. Print a build summary
 
     Args:
         argv: Optional list of argument strings (defaults to sys.argv[1:]).
@@ -441,8 +377,7 @@ def main(argv: Optional[list] = None) -> None:
     # Configure logging verbosity
     if args.verbose:
         logger.setLevel(logging.DEBUG)
-        # Also enable DEBUG on key sub-module loggers
-        for name in ("data_loader", "html_generator", "telegram_fetcher", "seo"):
+        for name in ("data_loader", "html_generator", "seo"):
             logging.getLogger(name).setLevel(logging.DEBUG)
         logger.debug("Verbose mode enabled")
 
@@ -470,70 +405,19 @@ def main(argv: Optional[list] = None) -> None:
     print(f"  Products:        {products_count}")
     print(f"  Admitad programs:{admitad_count}")
 
-    # Additional data counts
-    seo_posts_count = len(data.get("seo_posts", {}))
-    seo_articles_count = len(data.get("seo_articles", {}))
-    hashtag_count = len(data.get("hashtag_index", {}))
-    popular_tags_count = len(data.get("popular_tags", []))
-
-    print(f"  SEO posts:       {seo_posts_count}")
-    print(f"  SEO articles:    {seo_articles_count}")
-    print(f"  Hashtags:        {hashtag_count}")
-    print(f"  Popular tags:    {popular_tags_count}")
-
     # ------------------------------------------------------------------
-    # Step 2: Fetch/update Telegram archive (if requested)
-    # ------------------------------------------------------------------
-    if args.fetch_archive:
-        print()
-        print("Fetching Telegram archive…")
-        logger.info(
-            "Fetching Telegram archive for @%s (full=%s)",
-            CHANNEL_USERNAME,
-            args.full_archive,
-        )
-        try:
-            if args.full_archive:
-                meta = fetch_all_posts(
-                    CHANNEL_USERNAME,
-                    args.archive_dir,
-                    force_full=True,
-                )
-            else:
-                meta = incremental_update(
-                    CHANNEL_USERNAME,
-                    args.archive_dir,
-                )
-
-            total_archive = meta.get("total_posts", 0)
-            archive_pages = meta.get("pages_count", 0)
-            print(f"  Total archive posts: {total_archive}")
-            print(f"  Archive pages:       {archive_pages}")
-
-            logger.info(
-                "Telegram archive updated: %d posts, %d pages",
-                total_archive,
-                archive_pages,
-            )
-        except Exception as exc:
-            logger.error("Failed to fetch Telegram archive: %s", exc)
-            print(f"  ERROR: Failed to fetch archive: {exc}")
-            # Continue with the build even if archive fetch fails
-
-    # ------------------------------------------------------------------
-    # Step 3: Generate all pages
+    # Step 2: Generate all pages
     # ------------------------------------------------------------------
     if not args.no_pages:
         print()
         print("Generating pages…")
         logger.info(
-            "Generating pages into %s (archive_dir=%s)",
+            "Generating pages into %s",
             args.output_dir,
-            args.archive_dir,
         )
 
         try:
-            generate_all_pages(data, args.output_dir, args.archive_dir)
+            generate_all_pages(data, args.output_dir)
             logger.info("Page generation complete")
         except Exception as exc:
             logger.error("Page generation failed: %s", exc)
@@ -541,7 +425,7 @@ def main(argv: Optional[list] = None) -> None:
             raise
 
         # ----------------------------------------------------------
-        # Step 3a: Post-generation cleanup based on flags
+        # Step 2a: Post-generation cleanup based on flags
         # ----------------------------------------------------------
 
         # Remove sitemaps if --no-sitemaps
@@ -576,7 +460,7 @@ def main(argv: Optional[list] = None) -> None:
         logger.info("Page generation skipped (--no-pages)")
 
     # ------------------------------------------------------------------
-    # Step 4: Print build summary
+    # Step 3: Print build summary
     # ------------------------------------------------------------------
     elapsed = time.time() - start_time
     print_build_summary(args.output_dir, elapsed_seconds=elapsed)

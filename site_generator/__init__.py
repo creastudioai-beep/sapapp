@@ -3,13 +3,17 @@ SochiAutoParts Static Site Generator package.
 
 Generates a complete static website for sochiautoparts.ru from pipeline data,
 including bilingual pages (Russian and English), SEO optimization, sitemaps,
-RSS feeds, and a full Telegram channel archive.
+and RSS feeds.
+
+NOTE: Archive pages (90,000 posts) are rendered DYNAMICALLY by the
+Cloudflare Worker. The Python generator only creates a placeholder /archive
+page that the Worker intercepts.
 
 Modules:
     main            - CLI entry point and build orchestration
     config          - Site configuration constants
     data_loader     - Pipeline data fetching and caching
-    telegram_fetcher- Telegram channel archive fetcher
+    telegram_fetcher- Telegram channel archive fetcher (kept for standalone use)
     html_generator  - HTML page generation for all site sections
     templates       - Reusable HTML template components
     css             - CSS stylesheets (main, AMP, archive)

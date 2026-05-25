@@ -961,73 +961,32 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
 def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
     """Render compact shop widget for post/archive pages.
 
-    Shows a few products with images, names, prices, and "Visit Shop" link.
-    Language-aware: /shop for ru, /en/shop for en.
+    Shows a "Visit Shop" link to the shop page (which uses iframe embed).
+    No native product rendering — the shop page embeds zap-online.ru.
     """
+    from .config import SHOP_ZAP_ONLINE_URL
+
     shop_path = _bp(SHOP_PATH_EN) if lang == "en" else _bp(SHOP_PATH)
     widget_title = "🛒 Магазин автозапчастей" if lang == "ru" else "🛒 Auto Parts Shop"
-    all_products_link = "Все товары →" if lang == "ru" else "All products →"
     visit_shop_link = "Перейти в магазин →" if lang == "ru" else "Visit shop →"
-    currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
 
-    # Build product cards - skip products without name or price
-    product_cards_html = ""
-    displayed = 0
-    for product in products:
-        if displayed >= count:
-            break
-        if not isinstance(product, dict):
-            continue
-
-        name = product.get("name", "")
-        if not name:
-            continue  # Skip products without names
-        if len(name) > 50:
-            name = name[:50] + "..."
-        image = product.get("image", "")
-        price = product.get("price", 0)
-        url = product.get("url", "#")
-        old_price = product.get("old_price", 0)
-        feed_name = product.get("feed_name", "")
-        available = product.get("available", True)
-
-        try:
-            price_formatted = f"{int(price):,} {currency}"
-        except (ValueError, TypeError):
-            price_formatted = f"{price} {currency}"
-
-        # Price display with old price strikethrough if applicable
-        price_html = f'<div class="wp-price">{price_formatted}</div>'
-        if old_price and int(old_price) > int(price):
-            try:
-                old_formatted = f"{int(old_price):,} {currency}"
-                price_html = f'<div class="wp-price"><s style="color:var(--text-muted);font-size:0.8em;">{old_formatted}</s> {price_formatted}</div>'
-            except (ValueError, TypeError):
-                pass
-
-        # Availability badge
-        avail_html = ""
-        if not available:
-            badge_text = "Под заказ" if lang == "ru" else "On order"
-            avail_html = f'<div class="wp-badge" style="font-size:0.7em;color:var(--warning);">{badge_text}</div>'
-
-        product_cards_html += (
-            f'<a href="{escape_html(url)}" class="widget-product" target="_blank" rel="nofollow noopener sponsored">'
-            f'<img src="{escape_html(image)}" alt="{escape_html(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\'{LOGO_EXTERNAL_URL}\';">'
-            f'<div class="wp-name">{escape_html(name)}</div>'
-            f'{price_html}'
-            f'{avail_html}'
-            f'</a>'
-        )
-        displayed += 1
+    # SEO noscript for crawlers
+    seo_text = (
+        "Автозапчасти с доставкой по всей России. Оригинальные и неоригинальные детали."
+        if lang == "ru" else
+        "Auto parts with delivery across Russia. OEM and aftermarket parts."
+    )
 
     return (
         f'<div class="shop-widget" id="shopWidget">\n'
         f'<div class="widget-header">'
         f'<span class="widget-title">{widget_title}</span>'
-        f'<a href="{shop_path}" class="widget-link">{all_products_link}</a>'
+        f'<a href="{shop_path}" class="widget-link">{visit_shop_link}</a>'
         f'</div>\n'
-        f'<div class="widget-grid" id="shopWidgetGrid">{product_cards_html}</div>\n'
+        f'<div style="text-align:center;padding:1rem;">'
+        f'<a href="{shop_path}" class="btn-cta" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:var(--primary);color:#fff;font-weight:700;text-decoration:none;">🛒 {visit_shop_link}</a>'
+        f'<noscript><p style="margin-top:0.75rem;font-size:0.875rem;color:var(--text-muted);">{seo_text}</p></noscript>'
+        f'</div>\n'
         f'</div>\n'
     )
 

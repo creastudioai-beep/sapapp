@@ -1577,16 +1577,12 @@ def generate_products_sitemap(products: list, page_num: int) -> str:
     )
 
 
-def generate_archive_sitemap(archive_meta: dict, data_dir: str) -> str:
+def generate_archive_sitemap() -> str:
     """Generate sitemap-archive.xml.
 
-    Per v22.0 fix: Only contains archive listing pages, NOT individual archive post URLs.
-    Individual archive posts are Telegram content that should be discovered
-    via the /archive listing pages by crawlers.
-
-    Args:
-        archive_meta: Archive metadata dict (may be used for lastmod).
-        data_dir: Path to archive data directory (unused, kept for API compat).
+    Only contains the archive listing page URLs (ru and en).
+    The Cloudflare Worker dynamically renders individual archive post pages,
+    so we only list the top-level /archive URLs here.
 
     Returns:
         XML string for sitemap-archive.xml.

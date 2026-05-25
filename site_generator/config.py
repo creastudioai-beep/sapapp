@@ -250,27 +250,12 @@ SOCIAL_LINKS: dict[str, str] = {
 # ARCHIVE SETTINGS
 # =============================================================================
 
-ARCHIVE_POSTS_PER_PAGE: int = 50  # Changed from 20 for 87K posts
-ARCHIVE_MAX_POSTS_TOTAL: int = 90000
-ARCHIVE_INCREMENTAL: bool = True
-ARCHIVE_DATA_DIR: str = "data/telegram_archive"  # Relative to project root; stores paginated JSON
-ARCHIVE_BATCH_SIZE: int = 20  # Telegram API page size (messages per request)
-ARCHIVE_FETCH_DELAY: float = 0.5  # Delay between Telegram fetches in seconds
-ARCHIVE_FORCE_FULL_REBUILD: bool = False
+ARCHIVE_POSTS_PER_PAGE: int = 50  # Used by Worker for reference; Python generator does not produce archive HTML
 
-# Incremental update tracking
-LAST_POST_ID_FILE: str = "data/telegram_archive/.last_post_id"
-LAST_UPDATE_TIMESTAMP_FILE: str = "data/telegram_archive/.last_update_ts"
-ARCHIVE_STATE_FILE: str = "data/telegram_archive/state.json"
-
-# NOTE: The Bot API endpoint "getChatMessages" does NOT exist in Telegram Bot API.
-# The telegram_fetcher.py module correctly uses the PUBLIC channel preview
-# at https://t.me/s/{channel} — no Bot API token required.
-# This dead reference has been removed to avoid confusion.
-
-# Archive pagination output
-ARCHIVE_PAGES_DIR: str = "data/telegram_archive/pages"
-ARCHIVE_INDEX_FILE: str = "data/telegram_archive/index.json"
+# NOTE: Archive pages (90,000 posts) are rendered DYNAMICALLY by the Cloudflare Worker
+# which fetches from Telegram t.me/s/sochiautoparts on each request.
+# The Python generator does NOT generate archive HTML files.
+# It only creates a placeholder /archive page that the Worker intercepts.
 
 # =============================================================================
 # GITHUB PAGES OUTPUT
@@ -284,7 +269,7 @@ GITHUB_PAGES_BASE_PATH: str = "/sapapp"  # Subpath for GitHub Pages deployment
 # URLs are served at the root — no /sapapp prefix needed.
 # The Worker fetches from https://creastudioai-beep.github.io/sapapp/...
 # and serves at https://sochiautoparts.ru/...
-BASE_PATH: str = ""
+BASE_PATH: str = "/sapapp"  # GitHub Pages serves at /sapapp/; Worker strips this prefix
 
 # =============================================================================
 # GITHUB REPOSITORY CONFIG
@@ -682,14 +667,6 @@ CONFIG: dict = {
     "logo_favicon_url": LOGO_FAVICON_URL,
     "social_links": SOCIAL_LINKS,
     "archive_posts_per_page": ARCHIVE_POSTS_PER_PAGE,
-    "archive_max_posts_total": ARCHIVE_MAX_POSTS_TOTAL,
-    "archive_incremental": ARCHIVE_INCREMENTAL,
-    "archive_data_dir": ARCHIVE_DATA_DIR,
-    "archive_fetch_delay": ARCHIVE_FETCH_DELAY,
-    "archive_force_full_rebuild": ARCHIVE_FORCE_FULL_REBUILD,
-    "last_post_id_file": LAST_POST_ID_FILE,
-    "last_update_timestamp_file": LAST_UPDATE_TIMESTAMP_FILE,
-    "archive_state_file": ARCHIVE_STATE_FILE,
     "github_pages_url": GITHUB_PAGES_URL,
     "github_pages_base_path": GITHUB_PAGES_BASE_PATH,
     "base_path": BASE_PATH,
@@ -737,10 +714,6 @@ def _validate_config() -> None:
         raise ValueError(f"MAX_POSTS ({MAX_POSTS}) must be >= POSTS_PER_PAGE ({POSTS_PER_PAGE})")
     if ARCHIVE_POSTS_PER_PAGE < 1:
         raise ValueError(f"ARCHIVE_POSTS_PER_PAGE must be >= 1, got {ARCHIVE_POSTS_PER_PAGE}")
-    if ARCHIVE_BATCH_SIZE < 1:
-        raise ValueError(f"ARCHIVE_BATCH_SIZE must be >= 1, got {ARCHIVE_BATCH_SIZE}")
-    if ARCHIVE_FETCH_DELAY < 0:
-        raise ValueError(f"ARCHIVE_FETCH_DELAY must be >= 0, got {ARCHIVE_FETCH_DELAY}")
     if len(PRODUCT_CATEGORIES) == 0:
         raise ValueError("PRODUCT_CATEGORIES must not be empty")
     for key, val in PRODUCT_CATEGORIES.items():

@@ -131,12 +131,9 @@ from .data_loader import (
     extract_first_image,
     format_post_text,
 )
-from .telegram_fetcher import (
-    get_archive_page_posts,
-    get_post_by_id as get_archive_post_by_id,
-    get_total_posts_count,
-    load_meta as load_archive_meta,
-)
+# NOTE: telegram_fetcher is no longer imported here.
+# Archive pages are rendered dynamically by the Cloudflare Worker.
+# The Python generator only creates a placeholder /archive page.
 
 
 # ---------------------------------------------------------------------------
@@ -155,16 +152,11 @@ if not logger.handlers:
 # Constants
 # ---------------------------------------------------------------------------
 
-MAX_ARCHIVE_POST_PAGES: int = 90000  # Generate archive post pages — new posts push old ones out
-
 # GitHub Pages size limits require constraining the number of generated files.
-# Each HTML page is ~80KB; GitHub Pages limit is 1GB total.
 MAX_TAG_PAGES: int = 500  # Only generate tag pages for the top 500 tags
 MAX_POST_PAGES: int = 1000  # Only generate individual post pages for the latest 1000 posts
-MAX_PRODUCT_PAGES: int = 200  # Only generate individual product pages for 200 products
 GENERATE_AMP: bool = False  # Skip AMP pages to reduce output size
 GENERATE_AMP_HOMEPAGE: bool = False  # Skip AMP homepage
-GENERATE_INDIVIDUAL_PRODUCT_PAGES: bool = False  # Skip individual product pages (shop listing page only)
 
 
 # ---------------------------------------------------------------------------
@@ -388,7 +380,7 @@ def _build_page(
 # Master function: generate_all_pages
 # ===========================================================================
 
-def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "data/telegram_archive"):
+def generate_all_pages(data: dict, output_dir: str):
     """Master function: Generate ALL pages for both languages.
 
     Steps:
@@ -396,23 +388,25 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
     2. All post pages (ru + en) + AMP versions
     3. Articles listing (ru + en)
     4. All article pages (ru + en)
-    5. Archive pages with 50 posts per page (ru + en)
-    6. Archive post pages (ru + en)
-    7. Shop page (ru + en)
-    8. Product pages (ru + en)
-    9. Category pages (ru + en)
-    10. Tag pages (ru + en)
-    11. Privacy page (ru + en)
-    12. Contacts page (ru + en)
-    13. Ad category pages (ru + en)
-    14. 404 page
-    15. AMP homepage (ru + en)
-    16. All sitemaps, robots.txt, RSS, manifest
+    5. Archive placeholder page (ru + en) — Worker handles dynamic archive
+    6. Shop page with iframe embed (ru + en)
+    7. Tag pages (ru + en)
+    8. Privacy page (ru + en)
+    9. Contacts page (ru + en)
+    10. Ad category pages (ru + en)
+    11. 404 page
+    12. AMP homepage (ru + en)
+    13. All sitemaps, robots.txt, RSS, manifest
+
+    NOTE: Archive pages (90,000 posts) are rendered DYNAMICALLY by the
+    Cloudflare Worker. The Python generator only creates a placeholder
+    /archive page that says "Loading archive..." which the Worker intercepts.
+    Individual product pages and category pages are NOT generated — the
+    shop page uses an iframe embed of zap-online.ru instead.
 
     Args:
         data: The data dict returned by data_loader.load_data().
         output_dir: Root output directory for generated files.
-        archive_data_dir: Path to the telegram archive data directory.
     """
     os.makedirs(output_dir, exist_ok=True)
 
@@ -517,74 +511,47 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
             logger.info("  Generated %d/%d articles", idx + 1, total_articles)
 
     # ------------------------------------------------------------------
-    # 5. Archive pages (ru + en)
+    # 5. Archive placeholder page (ru + en)
+    # The Cloudflare Worker handles dynamic archive rendering.
+    # We only generate a placeholder that the Worker intercepts.
     # ------------------------------------------------------------------
     if FEATURE_ARCHIVE_ENABLED:
-        if os.path.isdir(archive_data_dir):
-            archive_meta = load_archive_meta(archive_data_dir)
-            archive_pages_count = archive_meta.get("pages_count", 0)
-            logger.info("Generating %d archive listing pages", archive_pages_count)
-            for page_num in range(1, archive_pages_count + 1):
-                for lang in ("ru", "en"):
-                    html = generate_archive_page(data, lang, output_dir, archive_data_dir, page=page_num)
-                    if lang == "ru":
-                        if page_num == 1:
-                            _write_file(os.path.join(output_dir, "archive", "index.html"), html)
-                        else:
-                            _write_file(os.path.join(output_dir, "archive", f"page-{page_num}.html"), html)
-                    else:
-                        if page_num == 1:
-                            _write_file(os.path.join(output_dir, "en", "archive", "index.html"), html)
-                        else:
-                            _write_file(os.path.join(output_dir, "en", "archive", f"page-{page_num}.html"), html)
-        else:
-            # No archive data — create a placeholder archive page so /archive doesn't 404
-            logger.info("No archive data found — creating placeholder archive page")
-            for lang in ("ru", "en"):
-                html = _build_page(
-                    lang=lang,
-                    title="Архив публикаций" if lang == "ru" else "Publications Archive",
-                    description="Архив публикаций SOCHIAUTOPARTS" if lang == "ru" else "SOCHIAUTOPARTS publications archive",
-                    url=f"{SITE_URL}/archive" if lang == "ru" else f"{SITE_URL}/en/archive",
-                    path="/archive" if lang == "ru" else "/en/archive",
-                    body_content=f'<div class="container"><h1>{"Архив публикаций" if lang == "ru" else "Publications Archive"}</h1><p>{"Архив обновляется. Скоро здесь будут доступны все публикации." if lang == "ru" else "Archive is being updated. All publications will be available here soon."}</p><p><a href="{_lang_base(lang)}" class="btn-outline">{"← На главную" if lang == "ru" else "← Home"}</a></p></div>',
-                    active_page="archive",
-                )
-                if lang == "ru":
-                    _write_file(os.path.join(output_dir, "archive", "index.html"), html)
-                else:
-                    _write_file(os.path.join(output_dir, "en", "archive", "index.html"), html)
+        logger.info("Creating placeholder archive page (Worker handles dynamic archive)")
+        for lang in ("ru", "en"):
+            html = _build_page(
+                lang=lang,
+                title="Архив публикаций" if lang == "ru" else "Publications Archive",
+                description="Архив публикаций SOCHIAUTOPARTS" if lang == "ru" else "SOCHIAUTOPARTS publications archive",
+                url=f"{SITE_URL}/archive" if lang == "ru" else f"{SITE_URL}/en/archive",
+                path="/archive" if lang == "ru" else "/en/archive",
+                body_content=(
+                    '<div class="archive-page-container">'
+                    f'<h1>{"Архив публикаций" if lang == "ru" else "Publications Archive"}</h1>'
+                    f'<p>{"Загрузка архива..." if lang == "ru" else "Loading archive..."}</p>'
+                    '<noscript><p>'
+                    + (
+                        'Архив всех публикаций канала sochiautoparts в Telegram. '
+                        'Автоновости, обзоры, тест-драйвы и акции. '
+                        'В архиве более 90 000 публикаций.'
+                        if lang == "ru" else
+                        'Archive of all sochiautoparts Telegram channel publications. '
+                        'Auto news, reviews, test drives and promos. '
+                        'Over 90,000 publications in the archive.'
+                    )
+                    + '</p></noscript>'
+                    f'<p><a href="{_lang_base(lang)}" class="btn-outline">'
+                    f'{"← На главную" if lang == "ru" else "← Home"}</a></p>'
+                    '</div>'
+                ),
+                active_page="archive",
+            )
+            if lang == "ru":
+                _write_file(os.path.join(output_dir, "archive", "index.html"), html)
+            else:
+                _write_file(os.path.join(output_dir, "en", "archive", "index.html"), html)
 
     # ------------------------------------------------------------------
-    # 6. Archive post pages (ru + en) — limited to first 5000
-    # ------------------------------------------------------------------
-    if FEATURE_ARCHIVE_ENABLED and os.path.isdir(archive_data_dir):
-        logger.info("Generating archive post pages (up to %d)", MAX_ARCHIVE_POST_PAGES)
-        generated_count = 0
-        archive_meta = load_archive_meta(archive_data_dir)
-        total_archive_pages = archive_meta.get("pages_count", 0)
-        for page_num in range(1, total_archive_pages + 1):
-            if generated_count >= MAX_ARCHIVE_POST_PAGES:
-                break
-            page_posts, _, _ = get_archive_page_posts(archive_data_dir, page_num)
-            for arch_post in page_posts:
-                if generated_count >= MAX_ARCHIVE_POST_PAGES:
-                    break
-                arch_post_id = arch_post.get("id")
-                if arch_post_id is None:
-                    continue
-                for lang in ("ru", "en"):
-                    html = generate_archive_post_page(data, arch_post_id, lang, output_dir, archive_data_dir)
-                    if lang == "ru":
-                        _write_file(os.path.join(output_dir, "archive", "post", f"{arch_post_id}.html"), html)
-                    else:
-                        _write_file(os.path.join(output_dir, "en", "archive", "post", f"{arch_post_id}.html"), html)
-                generated_count += 1
-            if generated_count % 500 == 0 and generated_count > 0:
-                logger.info("  Generated %d archive post pages", generated_count)
-
-    # ------------------------------------------------------------------
-    # 7. Shop page (ru + en)
+    # 6. Shop page with iframe embed (ru + en)
     # ------------------------------------------------------------------
     if FEATURE_SHOP_ENABLED:
         for lang in ("ru", "en"):
@@ -596,41 +563,7 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
                 _write_file(os.path.join(output_dir, "en", "shop", "index.html"), html)
 
     # ------------------------------------------------------------------
-    # 8. Product pages (ru + en) — limited for GitHub Pages size
-    # ------------------------------------------------------------------
-    if FEATURE_SHOP_ENABLED and GENERATE_INDIVIDUAL_PRODUCT_PAGES:
-        total_products = len(products)
-        products_to_generate = products[:MAX_PRODUCT_PAGES]
-        logger.info("Generating %d product pages (ru + en) out of %d total", len(products_to_generate), total_products)
-        for idx, product in enumerate(products_to_generate):
-            product_id = product.get("id")
-            if product_id is None:
-                continue
-            for lang in ("ru", "en"):
-                html = generate_product_page(data, product_id, lang, output_dir)
-                if lang == "ru":
-                    _write_file(os.path.join(output_dir, "product", f"{product_id}.html"), html)
-                else:
-                    _write_file(os.path.join(output_dir, "en", "product", f"{product_id}.html"), html)
-            if (idx + 1) % 100 == 0:
-                logger.info("  Generated %d/%d products", idx + 1, len(products_to_generate))
-
-    # ------------------------------------------------------------------
-    # 9. Category pages (ru + en)
-    # ------------------------------------------------------------------
-    if FEATURE_SHOP_ENABLED:
-        category_map = data.get("category_map", {})
-        logger.info("Generating %d category pages (ru + en)", len(category_map))
-        for cat_slug in category_map:
-            for lang in ("ru", "en"):
-                html = generate_category_page(data, cat_slug, lang, output_dir)
-                if lang == "ru":
-                    _write_file(os.path.join(output_dir, "shop", "category", f"{cat_slug}.html"), html)
-                else:
-                    _write_file(os.path.join(output_dir, "en", "shop", "category", f"{cat_slug}.html"), html)
-
-    # ------------------------------------------------------------------
-    # 10. Tag pages (ru + en)
+    # 7. Tag pages (ru + en)
     # ------------------------------------------------------------------
     # hashtag_index is now unwrapped by data_loader.load_data() automatically
     hashtag_index = data.get("hashtag_index", {})
@@ -659,7 +592,7 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
                 _write_file(os.path.join(output_dir, "en", "tag", f"{safe_tag_name}.html"), html)
 
     # ------------------------------------------------------------------
-    # 11. Privacy page (ru + en)
+    # 8. Privacy page (ru + en)
     # ------------------------------------------------------------------
     for lang in ("ru", "en"):
         html = generate_privacy_page(lang, output_dir)
@@ -669,7 +602,7 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
             _write_file(os.path.join(output_dir, "en", "privacy", "index.html"), html)
 
     # ------------------------------------------------------------------
-    # 12. Contacts page (ru + en)
+    # 9. Contacts page (ru + en)
     # ------------------------------------------------------------------
     for lang in ("ru", "en"):
         html = generate_contacts_page(lang, output_dir)
@@ -679,7 +612,7 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
             _write_file(os.path.join(output_dir, "en", "contacts", "index.html"), html)
 
     # ------------------------------------------------------------------
-    # 13. Ad category pages (ru + en)
+    # 10. Ad category pages (ru + en)
     # ------------------------------------------------------------------
     if FEATURE_ADMITAD_ENABLED:
         for category_key in ADMITAD_CONFIG:
@@ -691,13 +624,13 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
                     _write_file(os.path.join(output_dir, "en", "ads", f"{category_key}.html"), html)
 
     # ------------------------------------------------------------------
-    # 14. 404 page
+    # 11. 404 page
     # ------------------------------------------------------------------
     html_404 = generate_404_page("ru", output_dir)
     _write_file(os.path.join(output_dir, "404.html"), html_404)
 
     # ------------------------------------------------------------------
-    # 15. AMP homepage (ru + en) — optional, skipped for size
+    # 12. AMP homepage (ru + en) — optional, skipped for size
     # ------------------------------------------------------------------
     if GENERATE_AMP_HOMEPAGE:
         for lang in ("ru", "en"):
@@ -710,9 +643,9 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
         logger.info("Skipping AMP homepage generation (GENERATE_AMP_HOMEPAGE=False)")
 
     # ------------------------------------------------------------------
-    # 16. Sitemaps, robots.txt, RSS, manifest
+    # 13. Sitemaps, robots.txt, RSS, manifest
     # ------------------------------------------------------------------
-    generate_sitemaps(data, output_dir, archive_data_dir)
+    generate_sitemaps(data, output_dir)
     generate_rss(data, output_dir)
     generate_robots_txt_file(output_dir)
     generate_manifests(output_dir)
@@ -1576,10 +1509,11 @@ def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: 
 # ===========================================================================
 
 def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
-    """Generate shop page with client-side product loading from /api/shop/products.
+    """Generate shop page with iframe embed of zap-online.ru.
 
-    The shop page generates a static HTML shell with client-side JavaScript
-    that fetches from /api/shop/products (handled by the Cloudflare Worker).
+    The shop page embeds https://sochiautoparts.zap-online.ru in an iframe,
+    matching the original Cloudflare Worker v27.0 behavior.
+    No native product rendering — the iframe handles everything.
 
     Args:
         data: The data dict from data_loader.
@@ -1589,15 +1523,17 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     Returns:
         Complete HTML page string.
     """
+    from .config import SHOP_ZAP_ONLINE_URL
+
     popular_tags = get_popular_tags(data, limit=12)
 
     # SEO
     page_title = t("shop_title", lang)
     page_desc = t("shop_subtitle", lang)
     if lang == "ru":
-        full_title = f"Магазин автозапчастей | SOCHIAUTOPARTS"
+        full_title = "Магазин автозапчастей | SOCHIAUTOPARTS"
     else:
-        full_title = f"Auto Parts Shop | SOCHIAUTOPARTS"
+        full_title = "Auto Parts Shop | SOCHIAUTOPARTS"
 
     if lang == "en":
         page_url = f"{SITE_URL}/en/shop"
@@ -1605,17 +1541,6 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     else:
         page_url = f"{SITE_URL}/shop"
         path = "/shop"
-
-    # Category buttons
-    categories_html = ""
-    for cat_key, cat_names in PRODUCT_CATEGORIES.items():
-        cat_label = cat_names.get(lang, cat_names.get("ru", cat_key))
-        cat_url = f"{_lang_path(lang)}/shop/category/{cat_key}"
-        categories_html += f'<a href="{cat_url}" class="btn-secondary" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:9999px;font-size:0.875rem;font-weight:600;text-decoration:none;border:1px solid var(--border-color);color:var(--text-main);transition:all 0.15s;">{escape_html(cat_label)}</a>\n'
-
-    # Search placeholder
-    search_placeholder = t("shop_search_placeholder", lang)
-    search_btn = "🔍" if lang == "ru" else "🔍"
 
     # Features
     feature_delivery = t("shop_feature_delivery", lang)
@@ -1631,121 +1556,42 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
 
-    # Pre-load product data for static rendering
-    products_json = json.dumps(data.get("products", [])[:200], ensure_ascii=True)
-    currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
-    empty_text = t("shop_empty", lang)
-    empty_reset = t("shop_empty_reset", lang) if lang == "ru" else "Reset"
-    in_stock_text = "В наличии" if lang == "ru" else "In Stock"
-    backorder_text = "Под заказ" if lang == "ru" else "Backorder"
+    # SEO noscript content for crawlers that can't see the iframe
+    seo_noscript = ""
+    if lang == "ru":
+        seo_noscript = (
+            '<noscript>'
+            '<h2>Магазин автозапчастей SOCHIAUTOPARTS</h2>'
+            '<p>Большой выбор автозапчастей от проверенных поставщиков с доставкой по всей России. '
+            'Каталог включает детали двигателя, трансмиссии, тормозной системы, подвески, '
+            'электрооборудования, кузова и других категорий. Оригинальные и неоригинальные запчасти, '
+            'аналоги от ведущих производителей.</p>'
+            '<p>Для оформления заказа перейдите на сайт sochiautoparts.zap-online.ru</p>'
+            '</noscript>'
+        )
+    else:
+        seo_noscript = (
+            '<noscript>'
+            '<h2>SOCHIAUTOPARTS Auto Parts Shop</h2>'
+            '<p>Large selection of auto parts from verified suppliers with delivery across Russia. '
+            'The catalog includes engine parts, transmission, brakes, suspension, '
+            'electrical, body parts and other categories. OEM and aftermarket parts '
+            'from leading manufacturers.</p>'
+            '<p>To place an order, visit sochiautoparts.zap-online.ru</p>'
+            '</noscript>'
+        )
 
-    shop_js = f"""
-<script>
-(function() {{
-  var allProducts = {products_json};
-  var grid = document.getElementById('shopProductGrid');
-  var searchInput = document.getElementById('shopSearchInput');
-  var categoryBtns = document.querySelectorAll('.shop-category-btn');
-  var loadMoreBtn = document.getElementById('shopLoadMore');
-  var currentCategory = '';
-  var currentQuery = '';
-  var displayed = 0;
-  var PER_PAGE = {PRODUCTS_PER_PAGE};
-
-  function filterProducts() {{
-    var filtered = allProducts.filter(function(p) {{
-      if (currentCategory && p.category) {{
-        var catSlug = String(p.category).toLowerCase().trim().replace(/ /g, '-');
-        if (catSlug !== currentCategory) return false;
-      }}
-      if (currentQuery) {{
-        var q = currentQuery.toLowerCase();
-        var name = (p.name || '').toLowerCase();
-        var desc = (p.description || '').toLowerCase();
-        if (name.indexOf(q) === -1 && desc.indexOf(q) === -1) return false;
-      }}
-      return true;
-    }});
-    return filtered;
-  }}
-
-  function renderProducts(reset) {{
-    var products = filterProducts();
-    if (reset) {{ displayed = 0; grid.innerHTML = ''; }}
-    var end = Math.min(displayed + PER_PAGE, products.length);
-    if (products.length === 0) {{
-      grid.innerHTML = '<div style="text-align:center;padding:2rem;"><p>{escape_html(empty_text)}</p></div>';
-      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-      return;
-    }}
-    var html = '';
-    for (var i = displayed; i < end; i++) {{
-      var p = products[i];
-      var price = p.price ? Number(p.price).toLocaleString() + ' {currency}' : '';
-      var avail = p.available ? '<div class="product-availability in-stock">{in_stock_text}</div>' : '<div class="product-availability out-of-stock">{backorder_text}</div>';
-      html += '<div class="shop-product-card"><div class="product-image">';
-      if (p.image) html += '<img src="' + p.image + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">';
-      html += '</div><div class="product-info"><div class="product-name">';
-      var pid = p.id || '';
-      var langPrefix = '{_lang_path(lang)}';
-      html += '<a href="' + langPrefix + '/product/' + pid + '">' + (p.name || '').substring(0, 80) + '</a></div>';
-      if (price) html += '<div class="product-price">' + price + '</div>';
-      html += avail + '</div></div>';
-    }}
-    grid.innerHTML += html;
-    displayed = end;
-    if (loadMoreBtn) loadMoreBtn.style.display = displayed < products.length ? 'inline-flex' : 'none';
-  }}
-
-  window.resetShop = function() {{
-    currentCategory = '';
-    currentQuery = '';
-    searchInput.value = '';
-    categoryBtns.forEach(function(b) {{ b.classList.remove('active'); }});
-    renderProducts(true);
-  }};
-
-  if (searchInput) {{
-    var timeout = null;
-    searchInput.addEventListener('input', function() {{
-      clearTimeout(timeout);
-      timeout = setTimeout(function() {{
-        currentQuery = searchInput.value.trim();
-        renderProducts(true);
-      }}, 300);
-    }});
-  }}
-
-  categoryBtns.forEach(function(btn) {{
-    btn.addEventListener('click', function() {{
-      currentCategory = this.dataset.category;
-      categoryBtns.forEach(function(b) {{ b.classList.remove('active'); }});
-      this.classList.add('active');
-      renderProducts(true);
-    }});
-  }});
-
-  if (loadMoreBtn) {{
-    loadMoreBtn.addEventListener('click', function() {{
-      renderProducts(false);
-    }});
-  }}
-
-  renderProducts(true);
-}})();
-</script>"""
-
-    # Load more button text
-    load_more_text = "Загрузить ещё" if lang == "ru" else "Load more"
-
-    # Partner ad blocks (matching production site)
+    # Ad blocks
     admitad_programs = get_admitad_programs(data)
     ads_html = ""
     if admitad_programs:
         ads_html = render_ad_blocks(admitad_programs, lang, max_blocks=5)
 
-    # Ad category buttons (matching production site)
+    # Ad category buttons
     ad_category_buttons = render_ad_category_buttons(lang)
+
+    zap_url = SHOP_ZAP_ONLINE_URL
+    loading_text = "Загрузка каталога запчастей..." if lang == "ru" else "Loading parts catalog..."
 
     body = f"""
 <div class="shop-hero">
@@ -1754,20 +1600,20 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 </div>
 <div class="shop-page-container">
 {breadcrumbs}
-<div class="shop-search-bar">
-<input type="search" id="shopSearchInput" placeholder="{search_placeholder}" autocomplete="off" />
-<button id="shopSearchBtn">{search_btn}</button>
-</div>
 {ad_category_buttons}
-<div class="ad-section-buttons">
-{categories_html}
+<div style="position:relative;width:100%;min-height:600vh;margin:0;padding:0;">
+<iframe
+  src="{zap_url}"
+  style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;min-height:600vh;"
+  title="{page_title}"
+  loading="lazy"
+  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+  referrerpolicy="no-referrer-when-downgrade"
+>
+<p>{loading_text}</p>
+</iframe>
 </div>
-<div class="shop-product-grid" id="shopProductGrid">
-<div style="text-align:center;padding:3rem;color:var(--text-muted);">{"Загрузка..." if lang == "ru" else "Loading..."}</div>
-</div>
-<div style="text-align:center;margin:1.5rem 0;">
-<button id="shopLoadMore" style="display:none;padding:12px 32px;border-radius:12px;background:var(--primary);color:#fff;border:none;font-weight:600;cursor:pointer;font-size:0.9375rem;">{load_more_text}</button>
-</div>
+{seo_noscript}
 {ads_html}
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;margin:2rem 0;">
 <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-light);">🚚 {feature_delivery}</div>
@@ -1775,8 +1621,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-light);">💰 {feature_prices}</div>
 <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-light);">🛡️ {feature_guarantee}</div>
 </div>
-</div>
-{shop_js}"""
+</div>"""
 
     return _build_page(
         lang=lang,
@@ -2619,13 +2464,12 @@ def generate_404_page(lang: str, output_dir: str) -> str:
 # Sitemaps
 # ===========================================================================
 
-def generate_sitemaps(data: dict, output_dir: str, archive_data_dir: str):
+def generate_sitemaps(data: dict, output_dir: str):
     """Generate all sitemap XML files.
 
     Args:
         data: The data dict from data_loader.
         output_dir: Root output directory.
-        archive_data_dir: Path to the telegram archive data directory.
     """
     posts = data.get("posts", [])
     products = data.get("products", [])
@@ -2634,7 +2478,6 @@ def generate_sitemaps(data: dict, output_dir: str, archive_data_dir: str):
     # Safety: still check for nested structure in case data was loaded differently
     if isinstance(hashtag_index, dict) and "index" in hashtag_index:
         hashtag_index = hashtag_index["index"]
-    archive_meta = load_archive_meta(archive_data_dir) if os.path.isdir(archive_data_dir) else {}
 
     # Calculate number of post sitemap files
     total_posts_for_sitemap = min(len(posts), MAX_POSTS_SITEMAP)
@@ -2646,7 +2489,7 @@ def generate_sitemaps(data: dict, output_dir: str, archive_data_dir: str):
     # sitemap-index.xml
     _write_file(
         os.path.join(output_dir, "sitemap-index.xml"),
-        generate_sitemap_index(post_sitemap_count, product_sitemap_count, has_archive=bool(archive_meta)),
+        generate_sitemap_index(post_sitemap_count, product_sitemap_count, has_archive=False),
     )
 
     # sitemap.xml (static pages)
@@ -2703,10 +2546,10 @@ def generate_sitemaps(data: dict, output_dir: str, archive_data_dir: str):
             generate_products_sitemap(batch, i),
         )
 
-    # sitemap-archive.xml
+    # sitemap-archive.xml — minimal: just the archive listing pages (Worker handles the rest)
     _write_file(
         os.path.join(output_dir, "sitemap-archive.xml"),
-        generate_archive_sitemap(archive_meta, archive_data_dir),
+        generate_archive_sitemap(),
     )
 
     logger.info("Generated all sitemap files")
