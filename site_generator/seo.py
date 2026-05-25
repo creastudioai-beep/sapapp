@@ -1013,13 +1013,60 @@ def generate_sitemap_index(
     )
 
 
+def _static_url_entry(
+    ru_path: str,
+    en_path: str,
+    changefreq: str = "monthly",
+    priority: str = "0.5",
+    lastmod: Optional[str] = None,
+) -> str:
+    """Build a pair of <url> entries (ru + en) with full hreflang alternates.
+
+    Args:
+        ru_path: Russian path, e.g. "/contacts".
+        en_path: English path, e.g. "/en/contacts".
+        changefreq: Change frequency value.
+        priority: Priority value.
+        lastmod: Last modification date (YYYY-MM-DD). Defaults to today.
+
+    Returns:
+        Two <url> XML blocks (ru then en) separated by a newline.
+    """
+    if lastmod is None:
+        lastmod = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    ru_url = f"{SITE_URL}{ru_path}"
+    en_url = f"{SITE_URL}{en_path}"
+
+    return (
+        f"<url>\n"
+        f"<loc>{ru_url}</loc>\n"
+        f"<lastmod>{lastmod}</lastmod>\n"
+        f"<changefreq>{changefreq}</changefreq>\n"
+        f"<priority>{priority}</priority>\n"
+        f'<xhtml:link rel="alternate" hreflang="ru" href="{ru_url}"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="en" href="{en_url}"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}"/>\n'
+        f"</url>\n"
+        f"<url>\n"
+        f"<loc>{en_url}</loc>\n"
+        f"<lastmod>{lastmod}</lastmod>\n"
+        f"<changefreq>{changefreq}</changefreq>\n"
+        f"<priority>{priority}</priority>\n"
+        f'<xhtml:link rel="alternate" hreflang="ru" href="{ru_url}"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="en" href="{en_url}"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}"/>\n'
+        f"</url>"
+    )
+
+
 def generate_static_sitemap(lang: str = "ru") -> str:
-    """Generate sitemap.xml with static pages (home, contacts, privacy, articles, shop).
+    """Generate sitemap.xml with ALL static pages.
 
-    Per v15.0 fix: sitemap.xml contains ONLY static pages.
-    Post URLs are in sitemap-posts-N.xml.
+    Includes: homepage, articles listing, archive listing, shop, contacts,
+    privacy, ads category pages, and rss.xml.
 
-    This function generates the sitemap for BOTH languages (ru and en URLs included).
+    Every URL has full xhtml:link alternates for ru, en, and x-default.
 
     Returns:
         XML string for sitemap.xml.
@@ -1028,117 +1075,60 @@ def generate_static_sitemap(lang: str = "ru") -> str:
 
     urls = []
 
-    # Homepage (ru) with hreflang and amphtml
+    # ── Homepage (ru + en) ──
+    ru_home = f"{SITE_URL}/"
+    en_home = f"{SITE_URL}/en/"
     urls.append(
         f"<url>\n"
-        f"<loc>{SITE_URL}/</loc>\n"
+        f"<loc>{ru_home}</loc>\n"
         f"<lastmod>{now}</lastmod>\n"
         f"<changefreq>hourly</changefreq>\n"
         f"<priority>1.0</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}/en/"/>\n'
-        f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="ru" href="{ru_home}"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="en" href="{en_home}"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="x-default" href="{ru_home}"/>\n'
         f'<xhtml:link rel="amphtml" href="{SITE_URL}/amp/"/>\n'
         f"</url>"
     )
-
-    # Homepage (en) with hreflang and amphtml
     urls.append(
         f"<url>\n"
-        f"<loc>{SITE_URL}/en/</loc>\n"
+        f"<loc>{en_home}</loc>\n"
         f"<lastmod>{now}</lastmod>\n"
         f"<changefreq>hourly</changefreq>\n"
         f"<priority>1.0</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/"/>\n'
-        f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="ru" href="{ru_home}"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="en" href="{en_home}"/>\n'
+        f'<xhtml:link rel="alternate" hreflang="x-default" href="{ru_home}"/>\n'
         f'<xhtml:link rel="amphtml" href="{SITE_URL}/en/amp/"/>\n'
         f"</url>"
     )
 
-    # Contacts (ru)
-    urls.append(
-        f"<url>\n"
-        f"<loc>{SITE_URL}{CONTACTS_PATH}</loc>\n"
-        f"<lastmod>{now}</lastmod>\n"
-        f"<changefreq>monthly</changefreq>\n"
-        f"<priority>0.5</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}/en{CONTACTS_PATH}"/>\n'
-        f"</url>"
-    )
+    # ── Articles listing ──
+    urls.append(_static_url_entry("/articles", "/en/articles", "weekly", "0.8", now))
 
-    # Contacts (en)
-    urls.append(
-        f"<url>\n"
-        f"<loc>{SITE_URL}/en{CONTACTS_PATH}</loc>\n"
-        f"<lastmod>{now}</lastmod>\n"
-        f"<changefreq>monthly</changefreq>\n"
-        f"<priority>0.5</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}{CONTACTS_PATH}"/>\n'
-        f"</url>"
-    )
+    # ── Archive listing ──
+    urls.append(_static_url_entry("/archive", "/en/archive", "daily", "0.7", now))
 
-    # Privacy (ru)
-    urls.append(
-        f"<url>\n"
-        f"<loc>{SITE_URL}{PRIVACY_PATH}</loc>\n"
-        f"<lastmod>{now}</lastmod>\n"
-        f"<changefreq>monthly</changefreq>\n"
-        f"<priority>0.4</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}/en{PRIVACY_PATH}"/>\n'
-        f"</url>"
-    )
+    # ── Shop ──
+    urls.append(_static_url_entry(SHOP_PATH, SHOP_PATH_EN, "daily", "0.9", now))
 
-    # Privacy (en)
-    urls.append(
-        f"<url>\n"
-        f"<loc>{SITE_URL}/en{PRIVACY_PATH}</loc>\n"
-        f"<lastmod>{now}</lastmod>\n"
-        f"<changefreq>monthly</changefreq>\n"
-        f"<priority>0.4</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}{PRIVACY_PATH}"/>\n'
-        f"</url>"
-    )
+    # ── Contacts ──
+    urls.append(_static_url_entry(CONTACTS_PATH, f"/en{CONTACTS_PATH}", "monthly", "0.5", now))
 
-    # Articles listing (ru)
-    urls.append(
-        f"<url>\n"
-        f"<loc>{SITE_URL}/articles</loc>\n"
-        f"<lastmod>{now}</lastmod>\n"
-        f"<changefreq>weekly</changefreq>\n"
-        f"<priority>0.8</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}/en/articles"/>\n'
-        f"</url>"
-    )
+    # ── Privacy ──
+    urls.append(_static_url_entry(PRIVACY_PATH, f"/en{PRIVACY_PATH}", "monthly", "0.4", now))
 
-    # Articles listing (en)
-    urls.append(
-        f"<url>\n"
-        f"<loc>{SITE_URL}/en/articles</loc>\n"
-        f"<lastmod>{now}</lastmod>\n"
-        f"<changefreq>weekly</changefreq>\n"
-        f"<priority>0.8</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/articles"/>\n'
-        f"</url>"
-    )
+    # ── Ads category pages (all PRODUCT_CATEGORIES) ──
+    for cat_key in PRODUCT_CATEGORIES:
+        urls.append(_static_url_entry(f"/ads/{cat_key}", f"/en/ads/{cat_key}", "weekly", "0.6", now))
 
-    # Shop (ru)
+    # ── RSS feed ──
     urls.append(
         f"<url>\n"
-        f"<loc>{SITE_URL}{SHOP_PATH}</loc>\n"
+        f"<loc>{SITE_URL}/rss.xml</loc>\n"
         f"<lastmod>{now}</lastmod>\n"
-        f"<changefreq>daily</changefreq>\n"
-        f"<priority>0.9</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}{SHOP_PATH_EN}"/>\n'
-        f"</url>"
-    )
-
-    # Shop (en)
-    urls.append(
-        f"<url>\n"
-        f"<loc>{SITE_URL}{SHOP_PATH_EN}</loc>\n"
-        f"<lastmod>{now}</lastmod>\n"
-        f"<changefreq>daily</changefreq>\n"
-        f"<priority>0.9</priority>\n"
-        f'<xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}{SHOP_PATH}"/>\n'
+        f"<changefreq>hourly</changefreq>\n"
+        f"<priority>0.6</priority>\n"
         f"</url>"
     )
 
@@ -1577,52 +1567,100 @@ def generate_products_sitemap(products: list, page_num: int) -> str:
     )
 
 
-def generate_archive_sitemap() -> str:
-    """Generate sitemap-archive.xml.
+def generate_archive_sitemap(posts: Optional[list] = None) -> str:
+    """Generate sitemap-archive.xml with individual archive post URLs.
 
-    Only contains the archive listing page URLs (ru and en).
-    The Cloudflare Worker dynamically renders individual archive post pages,
-    so we only list the top-level /archive URLs here.
+    Includes the archive listing pages (ru + en) and every individual
+    /archive/post/{id} URL (ru + en) for all posts in the dataset,
+    up to MAX_POSTS_SITEMAP entries.
+
+    Args:
+        posts: List of post dicts (same data used for post sitemaps).
+            If None or empty, only the listing pages are included.
 
     Returns:
         XML string for sitemap-archive.xml.
     """
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    xml = (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
-        'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
-    )
+    urls: List[str] = []
 
-    # Archive listing page (Russian — canonical)
-    xml += (
+    # ── Archive listing page (ru) ──
+    urls.append(
         f"<url>\n"
         f"  <loc>{SITE_URL}/archive</loc>\n"
         f"  <lastmod>{now}</lastmod>\n"
         f"  <changefreq>daily</changefreq>\n"
-        f"  <priority>0.6</priority>\n"
+        f"  <priority>0.7</priority>\n"
         f'  <xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/archive"/>\n'
         f'  <xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}/en/archive"/>\n'
         f'  <xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/archive"/>\n'
-        f"</url>\n"
+        f"</url>"
     )
 
-    # Archive listing page (English)
-    xml += (
+    # ── Archive listing page (en) ──
+    urls.append(
         f"<url>\n"
         f"  <loc>{SITE_URL}/en/archive</loc>\n"
         f"  <lastmod>{now}</lastmod>\n"
         f"  <changefreq>daily</changefreq>\n"
-        f"  <priority>0.6</priority>\n"
+        f"  <priority>0.7</priority>\n"
         f'  <xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/archive"/>\n'
         f'  <xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}/en/archive"/>\n'
         f'  <xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/archive"/>\n'
-        f"</url>\n"
+        f"</url>"
     )
 
-    xml += "</urlset>"
-    return xml
+    # ── Individual archive post pages ──
+    if posts:
+        archive_posts = posts[:MAX_POSTS_SITEMAP]
+        for post in archive_posts:
+            post_id = post.get("id", "")
+            if not post_id:
+                continue
+
+            # Date
+            try:
+                post_date = datetime.fromisoformat(str(post.get("date", ""))).strftime("%Y-%m-%d")
+            except (ValueError, TypeError):
+                post_date = now
+
+            ru_url = f"{SITE_URL}/archive/post/{post_id}"
+            en_url = f"{SITE_URL}/en/archive/post/{post_id}"
+
+            # Russian entry
+            urls.append(
+                f"<url>\n"
+                f"  <loc>{ru_url}</loc>\n"
+                f"  <lastmod>{post_date}</lastmod>\n"
+                f"  <changefreq>monthly</changefreq>\n"
+                f"  <priority>0.5</priority>\n"
+                f'  <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}"/>\n'
+                f'  <xhtml:link rel="alternate" hreflang="en" href="{en_url}"/>\n'
+                f'  <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}"/>\n'
+                f"</url>"
+            )
+
+            # English entry
+            urls.append(
+                f"<url>\n"
+                f"  <loc>{en_url}</loc>\n"
+                f"  <lastmod>{post_date}</lastmod>\n"
+                f"  <changefreq>monthly</changefreq>\n"
+                f"  <priority>0.5</priority>\n"
+                f'  <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}"/>\n'
+                f'  <xhtml:link rel="alternate" hreflang="en" href="{en_url}"/>\n'
+                f'  <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}"/>\n'
+                f"</url>"
+            )
+
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        + "\n".join(urls)
+        + "\n</urlset>"
+    )
 
 
 # =============================================================================

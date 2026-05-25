@@ -388,6 +388,7 @@ def generate_all_pages(data: dict, output_dir: str):
     3. Articles listing (ru + en)
     4. All article pages (ru + en)
     5. Archive pages with pagination (ru + en) — static HTML from pipeline data
+    5b. Individual archive post pages (ru + en)
     6. Shop page with iframe embed (ru + en)
     7. Tag pages (ru + en)
     8. Privacy page (ru + en)
@@ -398,8 +399,11 @@ def generate_all_pages(data: dict, output_dir: str):
     13. All sitemaps, robots.txt, RSS, manifest
 
     NOTE: Archive pages are now generated as real static HTML with pagination
-    using pipeline data. The Cloudflare Worker proxies these and adds region-based
-    affiliate filtering. The shop page uses an iframe embed of zap-online.ru.
+    using pipeline data. Individual archive post pages are generated at
+    /archive/post/{id}.html for the same posts that appear on the regular
+    post pages (up to MAX_POST_PAGES). The Cloudflare Worker proxies these
+    and adds region-based affiliate filtering. The shop page uses an iframe
+    embed of zap-online.ru.
 
     Args:
         data: The data dict returned by data_loader.load_data().
@@ -490,16 +494,28 @@ def generate_all_pages(data: dict, output_dir: str):
             logger.info("  Generated %d/%d posts", idx + 1, len(posts_to_generate))
 
     # ------------------------------------------------------------------
-    # 3. Articles listing (ru + en)
+    # 3. Articles listing (ru + en) — with pagination
     # ------------------------------------------------------------------
     if FEATURE_ARTICLES_ENABLED:
         for lang in ("ru", "en"):
             logger.info("Generating articles listing (%s)", lang)
-            html = generate_articles_page(data, lang, output_dir)
+            # Page 1 (root index.html)
+            html = generate_articles_page(data, lang, output_dir, page=1)
             if lang == "ru":
                 _write_file(os.path.join(output_dir, "articles", "index.html"), html)
             else:
                 _write_file(os.path.join(output_dir, "en", "articles", "index.html"), html)
+
+            # Paginated pages: /articles/page/2/index.html, etc.
+            total_article_pages = max(1, math.ceil(len(articles) / ARTICLES_PER_PAGE))
+            for page_num in range(2, total_article_pages + 1):
+                html = generate_articles_page(data, lang, output_dir, page=page_num)
+                if lang == "ru":
+                    _write_file(os.path.join(output_dir, "articles", "page", str(page_num), "index.html"), html)
+                else:
+                    _write_file(os.path.join(output_dir, "en", "articles", "page", str(page_num), "index.html"), html)
+
+            logger.info("Generated %d articles pages (%s)", total_article_pages, lang)
 
     # ------------------------------------------------------------------
     # 4. All article pages (ru + en)
@@ -548,6 +564,30 @@ def generate_all_pages(data: dict, output_dir: str):
                     )
                     _write_file(en_archive_file, html)
             logger.info("Generated %d archive pages (%s)", total_archive_pages, lang)
+
+    # ------------------------------------------------------------------
+    # 5b. Individual archive post pages (ru + en) — limited for GitHub Pages size
+    # Generate /archive/post/{id}.html and /en/archive/post/{id}.html
+    # ------------------------------------------------------------------
+    if FEATURE_ARCHIVE_ENABLED:
+        archive_posts_to_generate = posts[:MAX_POST_PAGES]
+        logger.info(
+            "Generating %d archive post pages (ru + en) out of %d total",
+            len(archive_posts_to_generate), total_posts,
+        )
+        for idx, post in enumerate(archive_posts_to_generate):
+            post_id = post.get("id")
+            if post_id is None:
+                continue
+            for lang in ("ru", "en"):
+                html = generate_archive_post_page(data, post_id, lang, output_dir)
+                if lang == "ru":
+                    _write_file(os.path.join(output_dir, "archive", "post", f"{post_id}.html"), html)
+                else:
+                    _write_file(os.path.join(output_dir, "en", "archive", "post", f"{post_id}.html"), html)
+
+            if (idx + 1) % 100 == 0:
+                logger.info("  Generated %d/%d archive post pages", idx + 1, len(archive_posts_to_generate))
 
     # ------------------------------------------------------------------
     # 6. Shop page with iframe embed (ru + en)
@@ -1429,122 +1469,219 @@ def _render_archive_pagination(current_page: int, total_pages: int, base_url: st
 # Archive Post Page
 # ===========================================================================
 
-def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: str, archive_data_dir: str) -> str:
-    """Generate single archive post page.
+def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> str:
+    """Generate individual archive post page with gallery, related posts, ads, shop widget.
+
+    Uses get_post_by_id() from data_loader to look up posts from pipeline data.
+    Generates full SEO: canonical URL, OG tags, hreflang, NewsArticle schema.
 
     Args:
         data: The data dict from data_loader.
-        post_id: The archive post ID.
-        lang: Language code.
+        post_id: The post ID.
+        lang: Language code ('ru' or 'en').
         output_dir: Output directory.
-        archive_data_dir: Path to the telegram archive data directory.
 
     Returns:
         Complete HTML page string.
     """
-    post = get_archive_post_by_id(archive_data_dir, post_id)
+    post = get_post_by_id(data, post_id)
     if post is None:
         return generate_404_page(lang, output_dir)
 
+    # SEO data (same as regular post pages)
+    seo_posts = data.get("seo_posts", {})
+    seo_data = seo_posts.get(str(post_id), seo_posts.get(post_id, {}))
+
+    # Build URLs — canonical/OG use absolute (SITE_URL), content links use relative (with BASE_PATH)
     if lang == "en":
-        post_url = f"{SITE_URL}/en/archive/post/{post_id}"
+        canonical_url = f"{SITE_URL}/en/archive/post/{post_id}"
+        post_url_rel = f"{_lang_path(lang)}/archive/post/{post_id}"
     else:
-        post_url = f"{SITE_URL}/archive/post/{post_id}"
+        canonical_url = f"{SITE_URL}/archive/post/{post_id}"
+        post_url_rel = f"{_lang_path(lang)}/archive/post/{post_id}"
 
-    post_url_rel = f"{_lang_path(lang)}/archive/post/{post_id}"
-
-    # Title - use first line of text or post ID
-    raw_text = post.get("text", "")
-    title_line = raw_text.split("\n")[0][:100] if raw_text else f"Post #{post_id}"
-    description = raw_text[:200] if raw_text else ""
-
-    if lang == "ru":
-        page_title = f"{title_line} | SOCHIAUTOPARTS"
+    # Title and description — use per-post SEO data when available
+    title = post.get("title", "")
+    post_text_raw = post.get("textWithHashtags") or post.get("text") or ""
+    auto_description = post_text_raw[:200].replace("\n", " ").strip() if post_text_raw else ""
+    description = seo_data.get("description", "") or auto_description or (SITE_DESCRIPTION_RU if lang == "ru" else SITE_DESCRIPTION_EN)
+    seo_title = seo_data.get("title", title)
+    if seo_title:
+        page_title = f"{seo_title} | SOCHIAUTOPARTS"
     else:
-        page_title = f"{title_line} | SOCHIAUTOPARTS"
+        page_title = title
 
-    # Date
+    # Keywords from SEO data or hashtags
+    post_keywords = seo_data.get("keywords", "")
+    if not post_keywords and post.get("hashtags"):
+        post_keywords = ", ".join(str(h).lstrip("#") for h in post.get("hashtags", [])[:10])
+
+    # Published/modified time
+    published_time = seo_data.get("publishedTime", post.get("date", ""))
+    modified_time = seo_data.get("modifiedTime", post.get("date", ""))
+
+    # OG image — use actual post image, not generic logo
+    og_image = seo_data.get("ogImage") or extract_first_image(post) or DEFAULT_THUMBNAIL
+
+    # NewsArticle schema
+    news_schema = generate_news_article_schema(post, {
+        "ogUrl": canonical_url,
+        "publishedTime": published_time,
+        "modifiedTime": modified_time,
+        "description": description,
+    }, lang)
+
+    # Breadcrumbs: Главная / Архив / {Post Title}
+    bc_home = t("bc_home", lang)
+    bc_archive = t("bc_archive", lang)
+    bc_items = [
+        {"name": bc_home, "url": _lang_base(lang)},
+        {"name": bc_archive, "url": f"{_lang_path(lang)}/archive"},
+        {"name": title[:50] if title else f"#{post_id}", "url": post_url_rel},
+    ]
+    breadcrumb_schema = generate_breadcrumb_schema(bc_items)
+    breadcrumbs = render_breadcrumbs(bc_items, lang)
+
+    # Media gallery — handle the media list with {type, directUrl, poster} structure
+    media = post.get("media", [])
+    gallery_html = ""
+    if isinstance(media, list) and len(media) > 0:
+        gallery_items = ""
+        for i, item in enumerate(media):
+            if not isinstance(item, dict):
+                continue
+            media_type = str(item.get("type", "photo")).lower()
+            direct_url = item.get("directUrl") or item.get("url", "")
+            loading = "eager" if i == 0 else "lazy"
+
+            if media_type == "video":
+                # For video posts, use poster if available, otherwise logo as fallback
+                poster = item.get("poster") or item.get("thumbnailUrl", "")
+                if not poster:
+                    # Try to find a photo in the media list to use as poster
+                    for m in media:
+                        if isinstance(m, dict) and m.get("type") == "photo":
+                            poster = m.get("directUrl") or m.get("url", "")
+                            if poster:
+                                break
+                    # If still no poster, use the logo as fallback
+                    if not poster:
+                        poster = _bp("/logo.jpg")
+                gallery_items += (
+                    f'<div class="gallery-item">\n'
+                    f'<video src="{escape_html(direct_url)}" poster="{escape_html(poster)}" '
+                    f'preload="metadata" controls playsinline referrerpolicy="no-referrer">\n'
+                    f'<source src="{escape_html(direct_url)}" type="video/mp4">\n'
+                    f'</video>\n'
+                    f'</div>\n'
+                )
+            elif media_type == "document":
+                filename = item.get("filename", f"Файл {i + 1}" if lang == "ru" else f"File {i + 1}")
+                gallery_items += (
+                    f'<div class="gallery-item">\n'
+                    f'<div style="padding:2rem;text-align:center;">\n'
+                    f'<a href="{escape_html(direct_url)}" class="btn-primary" download>'
+                    f'  📥  {escape_html(filename)}'
+                    f'</a>\n'
+                    f'</div>\n'
+                    f'</div>\n'
+                )
+            else:
+                # Photo
+                fetch_priority = "high" if i == 0 else "auto"
+                gallery_items += (
+                    f'<div class="gallery-item">\n'
+                    f'<img src="{escape_html(direct_url)}" alt="{escape_html(title)} {i + 1}" '
+                    f'loading="{loading}" fetchpriority="{fetch_priority}" referrerpolicy="no-referrer" />\n'
+                    f'</div>\n'
+                )
+        if gallery_items:
+            gallery_html = f'<div class="post-gallery" data-post-id="{escape_html(str(post_id))}">\n{gallery_items}</div>'
+
+    # Post text — formatted with hashtag links
+    post_text = post.get("textWithHashtags") or post.get("text") or ""
+    formatted_text = format_post_text(post_text, lang)
+
+    # Date display
     date_str = post.get("date", "")
     date_display = _format_date_display(date_str, lang)
-
-    # Photos
-    photos = post.get("photos", [])
-    photo_html = ""
-    for photo_url in photos:
-        photo_html += f'<div class="gallery-item"><img src="{escape_html(photo_url)}" alt="" loading="lazy" referrerpolicy="no-referrer" /></div>\n'
-
-    # Videos
-    videos = post.get("videos", [])
-    video_html = ""
-    for video_url in videos:
-        video_html += f'<div class="gallery-item"><video src="{escape_html(video_url)}" controls preload="metadata" referrerpolicy="no-referrer"></video></div>\n'
-
-    gallery_html = ""
-    if photo_html or video_html:
-        gallery_html = f'<div class="post-gallery">{photo_html}{video_html}</div>'
-
-    # Text
-    formatted_text = ""
-    if raw_text:
-        formatted_text = escape_html(raw_text).replace("\n", "<br>\n")
 
     # Views
     views = post.get("views", 0)
     views_html = f"<span>👁 {views}</span>" if views else ""
 
+    # Hashtags
+    hashtags = post.get("hashtags", [])
+    tags_html = ""
+    if hashtags:
+        tag_links = []
+        for ht in hashtags:
+            tag_name = re.sub(r"^#+", "", str(ht))
+            if tag_name:
+                tag_url = f"{_lang_path(lang)}/tag/{url_quote(tag_name)}.html"
+                tag_links.append(f'<a href="{tag_url}" class="hashtag">#{escape_html(tag_name)}</a>')
+        tags_html = '<div class="post-tags">' + " ".join(tag_links) + "</div>"
+
     # Telegram link
-    telegram_link = f"https://t.me/{CHANNEL_USERNAME}/{post_id}"
-    open_in_tg = "Открыть в Telegram" if lang == "ru" else "Open in Telegram"
+    telegram_link = post.get("telegramLink") or f"https://t.me/{CHANNEL_USERNAME}/{post_id}"
+    open_in_tg = t("open_in_telegram", lang) if lang == "en" else "Открыть в Telegram"
 
-    # Breadcrumbs
-    bc_items = [
-        {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_archive", lang), "url": f"{_lang_path(lang)}/archive"},
-        {"name": f"#{post_id}", "url": post_url_rel},
-    ]
-    breadcrumbs = render_breadcrumbs(bc_items, lang)
-    breadcrumb_schema = generate_breadcrumb_schema(bc_items)
+    # Related posts
+    related = get_related_posts(data, post_id, limit=RELATED_POSTS_COUNT)
+    related_html = render_related_posts(related, lang)
 
-    # Partner ad blocks (matching production site)
+    # Ad blocks
     admitad_programs = get_admitad_programs(data)
     ads_html = ""
     if admitad_programs:
         ads_html = render_ad_blocks(admitad_programs, lang, max_blocks=4)
 
-    # Shop widget
+    # Shop widget (6 products)
     shop_widget = ""
     if FEATURE_SHOP_ENABLED:
         products = data.get("products", [])[:6]
-        shop_widget = render_shop_widget(products, lang, count=4)
+        shop_widget = render_shop_widget(products, lang, count=6)
 
+    # Body
     body = f"""
-<div class="archive-post-container">
+<div class="container">
+<div class="article-content">
 {breadcrumbs}
 <article>
 <div class="article-meta">
 <span>📅 {escape_html(date_display)}</span>
 {views_html}
 </div>
+<h1>{escape_html(title)}</h1>
 {gallery_html}
-<div class="article-body">{formatted_text}</div>
-<div style="margin:1.5rem 0;">
+<div class="article-body">
+{formatted_text}
+</div>
+{tags_html}
+<div class="post-actions" style="margin:1.5rem 0;">
 <a href="{telegram_link}" class="btn-cta" target="_blank" rel="nofollow noopener noreferrer">💬 {open_in_tg}</a>
 </div>
 </article>
+{related_html}
 {ads_html}
 {shop_widget}
+</div>
 </div>"""
 
     return _build_page(
         lang=lang,
         title=page_title,
         description=description[:200],
-        url=post_url,
+        url=canonical_url,
         path=f"/archive/post/{post_id}" if lang == "ru" else f"/en/archive/post/{post_id}",
         body_content=body,
         og_type="article",
-        canonical=post_url,
-        extra_schema=[breadcrumb_schema],
+        image=og_image,
+        canonical=canonical_url,
+        article_published=published_time,
+        article_modified=modified_time,
+        article_tag=post_keywords,
+        extra_schema=[news_schema, breadcrumb_schema],
         active_page="archive",
         include_matrix=False,
     )
@@ -1616,7 +1753,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     # Build initial product grid (first PRODUCTS_PER_PAGE products)
     currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
     buy_text = t("shop_buy", lang)
-    products_json_data = json.dumps(products[:500], ensure_ascii=True)  # Embed first 500 for client-side filtering
+    products_json_data = json.dumps(products[:30], ensure_ascii=True)  # Embed first 30 for initial display; API fetches the rest
 
     product_cards_html = ""
     for p in products[:30]:
@@ -1644,7 +1781,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
         product_cards_html += (
             f'<div class="shop-product-card" data-supplier="{escape_html(p_feed)}" data-price="{p_price if isinstance(p_price, (int, float)) else 0}" data-name="{escape_html(p_name.lower())}">'
             f'<a href="{escape_html(p_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;">'
-            f'<div class="product-card-image"><img src="{escape_html(p_image)}" alt="{escape_html(p_name[:80])}" loading="lazy" referrerpolicy="no-referrer" onerror="this.src=\'/logo.jpg\'"></div>'
+            f'<div class="product-card-image"><img src="{escape_html(p_image)}" alt="{escape_html(p_name[:80])}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\'/logo.jpg\'"></div>'
             f'<div class="product-card-body">'
             f'<h3 class="product-card-name">{escape_html(p_name[:80])}</h3>'
             f'<div class="product-card-badges">{available_badge}{feed_badge}</div>'
@@ -1699,6 +1836,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 
     # Client-side shop script with pagination (30 products per page, "Load More" button)
     load_more_text = "Показать ещё" if lang == "ru" else "Load more"
+    loading_text = "Загрузка..." if lang == "ru" else "Loading..."
     showing_text = "Показано" if lang == "ru" else "Showing"
     of_text = "из" if lang == "ru" else "of"
     products_text = "товаров" if lang == "ru" else "products"
@@ -1706,10 +1844,13 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 <script>
 (function(){{
 var products={products_json_data};
+var totalProducts={total_products};
+var allProductsLoaded=products.length>=totalProducts;
+var apiPage=1;
+var isLoadingAPI=false;
 var grid=document.getElementById("shopProductGrid");
 var searchInput=document.getElementById("shopSearchInput");
 var sortSelect=document.getElementById("shopSortSelect");
-var countEl=document.getElementById("shopProductCount");
 var emptyEl=document.getElementById("shopEmpty");
 var loadMoreBtn=document.getElementById("shopLoadMore");
 var pageInfoEl=document.getElementById("shopPageInfo");
@@ -1718,6 +1859,42 @@ var buyText="{buy_text}";
 var PER_PAGE=30;
 var currentPage=1;
 var currentFiltered=products;
+
+/* ---- Fetch additional products from /api/shop/products ---- */
+function fetchMoreFromAPI(){{
+  if(isLoadingAPI||allProductsLoaded)return;
+  isLoadingAPI=true;
+  if(loadMoreBtn)loadMoreBtn.textContent="{loading_text}";
+  var url="/api/shop/products?page="+apiPage+"&per_page=200";
+  fetch(url).then(function(r){{return r.json();}}).then(function(data){{
+    if(data.products&&data.products.length){{
+      var existing=new Set(products.map(function(p){{return p.id||p.url||p.name;}}));
+      var added=0;
+      data.products.forEach(function(p){{
+        var pid=p.id||p.url||p.name;
+        if(!existing.has(pid)){{
+          products.push(p);
+          existing.add(pid);
+          added++;
+        }}
+      }});
+      apiPage++;
+      if(data.total)totalProducts=data.total;
+      if(added===0||products.length>=totalProducts)allProductsLoaded=true;
+    }}else{{
+      allProductsLoaded=true;
+    }}
+    isLoadingAPI=false;
+    if(loadMoreBtn)loadMoreBtn.textContent="{load_more_text}";
+    filterAndSort();
+  }}).catch(function(){{
+    isLoadingAPI=false;
+    if(loadMoreBtn)loadMoreBtn.textContent="{load_more_text}";
+  }});
+}}
+
+/* ---- Start loading more products from API immediately ---- */
+fetchMoreFromAPI();
 
 function renderCard(p){{
   var n=(p.name||"").length>80?(p.name||"").substring(0,80)+"...":(p.name||"");
@@ -1733,7 +1910,7 @@ function renderCard(p){{
   var feedBadge=feed?'<span class="product-badge badge-supplier">'+feed+'</span>':'';
   return '<div class="shop-product-card" data-supplier="'+feed+'">'+
     '<a href="'+(p.url||"#")+'" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;">'+
-    '<div class="product-card-image"><img src="'+(p.image||"/logo.jpg")+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.src=\\'/logo.jpg\\'"></div>'+
+    '<div class="product-card-image"><img src="'+(p.image||"/logo.jpg")+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\\'/logo.jpg\\'"></div>'+
     '<div class="product-card-body">'+
     '<h3 class="product-card-name">'+n+'</h3>'+
     '<div class="product-card-badges">'+badge+feedBadge+'</div>'+
@@ -1758,15 +1935,14 @@ function renderProducts(){{
     h+=renderCard(currentFiltered[i]);
   }}
   grid.innerHTML=h;
-  if(countEl)countEl.textContent=currentFiltered.length;
   // Update "Load More" button visibility
-  var hasMore=showCount<currentFiltered.length;
+  var hasMore=showCount<currentFiltered.length||(showCount<totalProducts&&!allProductsLoaded);
   if(loadMoreBtn){{
     loadMoreBtn.style.display=hasMore?"inline-block":"none";
   }}
-  // Update page info text
+  // Update page info text: "Показано 30 из 95165 товаров"
   if(pageInfoEl){{
-    pageInfoEl.textContent="{showing_text} "+showCount+" {of_text} "+currentFiltered.length+" {products_text}";
+    pageInfoEl.textContent="{showing_text} "+showCount+" {of_text} "+totalProducts.toLocaleString("ru-RU")+" {products_text}";
   }}
 }}
 
@@ -1810,6 +1986,10 @@ document.getElementById("shopResetFilters")?.addEventListener("click",function()
 if(loadMoreBtn)loadMoreBtn.addEventListener("click",function(){{
   currentPage++;
   renderProducts();
+  // If running low on local data, fetch more from API
+  if(currentFiltered.length-currentPage*PER_PAGE<PER_PAGE&&!allProductsLoaded){{
+    fetchMoreFromAPI();
+  }}
   // Scroll to newly loaded products
   var cards=grid.querySelectorAll(".shop-product-card");
   if(cards.length>PER_PAGE){{
@@ -1841,7 +2021,7 @@ renderProducts();
 <div class="shop-suppliers">
   {supplier_cards}
 </div>
-<div class="shop-product-count">{"Товаров" if lang == "ru" else "Products"}: <span id="shopProductCount">{total_products}</span> <span id="shopPageInfo" style="margin-left:0.5rem;opacity:0.7;font-size:0.9em;"></span></div>
+<div class="shop-product-count" id="shopPageInfo">{showing_text} {min(total_products, 30)} {of_text} {total_products:,} {products_text}</div>
 <div class="shop-product-grid" id="shopProductGrid">
   {product_cards_html}
 </div>
@@ -2727,9 +2907,10 @@ def generate_sitemaps(data: dict, output_dir: str):
     product_sitemap_count = max(1, math.ceil(len(products) / PRODUCTS_SITEMAP_PER_FILE))
 
     # sitemap-index.xml
+    has_archive = bool(posts)
     _write_file(
         os.path.join(output_dir, "sitemap-index.xml"),
-        generate_sitemap_index(post_sitemap_count, product_sitemap_count, has_archive=False),
+        generate_sitemap_index(post_sitemap_count, product_sitemap_count, has_archive=has_archive),
     )
 
     # sitemap.xml (static pages)
@@ -2786,10 +2967,10 @@ def generate_sitemaps(data: dict, output_dir: str):
             generate_products_sitemap(batch, i),
         )
 
-    # sitemap-archive.xml — minimal: just the archive listing pages (Worker handles the rest)
+    # sitemap-archive.xml — listing pages + individual archive post URLs
     _write_file(
         os.path.join(output_dir, "sitemap-archive.xml"),
-        generate_archive_sitemap(),
+        generate_archive_sitemap(posts),
     )
 
     logger.info("Generated all sitemap files")

@@ -1013,12 +1013,12 @@ def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
             if len(p_name) > 50:
                 p_name = p_name[:50] + "..."
             p_price = p.get("price", "")
-            p_image = p.get("image", "")
+            p_image = p.get("image", "") or "/logo.jpg"
             p_url = p.get("url", "#")
             price_display = f'{p_price:,.0f} {currency}' if isinstance(p_price, (int, float)) else f'{p_price} {currency}' if p_price else ""
             products_html += (
                 f'<a href="{escape_html(p_url)}" class="widget-product" target="_blank" rel="nofollow noopener sponsored">'
-                f'<img src="{escape_html(p_image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">'
+                f'<img src="{escape_html(p_image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\'/logo.jpg\'">'
                 f'<div class="wp-name">{escape_html(p_name)}</div>'
                 f'<div class="wp-price">{escape_html(price_display)}</div>'
                 f'</a>'
