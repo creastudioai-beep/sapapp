@@ -594,8 +594,13 @@ def generate_all_pages(data: dict, output_dir: str):
         tag_name = re.sub(r"^#+", "", str(tag_key))
         if not tag_name:
             continue
-        # URL-encode the tag name for safe filenames
-        safe_tag_name = url_quote(tag_name, safe='')
+        # Use the tag name directly (Unicode) for filenames.
+        # GitHub Pages decodes URL-encoded paths before looking up files,
+        # so %D0%B0%D0%B2%D1%82%D0%BE.html on disk is NOT found when
+        # the browser requests /tag/%D0%B0%D0%B2%D1%82%D0%BE.html
+        # (GitHub Pages decodes it to /tag/авто.html and finds nothing).
+        # Using the Unicode name directly solves this.
+        safe_tag_name = tag_name.replace("/", "_").replace("\\", "_").replace(" ", "_")
         for lang in ("ru", "en"):
             html = generate_tag_page(data, tag_name, lang, output_dir)
             if lang == "ru":
