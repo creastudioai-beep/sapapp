@@ -1619,7 +1619,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     products_json_data = json.dumps(products[:500], ensure_ascii=True)  # Embed first 500 for client-side filtering
 
     product_cards_html = ""
-    for p in products[:PRODUCTS_PER_PAGE]:
+    for p in products[:30]:
         if not isinstance(p, dict):
             continue
         p_name = p.get("name", "")
@@ -1697,7 +1697,11 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
             '</noscript>'
         )
 
-    # Client-side shop script
+    # Client-side shop script with pagination (30 products per page, "Load More" button)
+    load_more_text = "Показать ещё" if lang == "ru" else "Load more"
+    showing_text = "Показано" if lang == "ru" else "Showing"
+    of_text = "из" if lang == "ru" else "of"
+    products_text = "товаров" if lang == "ru" else "products"
     shop_script = f"""
 <script>
 (function(){{
@@ -1707,43 +1711,65 @@ var searchInput=document.getElementById("shopSearchInput");
 var sortSelect=document.getElementById("shopSortSelect");
 var countEl=document.getElementById("shopProductCount");
 var emptyEl=document.getElementById("shopEmpty");
+var loadMoreBtn=document.getElementById("shopLoadMore");
+var pageInfoEl=document.getElementById("shopPageInfo");
 var currency="{currency}";
 var buyText="{buy_text}";
-function renderProducts(list){{
+var PER_PAGE=30;
+var currentPage=1;
+var currentFiltered=products;
+
+function renderCard(p){{
+  var n=(p.name||"").length>80?(p.name||"").substring(0,80)+"...":(p.name||"");
+  var price=p.price;
+  var oldPrice=p.old_price||"";
+  var pd=typeof price==="number"?price.toLocaleString("ru-RU")+" "+currency:price+" "+currency;
+  var od=typeof oldPrice==="number"?oldPrice.toLocaleString("ru-RU"):oldPrice;
+  var avail=p.available!==false;
+  var feed=p.feedName||p.feed_name||"";
+  var badge="";
+  if(!avail)badge='<span class="product-badge badge-unavailable">{"Под заказ" if lang=="ru" else "On order"}</span>';
+  else if(oldPrice)badge='<span class="product-badge badge-sale">{"Скидка" if lang=="ru" else "Sale"}</span>';
+  var feedBadge=feed?'<span class="product-badge badge-supplier">'+feed+'</span>':'';
+  return '<div class="shop-product-card" data-supplier="'+feed+'">'+
+    '<a href="'+(p.url||"#")+'" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;">'+
+    '<div class="product-card-image"><img src="'+(p.image||"/logo.jpg")+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.src=\\'/logo.jpg\\'"></div>'+
+    '<div class="product-card-body">'+
+    '<h3 class="product-card-name">'+n+'</h3>'+
+    '<div class="product-card-badges">'+badge+feedBadge+'</div>'+
+    '<div class="product-card-price">'+pd+(od?' <s>'+od+'</s>':'')+'</div>'+
+    '<div class="product-card-btn">'+buyText+'</div>'+
+    '</div></a></div>';
+}}
+
+function renderProducts(){{
   if(!grid)return;
-  if(list.length===0){{
+  if(currentFiltered.length===0){{
     grid.innerHTML="";
     if(emptyEl)emptyEl.style.display="block";
+    if(loadMoreBtn)loadMoreBtn.style.display="none";
+    if(pageInfoEl)pageInfoEl.textContent="";
     return;
   }}
   if(emptyEl)emptyEl.style.display="none";
+  var showCount=Math.min(currentPage*PER_PAGE,currentFiltered.length);
   var h="";
-  for(var i=0;i<Math.min(list.length,30);i++){{
-    var p=list[i];
-    var n=(p.name||"").length>80?(p.name||"").substring(0,80)+"...":(p.name||"");
-    var price=p.price;
-    var oldPrice=p.old_price||"";
-    var pd=typeof price==="number"?price.toLocaleString("ru-RU")+" "+currency:price+" "+currency;
-    var od=typeof oldPrice==="number"?oldPrice.toLocaleString("ru-RU"):oldPrice;
-    var avail=p.available!==false;
-    var feed=p.feedName||p.feed_name||"";
-    var badge="";
-    if(!avail)badge='<span class="product-badge badge-unavailable">{"Под заказ" if lang=="ru" else "On order"}</span>';
-    else if(oldPrice)badge='<span class="product-badge badge-sale">{"Скидка" if lang=="ru" else "Sale"}</span>';
-    var feedBadge=feed?'<span class="product-badge badge-supplier">'+feed+'</span>':'';
-    h+='<div class="shop-product-card" data-supplier="'+feed+'">';
-    h+='<a href="'+(p.url||"#")+'" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;">';
-    h+='<div class="product-card-image"><img src="'+(p.image||"/logo.jpg")+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.src=\\'/logo.jpg\\'"></div>';
-    h+='<div class="product-card-body">';
-    h+='<h3 class="product-card-name">'+n+'</h3>';
-    h+='<div class="product-card-badges">'+badge+feedBadge+'</div>';
-    h+='<div class="product-card-price">'+pd+(od?' <s>'+od+'</s>':'')+'</div>';
-    h+='<div class="product-card-btn">'+buyText+'</div>';
-    h+='</div></a></div>';
+  for(var i=0;i<showCount;i++){{
+    h+=renderCard(currentFiltered[i]);
   }}
   grid.innerHTML=h;
-  if(countEl)countEl.textContent=list.length;
+  if(countEl)countEl.textContent=currentFiltered.length;
+  // Update "Load More" button visibility
+  var hasMore=showCount<currentFiltered.length;
+  if(loadMoreBtn){{
+    loadMoreBtn.style.display=hasMore?"inline-block":"none";
+  }}
+  // Update page info text
+  if(pageInfoEl){{
+    pageInfoEl.textContent="{showing_text} "+showCount+" {of_text} "+currentFiltered.length+" {products_text}";
+  }}
 }}
+
 function filterAndSort(){{
   var q=(searchInput?searchInput.value:"").toLowerCase();
   var sort=sortSelect?sortSelect.value:"popular";
@@ -1761,8 +1787,11 @@ function filterAndSort(){{
   if(sort==="price_asc")filtered.sort(function(a,b){{return(a.price||0)-(b.price||0);}});
   else if(sort==="price_desc")filtered.sort(function(a,b){{return(b.price||0)-(a.price||0);}});
   else if(sort==="name")filtered.sort(function(a,b){{return(a.name||"").localeCompare(b.name||"");}});
-  renderProducts(filtered);
+  currentFiltered=filtered;
+  currentPage=1;
+  renderProducts();
 }}
+
 if(searchInput)searchInput.addEventListener("input",function(){{filterAndSort();}});
 if(sortSelect)sortSelect.addEventListener("change",function(){{filterAndSort();}});
 document.querySelectorAll(".supplier-filter-btn").forEach(function(btn){{
@@ -1778,7 +1807,17 @@ document.getElementById("shopResetFilters")?.addEventListener("click",function()
   document.querySelectorAll(".supplier-filter-btn").forEach(function(b){{b.classList.remove("active");}});
   filterAndSort();
 }});
-renderProducts(products);
+if(loadMoreBtn)loadMoreBtn.addEventListener("click",function(){{
+  currentPage++;
+  renderProducts();
+  // Scroll to newly loaded products
+  var cards=grid.querySelectorAll(".shop-product-card");
+  if(cards.length>PER_PAGE){{
+    var scrollTo=cards[(currentPage-1)*PER_PAGE];
+    if(scrollTo)scrollTo.scrollIntoView({{behavior:"smooth",block:"start"}});
+  }}
+}});
+renderProducts();
 }})();
 </script>"""
 
@@ -1802,9 +1841,12 @@ renderProducts(products);
 <div class="shop-suppliers">
   {supplier_cards}
 </div>
-<div class="shop-product-count">{"Товаров" if lang == "ru" else "Products"}: <span id="shopProductCount">{total_products}</span></div>
+<div class="shop-product-count">{"Товаров" if lang == "ru" else "Products"}: <span id="shopProductCount">{total_products}</span> <span id="shopPageInfo" style="margin-left:0.5rem;opacity:0.7;font-size:0.9em;"></span></div>
 <div class="shop-product-grid" id="shopProductGrid">
   {product_cards_html}
+</div>
+<div style="text-align:center;margin:1.5rem 0;">
+  <button id="shopLoadMore" class="btn-outline" style="padding:0.75rem 2rem;font-size:1rem;">{load_more_text}</button>
 </div>
 <div id="shopEmpty" style="display:none;text-align:center;padding:3rem 1rem;">
   <p style="color:var(--text-muted);margin-bottom:1rem;">{empty_text}</p>
@@ -2441,11 +2483,11 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
     if lang == "ru":
         desc_text = f"Партнёрская программа {cat_name}. Переходите по ссылке для получения специальных предложений и скидок на автозапчасти."
         visit_text = "Перейти на сайт партнёра"
-        legal_text = "Реклама. Вознаграждение за размещение."
+        legal_text = "Реклама"
     else:
         desc_text = f"Partner program {cat_name}. Follow the link for special offers and discounts on auto parts."
         visit_text = "Visit partner website"
-        legal_text = "Advertisement. Compensation for placement."
+        legal_text = "Advertisement"
 
     # Programs cards HTML
     programs_cards_html = ""

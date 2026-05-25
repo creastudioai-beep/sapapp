@@ -444,17 +444,34 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
             if first_media.get("type") == "video":
                 video_src = first_media.get("directUrl", "")
                 poster = _get_poster_for_post(post)
-                media_block = (
-                    f'<div class="post-feed-media">\n'
-                    f'<div class="video-container">\n'
-                    f'<div class="video-thumbnail" data-video-src="{escape_html(video_src)}" '
-                    f'data-video-title="{escape_html(title)}" data-video-type="video/mp4">\n'
-                    f'<img src="{escape_html(poster)}" alt="{escape_html(title)}" '
-                    f'loading="lazy" decoding="async" referrerpolicy="no-referrer">\n'
-                    f'</div>\n'
-                    f'</div>\n'
-                    f'</div>'
-                )
+                # If poster is just the logo fallback, use a video-style card with play overlay
+                is_logo_fallback = (poster == LOGO_EXTERNAL_URL or poster.endswith("/logo.jpg"))
+                if is_logo_fallback:
+                    media_block = (
+                        f'<div class="post-feed-media">\n'
+                        f'<div class="video-container">\n'
+                        f'<div class="video-thumbnail" data-video-src="{escape_html(video_src)}" '
+                        f'data-video-title="{escape_html(title)}" data-video-type="video/mp4" '
+                        f'style="background:#1a1a2e;display:flex;align-items:center;justify-content:center;min-height:200px;">\n'
+                        f'<img src="{escape_html(poster)}" alt="{escape_html(title)}" '
+                        f'loading="lazy" decoding="async" referrerpolicy="no-referrer" '
+                        f'style="max-width:80px;max-height:80px;opacity:0.6;">\n'
+                        f'</div>\n'
+                        f'</div>\n'
+                        f'</div>'
+                    )
+                else:
+                    media_block = (
+                        f'<div class="post-feed-media">\n'
+                        f'<div class="video-container">\n'
+                        f'<div class="video-thumbnail" data-video-src="{escape_html(video_src)}" '
+                        f'data-video-title="{escape_html(title)}" data-video-type="video/mp4">\n'
+                        f'<img src="{escape_html(poster)}" alt="{escape_html(title)}" '
+                        f'loading="lazy" decoding="async" referrerpolicy="no-referrer">\n'
+                        f'</div>\n'
+                        f'</div>\n'
+                        f'</div>'
+                    )
             else:
                 img_src = first_media.get("directUrl") or first_media.get("url") or ""
                 if img_src:

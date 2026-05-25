@@ -129,7 +129,7 @@ STRINGS = {
         'ads_tools': 'Инструменты',
         'ads_coupons': 'Промокоды',
         'ads_other': 'Прочее',
-        'ads_legal': 'Реклама. Вознаграждение за размещение.',
+        'ads_legal': 'Реклама',
 
         # Manifest
         'manifest_name': 'SOCHIAUTOPARTS',
@@ -258,7 +258,7 @@ STRINGS = {
         'ads_tools': 'Tools',
         'ads_coupons': 'Coupons',
         'ads_other': 'Other',
-        'ads_legal': 'Advertisement. Compensation for placement.',
+        'ads_legal': 'Advertisement',
 
         # Manifest
         'manifest_name': 'SOCHIAUTOPARTS',

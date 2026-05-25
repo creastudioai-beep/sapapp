@@ -1714,6 +1714,8 @@ def generate_robots_txt() -> str:
         f"\n"
         f"# === Sitemaps ===\n"
         f"Sitemap: {SITE_URL}/sitemap-index.xml\n"
+        f"Sitemap: {SITE_URL}/sitemap.xml\n"
+        f"Sitemap: {SITE_URL}/sitemap-news.xml\n"
     )
 
 
