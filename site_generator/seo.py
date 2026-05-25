@@ -2235,39 +2235,59 @@ def get_common_client_scripts(lang: str = "ru") -> str:
       }}
     }}
   }});
-  // Matrix background animation
+  // Matrix background animation — matching original Worker v27.0
   var matrixCanvas = document.getElementById("matrix-bg");
   if (matrixCanvas) {{
-    var mctx = matrixCanvas.getContext("2d");
-    matrixCanvas.width = window.innerWidth;
-    matrixCanvas.height = window.innerHeight;
-    var matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
-    var fontSize = 14;
-    var columns = Math.floor(matrixCanvas.width / fontSize);
-    var drops = [];
-    for (var mi = 0; mi < columns; mi++) {{ drops[mi] = 1; }}
-    function drawMatrix() {{
-      mctx.fillStyle = "rgba(0, 0, 0, 0.04)";
-      mctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-      mctx.fillStyle = document.documentElement.getAttribute("data-theme") === "dark" ? "rgba(36, 129, 204, 0.15)" : "rgba(36, 129, 204, 0.08)";
-      mctx.font = fontSize + "px monospace";
-      for (var mj = 0; mj < drops.length; mj++) {{
-        var text = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
-        mctx.fillText(text, mj * fontSize, drops[mj] * fontSize);
-        if (drops[mj] * fontSize > matrixCanvas.height && Math.random() > 0.975) {{
-          drops[mj] = 0;
-        }}
-        drops[mj]++;
-      }}
-    }}
-    setInterval(drawMatrix, 50);
-    window.addEventListener("resize", function() {{
+    var prefReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefReducedMotion || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2)) {{
+      matrixCanvas.style.display = "none";
+    }} else {{
+      var mctx = matrixCanvas.getContext("2d");
       matrixCanvas.width = window.innerWidth;
       matrixCanvas.height = window.innerHeight;
-      columns = Math.floor(matrixCanvas.width / fontSize);
-      drops = [];
-      for (var ri = 0; ri < columns; ri++) {{ drops[ri] = 1; }}
-    }});
+      var matrixKeywords = ['#автозапчасти','#сочи','#запчастисочи','#авто','#автоновости','#autonews','#cars','#sochi','#автомобиль','#машина','#двигатель','#тормоза','#подвеска','#масло','#фильтр','#шиномонтаж','#кузов','#электрика','#рейтинг','#обзор'];
+      var cols = Math.floor(matrixCanvas.width / 22);
+      var drops = [];
+      for (var mi = 0; mi < cols; mi++) {{ drops[mi] = Math.random() * -100; }}
+      function drawMatrix() {{
+        mctx.fillStyle = "rgba(15, 17, 21, 0.05)";
+        mctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+        for (var mj = 0; mj < drops.length; mj++) {{
+          var t = matrixKeywords[Math.floor(Math.random() * matrixKeywords.length)];
+          var r = Math.random();
+          if (r > 0.95) {{
+            mctx.shadowBlur = 30;
+            mctx.shadowColor = "#FFFFFF";
+            mctx.fillStyle = "#FFFFFF";
+            mctx.font = "bold 18px monospace";
+          }} else if (r > 0.8) {{
+            mctx.shadowBlur = 20;
+            mctx.shadowColor = "#CCCCCC";
+            mctx.fillStyle = "#E0E0E0";
+            mctx.font = "bold 16px monospace";
+          }} else {{
+            mctx.shadowBlur = 6;
+            mctx.shadowColor = "#666666";
+            mctx.fillStyle = "#707070";
+            mctx.font = "12px monospace";
+          }}
+          mctx.fillText(t, mj * 22, drops[mj] * 22);
+          mctx.shadowBlur = 0;
+          if (drops[mj] * 22 > matrixCanvas.height && Math.random() > 0.97) {{
+            drops[mj] = 0;
+          }}
+          drops[mj] += 0.25 + Math.random() * 0.3;
+        }}
+      }}
+      setInterval(drawMatrix, 50);
+      window.addEventListener("resize", function() {{
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        cols = Math.floor(matrixCanvas.width / 22);
+        drops = [];
+        for (var ri = 0; ri < cols; ri++) {{ drops[ri] = Math.random() * -100; }}
+      }});
+    }}
   }}
 }})();
 </script>"""

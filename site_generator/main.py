@@ -508,6 +508,19 @@ def main(argv: Optional[list] = None) -> None:
         except Exception as exc:
             logger.error("Page generation failed: %s", exc)
             print(f"  ERROR: Page generation failed: {exc}")
+            # Try to generate at least a minimal site even if full generation fails
+            try:
+                import shutil
+                os.makedirs(args.output_dir, exist_ok=True)
+                # Create a minimal index.html so the build doesn't produce 0 pages
+                minimal_html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1><p>Site is being rebuilt. Please check back soon.</p></body></html>'
+                with open(os.path.join(args.output_dir, 'index.html'), 'w', encoding='utf-8') as f:
+                    f.write(minimal_html)
+                with open(os.path.join(args.output_dir, '404.html'), 'w', encoding='utf-8') as f:
+                    f.write(minimal_html)
+                logger.info("Created minimal fallback pages")
+            except Exception as fallback_exc:
+                logger.error("Fallback page generation also failed: %s", fallback_exc)
             raise
 
         # ----------------------------------------------------------

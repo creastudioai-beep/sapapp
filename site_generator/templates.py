@@ -914,8 +914,9 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
         prog_name = prog.get("name", "")
         prog_id = prog.get("id", "")
 
-        # Build affiliate URL - use actual affiliate link from program data
-        affiliate_url = prog.get("affiliateUrl") or prog.get("url") or prog.get("gotoLink", "")
+        # Build affiliate URL - use /api/{id} format for proxy Worker redirect
+        # The proxy Worker looks up the program ID and redirects to goto_link
+        affiliate_url = f"/api/{prog_id}" if prog_id else ""
         if not affiliate_url:
             # Fall back to /ads/{category} page
             affiliate_url = f"{_lang_path(lang)}/ads/{json_category}"
@@ -969,14 +970,14 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
 def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
     """Render compact shop widget for post/archive pages.
 
-    Shows a "Visit Shop" link to the shop page (which uses iframe embed).
-    No native product rendering — the shop page embeds zap-online.ru.
+    Shows native product cards fetched from pipeline data with a "Visit Shop" link.
+    The shop page shows a full native product catalog (no iframe).
     """
-    from .config import SHOP_ZAP_ONLINE_URL
-
     shop_path = _bp(SHOP_PATH_EN) if lang == "en" else _bp(SHOP_PATH)
     widget_title = "🛒 Магазин автозапчастей" if lang == "ru" else "🛒 Auto Parts Shop"
     visit_shop_link = "Перейти в магазин →" if lang == "ru" else "Visit shop →"
+    buy_text = "Купить" if lang == "ru" else "Buy"
+    currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
 
     # SEO noscript for crawlers
     seo_text = (
@@ -985,12 +986,38 @@ def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
         "Auto parts with delivery across Russia. OEM and aftermarket parts."
     )
 
+    # Render product cards from pipeline data
+    products_html = ""
+    if products:
+        for p in products[:count]:
+            if not isinstance(p, dict):
+                continue
+            p_name = p.get("name", "")
+            if len(p_name) > 50:
+                p_name = p_name[:50] + "..."
+            p_price = p.get("price", "")
+            p_image = p.get("image", "")
+            p_url = p.get("url", "#")
+            price_display = f'{p_price:,.0f} {currency}' if isinstance(p_price, (int, float)) else f'{p_price} {currency}' if p_price else ""
+            products_html += (
+                f'<a href="{escape_html(p_url)}" class="widget-product" target="_blank" rel="nofollow noopener sponsored">'
+                f'<img src="{escape_html(p_image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">'
+                f'<div class="wp-name">{escape_html(p_name)}</div>'
+                f'<div class="wp-price">{escape_html(price_display)}</div>'
+                f'</a>'
+            )
+
+    products_grid = ""
+    if products_html:
+        products_grid = f'<div class="shop-widget-grid" id="shopWidgetGrid">{products_html}</div>'
+
     return (
         f'<div class="shop-widget" id="shopWidget">\n'
         f'<div class="widget-header">'
         f'<span class="widget-title">{widget_title}</span>'
         f'<a href="{shop_path}" class="widget-link">{visit_shop_link}</a>'
         f'</div>\n'
+        f'{products_grid}'
         f'<div style="text-align:center;padding:1rem;">'
         f'<a href="{shop_path}" class="btn-cta" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:var(--primary);color:#fff;font-weight:700;text-decoration:none;">🛒 {visit_shop_link}</a>'
         f'<noscript><p style="margin-top:0.75rem;font-size:0.875rem;color:var(--text-muted);">{seo_text}</p></noscript>'

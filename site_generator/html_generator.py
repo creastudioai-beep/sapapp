@@ -1555,11 +1555,11 @@ def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: 
 # ===========================================================================
 
 def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
-    """Generate shop page with iframe embed of zap-online.ru.
+    """Generate NATIVE shop page with product cards from pipeline data.
 
-    The shop page embeds https://sochiautoparts.zap-online.ru in an iframe,
-    matching the original Cloudflare Worker v27.0 behavior.
-    No native product rendering — the iframe handles everything.
+    The shop page displays products natively from the pipeline products.json,
+    with search, sort, supplier filters, and a product grid. No iframe.
+    The proxy Worker provides /api/shop/products endpoint for dynamic filtering.
 
     Args:
         data: The data dict from data_loader.
@@ -1569,9 +1569,8 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     Returns:
         Complete HTML page string.
     """
-    from .config import SHOP_ZAP_ONLINE_URL
-
     popular_tags = get_popular_tags(data, limit=12)
+    products = data.get("products", [])
 
     # SEO
     page_title = t("shop_title", lang)
@@ -1602,30 +1601,69 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
 
-    # SEO noscript content for crawlers that can't see the iframe
-    seo_noscript = ""
-    if lang == "ru":
-        seo_noscript = (
-            '<noscript>'
-            '<h2>Магазин автозапчастей SOCHIAUTOPARTS</h2>'
-            '<p>Большой выбор автозапчастей от проверенных поставщиков с доставкой по всей России. '
-            'Каталог включает детали двигателя, трансмиссии, тормозной системы, подвески, '
-            'электрооборудования, кузова и других категорий. Оригинальные и неоригинальные запчасти, '
-            'аналоги от ведущих производителей.</p>'
-            '<p>Для оформления заказа перейдите на сайт sochiautoparts.zap-online.ru</p>'
-            '</noscript>'
+    # Build unique supplier list from products
+    suppliers = {}
+    for p in products:
+        feed_name = p.get("feedName") or p.get("feed_name") or ""
+        if feed_name and feed_name not in suppliers:
+            suppliers[feed_name] = len([x for x in products if (x.get("feedName") or x.get("feed_name") or "") == feed_name])
+
+    # Supplier filter cards
+    supplier_cards = ""
+    for sname, scount in suppliers.items():
+        supplier_cards += f'<button class="supplier-filter-btn" data-supplier="{escape_html(sname)}">{escape_html(sname)} <span style="opacity:0.7;font-size:0.8em;">({scount})</span></button>\n'
+
+    # Build initial product grid (first PRODUCTS_PER_PAGE products)
+    currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
+    buy_text = t("shop_buy", lang)
+    products_json_data = json.dumps(products[:500], ensure_ascii=True)  # Embed first 500 for client-side filtering
+
+    product_cards_html = ""
+    for p in products[:PRODUCTS_PER_PAGE]:
+        if not isinstance(p, dict):
+            continue
+        p_name = p.get("name", "")
+        p_price = p.get("price", "")
+        p_old_price = p.get("old_price", "")
+        p_image = p.get("image", "")
+        p_url = p.get("url", "#")
+        p_feed = p.get("feedName") or p.get("feed_name", "")
+        p_available = p.get("available", True)
+
+        price_display = f'{p_price:,.0f} {currency}' if isinstance(p_price, (int, float)) else f'{p_price} {currency}' if p_price else ""
+        old_price_display = f'{p_old_price:,.0f}' if isinstance(p_old_price, (int, float)) and p_old_price else ""
+
+        available_badge = ""
+        if not p_available:
+            available_badge = '<span class="product-badge badge-unavailable">Под заказ</span>' if lang == "ru" else '<span class="product-badge badge-unavailable">On order</span>'
+        elif p_old_price:
+            available_badge = '<span class="product-badge badge-sale">Скидка</span>' if lang == "ru" else '<span class="product-badge badge-sale">Sale</span>'
+
+        feed_badge = f'<span class="product-badge badge-supplier">{escape_html(p_feed)}</span>' if p_feed else ""
+
+        product_cards_html += (
+            f'<div class="shop-product-card" data-supplier="{escape_html(p_feed)}" data-price="{p_price if isinstance(p_price, (int, float)) else 0}" data-name="{escape_html(p_name.lower())}">'
+            f'<a href="{escape_html(p_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;">'
+            f'<div class="product-card-image"><img src="{escape_html(p_image)}" alt="{escape_html(p_name[:80])}" loading="lazy" referrerpolicy="no-referrer" onerror="this.src=\'/logo.jpg\'"></div>'
+            f'<div class="product-card-body">'
+            f'<h3 class="product-card-name">{escape_html(p_name[:80])}</h3>'
+            f'<div class="product-card-badges">{available_badge}{feed_badge}</div>'
+            f'<div class="product-card-price">{escape_html(price_display)}{f" <s>{escape_html(old_price_display)}</s>" if old_price_display else ""}</div>'
+            f'<div class="product-card-btn">{buy_text}</div>'
+            f'</div>'
+            f'</a>'
+            f'</div>\n'
         )
-    else:
-        seo_noscript = (
-            '<noscript>'
-            '<h2>SOCHIAUTOPARTS Auto Parts Shop</h2>'
-            '<p>Large selection of auto parts from verified suppliers with delivery across Russia. '
-            'The catalog includes engine parts, transmission, brakes, suspension, '
-            'electrical, body parts and other categories. OEM and aftermarket parts '
-            'from leading manufacturers.</p>'
-            '<p>To place an order, visit sochiautoparts.zap-online.ru</p>'
-            '</noscript>'
-        )
+
+    # Search, sort, filter controls
+    search_placeholder = t("shop_search_placeholder", lang)
+    sort_popular = t("shop_sort_popular", lang)
+    sort_price_asc = t("shop_sort_price_asc", lang)
+    sort_price_desc = t("shop_sort_price_desc", lang)
+    sort_name = t("shop_sort_name", lang)
+    empty_text = t("shop_empty", lang)
+    empty_reset = t("shop_empty_reset", lang)
+    total_products = len(products)
 
     # Ad blocks
     admitad_programs = get_admitad_programs(data)
@@ -1636,8 +1674,113 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     # Ad category buttons
     ad_category_buttons = render_ad_category_buttons(lang)
 
-    zap_url = SHOP_ZAP_ONLINE_URL
-    loading_text = "Загрузка каталога запчастей..." if lang == "ru" else "Loading parts catalog..."
+    # SEO noscript
+    seo_noscript = ""
+    if lang == "ru":
+        seo_noscript = (
+            '<noscript>'
+            '<h2>Магазин автозапчастей SOCHIAUTOPARTS</h2>'
+            '<p>Большой выбор автозапчастей от проверенных поставщиков с доставкой по всей России. '
+            'Каталог включает детали двигателя, трансмиссии, тормозной системы, подвески, '
+            'электрооборудования, кузова и других категорий. Оригинальные и неоригинальные запчасти, '
+            'аналоги от ведущих производителей.</p>'
+            '</noscript>'
+        )
+    else:
+        seo_noscript = (
+            '<noscript>'
+            '<h2>SOCHIAUTOPARTS Auto Parts Shop</h2>'
+            '<p>Large selection of auto parts from verified suppliers with delivery across Russia. '
+            'The catalog includes engine parts, transmission, brakes, suspension, '
+            'electrical, body parts and other categories. OEM and aftermarket parts '
+            'from leading manufacturers.</p>'
+            '</noscript>'
+        )
+
+    # Client-side shop script
+    shop_script = f"""
+<script>
+(function(){{
+var products={products_json_data};
+var grid=document.getElementById("shopProductGrid");
+var searchInput=document.getElementById("shopSearchInput");
+var sortSelect=document.getElementById("shopSortSelect");
+var countEl=document.getElementById("shopProductCount");
+var emptyEl=document.getElementById("shopEmpty");
+var currency="{currency}";
+var buyText="{buy_text}";
+function renderProducts(list){{
+  if(!grid)return;
+  if(list.length===0){{
+    grid.innerHTML="";
+    if(emptyEl)emptyEl.style.display="block";
+    return;
+  }}
+  if(emptyEl)emptyEl.style.display="none";
+  var h="";
+  for(var i=0;i<Math.min(list.length,30);i++){{
+    var p=list[i];
+    var n=(p.name||"").length>80?(p.name||"").substring(0,80)+"...":(p.name||"");
+    var price=p.price;
+    var oldPrice=p.old_price||"";
+    var pd=typeof price==="number"?price.toLocaleString("ru-RU")+" "+currency:price+" "+currency;
+    var od=typeof oldPrice==="number"?oldPrice.toLocaleString("ru-RU"):oldPrice;
+    var avail=p.available!==false;
+    var feed=p.feedName||p.feed_name||"";
+    var badge="";
+    if(!avail)badge='<span class="product-badge badge-unavailable">{"Под заказ" if lang=="ru" else "On order"}</span>';
+    else if(oldPrice)badge='<span class="product-badge badge-sale">{"Скидка" if lang=="ru" else "Sale"}</span>';
+    var feedBadge=feed?'<span class="product-badge badge-supplier">'+feed+'</span>':'';
+    h+='<div class="shop-product-card" data-supplier="'+feed+'">';
+    h+='<a href="'+(p.url||"#")+'" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;">';
+    h+='<div class="product-card-image"><img src="'+(p.image||"/logo.jpg")+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.src=\\'/logo.jpg\\'"></div>';
+    h+='<div class="product-card-body">';
+    h+='<h3 class="product-card-name">'+n+'</h3>';
+    h+='<div class="product-card-badges">'+badge+feedBadge+'</div>';
+    h+='<div class="product-card-price">'+pd+(od?' <s>'+od+'</s>':'')+'</div>';
+    h+='<div class="product-card-btn">'+buyText+'</div>';
+    h+='</div></a></div>';
+  }}
+  grid.innerHTML=h;
+  if(countEl)countEl.textContent=list.length;
+}}
+function filterAndSort(){{
+  var q=(searchInput?searchInput.value:"").toLowerCase();
+  var sort=sortSelect?sortSelect.value:"popular";
+  var activeSupplier=document.querySelector(".supplier-filter-btn.active");
+  var supplier=activeSupplier?activeSupplier.dataset.supplier:"";
+  var filtered=products.filter(function(p){{
+    if(supplier&&(p.feedName||p.feed_name||"")!==supplier)return false;
+    if(q&&q.length>=2){{
+      var name=(p.name||"").toLowerCase();
+      var desc=(p.description||"").toLowerCase();
+      if(name.indexOf(q)===-1&&desc.indexOf(q)===-1)return false;
+    }}
+    return true;
+  }});
+  if(sort==="price_asc")filtered.sort(function(a,b){{return(a.price||0)-(b.price||0);}});
+  else if(sort==="price_desc")filtered.sort(function(a,b){{return(b.price||0)-(a.price||0);}});
+  else if(sort==="name")filtered.sort(function(a,b){{return(a.name||"").localeCompare(b.name||"");}});
+  renderProducts(filtered);
+}}
+if(searchInput)searchInput.addEventListener("input",function(){{filterAndSort();}});
+if(sortSelect)sortSelect.addEventListener("change",function(){{filterAndSort();}});
+document.querySelectorAll(".supplier-filter-btn").forEach(function(btn){{
+  btn.addEventListener("click",function(){{
+    document.querySelectorAll(".supplier-filter-btn").forEach(function(b){{b.classList.remove("active");}});
+    this.classList.toggle("active");
+    filterAndSort();
+  }});
+}});
+document.getElementById("shopResetFilters")?.addEventListener("click",function(){{
+  if(searchInput)searchInput.value="";
+  if(sortSelect)sortSelect.value="popular";
+  document.querySelectorAll(".supplier-filter-btn").forEach(function(b){{b.classList.remove("active");}});
+  filterAndSort();
+}});
+renderProducts(products);
+}})();
+</script>"""
 
     body = f"""
 <div class="shop-hero">
@@ -1647,17 +1790,25 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 <div class="shop-page-container">
 {breadcrumbs}
 {ad_category_buttons}
-<div style="position:relative;width:100%;min-height:600vh;margin:0;padding:0;">
-<iframe
-  src="{zap_url}"
-  style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;min-height:600vh;"
-  title="{page_title}"
-  loading="lazy"
-  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-  referrerpolicy="no-referrer-when-downgrade"
->
-<p>{loading_text}</p>
-</iframe>
+<div class="shop-controls">
+  <input type="search" id="shopSearchInput" class="shop-search-input" placeholder="{search_placeholder}" autocomplete="off">
+  <select id="shopSortSelect" class="shop-sort-select">
+    <option value="popular">{sort_popular}</option>
+    <option value="price_asc">{sort_price_asc}</option>
+    <option value="price_desc">{sort_price_desc}</option>
+    <option value="name">{sort_name}</option>
+  </select>
+</div>
+<div class="shop-suppliers">
+  {supplier_cards}
+</div>
+<div class="shop-product-count">{"Товаров" if lang == "ru" else "Products"}: <span id="shopProductCount">{total_products}</span></div>
+<div class="shop-product-grid" id="shopProductGrid">
+  {product_cards_html}
+</div>
+<div id="shopEmpty" style="display:none;text-align:center;padding:3rem 1rem;">
+  <p style="color:var(--text-muted);margin-bottom:1rem;">{empty_text}</p>
+  <button id="shopResetFilters" class="btn-outline">{empty_reset}</button>
 </div>
 {seo_noscript}
 {ads_html}
@@ -1667,7 +1818,8 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-light);">💰 {feature_prices}</div>
 <div style="text-align:center;padding:1.5rem;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-light);">🛡️ {feature_guarantee}</div>
 </div>
-</div>"""
+</div>
+{shop_script}"""
 
     return _build_page(
         lang=lang,
