@@ -656,7 +656,7 @@ def generate_all_pages(data: dict, output_dir: str):
             _write_file(os.path.join(output_dir, "en", "contacts", "index.html"), html)
 
     # ------------------------------------------------------------------
-    # 10. Ad category pages (ru + en)
+    # 10. Ad category pages (ru + en) + /ads/index.html listing page
     # ------------------------------------------------------------------
     if FEATURE_ADMITAD_ENABLED:
         for category_key in ADMITAD_CONFIG:
@@ -666,6 +666,14 @@ def generate_all_pages(data: dict, output_dir: str):
                     _write_file(os.path.join(output_dir, "ads", f"{category_key}.html"), html)
                 else:
                     _write_file(os.path.join(output_dir, "en", "ads", f"{category_key}.html"), html)
+
+        # Generate /ads/index.html — listing of all ad categories
+        for lang in ("ru", "en"):
+            html = generate_ads_index_page(data, lang, output_dir)
+            if lang == "ru":
+                _write_file(os.path.join(output_dir, "ads", "index.html"), html)
+            else:
+                _write_file(os.path.join(output_dir, "en", "ads", "index.html"), html)
 
     # ------------------------------------------------------------------
     # 11. 404 page
@@ -2685,8 +2693,15 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
         prog_name = prog.get("name", "")
         prog_desc = prog.get("description", "")
         prog_image = prog.get("image") or prog.get("logo", "")
-        prog_url = prog.get("affiliateUrl") or prog.get("url") or prog.get("gotoLink", cat_url)
-        
+        prog_id = prog.get("id", "")
+
+        # Use /api/{prog_id} format for Worker-based affiliate redirect
+        # The proxy Worker looks up the program ID and redirects to goto_link
+        if prog_id:
+            prog_url = f"/api/{prog_id}"
+        else:
+            prog_url = prog.get("affiliateUrl") or prog.get("url") or prog.get("gotoLink", cat_url)
+
         card_html = f'<div class="ad-block-item">'
         if prog_image:
             card_html += f'<div class="ad-block-media"><img src="{escape_html(prog_image)}" alt="{escape_html(prog_name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"></div>'
@@ -2708,6 +2723,13 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
 
+    # Main CTA button — use /api/{id} for first matching program, or category URL
+    main_cta_url = cat_url
+    if matching_programs:
+        first_prog_id = matching_programs[0].get("id", "")
+        if first_prog_id:
+            main_cta_url = f"/api/{first_prog_id}"
+
     body = f"""
 <div class="container">
 <div class="article-content">
@@ -2718,7 +2740,7 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
 </div>
 <p style="color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;">{desc_text}</p>
 <div style="text-align:center;margin:2rem 0;">
-<a href="{cat_url}" class="btn-cta" target="_blank" rel="nofollow noopener sponsored">{visit_text}</a>
+<a href="{main_cta_url}" class="btn-cta" target="_blank" rel="nofollow noopener sponsored">{visit_text}</a>
 </div>
 {programs_section}
 <p style="font-size:0.75rem;color:var(--text-light);text-align:center;">{legal_text}</p>
@@ -2729,6 +2751,106 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
         lang=lang,
         title=full_title,
         description=desc_text[:200],
+        url=page_url,
+        path=path,
+        body_content=body,
+        og_type="website",
+        active_page="",
+        include_matrix=False,
+        robots="noindex, follow",
+    )
+
+
+# ===========================================================================
+# Ads Index Page (/ads/index.html)
+# ===========================================================================
+
+def generate_ads_index_page(data: dict, lang: str, output_dir: str) -> str:
+    """Generate /ads/index.html — listing of all ad categories.
+
+    Args:
+        data: The data dict from data_loader.
+        lang: Language code.
+        output_dir: Output directory.
+
+    Returns:
+        Complete HTML page string.
+    """
+    is_ru = lang == "ru"
+    page_title = "Партнёрские программы" if is_ru else "Partner Programs"
+    page_desc = (
+        "Партнёрские программы и специальные предложения от SOCHIAUTOPARTS. Автозапчасти, страхование, шины, проверка авто и многое другое."
+        if is_ru else
+        "Partner programs and special offers from SOCHIAUTOPARTS. Auto parts, insurance, tires, car check and more."
+    )
+    full_title = f"{page_title} | SOCHIAUTOPARTS"
+
+    if lang == "en":
+        page_url = f"{SITE_URL}/en/ads/"
+        path = "/en/ads/"
+    else:
+        page_url = f"{SITE_URL}/ads/"
+        path = "/ads/"
+
+    # Get all programs from pipeline data
+    admitad_programs = get_admitad_programs(data)
+
+    # Build category cards
+    category_cards = ""
+    for cat_key, cat_data in ADMITAD_CONFIG.items():
+        cat_name = cat_data.get(lang, cat_data.get("ru", cat_key))
+        cat_icon = cat_data.get("icon", "")
+        cat_url_path = f"{_lang_path(lang)}/ads/{cat_key}"
+
+        # Count matching programs
+        matching = [p for p in admitad_programs if isinstance(p, dict) and p.get("jsonCategory") == cat_key]
+        count_text = f"{len(matching)} {'программ' if is_ru else 'programs'}" if matching else ""
+
+        # Get first program's affiliate URL for the main button
+        main_url = cat_url_path
+        if matching:
+            first_prog_id = matching[0].get("id", "")
+            if first_prog_id:
+                main_url = f"/api/{first_prog_id}"
+
+        category_cards += f"""
+<div class="ad-block-item" style="cursor:default;">
+<div style="padding:1.5rem;text-align:center;">
+<div style="font-size:2.5rem;margin-bottom:0.75rem;">{cat_icon}</div>
+<h4 class="ad-block-title">{escape_html(cat_name)}</h4>
+{f'<p class="ad-block-desc">{escape_html(count_text)}</p>' if count_text else ''}
+<div style="display:flex;gap:0.5rem;justify-content:center;margin-top:1rem;">
+<a href="{main_url}" class="btn-cta" target="_blank" rel="nofollow noopener sponsored" style="font-size:0.85rem;padding:8px 20px;">
+{"Перейти" if is_ru else "Visit"}
+</a>
+<a href="{cat_url_path}" class="btn-outline" style="font-size:0.85rem;padding:8px 20px;">
+{"Все" if is_ru else "All"}
+</a>
+</div>
+</div>
+</div>"""
+
+    # Breadcrumbs
+    bc_items = [
+        {"name": t("bc_home", lang), "url": _lang_base(lang)},
+        {"name": page_title, "url": f"{_lang_path(lang)}/ads/"},
+    ]
+    breadcrumbs = render_breadcrumbs(bc_items, lang)
+
+    body = f"""
+<div class="container">
+{breadcrumbs}
+<h1 style="margin:1rem 0;">{page_title}</h1>
+<p style="color:var(--text-muted);margin-bottom:1.5rem;">{page_desc}</p>
+<div class="ad-blocks-container">
+{category_cards}
+</div>
+</div>"""
+
+    return _build_page(
+        lang=lang,
+        title=full_title,
+        description=page_desc[:200],
         url=page_url,
         path=path,
         body_content=body,
