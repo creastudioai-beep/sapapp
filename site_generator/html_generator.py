@@ -442,15 +442,27 @@ def generate_all_pages(data: dict, output_dir: str):
     admitad_programs = data.get("admitad_programs", [])
 
     # ------------------------------------------------------------------
-    # 1. Homepage (ru + en)
+    # 1. Homepage (ru + en) — with pagination as real HTML files
     # ------------------------------------------------------------------
     for lang in ("ru", "en"):
         logger.info("Generating homepage (%s)", lang)
-        html = generate_homepage(data, lang, output_dir)
+        # Page 1 (root index.html)
+        html = generate_homepage(data, lang, output_dir, page=1)
         if lang == "ru":
             _write_file(os.path.join(output_dir, "index.html"), html)
         else:
             _write_file(os.path.join(output_dir, "en", "index.html"), html)
+
+        # Paginated pages: /page/2/index.html, /page/3/index.html, ...
+        total_home_pages = max(1, math.ceil(len(posts) / POSTS_PER_PAGE))
+        for page_num in range(2, total_home_pages + 1):
+            html = generate_homepage(data, lang, output_dir, page=page_num)
+            if lang == "ru":
+                _write_file(os.path.join(output_dir, "page", str(page_num), "index.html"), html)
+            else:
+                _write_file(os.path.join(output_dir, "en", "page", str(page_num), "index.html"), html)
+
+        logger.info("Generated %d homepage pages (%s)", total_home_pages, lang)
 
     # ------------------------------------------------------------------
     # 2. All post pages (ru + en) — limited for GitHub Pages size
@@ -658,13 +670,14 @@ def generate_all_pages(data: dict, output_dir: str):
 # Homepage
 # ===========================================================================
 
-def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
+def generate_homepage(data: dict, lang: str, output_dir: str, page: int = 1) -> str:
     """Generate homepage with posts feed, pagination, SEO, ads.
 
     Args:
         data: The data dict from data_loader.
         lang: Language code ('ru' or 'en').
         output_dir: Output directory (not used directly, for API compat).
+        page: Page number (1-based) for paginated homepage.
 
     Returns:
         Complete HTML page string.
@@ -673,19 +686,24 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
     popular_tags = get_popular_tags(data, limit=12)
     admitad_programs = get_admitad_programs(data)
 
-    # First page of posts
-    page_posts = posts[:POSTS_PER_PAGE]
+    # Paginate posts
     total_posts = len(posts)
     total_pages = max(1, math.ceil(total_posts / POSTS_PER_PAGE))
+    start = (page - 1) * POSTS_PER_PAGE
+    end = start + POSTS_PER_PAGE
+    page_posts = posts[start:end]
 
     # SEO
     site_name = SITE_NAME_RU if lang == "ru" else SITE_NAME_EN
     site_desc = SITE_DESCRIPTION_RU if lang == "ru" else SITE_DESCRIPTION_EN
-    page_url = f"{SITE_URL}{_canonical_lang_path(lang)}/"
-    if lang == "ru":
-        title = "SOCHIAUTOPARTS - Мировые автоновости, обзоры и тест-драйвы"
+    if page == 1:
+        page_url = f"{SITE_URL}{_canonical_lang_path(lang)}/"
     else:
-        title = "SOCHIAUTOPARTS - Global Automotive News, Reviews & Test Drives"
+        page_url = f"{SITE_URL}{_canonical_lang_path(lang)}/page/{page}/"
+    if lang == "ru":
+        title = "SOCHIAUTOPARTS - Мировые автоновости, обзоры и тест-драйвы" if page == 1 else f"Страница {page} — SOCHIAUTOPARTS"
+    else:
+        title = "SOCHIAUTOPARTS - Global Automotive News, Reviews & Test Drives" if page == 1 else f"Page {page} — SOCHIAUTOPARTS"
 
     # Schemas
     website_schema = generate_web_site_schema(lang)
@@ -701,8 +719,8 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
     for post in page_posts:
         posts_html += render_post_card(post, lang)
 
-    # SEO block
-    seo_block = render_seo_block(lang)
+    # SEO block (only on first page)
+    seo_block = render_seo_block(lang) if page == 1 else ""
 
     # Ad blocks
     ads_html = ""
@@ -711,15 +729,18 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
 
     # Shop widget
     shop_widget = ""
-    if FEATURE_SHOP_ENABLED:
+    if FEATURE_SHOP_ENABLED and page == 1:
         products = data.get("products", [])[:6]
         shop_widget = render_shop_widget(products, lang)
 
     # Pagination
-    pagination_html = render_numbered_pagination(1, total_pages, _lang_base(lang), lang)
+    pagination_html = render_numbered_pagination(page, total_pages, _lang_base(lang), lang)
 
     # Ad category buttons (matching original site)
     ad_category_buttons = render_ad_category_buttons(lang)
+
+    # Hero only on page 1
+    show_hero = page == 1
 
     body = f"""
 <div class="container">
@@ -733,6 +754,9 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
 {seo_block}
 </div>"""
 
+    canonical = page_url
+    robots = "index, follow, max-image-preview:large" if page == 1 else "noindex, follow"
+
     return _build_page(
         lang=lang,
         title=title,
@@ -741,11 +765,12 @@ def generate_homepage(data: dict, lang: str, output_dir: str) -> str:
         path="/" if lang == "ru" else "/en/",
         body_content=body,
         og_type="website",
-        canonical=f"{SITE_URL}{_canonical_lang_path(lang)}/",
+        canonical=canonical,
         extra_schema=schemas,
         active_page="home",
-        show_hero=True,
+        show_hero=show_hero,
         tags_for_footer=popular_tags,
+        robots=robots,
     )
 
 

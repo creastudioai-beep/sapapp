@@ -430,9 +430,10 @@ def main(argv: Optional[list] = None) -> None:
             )
             print(f"  Telegram archive: {meta.get('total_posts', 0)} posts in {meta.get('pages_count', 0)} pages")
         except Exception as exc:
-            logger.error("Telegram full archive fetch failed: %s", exc)
-            print(f"  ERROR: Telegram full archive fetch failed: {exc}")
-            raise
+            logger.warning("Telegram full archive fetch failed (non-fatal): %s", exc)
+            print(f"  WARNING: Telegram full archive fetch failed: {exc}")
+            print("  Continuing with pipeline data only…")
+            # DO NOT raise — the build should continue with pipeline data
     elif args.fetch_archive:
         logger.info("Incremental Telegram archive update requested (--fetch-archive)")
         print()
@@ -452,9 +453,10 @@ def main(argv: Optional[list] = None) -> None:
             )
             print(f"  Telegram archive: {meta.get('total_posts', 0)} posts in {meta.get('pages_count', 0)} pages")
         except Exception as exc:
-            logger.error("Telegram incremental update failed: %s", exc)
-            print(f"  ERROR: Telegram incremental update failed: {exc}")
-            raise
+            logger.warning("Telegram incremental update failed (non-fatal): %s", exc)
+            print(f"  WARNING: Telegram incremental update failed: {exc}")
+            print("  Continuing with pipeline data only…")
+            # DO NOT raise — the build should continue with pipeline data
 
     # ------------------------------------------------------------------
     # Step 1: Load pipeline data

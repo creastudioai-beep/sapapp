@@ -763,6 +763,9 @@ def render_numbered_pagination(
 
     Must match the worker's generateNumberedPagination() output.
     Smart page range display: show first, last, and pages around current.
+
+    Uses real HTML file paths (/page/N/index.html) instead of ?page=X
+    because GitHub Pages does NOT support query string routing.
     """
     if total_pages <= 1:
         counter_text = (
@@ -775,11 +778,17 @@ def render_numbered_pagination(
     prev_label = "Предыдущая страница" if lang == "ru" else "Previous page"
     next_label = "Следующая страница" if lang == "ru" else "Next page"
 
+    # Build page URL helper — uses /page/N/ instead of ?page=N
+    def _page_url(page_num: int) -> str:
+        if page_num == 1:
+            return base_url
+        return f"{base_url}page/{page_num}/"
+
     html = f'<nav class="pagination" aria-label="{aria_label}">\n'
 
     # Previous button
     if current_page > 1:
-        prev_url = base_url if current_page == 2 else f"{base_url}?page={current_page - 1}"
+        prev_url = _page_url(current_page - 1)
         html += f'<a href="{prev_url}" aria-label="{prev_label}">&laquo;</a>\n'
     else:
         html += '<span class="disabled" aria-disabled="true">&laquo;</span>\n'
@@ -800,7 +809,7 @@ def render_numbered_pagination(
 
     # First page + dots
     if start_page > 1:
-        html += f'<a href="{base_url}">1</a>\n'
+        html += f'<a href="{_page_url(1)}">1</a>\n'
         if start_page > 2:
             html += '<span class="dots">...</span>\n'
 
@@ -809,18 +818,17 @@ def render_numbered_pagination(
         if i == current_page:
             html += f'<span class="active" aria-current="page">{i}</span>\n'
         else:
-            page_url = base_url if i == 1 else f"{base_url}?page={i}"
-            html += f'<a href="{page_url}">{i}</a>\n'
+            html += f'<a href="{_page_url(i)}">{i}</a>\n'
 
     # Last page + dots
     if end_page < total_pages:
         if end_page < total_pages - 1:
             html += '<span class="dots">...</span>\n'
-        html += f'<a href="{base_url}?page={total_pages}">{total_pages}</a>\n'
+        html += f'<a href="{_page_url(total_pages)}">{total_pages}</a>\n'
 
     # Next button
     if current_page < total_pages:
-        html += f'<a href="{base_url}?page={current_page + 1}" aria-label="{next_label}">&raquo;</a>\n'
+        html += f'<a href="{_page_url(current_page + 1)}" aria-label="{next_label}">&raquo;</a>\n'
     else:
         html += '<span class="disabled" aria-disabled="true">&raquo;</span>\n'
 
