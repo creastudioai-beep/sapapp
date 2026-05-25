@@ -501,6 +501,92 @@ def _parse_date(date_str: str) -> Optional[datetime]:
     return None
 
 
+def _load_telegram_archive(archive_dir: str) -> list:
+    """Load all posts from the Telegram archive directory.
+
+    The telegram_fetcher stores posts as paginated JSON files:
+        data/telegram_archive/page_1.json, page_2.json, ...
+        data/telegram_archive/meta.json
+
+    This function reads all pages and returns a single list of post dicts.
+    Falls back to an empty list if the directory doesn't exist or is empty.
+
+    Args:
+        archive_dir: Path to the telegram_archive directory.
+
+    Returns:
+        List of post dicts from the Telegram archive.
+    """
+    import glob as _glob
+
+    if not os.path.isdir(archive_dir):
+        return []
+
+    # Read meta to get total pages count
+    meta_path = os.path.join(archive_dir, "meta.json")
+    pages_count = 0
+    if os.path.isfile(meta_path):
+        try:
+            with open(meta_path, "r", encoding="utf-8") as f:
+                meta = json.load(f)
+            pages_count = meta.get("pages_count", 0)
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    # If no meta, discover pages by globbing
+    if pages_count == 0:
+        page_files = sorted(
+            _glob.glob(os.path.join(archive_dir, "page_*.json")),
+            key=lambda p: int(re.search(r"page_(\d+)", p).group(1)) if re.search(r"page_(\d+)", p) else 0,
+        )
+        pages_count = len(page_files)
+
+    all_posts = []
+    for page_num in range(1, pages_count + 1):
+        page_path = os.path.join(archive_dir, f"page_{page_num}.json")
+        if not os.path.isfile(page_path):
+            continue
+        try:
+            with open(page_path, "r", encoding="utf-8") as f:
+                page_posts = json.load(f)
+            if isinstance(page_posts, list):
+                # Normalize each post to have expected fields
+                for post in page_posts:
+                    if not isinstance(post, dict):
+                        continue
+                    post.setdefault("id", 0)
+                    post.setdefault("title", "")
+                    post.setdefault("text", "")
+                    post.setdefault("media", [])
+                    post.setdefault("hashtags", [])
+                    # Convert legacy field names from telegram_fetcher
+                    if not post.get("media") and (post.get("photos") or post.get("videos")):
+                        media_list = []
+                        for photo_url in post.get("photos", []):
+                            media_list.append({"type": "photo", "directUrl": photo_url, "url": photo_url})
+                        for video_url in post.get("videos", []):
+                            media_item = {"type": "video", "directUrl": video_url, "url": video_url}
+                            if post.get("video_thumbnails") and len(post["video_thumbnails"]) > 0:
+                                media_item["poster"] = post["video_thumbnails"][0]
+                            media_list.append(media_item)
+                        post["media"] = media_list
+                    # Extract hashtags from text if not present
+                    if not post.get("hashtags") and post.get("text"):
+                        hashtags = re.findall(r"#([a-zA-Zа-яА-ЯёЁ0-9_]+)", post["text"])
+                        if hashtags:
+                            post["hashtags"] = ["#" + h for h in hashtags]
+                    # Generate title from text if not present
+                    if not post.get("title") and post.get("text"):
+                        first_line = post["text"].split("\n")[0].strip()
+                        post["title"] = first_line[:100] if first_line else f"Пост {post.get('id', '')}"
+                    all_posts.append(post)
+        except (json.JSONDecodeError, OSError) as e:
+            logger.warning("Failed to read archive page %s: %s", page_path, e)
+            continue
+
+    return all_posts
+
+
 def _sort_posts_by_date(posts: list) -> list:
     """Sort posts by date, newest first.
 
@@ -636,6 +722,27 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
                 result[key] = {}
         else:
             result[key] = data
+
+    # ------------------------------------------------------------------
+    # Load Telegram archive data (90K+ posts) for the archive section
+    # ------------------------------------------------------------------
+    telegram_archive_dir = os.path.join(data_dir, "telegram_archive")
+    archive_posts = []
+    archive_post_map = {}
+    if os.path.isdir(telegram_archive_dir):
+        archive_posts = _load_telegram_archive(telegram_archive_dir)
+        archive_post_map = _build_post_map(archive_posts)
+        logger.info(
+            "Loaded %d archive posts from Telegram archive directory",
+            len(archive_posts),
+        )
+    else:
+        logger.info(
+            "No Telegram archive directory found at %s — archive will use pipeline posts only",
+            telegram_archive_dir,
+        )
+    result["archive_posts"] = archive_posts
+    result["archive_post_map"] = archive_post_map
 
     # ------------------------------------------------------------------
     # Post-processing

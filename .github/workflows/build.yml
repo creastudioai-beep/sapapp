@@ -73,28 +73,36 @@ jobs:
           echo "::group::Site Generator"
           START_TIME=$(date +%s)
 
-          # Build without Telegram fetch first (most reliable)
-          # Then optionally try with fetch if this is a scheduled/manual build
+          # Always try incremental Telegram update first (fast — 1-2 API calls)
+          # Then build the site with whatever archive data is available
           BUILD_SUCCESS=0
 
           if [ "${{ github.event.inputs.full_fetch }}" == "true" ]; then
             echo "Full archive fetch requested"
             python -m site_generator --full-archive 2>&1 | tee build.log && BUILD_SUCCESS=1 || {
-              echo "::warning::Full archive fetch failed, trying without Telegram fetch"
+              echo "::warning::Full archive fetch failed, trying with incremental"
               rm -rf output
-              python -m site_generator 2>&1 | tee build-retry.log && BUILD_SUCCESS=1 || {
-                echo "::warning::Build without fetch also failed, trying with --no-pages"
+              python -m site_generator --fetch-archive 2>&1 | tee build-retry.log && BUILD_SUCCESS=1 || {
+                echo "::warning::Incremental fetch also failed, trying without fetch"
                 rm -rf output
-                python -m site_generator --no-pages 2>&1 | tee build-nopages.log || true
-                # Even --no-pages creates output dir; create fallback if needed
+                python -m site_generator 2>&1 | tee build-nofetch.log && BUILD_SUCCESS=1 || {
+                  echo "::warning::Build without fetch also failed, trying with --no-pages"
+                  rm -rf output
+                  python -m site_generator --no-pages 2>&1 | tee build-nopages.log || true
+                }
               }
             }
           else
-            echo "Standard build (no Telegram fetch for reliability)"
-            python -m site_generator 2>&1 | tee build.log && BUILD_SUCCESS=1 || {
-              echo "::warning::Standard build failed, trying with --no-pages"
+            # Standard build: try incremental Telegram update, then build
+            echo "Standard build with incremental Telegram update"
+            python -m site_generator --fetch-archive 2>&1 | tee build.log && BUILD_SUCCESS=1 || {
+              echo "::warning::Build with incremental fetch failed, trying without fetch"
               rm -rf output
-              python -m site_generator --no-pages 2>&1 | tee build-nopages.log || true
+              python -m site_generator 2>&1 | tee build-nofetch.log && BUILD_SUCCESS=1 || {
+                echo "::warning::Build without fetch also failed, trying with --no-pages"
+                rm -rf output
+                python -m site_generator --no-pages 2>&1 | tee build-nopages.log || true
+              }
             }
           fi
 

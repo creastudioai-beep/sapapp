@@ -251,7 +251,7 @@ SOCIAL_LINKS: dict[str, str] = {
 # =============================================================================
 
 ARCHIVE_POSTS_PER_PAGE: int = 50
-MAX_ARCHIVE_PAGES: int = 200  # Limits archive pagination pages for size
+MAX_ARCHIVE_PAGES: int = 2000  # 90K posts / 50 per page = 1800 pages
 ARCHIVE_ENABLED: bool = True  # Generate static archive pages from pipeline data
 
 # NOTE: Archive pages are now generated as static HTML by the Python generator

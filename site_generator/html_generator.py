@@ -538,18 +538,27 @@ def generate_all_pages(data: dict, output_dir: str):
     # ------------------------------------------------------------------
     # 5. Archive pages (ru + en) — real static HTML with pagination
     # Generate /archive/index.html (page 1), /archive/page/2/index.html, etc.
+    # Uses archive_posts (90K+ from Telegram) if available, falls back to pipeline posts (10K).
     # ------------------------------------------------------------------
     if FEATURE_ARCHIVE_ENABLED:
         from .config import ARCHIVE_POSTS_PER_PAGE, MAX_ARCHIVE_PAGES
+        # Use Telegram archive data (90K+ posts) if available, else pipeline data
+        archive_posts = data.get("archive_posts", [])
+        if not archive_posts:
+            archive_posts = posts
+            logger.warning("No Telegram archive data found — using pipeline posts for archive (%d)", len(archive_posts))
+        else:
+            logger.info("Using Telegram archive data: %d posts", len(archive_posts))
+
         for lang in ("ru", "en"):
             logger.info("Generating archive pages (%s)", lang)
-            total_archive_posts = len(posts)
+            total_archive_posts = len(archive_posts)
             total_archive_pages = min(
                 max(1, math.ceil(total_archive_posts / ARCHIVE_POSTS_PER_PAGE)),
                 MAX_ARCHIVE_PAGES,
             )
             for archive_page in range(1, total_archive_pages + 1):
-                html = generate_archive_page(data, lang, output_dir, page=archive_page)
+                html = generate_archive_page(data, lang, output_dir, page=archive_page, archive_posts_override=archive_posts)
                 if archive_page == 1:
                     archive_file = os.path.join(output_dir, "archive", "index.html")
                 else:
@@ -566,16 +575,21 @@ def generate_all_pages(data: dict, output_dir: str):
             logger.info("Generated %d archive pages (%s)", total_archive_pages, lang)
 
     # ------------------------------------------------------------------
-    # 5b. Individual archive post pages (ru + en) — limited for GitHub Pages size
+    # 5b. Individual archive post pages (ru + en)
     # Generate /archive/post/{id}.html and /en/archive/post/{id}.html
+    # Only generate for the pipeline posts (10K) that have rich SEO data.
+    # The remaining 80K+ posts are served dynamically by the Cloudflare Worker
+    # which looks up post data from the Telegram archive JSON files.
     # ------------------------------------------------------------------
     if FEATURE_ARCHIVE_ENABLED:
-        archive_posts_to_generate = posts[:MAX_POST_PAGES]
+        archive_posts_for_pages = posts[:MAX_POST_PAGES]  # Only pipeline posts with SEO data
+        total_archive = len(archive_posts_for_pages)
         logger.info(
-            "Generating %d archive post pages (ru + en) out of %d total",
-            len(archive_posts_to_generate), total_posts,
+            "Generating %d archive post pages (pipeline posts with SEO data). "
+            "Remaining archive posts served dynamically by Worker.",
+            total_archive,
         )
-        for idx, post in enumerate(archive_posts_to_generate):
+        for idx, post in enumerate(archive_posts_for_pages):
             post_id = post.get("id")
             if post_id is None:
                 continue
@@ -587,7 +601,7 @@ def generate_all_pages(data: dict, output_dir: str):
                     _write_file(os.path.join(output_dir, "en", "archive", "post", f"{post_id}.html"), html)
 
             if (idx + 1) % 100 == 0:
-                logger.info("  Generated %d/%d archive post pages", idx + 1, len(archive_posts_to_generate))
+                logger.info("  Generated %d/%d archive post pages", idx + 1, total_archive)
 
     # ------------------------------------------------------------------
     # 6. Shop page with iframe embed (ru + en)
@@ -1343,14 +1357,16 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
 # Archive Listing Page
 # ===========================================================================
 
-def generate_archive_page(data: dict, lang: str, output_dir: str, page: int = 1) -> str:
-    """Generate archive listing page (50 posts per page) using pipeline data.
+def generate_archive_page(data: dict, lang: str, output_dir: str, page: int = 1, archive_posts_override: list = None) -> str:
+    """Generate archive listing page (50 posts per page) using archive data.
 
     Args:
         data: The data dict from data_loader.
         lang: Language code.
         output_dir: Output directory.
         page: Page number (1-based).
+        archive_posts_override: Override list of archive posts (90K from Telegram).
+            If None, falls back to data["archive_posts"] then data["posts"].
 
     Returns:
         Complete HTML page string.
@@ -1358,8 +1374,11 @@ def generate_archive_page(data: dict, lang: str, output_dir: str, page: int = 1)
     from .config import ARCHIVE_POSTS_PER_PAGE, MAX_ARCHIVE_PAGES
     from .css import ARCHIVE_CSS
 
-    # Use pipeline posts for archive
-    all_posts = data.get("posts", [])
+    # Use Telegram archive data (90K+) if available, else pipeline posts (10K)
+    if archive_posts_override is not None:
+        all_posts = archive_posts_override
+    else:
+        all_posts = data.get("archive_posts", []) or data.get("posts", [])
     total_posts = len(all_posts)
     total_pages = min(
         max(1, math.ceil(total_posts / ARCHIVE_POSTS_PER_PAGE)),
@@ -1490,8 +1509,8 @@ def _render_archive_pagination(current_page: int, total_pages: int, base_url: st
 def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> str:
     """Generate individual archive post page with gallery, related posts, ads, shop widget.
 
-    Uses get_post_by_id() from data_loader to look up posts from pipeline data.
-    Generates full SEO: canonical URL, OG tags, hreflang, NewsArticle schema.
+    Uses get_post_by_id() from data_loader to look up posts from pipeline data,
+    then falls back to archive_post_map (90K+ Telegram posts).
 
     Args:
         data: The data dict from data_loader.
@@ -1503,6 +1522,13 @@ def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: 
         Complete HTML page string.
     """
     post = get_post_by_id(data, post_id)
+    # Also check the archive_post_map (90K+ Telegram posts) if not found in pipeline
+    if post is None:
+        archive_post_map = data.get("archive_post_map", {})
+        try:
+            post = archive_post_map[int(post_id)]
+        except (KeyError, ValueError, TypeError):
+            pass
     if post is None:
         return generate_404_page(lang, output_dir)
 

@@ -1994,7 +1994,7 @@ def generate_rss_feed(posts: list, articles: list, lang: str = "ru") -> str:
         f"<width>{LOGO_WIDTH}</width>\n"
         f"<height>{LOGO_HEIGHT}</height>\n"
         f"</image>\n"
-        f"<copyright>&copy; {current_year} {SITE_AUTHOR}. All rights reserved.</copyright>\n"
+        f"<copyright>&#169; {current_year} {SITE_AUTHOR}. All rights reserved.</copyright>\n"
         f"<category>Autos</category>\n"
         f'<atom:link href="{escape_xml(rss_url)}" rel="self" type="application/rss+xml"/>\n'
         f"<sy:updatePeriod>hourly</sy:updatePeriod>\n"
