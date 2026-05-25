@@ -3,27 +3,29 @@ Main entry point for the SochiAutoParts static site generator.
 
 Orchestrates the entire build process:
     1. Parse command-line arguments
-    2. Load all data from the pipeline (GitHub raw JSON with local caching)
-    3. Generate all HTML pages (bilingual: Russian and English)
-    4. Print a build summary with file counts and statistics
+    2. (Optional) Fetch/update Telegram archive via --fetch-archive / --full-archive
+    3. Load all data from the pipeline (GitHub raw JSON with local caching)
+    4. Generate all HTML pages (bilingual: Russian and English)
+    5. Print a build summary with file counts and statistics
 
 NOTE: Archive pages (90,000 posts) are rendered DYNAMICALLY by the
-Cloudflare Worker. The Python generator does NOT fetch Telegram data
-or generate archive HTML files. It only creates a placeholder /archive
-page that the Worker intercepts.
+Cloudflare Worker. The Python generator does NOT generate archive HTML
+files. It only creates a placeholder /archive page that the Worker intercepts.
 
 Usage:
-    python -m site_generator.main [options]
+    python -m site_generator [options]
 
 Options:
-    --output-dir DIR     Output directory (default: output)
-    --data-dir DIR       Data cache directory (default: data)
-    --force-refresh      Force refresh data from pipeline (ignore cache)
-    --no-pages           Skip page generation (only fetch data)
-    --no-sitemaps        Skip sitemap generation
-    --no-rss             Skip RSS generation
-    --lang ru,en         Languages to generate (default: ru,en)
-    --verbose            Verbose output
+    --output-dir DIR       Output directory (default: output)
+    --data-dir DIR         Data cache directory (default: data)
+    --force-refresh        Force refresh data from pipeline (ignore cache)
+    --fetch-archive        Run incremental Telegram archive update, then build
+    --full-archive         Run full Telegram archive fetch, then build
+    --no-pages             Skip page generation (only fetch data)
+    --no-sitemaps          Skip sitemap generation
+    --no-rss               Skip RSS generation
+    --lang ru,en           Languages to generate (default: ru,en)
+    --verbose              Verbose output
 """
 
 import argparse
@@ -62,6 +64,7 @@ from .config import (
 )
 from .data_loader import load_data
 from .html_generator import generate_all_pages
+from .telegram_fetcher import fetch_all_posts, incremental_update
 
 
 # ---------------------------------------------------------------------------
@@ -151,6 +154,22 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         help=(
             "Comma-separated list of languages to generate "
             "(default: ru,en). Supported: ru, en."
+        ),
+    )
+    parser.add_argument(
+        "--fetch-archive",
+        action="store_true",
+        help=(
+            "Run incremental Telegram archive update (fetch new posts only), "
+            "then generate site. Used by GitHub Actions on scheduled builds."
+        ),
+    )
+    parser.add_argument(
+        "--full-archive",
+        action="store_true",
+        help=(
+            "Run full Telegram archive fetch (all posts from scratch), "
+            "then generate site. Used by GitHub Actions on manual trigger."
         ),
     )
     parser.add_argument(
@@ -387,6 +406,55 @@ def main(argv: Optional[list] = None) -> None:
         GENERATOR_VERSION,
     )
     logger.debug("Arguments: %s", vars(args))
+
+    # ------------------------------------------------------------------
+    # Step 0b: Telegram archive fetch (if requested)
+    # ------------------------------------------------------------------
+    telegram_data_dir = os.path.join(args.data_dir, "telegram_archive")
+    if args.full_archive:
+        logger.info("Full Telegram archive fetch requested (--full-archive)")
+        print()
+        print("Fetching full Telegram archive…")
+        try:
+            meta = fetch_all_posts(
+                channel=CHANNEL_USERNAME,
+                data_dir=telegram_data_dir,
+                max_posts=100000,
+                batch_delay=0.5,
+                force_full=True,
+            )
+            logger.info(
+                "Telegram full fetch complete: %d posts in %d pages",
+                meta.get("total_posts", 0),
+                meta.get("pages_count", 0),
+            )
+            print(f"  Telegram archive: {meta.get('total_posts', 0)} posts in {meta.get('pages_count', 0)} pages")
+        except Exception as exc:
+            logger.error("Telegram full archive fetch failed: %s", exc)
+            print(f"  ERROR: Telegram full archive fetch failed: {exc}")
+            raise
+    elif args.fetch_archive:
+        logger.info("Incremental Telegram archive update requested (--fetch-archive)")
+        print()
+        print("Running incremental Telegram update…")
+        try:
+            meta = fetch_all_posts(
+                channel=CHANNEL_USERNAME,
+                data_dir=telegram_data_dir,
+                max_posts=100000,
+                batch_delay=0.5,
+                force_full=False,
+            )
+            logger.info(
+                "Telegram incremental update complete: %d posts in %d pages",
+                meta.get("total_posts", 0),
+                meta.get("pages_count", 0),
+            )
+            print(f"  Telegram archive: {meta.get('total_posts', 0)} posts in {meta.get('pages_count', 0)} pages")
+        except Exception as exc:
+            logger.error("Telegram incremental update failed: %s", exc)
+            print(f"  ERROR: Telegram incremental update failed: {exc}")
+            raise
 
     # ------------------------------------------------------------------
     # Step 1: Load pipeline data
