@@ -1417,8 +1417,17 @@ def generate_archive_page(data: dict, lang: str, output_dir: str, page: int = 1)
     breadcrumbs = render_breadcrumbs(bc_items, lang)
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
 
+    # Ad category buttons (matching other pages)
+    ad_category_buttons = render_ad_category_buttons(lang)
+
+    # Ads
+    admitad_programs = get_admitad_programs(data)
+    ads_html = ""
+    if admitad_programs:
+        ads_html = render_ad_blocks(admitad_programs, lang)
+
     body = f"""
-<div class="archive-page-container">
+<div class="container">
 {breadcrumbs}
 <h1 style="margin:1rem 0;">{page_title}</h1>
 <p style="color:var(--text-muted);margin-bottom:1.5rem;">{page_desc}</p>
@@ -1428,6 +1437,7 @@ def generate_archive_page(data: dict, lang: str, output_dir: str, page: int = 1)
 </div>
 {telegram_link_html}
 {pagination_html}
+{ads_html}
 </div>"""
 
     return _build_page(
@@ -1440,7 +1450,7 @@ def generate_archive_page(data: dict, lang: str, output_dir: str, page: int = 1)
         og_type="website",
         extra_schema=[breadcrumb_schema],
         active_page="archive",
-        include_matrix=False,
+        include_matrix=True,
         css_override=CSS_STYLES + ARCHIVE_CSS,
     )
 

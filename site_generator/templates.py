@@ -546,17 +546,39 @@ def render_archive_post_card(post: dict, lang: str = "ru") -> str:
     else:
         trunc_text = raw_text or ("Публикация без текста" if is_ru else "Post without text")
 
-    # Media - check multiple field name variants (telegram_fetcher uses photos/videos, pipeline uses photoUrls/videoUrls)
-    photos = post.get("photos", post.get("photoUrls", []))
-    videos = post.get("videos", post.get("videoUrls", []))
-    video_thumbs = post.get("video_thumbnails", post.get("videoThumbnails", []))
-    has_video = bool(videos and len(videos) > 0)
-    has_video_thumb = bool(video_thumbs and len(video_thumbs) > 0)
-    first_img = photos[0] if photos else (video_thumbs[0] if has_video_thumb else None)
+    # Media — use the same "media" field structure as render_post_card
+    # Data from pipeline: post.media = [{"type": "photo", "directUrl": "..."}, {"type": "video", "directUrl": "...", "poster": "..."}]
+    # Fallback: also check legacy field names (photos, photoUrls, videos, videoUrls)
+    media = post.get("media", [])
+    has_video = False
+    first_img_url = None
+    video_poster_url = None
+
+    if isinstance(media, list) and len(media) > 0:
+        first_media = media[0]
+        if isinstance(first_media, dict):
+            if first_media.get("type") == "video":
+                has_video = True
+                video_poster_url = first_media.get("poster") or first_media.get("thumbnailUrl") or ""
+                first_img_url = video_poster_url or first_media.get("directUrl", "")
+            elif first_media.get("type") == "photo":
+                first_img_url = first_media.get("directUrl") or first_media.get("url", "")
+    # Fallback for legacy field names
+    if not first_img_url:
+        photos = post.get("photos", post.get("photoUrls", []))
+        videos = post.get("videos", post.get("videoUrls", []))
+        video_thumbs = post.get("video_thumbnails", post.get("videoThumbnails", []))
+        if not has_video and videos and len(videos) > 0:
+            has_video = True
+        if photos and len(photos) > 0:
+            first_img_url = photos[0]
+        elif video_thumbs and len(video_thumbs) > 0:
+            first_img_url = video_thumbs[0]
+            video_poster_url = video_thumbs[0]
 
     media_html = ""
-    if has_video and has_video_thumb:
-        thumb_url = escape_html(video_thumbs[0])
+    if has_video and first_img_url:
+        thumb_url = escape_html(first_img_url)
         bg_style = f"background-image:url('{thumb_url}');background-size:cover;background-position:center"
         media_html = (
             f'<div class="archive-video-card" style="{bg_style}">'
@@ -567,13 +589,19 @@ def render_archive_post_card(post: dict, lang: str = "ru") -> str:
             '<div class="archive-video-card" style="background:#000">'
             '<div class="archive-video-play-btn"></div></div>'
         )
-    elif first_img:
+    elif first_img_url:
         media_html = (
-            f'<img class="archive-card-image" src="{escape_html(first_img)}" alt="" '
+            f'<img class="archive-card-image" src="{escape_html(first_img_url)}" alt="" '
             f'referrerpolicy="no-referrer" loading="lazy" />'
         )
     else:
-        media_html = '<div class="archive-card-noimg">📋</div>'
+        # No media at all — show logo as fallback
+        media_html = (
+            f'<div class="archive-card-noimg">'
+            f'<img src="{_bp("/logo.jpg")}" alt="" style="max-width:60px;max-height:60px;opacity:0.5;" '
+            f'referrerpolicy="no-referrer" loading="lazy" />'
+            f'</div>'
+        )
 
     archive_base = _bp("/en/archive/post/") if lang == "en" else _bp("/archive/post/")
     post_id = post.get("postId") or post.get("id", "")

@@ -363,9 +363,10 @@ ARCHIVE_CSS = """
     position: relative;
     z-index: 1;
 }
+/* Archive grid — works within .container (800px) or .archive-page-container (1200px) */
 .archive-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1rem;
     margin: 1.5rem 0;
 }
@@ -426,7 +427,6 @@ ARCHIVE_CSS = """
     align-items: center;
     justify-content: center;
     background: var(--bg-hover);
-    font-size: 3rem;
     opacity: 0.5;
 }
 .archive-card-body {
@@ -473,7 +473,7 @@ ARCHIVE_CSS = """
 }
 @media (max-width: 768px) {
     .archive-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
 @media (max-width: 480px) {
