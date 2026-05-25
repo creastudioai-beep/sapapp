@@ -602,19 +602,25 @@ def generate_all_pages(data: dict, output_dir: str, archive_data_dir: str = "dat
     # ------------------------------------------------------------------
     # 10. Tag pages (ru + en)
     # ------------------------------------------------------------------
+    # hashtag_index is now unwrapped by data_loader.load_data() automatically
     hashtag_index = data.get("hashtag_index", {})
+    # Safety: still check for nested structure in case data was loaded differently
+    if isinstance(hashtag_index, dict) and "index" in hashtag_index:
+        hashtag_index = hashtag_index["index"]
     logger.info("Generating tag pages for %d tags", len(hashtag_index))
     for tag_key in hashtag_index:
-        # Normalize tag name
+        # Normalize tag name (strip leading #)
         tag_name = re.sub(r"^#+", "", str(tag_key))
         if not tag_name:
             continue
+        # URL-encode the tag name for safe filenames
+        safe_tag_name = url_quote(tag_name, safe='')
         for lang in ("ru", "en"):
             html = generate_tag_page(data, tag_name, lang, output_dir)
             if lang == "ru":
-                _write_file(os.path.join(output_dir, "tag", f"{tag_name}.html"), html)
+                _write_file(os.path.join(output_dir, "tag", f"{safe_tag_name}.html"), html)
             else:
-                _write_file(os.path.join(output_dir, "en", "tag", f"{tag_name}.html"), html)
+                _write_file(os.path.join(output_dir, "en", "tag", f"{safe_tag_name}.html"), html)
 
     # ------------------------------------------------------------------
     # 11. Privacy page (ru + en)
@@ -2584,7 +2590,11 @@ def generate_sitemaps(data: dict, output_dir: str, archive_data_dir: str):
     """
     posts = data.get("posts", [])
     products = data.get("products", [])
+    # hashtag_index is now unwrapped by data_loader.load_data() automatically
     hashtag_index = data.get("hashtag_index", {})
+    # Safety: still check for nested structure in case data was loaded differently
+    if isinstance(hashtag_index, dict) and "index" in hashtag_index:
+        hashtag_index = hashtag_index["index"]
     archive_meta = load_archive_meta(archive_data_dir) if os.path.isdir(archive_data_dir) else {}
 
     # Calculate number of post sitemap files

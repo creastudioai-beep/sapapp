@@ -678,6 +678,15 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
             except (TypeError, KeyError):
                 pass  # Keep as-is
 
+    # Unwrap nested hashtag_index structure: pipeline sends {"index": {tag: [ids]}, "tagCounts": {tag: count}}
+    # Normalize to just the "index" part for easier downstream use
+    hi_raw = result.get("hashtag_index", {})
+    if isinstance(hi_raw, dict) and "index" in hi_raw:
+        # Store both the full structure and the unwrapped index for convenience
+        result["hashtag_index_full"] = hi_raw
+        result["hashtag_index"] = hi_raw["index"]
+        logger.info("Unwrapped hashtag_index: %d tags (from nested structure)", len(hi_raw["index"]))
+
     logger.info(
         "Data loading complete: %d posts, %d articles, %d products, %d admitad programs",
         len(result["posts"]),
@@ -728,7 +737,11 @@ def get_posts_by_tag(data: dict, tag: str, page: int = 1, per_page: int = 30) ->
     Returns:
         Tuple of (list of post dicts, total count, total pages).
     """
+    # hashtag_index is now unwrapped by load_data() automatically
     hashtag_index = data.get("hashtag_index", {})
+    # Safety: still check for nested structure in case data was loaded differently
+    if isinstance(hashtag_index, dict) and "index" in hashtag_index:
+        hashtag_index = hashtag_index["index"]
     post_map = data.get("post_map", {})
 
     # Normalize tag: ensure it starts with # for lookup, but try both
