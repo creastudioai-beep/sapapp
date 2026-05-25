@@ -80,8 +80,10 @@ jobs:
             pipeline-data-
 
       - name: Run site generator (incremental Telegram update)
+        id: generator_incremental
         if: ${{ github.event.inputs.full_fetch != 'true' }}
         timeout-minutes: 90
+        continue-on-error: true
         run: |
           echo "::group::Site Generator — Incremental Fetch"
           START_TIME=$(date +%s)
@@ -92,16 +94,34 @@ jobs:
           echo "::endgroup::"
 
           if [ $EXIT_CODE -ne 0 ]; then
-            echo "::error::Site generator failed with exit code $EXIT_CODE"
-            exit $EXIT_CODE
+            echo "::warning::Site generator returned exit code $EXIT_CODE — will retry without Telegram fetch"
+            echo "need_retry=true" >> $GITHUB_OUTPUT
+          else
+            echo "need_retry=false" >> $GITHUB_OUTPUT
           fi
 
           echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
           echo "Build completed in ${DURATION}s"
 
+      - name: Run site generator (retry without Telegram)
+        if: ${{ steps.generator_incremental.outputs.need_retry == 'true' }}
+        timeout-minutes: 30
+        run: |
+          echo "::group::Site Generator — Retry (no Telegram fetch)"
+          python -m site_generator 2>&1 | tee build-retry.log
+          EXIT_CODE=${PIPESTATUS[0]}
+          echo "::endgroup::"
+
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "::error::Site generator failed even without Telegram fetch"
+            exit $EXIT_CODE
+          fi
+
       - name: Run site generator (full Telegram archive fetch)
+        id: generator_full
         if: ${{ github.event.inputs.full_fetch == 'true' }}
         timeout-minutes: 110
+        continue-on-error: true
         run: |
           echo "::group::Site Generator — Full Archive Fetch"
           START_TIME=$(date +%s)
@@ -112,12 +132,28 @@ jobs:
           echo "::endgroup::"
 
           if [ $EXIT_CODE -ne 0 ]; then
-            echo "::error::Site generator failed with exit code $EXIT_CODE"
-            exit $EXIT_CODE
+            echo "::warning::Full archive fetch failed with exit code $EXIT_CODE — retrying without fetch"
+            echo "need_retry=true" >> $GITHUB_OUTPUT
+          else
+            echo "need_retry=false" >> $GITHUB_OUTPUT
           fi
 
           echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
           echo "Full build completed in ${DURATION}s"
+
+      - name: Run site generator (retry full fetch failure)
+        if: ${{ steps.generator_full.outputs.need_retry == 'true' }}
+        timeout-minutes: 30
+        run: |
+          echo "::group::Site Generator — Retry (no Telegram fetch)"
+          python -m site_generator 2>&1 | tee build-retry.log
+          EXIT_CODE=${PIPESTATUS[0]}
+          echo "::endgroup::"
+
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "::error::Site generator failed even without Telegram fetch"
+            exit $EXIT_CODE
+          fi
 
       - name: Validate output
         run: |
@@ -196,22 +232,16 @@ jobs:
     continue-on-error: true
 
     steps:
-      - name: Check Cloudflare secrets
-        id: check_secrets
-        run: |
-          if [ -z "${{ secrets.CLOUDFLARE_ZONE_ID }}" ]; then
-            echo "configured=false" >> $GITHUB_OUTPUT
-            echo "Cloudflare Zone ID not configured — skipping cache purge"
-          else
-            echo "configured=true" >> $GITHUB_OUTPUT
-          fi
-
       - name: Purge Cloudflare cache
-        if: steps.check_secrets.outputs.configured == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
         run: |
+          if [ -z "$CLOUDFLARE_ZONE_ID" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "Cloudflare secrets not configured — skipping cache purge"
+            exit 0
+          fi
+
           echo "Purging Cloudflare cache..."
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \

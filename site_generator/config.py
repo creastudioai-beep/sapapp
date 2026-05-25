@@ -265,11 +265,14 @@ GITHUB_PAGES_URL: str = "https://creastudioai-beep.github.io/sapapp"
 GITHUB_PAGES_BASE_PATH: str = "/sapapp"  # Subpath for GitHub Pages deployment
 
 # BASE_PATH: Prefix for ALL relative URLs in generated HTML.
-# When the Cloudflare Worker proxies GitHub Pages at sochiautoparts.ru,
-# URLs are served at the root — no /sapapp prefix needed.
-# The Worker fetches from https://creastudioai-beep.github.io/sapapp/...
-# and serves at https://sochiautoparts.ru/...
-BASE_PATH: str = "/sapapp"  # GitHub Pages serves at /sapapp/; Worker strips this prefix
+# Must be EMPTY ("") because the Cloudflare Worker proxies GitHub Pages
+# at the root domain sochiautoparts.ru.  The Worker maps:
+#   sochiautoparts.ru/path  →  creastudioai-beep.github.io/sapapp/path
+# If BASE_PATH were "/sapapp", links in the HTML would point to
+# /sapapp/path which the browser resolves to sochiautoparts.ru/sapapp/path,
+# and the Worker would then fetch creastudioai-beep.github.io/sapapp/sapapp/path
+# — a double-prefix 404.
+BASE_PATH: str = ""
 
 # =============================================================================
 # GITHUB REPOSITORY CONFIG
