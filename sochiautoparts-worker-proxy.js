@@ -1,16 +1,18 @@
 /**
- * SochiAutoParts Cloudflare Worker v6.1
+ * SochiAutoParts Cloudflare Worker v7.0
  *
  * Proxies sochiautoparts.ru → GitHub Pages static site.
  * Dynamically generates /archive/post/{id} pages from Telegram archive data.
+ * Handles regional filtering for Admitad partner programs.
  *
  * Architecture:
- *   1. /api/{id}              → Admitad affiliate redirect (lookup by program ID)
- *   2. /archive/post/{id}     → Dynamic archive post page (from Telegram data on GH Pages)
- *   3. /rss.xml               → serve from GitHub Pages /rss.xml
- *   4. /feed.xml              → serve from GitHub Pages /rss.xml (compat alias)
- *   5. All other requests     → proxy from GitHub Pages
- *   6. 404 from GH Pages      → try .html, then /index.html, then custom 404
+ *   1. /api/{id}              → Admitad affiliate redirect (region-filtered lookup by program ID)
+ *   2. /archive/post/{id}     → Dynamic archive post page (full layout, ads, shop widget)
+ *   3. /archive/page/{n}      → Dynamic archive pagination (for large archives)
+ *   4. /rss.xml               → serve from GitHub Pages /rss.xml
+ *   5. /feed.xml              → serve from GitHub Pages /rss.xml (compat alias)
+ *   6. All other requests     → proxy from GitHub Pages
+ *   7. 404 from GH Pages      → try .html, then /index.html, then custom 404
  *
  * GitHub Pages URL: https://creastudioai-beep.github.io/sapapp/
  * Route: sochiautoparts.ru/* → creastudioai-beep.github.io/sapapp/*
@@ -18,6 +20,7 @@
 
 const GITHUB_PAGES_BASE = 'https://creastudioai-beep.github.io/sapapp';
 const SITE_URL = 'https://sochiautoparts.ru';
+const CHANNEL_USERNAME = 'sochiautoparts';
 
 // Cache settings
 const CACHE_TTL_BROWSER = 300;    // 5 minutes browser cache
@@ -29,15 +32,33 @@ let admitadCache = null;
 let admitadCacheTime = 0;
 const ADMITAD_CACHE_TTL = 3600000; // 1 hour in ms
 
+// Admitad category names (bilingual)
+const ADMITAD_CATEGORIES = {
+  autoparts: { ru: 'Автозапчасти', en: 'Auto Parts' },
+  autoinsurance: { ru: 'Автострахование', en: 'Car Insurance' },
+  tires: { ru: 'Шины и диски', en: 'Tires & Wheels' },
+  checkauto: { ru: 'Проверка авто', en: 'Car Check' },
+  autorent: { ru: 'Прокат авто', en: 'Car Rental' },
+  tools: { ru: 'Инструменты', en: 'Tools' },
+  coupons: { ru: 'Купоны и скидки', en: 'Coupons & Deals' },
+  other: { ru: 'Другое', en: 'Other' },
+};
+
 // Telegram archive data — cached per-page
-// Primary: GitHub Pages (deployed from build output)
-// Fallback: raw.githubusercontent.com (if GH Pages not yet deployed)
 const TELEGRAM_ARCHIVE_BASE = GITHUB_PAGES_BASE + '/data/telegram_archive';
 const TELEGRAM_ARCHIVE_FALLBACK = 'https://raw.githubusercontent.com/creastudioai-beep/sapapp/main/data/telegram_archive';
 let telegramIndexCache = null;
 let telegramIndexCacheTime = 0;
 const TELEGRAM_INDEX_CACHE_TTL = 3600000; // 1 hour in ms
 let telegramPageCache = {};  // page_num -> { data, time }
+let telegramMetaCache = null;
+let telegramMetaCacheTime = 0;
+
+// Products data (for shop widget)
+const PRODUCTS_DATA_URL = 'https://raw.githubusercontent.com/creastudioai-beep/Main1/main/products.json';
+let productsCache = null;
+let productsCacheTime = 0;
+const PRODUCTS_CACHE_TTL = 3600000; // 1 hour in ms
 
 // Path aliases — redirect old/alternative URLs to correct static files
 const PATH_ALIASES = {
@@ -60,15 +81,25 @@ const PATH_ALIASES = {
   '/manifest.json': '/manifest.json',
 };
 
+// SVG icons
+const TELEGRAM_SVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>';
+const SUN_ICON = '☀️';
+const MOON_ICON = '🌙';
+
+// ============================================================
+// Main request handler
+// ============================================================
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     let path = url.pathname;
+    const country = request.cf?.country || 'RU';
 
     // --- Admitad affiliate redirect: /api/{programId} ---
     const apiMatch = path.match(/^\/api\/(\d+)$/);
     if (apiMatch) {
-      return handleAffiliateRedirect(apiMatch[1], request, ctx);
+      return handleAffiliateRedirect(apiMatch[1], country, request, ctx);
     }
 
     // --- Dynamic archive post page: /archive/post/{id} or /en/archive/post/{id} ---
@@ -76,7 +107,7 @@ export default {
     if (archivePostMatch) {
       const postId = archivePostMatch[1];
       const isEn = path.startsWith('/en/');
-      return handleArchivePost(postId, isEn, request, ctx);
+      return handleArchivePost(postId, isEn, country, request, ctx);
     }
 
     // --- RSS compatibility: /feed.xml → serve /rss.xml ---
@@ -94,15 +125,6 @@ export default {
       path = PATH_ALIASES[path];
     }
 
-    // --- Handle paths without trailing slash that look like directories ---
-    if (!path.endsWith('.html') && !path.endsWith('.xml') && !path.endsWith('.json') &&
-        !path.endsWith('.txt') && !path.endsWith('.css') && !path.endsWith('.js') &&
-        !path.endsWith('.jpg') && !path.endsWith('.png') && !path.endsWith('.ico') &&
-        !path.endsWith('.svg') && !path.endsWith('.webp') && !path.endsWith('.woff2') &&
-        !path.includes('.') && !path.endsWith('/')) {
-      // Will try .html first in the proxy function
-    }
-
     // --- Handle directory paths with trailing slash (add /index.html) ---
     if (path.endsWith('/') && path !== '/') {
       path = path + 'index.html';
@@ -115,15 +137,22 @@ export default {
 
 
 // =============================================================================
-// Affiliate redirect handler
+// Affiliate redirect handler (with regional filtering)
 // =============================================================================
 
-async function handleAffiliateRedirect(programId, request, ctx) {
+async function handleAffiliateRedirect(programId, country, request, ctx) {
   try {
     const programs = await getAdmitadPrograms(ctx);
     const prog = programs.find(p => String(p.id) === String(programId));
 
     if (prog) {
+      // Check if program is available in the user's region
+      const allowedRegions = prog.allowed_regions || [];
+      if (allowedRegions.length > 0 && !allowedRegions.includes(country)) {
+        // Program not available in user's region — redirect to homepage
+        return Response.redirect(SITE_URL, 302);
+      }
+
       const affiliateUrl = prog.goto_link || prog.gotoLink || prog.affiliateUrl || prog.affiliate_url || '';
       if (affiliateUrl) {
         return Response.redirect(affiliateUrl, 302);
@@ -146,7 +175,7 @@ async function getAdmitadPrograms(ctx) {
 
   try {
     const response = await fetch(ADMITAD_DATA_URL, {
-      headers: { 'User-Agent': 'SochiAutoParts-Worker/6.0' },
+      headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
       cf: { cacheTtl: 3600, cacheEverything: true },
     });
 
@@ -165,10 +194,40 @@ async function getAdmitadPrograms(ctx) {
 
 
 // =============================================================================
+// Products data (for shop widget on archive post pages)
+// =============================================================================
+
+async function getProducts(ctx) {
+  const now = Date.now();
+  if (productsCache && (now - productsCacheTime) < PRODUCTS_CACHE_TTL) {
+    return productsCache;
+  }
+
+  try {
+    const response = await fetch(PRODUCTS_DATA_URL, {
+      headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
+      cf: { cacheTtl: 3600, cacheEverything: true },
+    });
+
+    if (!response.ok) throw new Error(`Products fetch failed: ${response.status}`);
+
+    const data = await response.json();
+    // Products may be an array or a dict with products key
+    productsCache = Array.isArray(data) ? data : (data.products || []);
+    productsCacheTime = now;
+    return productsCache;
+  } catch (e) {
+    console.error('Failed to fetch products data:', e);
+    return productsCache || [];
+  }
+}
+
+
+// =============================================================================
 // Dynamic archive post page handler
 // =============================================================================
 
-async function handleArchivePost(postId, isEn, request, ctx) {
+async function handleArchivePost(postId, isEn, country, request, ctx) {
   try {
     // Step 1: Get the Telegram archive index (post_id -> page mapping)
     const index = await getTelegramIndex(ctx);
@@ -182,7 +241,7 @@ async function handleArchivePost(postId, isEn, request, ctx) {
       // Post not found in archive — try static file as fallback
       const fallback = await proxyToGitHubPages(`/archive/post/${postId}.html`, request, ctx);
       if (fallback.status !== 404) return fallback;
-      return new Response(generate404Page(), {
+      return new Response(generate404Page(isEn), {
         status: 404,
         headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60' },
       });
@@ -194,7 +253,7 @@ async function handleArchivePost(postId, isEn, request, ctx) {
     const pageData = await getTelegramPage(pageNum, ctx);
 
     if (!pageData || !Array.isArray(pageData) || pos >= pageData.length) {
-      return new Response(generate404Page(), {
+      return new Response(generate404Page(isEn), {
         status: 404,
         headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60' },
       });
@@ -205,15 +264,15 @@ async function handleArchivePost(postId, isEn, request, ctx) {
       // Position mismatch — search the page for the post
       const found = pageData.find(p => String(p.id) === String(postId));
       if (!found) {
-        return new Response(generate404Page(), {
+        return new Response(generate404Page(isEn), {
           status: 404,
           headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60' },
         });
       }
-      return generateArchivePostResponse(found, isEn);
+      return generateFullArchivePostResponse(found, isEn, country, ctx);
     }
 
-    return generateArchivePostResponse(post, isEn);
+    return generateFullArchivePostResponse(post, isEn, country, ctx);
 
   } catch (e) {
     console.error('Archive post error:', e);
@@ -233,7 +292,7 @@ async function getTelegramIndex(ctx) {
   for (const baseUrl of [TELEGRAM_ARCHIVE_BASE, TELEGRAM_ARCHIVE_FALLBACK]) {
     try {
       const response = await fetch(`${baseUrl}/posts_index.json`, {
-        headers: { 'User-Agent': 'SochiAutoParts-Worker/6.1' },
+        headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
         cf: { cacheTtl: 3600, cacheEverything: true },
       });
 
@@ -262,7 +321,7 @@ async function getTelegramPage(pageNum, ctx) {
   for (const baseUrl of [TELEGRAM_ARCHIVE_BASE, TELEGRAM_ARCHIVE_FALLBACK]) {
     try {
       const response = await fetch(`${baseUrl}/page_${pageNum}.json`, {
-        headers: { 'User-Agent': 'SochiAutoParts-Worker/6.1' },
+        headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
         cf: { cacheTtl: 3600, cacheEverything: true },
       });
 
@@ -279,43 +338,103 @@ async function getTelegramPage(pageNum, ctx) {
 }
 
 
-function generateArchivePostResponse(post, isEn) {
+async function getTelegramMeta(ctx) {
+  const now = Date.now();
+  if (telegramMetaCache && (now - telegramMetaCacheTime) < TELEGRAM_INDEX_CACHE_TTL) {
+    return telegramMetaCache;
+  }
+
+  for (const baseUrl of [TELEGRAM_ARCHIVE_BASE, TELEGRAM_ARCHIVE_FALLBACK]) {
+    try {
+      const response = await fetch(`${baseUrl}/meta.json`, {
+        headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
+        cf: { cacheTtl: 3600, cacheEverything: true },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        telegramMetaCache = data;
+        telegramMetaCacheTime = now;
+        return data;
+      }
+    } catch (e) {
+      console.error(`Failed to fetch Telegram meta from ${baseUrl}:`, e);
+    }
+  }
+  return telegramMetaCache || {};
+}
+
+
+// =============================================================================
+// Full archive post page generator (matches old Worker v27 quality)
+// =============================================================================
+
+async function generateFullArchivePostResponse(post, isEn, country, ctx) {
   const lang = isEn ? 'en' : 'ru';
   const postId = post.id || 0;
-  const title = escapeHtml(post.title || post.text?.substring(0, 100) || `Post ${postId}`);
-  const text = (post.text || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>\n');
-  const date = post.date || '';
+  const postTitleText = (post.text || '').substring(0, 80).replace(/\n/g, ' ').trim() || (isEn ? 'Post' : 'Публикация');
+  const postDescText = (post.text || '').substring(0, 160).replace(/\n/g, ' ').trim() || (isEn ? 'Archived publication' : 'Архивная публикация');
+  const pageTitle = `${escapeHtml(postTitleText)} — ${isEn ? 'SOCHIAUTOPARTS Archive' : 'Архив SOCHIAUTOPARTS'}`;
+  const canonicalUrl = isEn ? `${SITE_URL}/en/archive/post/${postId}` : `${SITE_URL}/archive/post/${postId}`;
+  const telegramLink = `https://t.me/${CHANNEL_USERNAME}/${postId}`;
 
-  // Format date
-  let dateDisplay = date;
+  // OG image
+  const photos = post.photos || [];
+  const videoThumbs = post.video_thumbnails || [];
+  const ogImage = photos.length > 0 ? photos[0] : (videoThumbs.length > 0 ? videoThumbs[0] : `${SITE_URL}/logo.jpg`);
+
+  // Date formatting
+  const isoDate = post.date || '';
+  let dateDisplay = '';
   try {
-    const d = new Date(date);
+    const d = new Date(isoDate);
     if (!isNaN(d.getTime())) {
-      const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-      dateDisplay = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} г.`;
+      const months = isEn
+        ? ['January','February','March','April','May','June','July','August','September','October','November','December']
+        : ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+      dateDisplay = isEn
+        ? `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
+        : `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} г.`;
     }
   } catch(e) {}
 
-  // Build media HTML
-  let mediaHtml = '';
-  const photos = post.photos || [];
-  const videos = post.videos || [];
-  const videoThumbs = post.video_thumbnails || [];
+  // Views
+  const views = post.views || 0;
 
-  if (photos.length > 0) {
-    for (const photo of photos.slice(0, 5)) {
-      mediaHtml += `<img src="${escapeHtml(photo)}" alt="${title}" loading="lazy" referrerpolicy="no-referrer" style="width:100%;height:auto;max-height:600px;object-fit:contain;border-radius:8px;margin-bottom:8px;">`;
+  // Media HTML
+  let mediaHtml = '';
+
+  // Videos
+  const videos = post.videos || [];
+  if (videos.length > 0) {
+    for (let i = 0; i < videos.length; i++) {
+      const poster = videoThumbs[i] ? `poster="${escapeHtml(videoThumbs[i])}"` : '';
+      mediaHtml += `<div class="archive-post-video"><video src="${escapeHtml(videos[i])}" ${poster} controls playsinline preload="metadata" referrerpolicy="no-referrer"><source src="${escapeHtml(videos[i])}" type="video/mp4"></video></div>`;
+    }
+  } else if (videoThumbs.length > 0) {
+    // Has thumbnails but no direct video URLs — show as images with link to Telegram
+    for (const thumb of videoThumbs) {
+      mediaHtml += `<div class="archive-post-video"><a href="${escapeHtml(telegramLink)}" target="_blank" rel="noopener noreferrer" style="position:relative;display:block"><img src="${escapeHtml(thumb)}" alt="" referrerpolicy="no-referrer" loading="lazy" style="width:100%;max-height:600px;object-fit:contain;display:block;background:#000;border-radius:8px" /><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,.65);border-radius:50%;display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:1.5rem;margin-left:4px">▶</span></div></a></div>`;
     }
   }
-  if (videos.length > 0) {
-    const poster = videoThumbs.length > 0 ? `poster="${escapeHtml(videoThumbs[0])}"` : '';
-    mediaHtml += `<video src="${escapeHtml(videos[0])}" ${poster} controls playsinline preload="metadata" referrerpolicy="no-referrer" style="width:100%;max-height:600px;border-radius:8px;margin-bottom:8px;"></video>`;
+
+  // Photos
+  if (photos.length > 0) {
+    mediaHtml += '<div class="archive-post-images">';
+    for (const photo of photos) {
+      mediaHtml += `<img class="archive-post-image" src="${escapeHtml(photo)}" alt="" referrerpolicy="no-referrer" loading="lazy" onclick="archiveLightbox(this.src)" />`;
+    }
+    mediaHtml += '</div>';
   }
 
-  // Build hashtags
+  // Post text (formatted with line breaks)
+  const textHtml = escapeHtml(post.text || '').replace(/\n/g, '<br>\n');
+
+  // Hashtags (extract from text, support Arabic/Cyrillic/Latin)
   let tagsHtml = '';
   const textForTags = post.text || '';
-  const hashtagMatches = textForTags.match(/#[a-zA-Zа-яА-ЯёЁ0-9_]+/g) || [];
+  // Match hashtags: # followed by letters (including Arabic, Cyrillic), digits, underscores
+  const hashtagMatches = textForTags.match(/#[\u0600-\u06FF\u0400-\u04FFa-zA-Z0-9_]+/g) || [];
   if (hashtagMatches.length > 0) {
     const tagLinks = hashtagMatches.slice(0, 15).map(tag => {
       const tagName = tag.substring(1);
@@ -324,72 +443,154 @@ function generateArchivePostResponse(post, isEn) {
     tagsHtml = `<div class="post-tags">${tagLinks}</div>`;
   }
 
-  const canonicalUrl = isEn ? `${SITE_URL}/en/archive/post/${postId}` : `${SITE_URL}/archive/post/${postId}`;
-  const telegramLink = `https://t.me/sochiautoparts/${postId}`;
+  // Ad blocks (region-filtered)
+  const adBlocksHtml = await renderAdBlocks(lang, [country], ctx);
+
+  // Shop widget (products from pipeline)
+  let shopWidgetHtml = '';
+  try {
+    const products = await getProducts(ctx);
+    const shopProducts = products.slice(0, 6);
+    if (shopProducts.length > 0) {
+      const shopPath = isEn ? '/en/shop' : '/shop';
+      let productCards = '';
+      for (const p of shopProducts) {
+        const name = (p.name || '').length > 50 ? (p.name || '').substring(0, 50) + '...' : (p.name || '');
+        const price = p.price ? Number(p.price).toLocaleString('ru-RU') + ' ₽' : '';
+        const img = p.image || p.imageUrl || '';
+        const pUrl = p.url || p.productUrl || '#';
+        productCards += `<a href="${escapeHtml(pUrl)}" class="widget-product" target="_blank" rel="nofollow noopener sponsored">${img ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : ''}<div class="wp-name">${escapeHtml(name)}</div>${price ? `<div class="wp-price">${price}</div>` : ''}</a>`;
+      }
+      shopWidgetHtml = `<div class="shop-widget"><div class="widget-header"><span class="widget-title">${isEn ? '🛒 Auto Parts Shop' : '🛒 Магазин автозапчастей'}</span><a href="${shopPath}" class="widget-link">${isEn ? 'All products →' : 'Все товары →'}</a></div><div class="widget-grid">${productCards}</div></div>`;
+    }
+  } catch(e) {
+    console.error('Shop widget error:', e);
+  }
+
+  // NewsArticle schema
+  const newsSchema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    'headline': postTitleText,
+    'description': postDescText,
+    'datePublished': isoDate,
+    'dateModified': isoDate,
+    'author': { '@type': 'Organization', 'name': 'SochiAutoParts', 'url': `https://t.me/${CHANNEL_USERNAME}` },
+    'publisher': { '@type': 'Organization', 'name': 'SochiAutoParts', 'logo': { '@type': 'ImageObject', 'url': `${SITE_URL}/logo.jpg` } },
+    'mainEntityOfPage': { '@type': 'WebPage', '@id': canonicalUrl },
+    'image': ogImage !== `${SITE_URL}/logo.jpg` ? ogImage : undefined
+  });
+
+  // Breadcrumb schema
+  const breadcrumbSchema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': isEn ? 'Home' : 'Главная', 'item': isEn ? `${SITE_URL}/en/` : `${SITE_URL}/` },
+      { '@type': 'ListItem', 'position': 2, 'name': isEn ? 'Archive' : 'Архив', 'item': `${SITE_URL}/archive` },
+      { '@type': 'ListItem', 'position': 3, 'name': postTitleText.substring(0, 50), 'item': canonicalUrl }
+    ]
+  });
+
+  // Org schema
+  const orgSchema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    'name': 'SochiAutoParts',
+    'url': SITE_URL,
+    'logo': `${SITE_URL}/logo.jpg`
+  });
+
+  // Verification meta tags
+  const verificationMeta = '<meta name="verify-admitad" content="3c08bd9d2c"><meta name="takprodam-verification" content="cf451bd9-e5de-413f-990b-147d25c657e2">';
 
   const html = `<!DOCTYPE html>
-<html lang="${lang}" data-theme="dark">
+<html lang="${lang}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>${title} | SOCHIAUTOPARTS</title>
-<meta name="description" content="${escapeHtml((post.text || '').substring(0, 200))}">
+<title>${pageTitle}</title>
+<meta name="description" content="${escapeHtml(postDescText)}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-video-preview:-1">
+<meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+${verificationMeta}
 <link rel="canonical" href="${canonicalUrl}">
-<meta property="og:title" content="${escapeHtml(title)}">
-<meta property="og:description" content="${escapeHtml((post.text || '').substring(0, 200))}">
-<meta property="og:url" content="${canonicalUrl}">
+<link rel="alternate" hreflang="ru" href="${SITE_URL}/archive/post/${postId}">
+<link rel="alternate" hreflang="en" href="${SITE_URL}/en/archive/post/${postId}">
+<link rel="alternate" hreflang="x-default" href="${SITE_URL}/archive/post/${postId}">
 <meta property="og:type" content="article">
+<meta property="og:title" content="${escapeHtml(postTitleText)}">
+<meta property="og:description" content="${escapeHtml(postDescText)}">
+<meta property="og:image" content="${escapeHtml(ogImage)}">
+<meta property="og:image:width" content="640">
+<meta property="og:image:height" content="640">
+<meta property="og:url" content="${canonicalUrl}">
 <meta property="og:site_name" content="SOCHIAUTOPARTS">
 <meta property="og:locale" content="${isEn ? 'en_US' : 'ru_RU'}">
-<meta name="robots" content="index, follow">
+<meta property="og:locale:alternate" content="${isEn ? 'ru_RU' : 'en_US'}">
+<meta property="article:published_time" content="${escapeHtml(isoDate)}">
+<meta property="article:section" content="Autos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${escapeHtml(postTitleText)}">
+<meta name="twitter:description" content="${escapeHtml(postDescText)}">
+<meta name="twitter:image" content="${escapeHtml(ogImage)}">
+<meta name="twitter:site" content="@sochiautoparts">
+<meta name="twitter:creator" content="@sochiautoparts">
+<meta name="author" content="SOCHIAUTOPARTS">
 <meta name="theme-color" content="#2481CC">
 <link rel="icon" href="/logo.jpg" type="image/jpeg">
+<link rel="apple-touch-icon" href="/logo.jpg">
+<link rel="preconnect" href="https://t.me">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://raw.githubusercontent.com">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="${SITE_URL}${isEn ? '/en/rss.xml' : '/rss.xml'}">
+<link rel="manifest" href="/manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{--primary:#2481CC;--primary-dark:#1D6FAD;--primary-light:#E6F3FF;--secondary:#2AABEE;--accent:#0088cc;--bg-body:#F4F4F5;--bg-card:#FFFFFF;--bg-header:rgba(255,255,255,0.95);--text-main:#000;--text-muted:#707579;--border-color:#DADCE0;--border-light:#E8E8E8;--radius:12px;--font-main:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-[data-theme="dark"]{--bg-body:#0F1115;--bg-card:#161B22;--bg-header:rgba(22,27,34,0.95);--text-main:#F0F6FC;--text-muted:#8B949E;--border-color:#30363D;--border-light:#21262D}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-main);line-height:1.6}
-a{color:var(--primary);text-decoration:none}
-.container{max-width:800px;margin:0 auto;padding:0 16px}
-.site-header{background:var(--bg-header);padding:0.75rem 0;border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000;backdrop-filter:blur(20px)}
-.header-content{display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:1.375rem;font-weight:700;color:var(--text-main);display:flex;align-items:center;gap:0.625rem;font-family:'Manrope','Inter',sans-serif}
-.logo-icon{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--border-light)}
-.article-content{padding:2rem 0}
-.article-meta{color:var(--text-muted);font-size:0.875rem;margin-bottom:1rem}
-.article-body{font-size:1.0625rem;line-height:1.7;margin:1.5rem 0}
-.post-tags{margin:1.5rem 0;display:flex;flex-wrap:wrap;gap:0.5rem}
-.hashtag{display:inline-block;padding:4px 12px;background:var(--primary-light);color:var(--primary);border-radius:9999px;font-size:0.8125rem;font-weight:600}
-[data-theme="dark"] .hashtag{background:#1a3a5c;color:#58A6FF}
-.btn-cta{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--primary);color:white;font-weight:700;text-decoration:none;border-radius:9999px;transition:opacity .15s}
-.btn-cta:hover{opacity:.85}
-.post-actions{margin:1.5rem 0}
-footer{text-align:center;padding:2rem 0;color:var(--text-muted);font-size:0.875rem;border-top:1px solid var(--border-color);margin-top:2rem}
-</style>
+<script type="application/ld+json">${orgSchema}</script>
+<script type="application/ld+json">${breadcrumbSchema}</script>
+<script type="application/ld+json">${newsSchema}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2GZ7FKV6CK"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-2GZ7FKV6CK');</script>
+<style>${ARCHIVE_POST_CSS}</style>
 </head>
 <body>
-<header class="site-header"><div class="container"><div class="header-content">
-<a href="/" class="logo"><img src="/logo.jpg" alt="SOCHIAUTOPARTS" class="logo-icon" width="40" height="40" referrerpolicy="no-referrer">SOCHIAUTOPARTS</a>
-</div></div></header>
-<main><div class="container"><div class="article-content">
+<canvas id="matrix-bg"></canvas>
+${renderHeader(lang, 'archive')}
+<main id="main-content" class="archive-post-container" style="padding-top:2rem">
+<a href="${isEn ? '/en/archive' : '/archive'}" class="archive-post-back">← ${isEn ? 'Back to archive' : 'Назад к архиву'}</a>
+<nav class="archive-breadcrumb">
+<a href="${isEn ? '/en/' : '/'}">${isEn ? 'Home' : 'Главная'}</a>
+<span class="archive-breadcrumb-sep">/</span>
+<a href="${isEn ? '/en/archive' : '/archive'}">${isEn ? 'Archive' : 'Архив'}</a>
+<span class="archive-breadcrumb-sep">/</span>
+<span>${escapeHtml(postTitleText.substring(0, 50))}</span>
+</nav>
 <article>
-<div class="article-meta"><span>${dateDisplay}</span></div>
-<h1>${title}</h1>
-${mediaHtml ? '<div class="post-gallery">' + mediaHtml + '</div>' : ''}
-<div class="article-body">${text}</div>
-${tagsHtml}
-<div class="post-actions">
-<a href="${telegramLink}" class="btn-cta" target="_blank" rel="nofollow noopener noreferrer">💬 ${isEn ? 'Open in Telegram' : 'Открыть в Telegram'}</a>
+<h1 style="margin-bottom:1rem">${escapeHtml(postTitleText)}</h1>
+<div class="archive-post-date">
+${dateDisplay ? `<span>📅 ${escapeHtml(dateDisplay)}</span>` : ''}
+${views ? `<span>👁 ${views}</span>` : ''}
 </div>
+${mediaHtml}
+<div class="archive-post-text">${textHtml}</div>
+${tagsHtml}
+<a href="${escapeHtml(telegramLink)}" class="archive-tg-link" target="_blank" rel="noopener noreferrer">${isEn ? 'Open in Telegram' : 'Открыть в Telegram'}</a>
 </article>
-</div></div></main>
-<footer><p>&#169; 2026 SOCHIAUTOPARTS. ${isEn ? 'All rights reserved.' : 'Все права защищены.'}</p></footer>
-<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+${adBlocksHtml ? `<div class="archive-ad-section"><h3 class="archive-ad-title">${isEn ? '📢 Recommendations' : '📢 Рекомендации'}</h3>${adBlocksHtml}</div>` : ''}
+${shopWidgetHtml}
+</main>
+<footer>
+<p>© 2026 SOCHIAUTOPARTS. ${isEn ? 'All rights reserved.' : 'Все права защищены.'}</p>
+<div class="footer-links">
+<a href="${isEn ? '/en/privacy' : '/privacy'}">${isEn ? 'Privacy' : 'Конфиденциальность'}</a>
+<a href="${isEn ? '/en/contacts' : '/contacts'}">${isEn ? 'Contacts' : 'Контакты'}</a>
+<a href="https://t.me/${CHANNEL_USERNAME}" target="_blank" rel="nofollow noopener noreferrer">Telegram</a>
+</div>
+</footer>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}document.querySelectorAll('.theme-btn').forEach(function(b){b.addEventListener('click',function(){document.documentElement.setAttribute('data-theme',this.dataset.theme);localStorage.setItem('theme',this.dataset.theme)})});var mb=document.getElementById('mobileMenuBtn'),mn=document.getElementById('mainNav');if(mb&&mn){mb.addEventListener('click',function(){mn.classList.toggle('active')})}</script>
+<script>function archiveLightbox(s){var o=document.createElement("div");o.className="archive-lightbox";o.onclick=function(){o.remove()};var i=document.createElement("img");i.src=s;i.setAttribute("referrerpolicy","no-referrer");o.appendChild(i);document.body.appendChild(o);requestAnimationFrame(function(){o.classList.add("active")});document.addEventListener("keydown",function h(e){if(e.key==="Escape"){o.remove();document.removeEventListener("keydown",h)}})}</script>
 </body>
 </html>`;
 
@@ -397,16 +598,202 @@ ${tagsHtml}
     status: 200,
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600',
+      'Cache-Control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
+      'Content-Language': lang,
+      'X-Robots-Tag': 'index, follow, max-image-preview:large, max-video-preview:-1',
+      'Vary': 'Accept-Encoding, Cloudflare-Viewer-Country',
     },
   });
 }
 
 
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+// =============================================================================
+// Render ad blocks with regional filtering (matches old Worker)
+// =============================================================================
+
+async function renderAdBlocks(lang, allowedRegions, ctx) {
+  try {
+    const programs = await getAdmitadPrograms(ctx);
+    if (!programs || programs.length === 0) return '';
+
+    // Filter by region
+    const regionFiltered = programs.filter(prog => {
+      if (!prog.allowed_regions || prog.allowed_regions.length === 0) return true;
+      return prog.allowed_regions.some(r => allowedRegions.includes(r));
+    });
+
+    // Shuffle and pick up to 6, one per category
+    const shuffled = [...regionFiltered];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const seenCategories = new Set();
+    const selectedAds = [];
+    for (const prog of shuffled) {
+      const cat = prog.jsonCategory || prog.category || 'other';
+      if (!seenCategories.has(cat) && selectedAds.length < 6) {
+        seenCategories.add(cat);
+        selectedAds.push(prog);
+      }
+    }
+
+    if (selectedAds.length === 0) return '';
+
+    const adsHTML = selectedAds.map(prog => {
+      const imageUrl = prog.image || prog.logo || '';
+      const categoryKey = prog.jsonCategory || prog.internalCategory || 'other';
+      const categoryLabel = ADMITAD_CATEGORIES[categoryKey]?.[lang] || ADMITAD_CATEGORIES[categoryKey]?.ru || prog.jsonCategory || 'Other';
+      const description = prog.description || prog.short_description || '';
+      const btnText = lang === 'ru' ? 'Перейти' : 'Go';
+
+      return `<a href="/api/${prog.id}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;display:block;">
+<div class="ad-block-item">
+<div class="ad-block-media">
+${imageUrl ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(prog.name || '')}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none';this.parentNode.innerHTML='<span style=\\'color:var(--text-muted);font-size:2rem;\\'>🛒</span>'">` : '<span style="color:var(--text-muted);font-size:2rem;">🛒</span>'}
+</div>
+<span class="ad-block-category">${escapeHtml(categoryLabel)}</span>
+<h4 class="ad-block-title">${escapeHtml(prog.name || '')}</h4>
+<p class="ad-block-desc">${escapeHtml(description.substring(0, 150))}${description.length > 150 ? '...' : ''}</p>
+<div class="ad-block-btn">${btnText}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px;"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
+${prog.advertiser_legal_info?.name ? `<div class="ad-block-legal">${lang === 'ru' ? 'Реклама' : 'Ad'}: ${escapeHtml(prog.advertiser_legal_info.name)}</div>` : ''}
+</div>
+</a>`;
+    }).join('');
+
+    return `<div class="ad-blocks-container">${adsHTML}</div>`;
+  } catch (error) {
+    console.error('[renderAdBlocks] Error:', error);
+    return '';
+  }
 }
+
+
+// =============================================================================
+// Header (matches old Worker v27 structure)
+// =============================================================================
+
+function renderHeader(lang, activePage) {
+  const basePath = lang === 'en' ? '/en/' : '/';
+  const activeHome = activePage === 'home' ? ' active' : '';
+  const activeArticles = activePage === 'articles' ? ' active' : '';
+  const activeShop = activePage === 'shop' ? ' active' : '';
+  const activeArchive = activePage === 'archive' ? ' active' : '';
+
+  return `<header class="site-header">
+<div class="container">
+<div class="header-content">
+<a href="${basePath}" class="logo">
+<img src="/logo.jpg" alt="SOCHIAUTOPARTS Logo" class="logo-icon" width="44" height="44" loading="eager" referrerpolicy="no-referrer">
+SOCHIAUTOPARTS
+</a>
+<nav class="main-nav" id="mainNav">
+<a href="${basePath}" class="${activeHome}">${lang === 'ru' ? 'Главная' : 'Home'}</a>
+<a href="${basePath}articles" class="${activeArticles}">${lang === 'ru' ? 'Статьи' : 'Articles'}</a>
+<a href="${basePath}archive" class="${activeArchive}">${lang === 'ru' ? '📁 Архив' : '📁 Archive'}</a>
+<a href="${lang === 'en' ? '/en/shop' : '/shop'}" class="${activeShop}">${lang === 'ru' ? '🛒 Магазин' : '🛒 Shop'}</a>
+</nav>
+<div class="controls-group">
+<button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="${lang === 'ru' ? 'Меню' : 'Menu'}">☰</button>
+<nav class="lang-switcher">
+<a href="/" class="lang-btn ${lang === 'ru' ? 'active' : ''}">RU</a>
+<a href="/en/" class="lang-btn ${lang === 'en' ? 'active' : ''}">EN</a>
+</nav>
+<div class="theme-toggle">
+<button class="theme-btn" data-theme="light" aria-label="Light theme">${SUN_ICON}</button>
+<button class="theme-btn" data-theme="dark" aria-label="Dark theme">${MOON_ICON}</button>
+</div>
+</div>
+</div>
+</div>
+</header>`;
+}
+
+
+// =============================================================================
+// CSS for archive post pages (matches old Worker v27)
+// =============================================================================
+
+const ARCHIVE_POST_CSS = `
+:root{--primary:#2481CC;--primary-dark:#1D6FAD;--primary-light:#E6F3FF;--secondary:#2AABEE;--accent:#0088cc;--bg-body:#F4F4F5;--bg-card:#FFFFFF;--bg-header:rgba(255,255,255,0.95);--bg-hover:#F0F0F0;--text-main:#000;--text-muted:#707579;--border-color:#DADCE0;--border-light:#E8E8E8;--radius:12px;--font-main:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow-md:0 4px 12px rgba(0,0,0,.08)}
+[data-theme="dark"]{--bg-body:#0F1115;--bg-card:#161B22;--bg-header:rgba(22,27,34,0.95);--bg-hover:#1C2128;--text-main:#F0F6FC;--text-muted:#8B949E;--border-color:#30363D;--border-light:#21262D;--shadow-sm:0 1px 2px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-main);line-height:1.6}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:800px;margin:0 auto;padding:0 16px}
+.site-header{background:var(--bg-header);padding:0.75rem 0;border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000;backdrop-filter:blur(20px)}
+.header-content{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.375rem;font-weight:700;color:var(--text-main);display:flex;align-items:center;gap:0.625rem;font-family:'Manrope','Inter',sans-serif;white-space:nowrap}
+.logo-icon{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--border-light)}
+.main-nav{display:flex;gap:0.25rem}
+.main-nav a{padding:0.5rem 0.75rem;border-radius:var(--radius);font-size:0.9rem;font-weight:500;color:var(--text-muted);transition:background .15s,color .15s}
+.main-nav a:hover{text-decoration:none;background:var(--bg-hover);color:var(--text-main)}
+.main-nav a.active{color:var(--primary);font-weight:600}
+.controls-group{display:flex;align-items:center;gap:0.5rem}
+.lang-switcher{display:flex;gap:0.25rem}
+.lang-btn{padding:4px 8px;border-radius:6px;font-size:0.75rem;font-weight:600;color:var(--text-muted);border:1px solid var(--border-color);transition:all .15s}
+.lang-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.theme-toggle{display:flex;gap:0.25rem}
+.theme-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border-color);background:var(--bg-card);cursor:pointer;font-size:0.875rem;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.theme-btn:hover{border-color:var(--primary)}
+.mobile-menu-btn{display:none;width:40px;height:40px;border-radius:8px;border:1px solid var(--border-color);background:var(--bg-card);cursor:pointer;font-size:1.25rem;color:var(--text-main)}
+.archive-post-container{max-width:800px;margin:0 auto;padding:20px 16px 40px}
+.archive-post-back{display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);text-decoration:none;font-size:0.9rem;margin-bottom:24px}
+.archive-post-back:hover{color:var(--text-main)}
+.archive-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:0.875rem;color:var(--text-muted);margin-bottom:24px}
+.archive-breadcrumb a{color:var(--text-muted);text-decoration:none}
+.archive-breadcrumb a:hover{color:var(--primary)}
+.archive-breadcrumb-sep{color:var(--border-color)}
+.archive-post-date{font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.archive-post-text{font-size:1.05rem;line-height:1.8;color:var(--text-main);margin-bottom:24px;white-space:pre-wrap;word-break:break-word}
+.archive-post-images{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px}
+@media(min-width:640px){.archive-post-images{grid-template-columns:repeat(2,1fr)}}
+.archive-post-image{width:100%;border-radius:8px;cursor:pointer;transition:transform .15s}
+.archive-post-image:hover{transform:scale(1.02)}
+.archive-post-video{width:100%;border-radius:8px;overflow:hidden;margin-bottom:12px;background:#000}
+.archive-post-video video{width:100%;max-height:600px;display:block;object-fit:contain;background:#000}
+.archive-tg-link{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#0088cc;color:#fff;border-radius:8px;text-decoration:none;font-size:0.925rem;font-weight:500;transition:opacity .15s}
+.archive-tg-link:hover{opacity:.9;text-decoration:none}
+.post-tags{margin:1.5rem 0;display:flex;flex-wrap:wrap;gap:0.5rem}
+.hashtag{display:inline-block;padding:4px 12px;background:var(--primary-light);color:var(--primary);border-radius:9999px;font-size:0.8125rem;font-weight:600;text-decoration:none;transition:opacity .15s}
+.hashtag:hover{opacity:.8;text-decoration:none}
+[data-theme="dark"] .hashtag{background:#1a3a5c;color:#58A6FF}
+.ad-blocks-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin:1.5rem 0}
+.ad-block-item{background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s,transform .15s}
+.ad-block-item:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.ad-block-media{width:100%;height:140px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--bg-hover)}
+.ad-block-media img{width:100%;height:100%;object-fit:contain;padding:8px}
+.ad-block-category{display:inline-block;padding:2px 8px;background:var(--primary-light);color:var(--primary);border-radius:4px;font-size:0.7rem;font-weight:600;margin:8px 12px 0}
+[data-theme="dark"] .ad-block-category{background:#1a3a5c;color:#58A6FF}
+.ad-block-title{font-size:0.9rem;font-weight:600;margin:6px 12px 0;color:var(--text-main);line-height:1.3}
+.ad-block-desc{font-size:0.8rem;color:var(--text-muted);margin:4px 12px 0;line-height:1.4}
+.ad-block-btn{margin:8px 12px 12px;display:inline-flex;align-items:center;gap:4px;padding:6px 16px;background:var(--primary);color:#fff;border-radius:6px;font-size:0.8rem;font-weight:600;transition:opacity .15s}
+.ad-block-btn:hover{opacity:.85}
+.ad-block-legal{font-size:0.7rem;color:var(--text-muted);padding:0 12px 8px}
+.archive-ad-section{margin:2rem 0 0;padding:1.5rem 0 0;border-top:1px solid var(--border-color)}
+.archive-ad-title{font-size:1.1rem;font-weight:700;margin-bottom:1rem;color:var(--text-main)}
+.shop-widget{margin:2rem 0;padding:1.5rem;border-top:1px solid var(--border-color)}
+.widget-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.widget-title{font-size:1.1rem;font-weight:700}
+.widget-link{color:var(--primary);font-size:0.85rem;font-weight:600}
+.widget-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.widget-product{display:block;padding:8px;border:1px solid var(--border-light);border-radius:8px;text-decoration:none;color:inherit;transition:box-shadow .15s}
+.widget-product:hover{box-shadow:var(--shadow-sm);text-decoration:none}
+.widget-product img{width:100%;height:80px;object-fit:contain;margin-bottom:6px}
+.wp-name{font-size:0.8rem;color:var(--text-main);line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.wp-price{font-size:0.85rem;font-weight:700;color:var(--primary);margin-top:4px}
+footer{text-align:center;padding:2rem 0;color:var(--text-muted);font-size:0.875rem;border-top:1px solid var(--border-color);margin-top:2rem}
+.footer-links{display:flex;justify-content:center;gap:1rem;margin-top:0.5rem}
+.footer-links a{color:var(--text-muted);text-decoration:none;font-size:0.8rem}
+.footer-links a:hover{color:var(--primary)}
+.archive-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer;opacity:0;transition:opacity .2s}
+.archive-lightbox.active{opacity:1}
+.archive-lightbox img{max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain}
+#matrix-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.03}
+@media(max-width:768px){.main-nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg-card);border-bottom:1px solid var(--border-color);flex-direction:column;padding:1rem;gap:0.5rem;box-shadow:var(--shadow-md)}.main-nav.active{display:flex}.mobile-menu-btn{display:flex;align-items:center;justify-content:center}.archive-post-container{padding:16px 12px 32px}.archive-post-text{font-size:1rem}}
+`;
 
 
 // =============================================================================
@@ -415,7 +802,7 @@ function escapeHtml(str) {
 
 async function proxyToGitHubPages(path, request, ctx) {
   const headers = new Headers();
-  headers.set('User-Agent', 'SochiAutoParts-Worker/6.0');
+  headers.set('User-Agent', 'SochiAutoParts-Worker/7.0');
   headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
 
   // Check cache first
@@ -457,7 +844,8 @@ async function proxyToGitHubPages(path, request, ctx) {
 
     // If still 404, return custom 404 page
     if (response.status === 404) {
-      return new Response(generate404Page(), {
+      const isEn = request.url.includes('/en/');
+      return new Response(generate404Page(isEn), {
         status: 404,
         headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60' },
       });
@@ -527,21 +915,29 @@ function addSiteHeaders(response, requestUrl) {
 }
 
 
-function generate404Page() {
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+
+function generate404Page(isEn = false) {
+  const lang = isEn ? 'en' : 'ru';
   return `<!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="${lang}" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>404 — Страница не найдена | SOCHIAUTOPARTS</title>
+<title>404 — ${isEn ? 'Page not found' : 'Страница не найдена'} | SOCHIAUTOPARTS</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="/logo.jpg" type="image/jpeg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<meta http-equiv="refresh" content="8;url=/${isEn ? 'en/' : ''}">
 <style>
-:root{--primary:#2481CC;--primary-dark:#1D6FAD;--bg-body:#F4F4F5;--bg-card:#fff;--text-main:#000;--text-sec:#707579;--border:#E8E8E8;--radius:12px}
-[data-theme="dark"]{--bg-body:#0F1115;--bg-card:#181B22;--text-main:#F0F6FC;--text-sec:#8B949E;--border:#2D333B}
+:root{--primary:#2481CC;--bg-body:#F4F4F5;--text-main:#000;--text-sec:#707579}
+[data-theme="dark"]{--bg-body:#0F1115;--text-main:#F0F6FC;--text-sec:#8B949E}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg-body);color:var(--text-main);line-height:1.6;display:flex;align-items:center;justify-content:center;min-height:100vh}
 .e404{text-align:center;padding:2rem}
@@ -554,12 +950,10 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg-
 <body>
 <div class="e404">
 <h1>404</h1>
-<p>Страница не найдена.</p>
-<a href="/">На главную</a>
+<p>${isEn ? 'Page not found. Redirecting to homepage...' : 'Страница не найдена. Перенаправление на главную...'}</p>
+<a href="/${isEn ? 'en/' : ''}">${isEn ? 'Go Home' : 'На главную'}</a>
 </div>
-<script>
-try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}
-</script>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </body>
 </html>`;
 }

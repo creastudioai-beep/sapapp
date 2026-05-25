@@ -889,9 +889,9 @@ def _update_meta_after_flush(data_dir: str, meta: dict, total_count: int):
     save_meta(data_dir, meta)
 
 
-def incremental_update(channel: str, data_dir: str) -> dict:
+def incremental_update(channel: str, data_dir: str, expand_pages: int = 100) -> dict:
     """
-    Fast incremental update — only fetch new posts.
+    Fast incremental update — fetch new posts AND expand archive with older posts.
 
     Steps
     -----
@@ -900,9 +900,8 @@ def incremental_update(channel: str, data_dir: str) -> dict:
     3. Check if there are new posts (IDs higher than last known).
     4. If yes, keep fetching pages until we reach the last known ID.
     5. Insert new posts into the archive.
-    6. Update ``meta.json``.
-
-    This typically requires only 1-2 API calls.
+    6. Expand the archive backwards by fetching older posts (up to expand_pages pages).
+    7. Update ``meta.json``.
 
     Parameters
     ----------
@@ -910,6 +909,10 @@ def incremental_update(channel: str, data_dir: str) -> dict:
         Channel username (without @).
     data_dir : str
         Path to the telegram archive directory.
+    expand_pages : int
+        Number of pages to fetch when expanding the archive backwards.
+        Default 100 pages = ~2000 posts per incremental update.
+        Set to 0 to disable expansion (only fetch new posts).
 
     Returns
     -------
@@ -942,7 +945,6 @@ def incremental_update(channel: str, data_dir: str) -> dict:
     new_posts = [p for p in posts if p.get("id") is not None and p["id"] > last_known_id]
 
     # If the latest page has new posts, there might be more pages with new posts
-    before_id = None
     extra_pages = 0
     max_extra_pages = 50  # Safety limit
 
@@ -967,31 +969,163 @@ def incremental_update(channel: str, data_dir: str) -> dict:
         extra_pages += 1
         time.sleep(0.5)
 
-    if not new_posts:
+    if new_posts:
+        # Sort new posts by ID descending (newest first) to match our storage order
+        new_posts.sort(key=lambda p: p.get("id", 0), reverse=True)
+
+        print(f"[telegram_fetcher] Found {len(new_posts)} new post(s).")
+
+        # Re-paginate
+        re_paginate(data_dir, new_posts, meta)
+
+        # meta is updated inside re_paginate, reload it
+        meta = load_meta(data_dir)
+
+        # Rebuild index
+        build_posts_index(data_dir, meta)
+
+        print(
+            f"[telegram_fetcher] New posts added. "
+            f"Total: {meta['total_posts']} posts, {meta['pages_count']} pages."
+        )
+    else:
         print("[telegram_fetcher] No new posts found.")
-        meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-        save_meta(data_dir, meta)
-        return meta
 
-    # Sort new posts by ID descending (newest first) to match our storage order
-    new_posts.sort(key=lambda p: p.get("id", 0), reverse=True)
+    # ------------------------------------------------------------------
+    # Expand the archive backwards (fetch older posts)
+    # This grows the archive over time — each incremental update adds
+    # ~expand_pages pages of older posts. After ~40-45 runs, the full
+    # ~87K post archive will be complete.
+    # ------------------------------------------------------------------
+    if expand_pages > 0:
+        meta = load_meta(data_dir)  # Reload after possible new-posts update
+        oldest_known_id = _get_oldest_post_id(data_dir, meta)
+        if oldest_known_id is not None:
+            print(
+                f"[telegram_fetcher] Expanding archive backwards "
+                f"(up to {expand_pages} pages, oldest known ID: {oldest_known_id})"
+            )
+            older_posts_batch: list = []
+            before_id = oldest_known_id
+            pages_fetched = 0
 
-    print(f"[telegram_fetcher] Found {len(new_posts)} new post(s).")
+            while pages_fetched < expand_pages:
+                try:
+                    page_posts, next_before = fetch_telegram_page(channel, before_id=before_id)
+                except RuntimeError as exc:
+                    print(f"[telegram_fetcher] Error during expansion: {exc}")
+                    break
 
-    # Re-paginate
-    re_paginate(data_dir, new_posts, meta)
+                if not page_posts:
+                    print("[telegram_fetcher] Reached end of channel during expansion.")
+                    break
 
-    # meta is updated inside re_paginate, reload it
-    meta = load_meta(data_dir)
+                older_posts_batch.extend(page_posts)
+                pages_fetched += 1
 
-    # Rebuild index
-    build_posts_index(data_dir, meta)
+                if pages_fetched % 20 == 0:
+                    print(f"[telegram_fetcher] Expansion progress: {pages_fetched} pages, {len(older_posts_batch)} posts fetched")
+
+                if next_before is None:
+                    print("[telegram_fetcher] Reached end of channel during expansion.")
+                    break
+
+                before_id = next_before
+                time.sleep(0.3)
+
+            if older_posts_batch:
+                # These are older posts — append at the end of the archive
+                _append_older_posts(data_dir, older_posts_batch, meta)
+                meta = load_meta(data_dir)
+                build_posts_index(data_dir, meta)
+                print(
+                    f"[telegram_fetcher] Expansion complete. Added {len(older_posts_batch)} older posts. "
+                    f"Total: {meta['total_posts']} posts, {meta['pages_count']} pages."
+                )
+            else:
+                print("[telegram_fetcher] No older posts found during expansion.")
+        else:
+            print("[telegram_fetcher] Cannot expand — oldest post ID not found in archive.")
+
+    meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    save_meta(data_dir, meta)
 
     print(
         f"[telegram_fetcher] Incremental update complete. "
         f"Total: {meta['total_posts']} posts, {meta['pages_count']} pages."
     )
     return meta
+
+
+def _get_oldest_post_id(data_dir: str, meta: dict) -> Optional[int]:
+    """Get the oldest post ID in the archive (smallest ID in the last page)."""
+    pages_count = meta.get("pages_count", 0)
+    if pages_count == 0:
+        return None
+    last_page = load_page(data_dir, pages_count)
+    if not last_page:
+        return None
+    ids = [p.get("id") for p in last_page if p.get("id") is not None]
+    return min(ids) if ids else None
+
+
+def _append_older_posts(data_dir: str, older_posts: list, meta: dict):
+    """Append older posts at the end of the archive and re-paginate.
+
+    Unlike re_paginate which prepends new posts, this function appends
+    older posts at the end, maintaining the newest-first order.
+    """
+    if not older_posts:
+        return
+
+    pages_count = meta.get("pages_count", 0)
+
+    # Collect all existing posts
+    all_posts: list = []
+    for page_num in range(1, pages_count + 1):
+        posts = load_page(data_dir, page_num)
+        all_posts.extend(posts)
+
+    # Append older posts at the end (they are already sorted newest-first
+    # from Telegram pagination, which is the same order as our storage)
+    all_posts.extend(older_posts)
+
+    # De-duplicate by post ID (keep first occurrence)
+    seen_ids = set()
+    deduped: list = []
+    for post in all_posts:
+        pid = post.get("id")
+        if pid is not None and pid not in seen_ids:
+            seen_ids.add(pid)
+            deduped.append(post)
+
+    all_posts = deduped
+
+    # Re-write all pages
+    new_pages_count = (len(all_posts) + POSTS_PER_PAGE - 1) // POSTS_PER_PAGE if all_posts else 0
+
+    for page_num in range(1, new_pages_count + 1):
+        start = (page_num - 1) * POSTS_PER_PAGE
+        end = start + POSTS_PER_PAGE
+        save_page(data_dir, page_num, all_posts[start:end])
+
+    # Remove stale pages
+    stale = new_pages_count + 1
+    while True:
+        stale_path = os.path.join(data_dir, f"page_{stale}.json")
+        if os.path.exists(stale_path):
+            os.remove(stale_path)
+            stale += 1
+        else:
+            break
+
+    # Update meta
+    meta["total_posts"] = len(all_posts)
+    meta["pages_count"] = new_pages_count
+    if all_posts:
+        meta["last_post_id"] = all_posts[0].get("id")
+    meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    save_meta(data_dir, meta)
 
 
 # ---------------------------------------------------------------------------

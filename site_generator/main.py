@@ -449,12 +449,14 @@ def main(argv: Optional[list] = None) -> None:
         print("Running incremental Telegram update…")
         try:
             from .telegram_fetcher import fetch_all_posts
-            # Limit to a quick incremental update (fetch up to 500 posts only)
-            # Full archive takes hours — not suitable for CI builds
+            # Incremental update: fetch new posts + expand archive backwards
+            # expand_pages=100 means ~2000 older posts per CI run
+            # After ~40-45 runs (every 2 hours = ~4 days), the full ~87K
+            # post archive will be complete. New posts are also fetched.
             meta = fetch_all_posts(
                 channel=CHANNEL_USERNAME,
                 data_dir=telegram_data_dir,
-                max_posts=500,
+                max_posts=90000,
                 batch_delay=0.3,
                 force_full=False,
             )
