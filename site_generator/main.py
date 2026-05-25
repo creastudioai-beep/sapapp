@@ -409,6 +409,8 @@ def main(argv: Optional[list] = None) -> None:
 
     # ------------------------------------------------------------------
     # Step 0b: Telegram archive fetch (if requested)
+    # NON-BLOCKING: Even if the fetch fails or times out, the build
+    # continues with pipeline data from GitHub.
     # ------------------------------------------------------------------
     telegram_data_dir = os.path.join(args.data_dir, "telegram_archive")
     if args.full_archive:
@@ -439,11 +441,13 @@ def main(argv: Optional[list] = None) -> None:
         print()
         print("Running incremental Telegram update…")
         try:
+            # Limit to a quick incremental update (fetch up to 500 posts only)
+            # Full archive takes hours — not suitable for CI builds
             meta = fetch_all_posts(
                 channel=CHANNEL_USERNAME,
                 data_dir=telegram_data_dir,
-                max_posts=100000,
-                batch_delay=0.5,
+                max_posts=500,
+                batch_delay=0.3,
                 force_full=False,
             )
             logger.info(
