@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -153,6 +153,36 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: output/
+
+      - name: Commit updated Telegram archive data
+        if: always()
+        run: |
+          # Commit the telegram archive data back to the repo so the Worker
+          # can access it via raw.githubusercontent.com
+          if [ ! -d "data/telegram_archive" ]; then
+            echo "No telegram archive data to commit"
+            exit 0
+          fi
+
+          ARCHIVE_FILES=$(find data/telegram_archive -name '*.json' | wc -l)
+          if [ "$ARCHIVE_FILES" -eq 0 ]; then
+            echo "No JSON files in telegram archive"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/telegram_archive/
+
+          # Only commit if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to telegram archive data"
+          else
+            ARCHIVE_COUNT=$(python3 -c "import json; print(json.load(open('data/telegram_archive/meta.json')).get('total_posts', 0))" 2>/dev/null || echo "unknown")
+            git commit -m "chore: update telegram archive data (${ARCHIVE_COUNT} posts) [skip ci]"
+            git push
+            echo "Committed telegram archive data: ${ARCHIVE_COUNT} posts"
+          fi
 
       - name: Set build result
         id: build_result
