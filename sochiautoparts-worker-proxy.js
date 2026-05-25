@@ -1,13 +1,14 @@
 /**
- * SochiAutoParts Cloudflare Worker v4.0
+ * SochiAutoParts Cloudflare Worker v5.0
  *
  * Proxies sochiautoparts.ru → GitHub Pages static site.
  *
  * Architecture:
  *   1. /api/{id}          → Admitad affiliate redirect (lookup by program ID)
- *   2. /rss.xml            → redirect to /feed.xml (compat)
- *   3. All other requests  → proxy from GitHub Pages
- *   4. 404 from GH Pages  → try directory index.html, then custom 404
+ *   2. /rss.xml            → serve from GitHub Pages /rss.xml
+ *   3. /feed.xml           → serve from GitHub Pages /rss.xml (compat alias)
+ *   4. All other requests  → proxy from GitHub Pages
+ *   5. 404 from GH Pages  → try .html, then /index.html, then custom 404
  *
  * GitHub Pages URL: https://creastudioai-beep.github.io/sapapp/
  * Route: sochiautoparts.ru/* → creastudioai-beep.github.io/sapapp/*
@@ -42,6 +43,9 @@ const PATH_ALIASES = {
   '/privacy/': '/privacy/index.html',
   '/rss.xml': '/rss.xml',
   '/feed.xml': '/rss.xml',
+  '/sitemap.xml': '/sitemap.xml',
+  '/robots.txt': '/robots.txt',
+  '/manifest.json': '/manifest.json',
 };
 
 export default {
@@ -57,7 +61,7 @@ export default {
       return handleAffiliateRedirect(apiMatch[1], request, ctx);
     }
 
-    // --- RSS compatibility: /rss.xml and /feed.xml both serve the same file ---
+    // --- RSS compatibility: /feed.xml → serve /rss.xml ---
     if (path === '/feed.xml') {
       path = '/rss.xml';
     }
@@ -72,14 +76,14 @@ export default {
       path = PATH_ALIASES[path];
     }
 
-    // --- Handle paths that look like directories without trailing slash ---
-    // e.g. /ads/autoparts → /ads/autoparts.html (if no extension)
+    // --- Handle paths without trailing slash that look like directories ---
+    // e.g. /ads/autoparts → try /ads/autoparts.html first, then /ads/autoparts/index.html
     if (!path.endsWith('.html') && !path.endsWith('.xml') && !path.endsWith('.json') &&
         !path.endsWith('.txt') && !path.endsWith('.css') && !path.endsWith('.js') &&
+        !path.endsWith('.jpg') && !path.endsWith('.png') && !path.endsWith('.ico') &&
+        !path.endsWith('.svg') && !path.endsWith('.webp') && !path.endsWith('.woff2') &&
         !path.includes('.') && !path.endsWith('/')) {
-      // Try as .html file first (e.g. /ads/autoparts → /ads/autoparts.html)
-      // But also allow /ads/autoparts/ → /ads/autoparts/index.html
-      // We'll try .html first in the proxy function
+      // Will try .html first in the proxy function
     }
 
     // --- Handle directory paths with trailing slash (add /index.html) ---
@@ -102,22 +106,15 @@ async function handleAffiliateRedirect(programId, request, ctx) {
     // Fetch Admitad data (with caching)
     const programs = await getAdmitadPrograms(ctx);
 
-    // Find the program by ID
+    // Find the program by ID (try both string and number comparison)
     const prog = programs.find(p => String(p.id) === String(programId));
 
-    if (prog && prog.goto_link) {
-      // Redirect to the affiliate link
-      return Response.redirect(prog.goto_link, 302);
-    }
-
-    // If not found by goto_link, try the affiliateUrl field
-    if (prog && prog.affiliateUrl) {
-      return Response.redirect(prog.affiliateUrl, 302);
-    }
-
-    // Try gotoLink field (camelCase variant)
-    if (prog && prog.gotoLink) {
-      return Response.redirect(prog.gotoLink, 302);
+    if (prog) {
+      // Try all possible affiliate URL fields
+      const affiliateUrl = prog.goto_link || prog.gotoLink || prog.affiliateUrl || prog.affiliate_url || '';
+      if (affiliateUrl) {
+        return Response.redirect(affiliateUrl, 302);
+      }
     }
 
     // Fallback: redirect to homepage if program not found
@@ -137,7 +134,7 @@ async function getAdmitadPrograms(ctx) {
 
   try {
     const response = await fetch(ADMITAD_DATA_URL, {
-      headers: { 'User-Agent': 'SochiAutoParts-Worker/4.0' },
+      headers: { 'User-Agent': 'SochiAutoParts-Worker/5.0' },
       cf: { cacheTtl: 3600, cacheEverything: true },
     });
 
@@ -165,7 +162,7 @@ async function getAdmitadPrograms(ctx) {
 
 async function proxyToGitHubPages(path, request, ctx) {
   const headers = new Headers();
-  headers.set('User-Agent', 'SochiAutoParts-Worker/4.0');
+  headers.set('User-Agent', 'SochiAutoParts-Worker/5.0');
   headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
 
   // Check cache first
@@ -258,9 +255,13 @@ function addSiteHeaders(response, requestUrl) {
     newHeaders.set('Content-Type', 'text/html; charset=utf-8');
   }
   if (contentType.includes('application/xml') || contentType.includes('text/xml')) {
-    newHeaders.set('Content-Type', contentType.includes('rss') || pathIncludesXml(requestUrl)
-      ? 'application/xml; charset=utf-8'
-      : contentType);
+    newHeaders.set('Content-Type', 'application/xml; charset=utf-8');
+  }
+  if (contentType.includes('application/json')) {
+    newHeaders.set('Content-Type', 'application/json; charset=utf-8');
+  }
+  if (contentType.includes('text/plain')) {
+    newHeaders.set('Content-Type', 'text/plain; charset=utf-8');
   }
 
   newHeaders.set('X-Content-Type-Options', 'nosniff');
@@ -268,6 +269,11 @@ function addSiteHeaders(response, requestUrl) {
   newHeaders.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   newHeaders.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   newHeaders.set('Cache-Control', `public, max-age=${CACHE_TTL_BROWSER}`);
+
+  // CORS headers for RSS/sitemap
+  if (requestUrl.includes('.xml') || requestUrl.includes('/rss') || requestUrl.includes('/feed')) {
+    newHeaders.set('Access-Control-Allow-Origin', '*');
+  }
 
   newHeaders.delete('X-GitHub-Request-Id');
   newHeaders.delete('X-Fastly-Request-ID');
@@ -277,10 +283,6 @@ function addSiteHeaders(response, requestUrl) {
     statusText: response.statusText,
     headers: newHeaders,
   });
-}
-
-function pathIncludesXml(url) {
-  return url.includes('.xml') || url.includes('/rss') || url.includes('/feed');
 }
 
 
