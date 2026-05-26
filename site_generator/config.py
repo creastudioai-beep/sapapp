@@ -63,7 +63,7 @@ SEARCH_INDEX_URL: str = f"{PIPELINE_BASE_URL}/search_index.json"
 ARCHIVE_INDEX_URL: str = f"{PIPELINE_BASE_URL}/archive_index.json"
 
 # Products / shop data
-PRODUCTS_JSON_URL: str = f"{PIPELINE_BASE_URL}/products.json"
+PRODUCTS_JSON_URL: str = "https://raw.githubusercontent.com/creastudioai-beep/zap.online/main/products.json"
 PRODUCTS_INDEX_URL: str = f"{PIPELINE_BASE_URL}/products_index.json"
 
 # Categories data

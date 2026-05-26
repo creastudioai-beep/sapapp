@@ -1,5 +1,5 @@
 /**
- * SochiAutoParts Cloudflare Worker v9.0
+ * SochiAutoParts Cloudflare Worker v10.0
  *
  * Proxies sochiautoparts.ru → GitHub Pages static site.
  * Dynamically generates /archive/post/{id} pages from Telegram archive data.
@@ -57,8 +57,8 @@ let telegramPageCache = {};  // page_num -> { data, time }
 let telegramMetaCache = null;
 let telegramMetaCacheTime = 0;
 
-// Products data (for shop widget)
-const PRODUCTS_DATA_URL = 'https://raw.githubusercontent.com/creastudioai-beep/Main1/main/products.json';
+// Products data (for shop widget) — from zap.online repo with abbreviated keys
+const PRODUCTS_DATA_URL = 'https://raw.githubusercontent.com/creastudioai-beep/zap.online/main/products.json';
 let productsCache = null;
 let productsCacheTime = 0;
 const PRODUCTS_CACHE_TTL = 3600000; // 1 hour in ms
@@ -252,7 +252,31 @@ async function getProducts(ctx) {
 
     const data = await response.json();
     // Products may be an array or a dict with products key
-    productsCache = Array.isArray(data) ? data : (data.products || []);
+    let rawProducts = Array.isArray(data) ? data : (data.products || []);
+    // Map abbreviated keys from zap.online format to full names
+    // n=name, p=price, o=oldPrice, c=currency, u=url, i=image, v=vendor/brand,
+    // d=description, f=feedId, fn=feedName, fc=feedColor, fi=feedIcon,
+    // cat=categoryId, a=available, sn=shortNote, m=model, tp=type
+    productsCache = rawProducts.map(p => ({
+      id: p.f || p.id,
+      name: p.n || p.name || '',
+      price: p.p || p.price || 0,
+      oldPrice: p.o || p.oldPrice || p.old_price || 0,
+      currency: p.c || p.currency || 'RUB',
+      url: p.u || p.url || p.productUrl || '#',
+      image: p.i || p.image || p.imageUrl || '',
+      vendor: p.v || p.vendor || p.brand || '',
+      description: p.d || p.description || '',
+      feedId: p.f || p.feedId || p.feed_id || '',
+      feedName: p.fn || p.feedName || p.feed_name || '',
+      feedColor: p.fc || p.feedColor || '',
+      feedIcon: p.fi || p.feedIcon || '',
+      categoryId: p.cat || p.categoryId || p.category_id || '',
+      available: p.a !== undefined ? p.a : (p.available !== undefined ? p.available : true),
+      shortNote: p.sn || p.shortNote || '',
+      model: p.m || p.model || '',
+      type: p.tp || p.type || '',
+    }));
     productsCacheTime = now;
     return productsCache;
   } catch (e) {
@@ -283,13 +307,16 @@ async function handleShopProductsAPI(url, request, ctx) {
     const sort = url.searchParams.get('sort') || 'popular';
     const feed = url.searchParams.get('feed') || '';
 
-    // Filter
+    // NOTE: Shop shows ALL products regardless of region (user's request)
+    // Filter by feed/search only — no region filtering
     let filtered = products.filter(p => {
-      if (feed && (p.feedName || p.feed_name || '') !== feed) return false;
+      if (feed && (p.feedName || '') !== feed) return false;
+      if (category && String(p.categoryId || '') !== String(category)) return false;
       if (query && query.length >= 2) {
         const name = (p.name || '').toLowerCase();
         const desc = (p.description || '').toLowerCase();
-        if (!name.includes(query) && !desc.includes(query)) return false;
+        const vendor = (p.vendor || '').toLowerCase();
+        if (!name.includes(query) && !desc.includes(query) && !vendor.includes(query)) return false;
       }
       return true;
     });
@@ -298,6 +325,7 @@ async function handleShopProductsAPI(url, request, ctx) {
     if (sort === 'price_asc') filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
     else if (sort === 'price_desc') filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
     else if (sort === 'name') filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    else if (sort === 'popular') filtered.sort((a, b) => (b.available === true ? 1 : 0) - (a.available === true ? 1 : 0));
 
     // Paginate
     const total = filtered.length;
@@ -307,7 +335,7 @@ async function handleShopProductsAPI(url, request, ctx) {
     // Build supplier stats
     const supplierStats = {};
     for (const p of products) {
-      const feedName = p.feedName || p.feed_name || '';
+      const feedName = p.feedName || '';
       if (feedName) supplierStats[feedName] = (supplierStats[feedName] || 0) + 1;
     }
 
@@ -587,20 +615,29 @@ async function generateFullArchivePostResponse(post, isEn, country, ctx) {
   // Ad blocks (region-filtered)
   const adBlocksHtml = await renderAdBlocks(lang, [country], ctx);
 
-  // Shop widget (products from pipeline)
+  // Shop widget (products from zap.online) — show 20 products (matching main page posts)
   let shopWidgetHtml = '';
   try {
     const products = await getProducts(ctx);
-    const shopProducts = products.slice(0, 20);
+    // Shuffle products for variety, then take 20
+    const shuffled = [...products];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    const shopProducts = shuffled.slice(0, 20);
     if (shopProducts.length > 0) {
       const shopPath = isEn ? '/en/shop' : '/shop';
       let productCards = '';
       for (const p of shopProducts) {
         const name = (p.name || '').length > 50 ? (p.name || '').substring(0, 50) + '...' : (p.name || '');
         const price = p.price ? Number(p.price).toLocaleString('ru-RU') + ' ₽' : '';
-        const img = p.image || p.imageUrl || '';
-        const pUrl = p.url || p.productUrl || '#';
-        productCards += `<a href="${escapeHtml(pUrl)}" class="widget-product" target="_blank" rel="nofollow noopener sponsored">${img ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : ''}<div class="wp-name">${escapeHtml(name)}</div>${price ? `<div class="wp-price">${price}</div>` : ''}</a>`;
+        const oldPrice = p.oldPrice ? Number(p.oldPrice).toLocaleString('ru-RU') + ' ₽' : '';
+        const img = p.image || '';
+        const pUrl = p.url || '#';
+        const feedIcon = p.feedIcon || '';
+        const feedName = p.feedName || '';
+        productCards += `<a href="${escapeHtml(pUrl)}" class="widget-product" target="_blank" rel="nofollow noopener sponsored">${img ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">` : `<span style="font-size:2rem">${feedIcon || '🛒'}</span>`}<div class="wp-name">${escapeHtml(name)}</div>${price ? `<div class="wp-price">${price}${oldPrice ? `<span class="wp-old-price">${oldPrice}</span>` : ''}</div>` : ''}${feedName ? `<div class="wp-feed">${escapeHtml(feedName)}</div>` : ''}</a>`;
       }
       shopWidgetHtml = `<div class="shop-widget"><div class="widget-header"><span class="widget-title">${isEn ? '🛒 Auto Parts Shop' : '🛒 Магазин автозапчастей'}</span><a href="${shopPath}" class="widget-link">${isEn ? 'All products →' : 'Все товары →'}</a></div><div class="widget-grid">${productCards}</div></div>`;
     }
