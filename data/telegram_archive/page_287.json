@@ -1,74 +1,5 @@
 [
   {
-    "id": 53001,
-    "text": "2007 Gemballa Mirage GT \n \nКласс: supercar \nТип кузова: 2-door roadster \nДвигатель: V10 5.7 L \nМощность: 672 л.с. \nКрутящий момент: 610 Н·м \nКПП: МКПП-6 \nПривод: задний \nКомпоновка: среднемоторная \n0-100 км/ч: 3.8 сек. \nТип топлива: бензин \nСтрана марки: Германия \nСтрана модели: Германия \nСборка: Германия \nТюнинг: Германия \nЦена: €229 800 (в Германии в 2007 году)\n\n \n \n 46 views07:18\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
-    "photos": [
-      "https://cdn4.telesco.pe/file/c4pyMAQjofhXJBA0O1fQP-qq1BNT1B8OQY20iZhwky1hLIeAXLV4L722Rpe_JQyza2PzJhp6_8PVPq8MR9JPgAj3gPqd3aZl5QVFRG_e5x5ledMrxlbJ2LP6oUFcj1Lz_ZPtNDkbtsHDTuBMaZ9UQtsiOEB0f6gkd7vFUeT_dOX3KNlEcFCIhwxi5JwkdgpILlfmuHwqS4fcqdyg33xR7WRbv6JohsyPFU7zV9jGxRmNg4O_WESMq89lpEdegVmKFqeQe4R_IOkkL0sWSfTZgEryKwLztJF_5jNoTpA7P4RswkKsRAaYRoKf0ZfpU_uOz0i6-7DoYvxJU_KF5U1bmA.jpg",
-      "https://cdn4.telesco.pe/file/WHVcH3VVY0xNECuE5UlrLMNvuLaMq_711JjWTG7uKCFhmDOSg5xK2tVcFoA07Tzn7ZvkEhoD3yj4JZrAFX7injwStqGbOL_L1ysrwXqhNqmRk5-59dCU7SrivtY5G3hHxjg7XoZPgDk8RTDPtlDsPhk0toj6PrOljYNUDrQyFaCg7hJcGY61BXcTxMgYhnb5zszEpnBvdn3g14rVlNw7M4msM30jkJwhD-xh1ayM8_3RlMcAQwJbUDe0zndJH-GdLkUe_TgZZ89Yc9ejnLKAZO5olvqZFBJSnnN4w1CV3y7UKO8zUc_Qwr7OSTbcfmnxfgJ6eEZ3x8kbE0x75rk-yw.jpg",
-      "https://cdn4.telesco.pe/file/uA82u4HVgA9G18jdKt4MpncK80rzKlOsvtxrgCQO9-Pf6W8E3b22pp4IXgbz_VMTBYC70Y4XGnVr3eL_J3jnGnevwNJGnhh6ZMx2dpHpT6qCQXmJ76lk-ZrISWaY5Rc7NxKAW9diLlxuNJV7Rc2rXqZqJwc5WLej-fF5xwNLcohy7Q7Ir55Z5YoZLoqTIqmU-rf8ChtuMAB_Pu3HDSQvVcrH8O2yzAEXFLqliz__aNRsVPK4DLPUf-YtuZrx8Yyh3b5xs6u8yNjnSj_1Q8bWBukk5OSu0rmzGh1lzXTDMhEPF82-bsoHjzwXQpN1pvB3Pb1S3vSAJvD5Mps9zjxU4w.jpg",
-      "https://cdn4.telesco.pe/file/vcD_Tk1TQohOo0TtwDzGGRDbDN1UevFZX7chXk2NGphTHZmgqh6OwjjNS0rbgUpMxBA8RB-7jBtz4WBvYjvebrQ2p-mRkeniLdgaX6mP_EDfIkxHOFDHq6da6m-BE1g5nmf72bWJ5fva5ZfSrfHqqzd0pbJh8TUlLHm0cTECm4lMP5GVyZigiGCqiXo8Cg9grwp1hiqVqH8oyhGAbQbioBH_EZX2OHSE3sWD2MRROSNhK6caVrICnfy4AFHo8t-aErmrX__DxyVcbd_PZwuAJp5z7p8d8wwLQXE4Tsw4wKsaZWj6pXp-VwCJcamRbjr1UlCtlJrKjZzx7xRD5PNCvA.jpg",
-      "https://cdn4.telesco.pe/file/QIHMfqIQob3S_5IFGGg4le90q2HoiMqTDae8AdtTybwK5YnwWWTp8-NSWgqa-fsDUuLZKoqf8q50hcVc1BVFOvWlfUktXARqbeur1wsSrEtuCreiIa2SS-Y9YjyvNvSUjoheTh8M7hx0BRm1vBRCo2TGj2Ir0yV53unGFIkCwym2pY7-Tb5nbg-DAv6s4-ZFUN9nxfgogdK4ukRxatdkme46HbeKdksetmgCJDLH6PTQhc_irGSFpOySrxfhbCaFEVioZegKX4nCTj8V4wp5Ct-l0G6G85BBy1NjwSogmsjOOZRy7T0KTGFxFJMF__yBtpAZH_vu1hW1kHrAZgh80g.jpg",
-      "https://cdn4.telesco.pe/file/iYr0QohuKbcdtkQp94MssO7fBvLZEyJZnTIq6_PmfF0ZSpw7BjC896uTAVnaXi_JulMYaj3w3PxaWGY4_AumQeJ0vcgYsjFtLezMSwTxxbIRxN9k_kW3DS_Ui8Iacni5tPlMsvgoweFILgnLVy3ukcVPIQDBUiNB7M-4KJXm3XzTApzf-aZyk14nzLot0aTh8rVscfzpl0wpM9_hhXLnE3RM1xNyY9m4dwR7oMA0bl-mvzoHPIAfsVfiF6bH-QiFmc-FkI8PHIoVhy4zrNybuQlXVB78XgYkFrVeWAyjfowJyMY-fGnjq9eKRcAD97CcTa0oYPmrpWY1sFOYxJRqbw.jpg",
-      "https://cdn4.telesco.pe/file/brt7Vg3yFr4UVYPLCLf3N_NJat70ZcSuqzIVHB6Rg_DpnXfsiC4MsseBShPzGDzleksd0UGLs9_jKHSEosYSN4WYUZVCen0pqfl5ydKzBUCY2plql08WFTwsQCsqChnSzccabTk92I8W6iDVAGh7oaFbh2jPTIdsdIUWo2QEiiquDQzQZ9Pf06zaSsncJJrL7D--y-X_BtDwARenEkDRJEsj0Ze2gDqDNgxu7SCoBHimtsBxpdD8PDmZX-Dfg7D0CNgfAPeZvrrEl9lAXYbyYLdam-M9b0AVO_Zl2uYgkmy4QljrY3A5tk2g-Y3wLExeG9prEjRh8QCEE_8tytrq4w.jpg",
-      "https://cdn4.telesco.pe/file/d_YdOn0NEy5divFvFxybixDLMIIdgJIZDyLcRZO7bUOPbLv-8E92RTyQTZOqftzl5_5gWupCqYtHyoTpn-IhiHC_sNWrDWEGg0BBzOfWyfTThRRcWOl7ygciZPiJIpbAFSMyW8WoT6C9cYqNu-Hh3ezZFnSqQYct4ApdW9Dto1cAAbEIIJDErZ-80X4Ha-mWzpKa372bZq2hysElips9m1uGqIllfcppMB9g9TWR3JB5lXWWYTvPn1twQp1D-Znh6BaLvB_LecafcAh0hnYtc625JcZDRqy2HIQpylo5aSR8JmI0WkkktLBUVh8yhDdK2J_HAqGikMYmxia7XqWstw.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-10-14T07:18:16+00:00",
-    "views": 46
-  },
-  {
-    "id": 52953,
-    "text": "Chevy Camaro ZL1 Exorcist \"Final Edition\" от ателье Hennessey — 1000 сил / 1309 нм момента с компрессорного V8 в 6.2 литра серии LT4 и 2.1 секунды на 0-60 миль/ч с квотером за 9.57.\n\n \n \n 42 views13:41",
-    "photos": [
-      "https://cdn4.telesco.pe/file/dRstCYz4RQ8x0EOmtj4BWxGtby6Dr45-DORTo2Hhjma645tJbv9h9gdHPR2_j0HAYmIztk3dFzLF4npWQfXJfmxQedWhZvLDUvlqPthIhO--a-8wzSe8J7VHDETozal1aOwhDkz9VkVnaHL0zjnD7_Wihjdbd_VpMXNLW4DWDNFrXDK9oPhPaqCkVS86RAGBw6vsCzf-1FIcMQaSk-ZcBkEn0QjlNe1HCPmYtpy0AuVr55XphIx9BNlhbsjUBd6TZU6QcWnAKcmDjOXAyBfr8GQUnacLw6tp51GpeJ_6sREj3QxyBcgQIruqDoteVyisAFVFOQyoCnM9ClMUd5eO1A.jpg",
-      "https://cdn4.telesco.pe/file/AYY7ztAxefjiTOTZan9Cyy8uqEfxaX51JbsC7Dix646dbl3GgEjITw6u0aSV15dKAqCQOXHk-oU2FQ34oY1PEWKCve4H_5jnDx-3nzCPija79MFV2b_j14taKnhkZMFEWAALyvsP49Mq2zUCrrxb4VXXgZVq96zwBeHaEGTA3CAwr4S6xoQWEdD5ohJUWkMEDKOB0FlyzxFwRW-B1uFN5Mfs-H_ukVa8vfxUCXtbB7mFHRfEPM95heh5bSPzyMqBCPF1K7kLvD5pQTJ2szW38470YGfhkjG83gy4aQ9Um7cynuyTya47R4dSWYO_rs0yXDNU4aqr9mKeQ8sr1P5prg.jpg",
-      "https://cdn4.telesco.pe/file/O3_vTqVdysF0fLLSLPQIVNoN9DQ_LY2G6FEF9mvoS9cNBVtzs6gE769yapzBlqrI1f08F9N9e6ooFsjKh7PSzuDDm8OJ41JbqNvBbVwf891SRbK5G7HA_WTKQHYLW7CNGdmnLWSzUeaTVASz5VnfIb55Dsc8vMJftK6kFWvkQlmdaCL-MFZO1GAD2_NRiKK5Jl74ZBrbNwumMQwznI6LzDhs1fSCjZx4Xhk2tO7dmNGK4IESoTukoPtkbGo4qp58OAcI-Ud6RK1FawKgwkLeMC99y5g-0Xxy79mn42g4mie1yyK-oHV2R0WbzsFPze66lNhn9DYNMCSRqUQKwk7yGQ.jpg",
-      "https://cdn4.telesco.pe/file/nHjyFqmtTrv_2_KC--fiFxg9bFCU1x8Jx1Re1edbYHPHsem8OR5jmdrS5iDzRv9t_QviKsM46-UewE2EB9s4NkUkvzm0j_EPrrL8PYd67i28q-GQvmbIc6o-a_J5EQa_PIg3jC2-M1Ub4NfwIMPFo8FIFtoYdiPIjbI3aKkGujO7DcwbuiHCW35eBlBkrKiVIfoTI_29eQcoiJlgqxx0fTSyBR3pZRKl0mu3u4bV0cdwXmm2izEu6UhkOEdePIro_5yrz9qy5mL5Qd10vdvfK1fbOJt8fW61BbXJHoiHJLISPttMCRFDQe-b_l6O3G94JDJXLtP4UwjUEHGANkzN-Q.jpg",
-      "https://cdn4.telesco.pe/file/VHhGGhKRlw739LGXsjQzZ1NX-fLLEtJOAQMx4nc_zcPc9yKcftdQ2BuOTDG4E5wZAdQTZ21m0Amv3X0FbxB-MRsIZatOg1zFLThpER0uk0X27mAVTtXk4KWtLKH5zwaZxNphirkmp0w8oFYcvsovqh1csz6-mrLp0UbO5OyZ1rZKWP2FGMo4WlSFdle-8G1XOWUFoOtsDDi6-uQAcb5R911SVPcnztN1bZUuF-Fe7XDJMmKOzP9WP5WYVV2VpWX89oMKFS-1knrq5puz3DmfoARlmqsmNHiH3xs8NC5B8w1Mn69CQmBpEXDofZgvZpg0fgbS6bBm03MEz09jj3_ltA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-10-13T13:41:03+00:00",
-    "views": 42
-  },
-  {
-    "id": 52958,
-    "text": "В Японии появится кроссовер Toyota Crown Sport за $40.000\n\nМногие укажут на сходство Crown Sport с Ferrari Purosangue с точки зрения низких силуэтов в стиле хэтчбека и тонких светодиодных фар, облегающих нос. Лицо Toyota в форме головы-молота является общей чертой серии Crown, а также используется в последнем Prius и линейке электромобилей bZ.\n\nАвто будет предлагаться с двумя вариантами силовых агрегатов. Первый — самозарядный гибрид, с двигателем 2.5л на 231 л.с. и полным приводом. Что касается подключаемого гибрида, Toyota не раскрыла подробностей, но упомянула расширенный запас хода благодаря новой «литий-ионной батарее большой емкости».\n\nНовинка будет производиться на заводе Цуцуми с плановым объемом 700 единиц в месяц. Первоначально он будет предлагаться в одной комплектации Hybrid Sport Z по цене 5 900 000 иен (39 620 долларов США). В настоящее время заказы принимаются в Японии: первые поставки гибридного варианта запланированы на ноябрь, а на подключаемый гибрид в декабре.\n\n \n \n 53 views13:41",
-    "photos": [
-      "https://cdn4.telesco.pe/file/Ng8ALmAwIie4931c1NsL5SQwXE4xYvMcRtShO1ahCFMv2Jk-AFPjLtqNeyodVF_pPH7155Eh-XfFxdXiEE1pfQmybE6ag7civk1wL71LwWruYIMFdHRbZ4DWpay8x_IEEAcXP_CldECF9wtmMv_7LynjjwKormXvIlYtHF9Lh2-UlzNfrTCyDxnHps4zz_RRdSsWrxR-eoRK8b-_DxuPNTxry2d5JY4mW0hh1mEvWPXc7b46cxocQAYU9BiKgb_hE_HI8zoqq5gE5zt9c_7qAFKcAwrCWu0CCBTQm-j2SM70CmNNYqUEnEvgK4dL2QeE2TlkAC3hPJNFLGJ-dF1GaQ.jpg",
-      "https://cdn4.telesco.pe/file/BFXIwGTF7_hx2he-cz3j4PsVjiRHo2398jgvvtKrrfyo0biTpDg_jpiMqCrPzQ674vcIoPM7aPR0_3sD-ldnkyC17aKu__LA6dbynwIWhKQpBCKIwG0loa5Isdo7dkzrCSpnXQxdcgyreBkeWnkT_m77n1HD0JH0EtfndHEdqG69-wqiQ_HERt78WwzRVm5_Hd_4ObvRqyjuxjYtkXor_EUb1hz2SwiF_Y0KYNHh5XNaaQ7ZRSCt2EF_8QqezyOirW-eKnAmQCkzIXk4I6_5yo5Jruzg6iVZKGl01ju_jhKua50ON0ZNdDj7Z2jJ4HImI6s0jBerMTyh7qnvo_D_mw.jpg",
-      "https://cdn4.telesco.pe/file/q4mk8678ZvADV7xGb4prUdmukJ9c_B_oNJskJYGB6e8SDAdUHQaQYmhSfT6EVH_t-x8iZHLajZoWn8myiMWSuurSAwyuBtKlK41Cg2OM8YpGdW6T9c02M65sr3quXT0-AK6_2-XQVX2UXYo39p9k3mGJ9VrgakSjcakPR1MwY_56mlVLhERRzOjUaLB4GX87jOEUNINOtw5dRvFfP2tBwkkv7wwyOvl1bXC8AGjyV4bSsDbDG7xXPAMhFGXE8sqwl0EFdlZx3y8xogxMu3fjY_cZvId8eoPHoD-pSlZbadoNiSuMRf7tL33TS0r0bybmBw2KN5wYCwLPpusicqifPw.jpg",
-      "https://cdn4.telesco.pe/file/tvilhvPrVBYVM-q80g2TDCwXJW-RwDGF35ZrUndku9iogUlmz1__WxYDlMCayPXgvY-Cm5emOgsvrpmNS8YL8xG9KDx-BTeDosSqNO-DINowayob6MFjjk8DNrsWm4baIg_5M3hhAJHb2NPP1dATKYQ1sb-zJuu2rum2DsuUjMnmjDroDdxeQtNxI8iPMrKnNCFpeIbQX3VT54_s4Mm92-CKPoPuvobW0yWjVJ02sKOD47CxskXvLcESVjwJagKWp4SZMZ_LPfBm2UTDyJojwbBWN7ichmyrC9wKJu02yZQlpiu1t3FggCsx20400995jJKNoydkLdHiJ2uKNYk1qg.jpg",
-      "https://cdn4.telesco.pe/file/dTdlkOO9Ui5SpYCwM8iBUlAI8l2RnVY8cdavJiYTbtMinECULKdD31YJld4JsbUuFRajr5I7ecezdJRKO5pyessXy2aqleGyxmwgy1N4h7CQLd1iYq2YJM-Aci0HruIf61V6Hwr7gNT_aThyKRxji4WFrEGu14_vdZgAQ_qMdk-caKDOs_lMKINdgzYVafYwjYO_93FzeTlZut2YvqwhB1SPg-UXpHrlu-YdETjszdmC55itrtlRvK08bNC2WHNg060bXQd7QFvZBrj6Ez2N6TivMVZukuH64bMoOhQ-WJlprDI_pK3vvPvUYc5nf9JKsetvA9ZfZM2nJRZ7G781mQ.jpg",
-      "https://cdn4.telesco.pe/file/hg6phL2cI58-4K-cuDVqY5JMtoMFKD5oFuyfxaDxOXGKi4Qo8KJl8cSZbRsu-wg-gfxX4M9h3Ojy_F_KFvdCDU2leEGZoTazF1_ew3d7200klw6hRLDRPX1cWBlcyGHS4V4xxEA1B7smgLZmVtdP83Ugq9SPK9dsVqqbkksKGhiYqgQz2jstHPlTMVvmFHWdWBxv2I9kPqiajDHz45OjBJ5aj0VsNioEHMdC1pKfcsV6NahoCm23Nci_Xd-WNxW5mzEBD8vYO9CKGElpPOfWTumuB632VR9G8GIBsRtPGu8GTdZLNGQT5UhKezQgBcBg6djr3DANm4npuKD7w3NFuA.jpg",
-      "https://cdn4.telesco.pe/file/qpnRST02RjmERgCbAn7qa3yN2hu_4TXcu004r2seWvYGZSuqzttPX3hhJGe8KOmqE3M2TA98k3etOqREYZ8t-KpPRKYlX4dlnPiFY1rLWoFR8pslG6hT5sT4j1OyxnYxA1JSGB_pJPzkkTrivtLKA5AuPJLgHra3YFppWvKf0KBd_qKMgvq8cGffM_703GnS69bVdNBzc-vfTpO29LdVGtnr-Zfe1STyz251ZbhGKGhprXsrySa2cfJIt7nNqz_5AD0uxdPFlq8yfiZTpliwqZzAa4q3_K6PsKUeV0OyNYWqGGojWh4txYteRGIgGHZ-SNUohzbimXsrVvdK5h9ikw.jpg",
-      "https://cdn4.telesco.pe/file/J2UP3B06L6-0IREkvjRIVCijzwJZI27eiwBW45kBmLb0_hGPbK7zFYVMjX6lQpdDEkN4fuWMIBENQxbyrVS6_IZSZy6iDtxG4mylYtsXYhYhcCuqdyCUCEGBZGbdfjk7hIk94T9GnVc1Ed99qIZ-BeKQFiHGnUFbLsz-eaXc2yXjoGwFUufHVbAdPx3rDenzgKMkqPdRvdcrjO2En-EcOweRAcCaY3nKH14RK-Ma9DFpdpgsjP8XiIjsnBif53FbSA1qngJgPjoZR6IM5oiuIM9VdzSpnjj37Ie5OSar5RCGoTbDuNCWI0dozzilACjVOiX32nMTPq5SBpEzYxCNog.jpg",
-      "https://cdn4.telesco.pe/file/C64_0UXQck7e0HFJMCdxtqhKE4I4ldsHizt1H_77hit2fmFXRa34aUdbRdRJ5agAm5UVTsTMLujeRi9UYDVhqPk1IAhsOeBuGUCxo53rje2oU8Ej_CmxQw-Y-Skcmd4tEG9O7TJfHTCUkOKavMTy4DASixcnEbsX04Dr3CYsbvOciY2GkhN8ge4DRatV35BVw46wSwmPA6DK1QDJOSNQKew_L22jcfWnTFeBzsISCbnWkN5x6cDzz672oZRSb2WSM5belZj20sY6ucIdKS9upf3w4Qkdct4acwmxiBaWY8ynOrVhNqrr1keOPDb8p0SmPlzuhyhts4PtZ-l4Cg39TA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-10-13T13:41:48+00:00",
-    "views": 53
-  },
-  {
-    "id": 52967,
-    "text": "2020 Mercedes-Maybach GLS 600 4MATIC 🇩🇪\n\n⚙️ 4.0л • V8\n🔥 557л.с • 730Нм\n🏁 4.9с • 250км/ч\n\n \n \n 57 views13:42\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
-    "photos": [
-      "https://cdn4.telesco.pe/file/u3jfYPcTqkb6oKqVBnVmv2BuOAxUc0hNpX1gUBRloK3JPaE4kOAI3iLd9gybLUtyamW2bQQqiV8n9oNR2MAR-esL0qtaYre7-iF2VUy3eJVuHjsuiq21rAbSP1q-7PcVpmC9vdhowQCChHiD7ac1q5VCUeZ8sg17-V6ssNuYwTXqkT19mJBdtkptaP4sRyVZx53Nk0qDECNHD0lwVUWq_qb1ju3h5mjogBJbvJIuPWSmyzVfY4W_lxbwn_UORr334jF3EQcj1L8hvRJ8gD75bZSQqyxkjcowhDgi8XVZtO0f5HgvKjNR0gY9-EUlYAbnfVzbRiPFwY5RkUcD6O810Q.jpg",
-      "https://cdn4.telesco.pe/file/lveQCFurYTSzfmya8JwfKuLCVmeSElZuxsWu4eOit7Q1TxDX6rUVCJ8ftafFNg_gxVQv99iDWmR3Plnsp4-Y8WTERymNVSDryk2KFcEdswKNIf4B0Ryp-Rq1yY6kX_cpntSwuZ7f6nIcLwVxk9it1eJ9AB67KDZnJ3AoO5mRw7LB2rtemBy7lUmNWPACXsi-OPqnloqiMRgFJJTlI0nbj1Gi7fdG9RaSlRIoUwQIRZ7rXpEQiUdF_vDv1E8ykTtgz9IWek28FpyVP7eq8s7PPnxBZPEp3vn4RB2SQYBpb_sywTyQpsSSi9JB5WyH5KsaKPs6DtLZYYax7TutvrYrZQ.jpg",
-      "https://cdn4.telesco.pe/file/G2imxPmoISKUykHLEsjU7-_WF5cjiEtU-Xy6drT9evcgC0jNmjN4vigme-0v3BO-0pZ4XLJ2qZD1phnpiLRmfmyiXg9pTFF8fxmj3lr5VOiJLShGEc6FWVkCkiVgOaXswwAlG4im7WwPhTICXiPXfDRWN8o_Cy6GlPWXKtAsihiHXNLN0_cENT7iVdUVhIoSg6GcHidKjYY4j1AgwbNHFKSCIA5hGhok2uYvsNOkhoB8cBtFEL0DT9Pf0QEtGq4I8AJFONQSvjcCQK3o2t4Mn3d57XmKCplwkBR_Gw2jcq4bwlp1DmgtJAp1VDgs3nUkVifOrV_glvLTalnf29KEZw.jpg",
-      "https://cdn4.telesco.pe/file/CFrvhG3Xb_gN_uZAf2t_sVvoCRMXhZ32RSJHgBt7amcu1SEQb9Zi3Tmm_6NTmQ2G7qJadMWw1kp-CLl8LZcnlW27YQK83WZmdK_vroAhNqsEGMM8cvNMdHxuC6YDsLc23jGmE7eMdDyJfJbkCHlHwWZmBJPctyLrYc4M1voDhVxXXA8aMv2O8ZlzZ5IT8y_R3NueXBzAvkL10gWXWyoF6OKXrDtHbchskznp88cmzmTJsheZ-eT9FOjalFM0xKG4LEWaxCNsrKpQ_Fq2-iZcvDbIeBCg3fDdOli6aYV80-bH4tVR2GyvoiTmL8jBjbfhWkaXLabZ_t2UZMfRRSjLfg.jpg",
-      "https://cdn4.telesco.pe/file/TpMhvp8CRl_-tyFMEUf5N_6Bb1W6o_kbRsDUPND2S4D28qygtwzxPnHQgz-Th0O9lV7HlLnvP6npChW5ngP-cQ4Fbs6_HZHyZtyxFCb0pV3d2r-iq1FmFH0xjjYpjwfMCor4r4BZyeeoA_Y072eeEEox32WmVfUPlz6fGFJIPmYO7fSAfGnkoG_CTXmyecZwW3qyyD9biwoyGcbLRHrVT5XAR7CCmjoOx4Q64i8_2Gt55Xyl4AUp4jBRY4r0NMF6MXqNgsdjzZ2988aK5EbwJiRrdbqJDVtgfkC1srqDHwdu_elRAOt5tT-WC3C-elCqdRo3VPEZcLFlK28tj_U9rg.jpg",
-      "https://cdn4.telesco.pe/file/Gt1_eaCjho3oRJ38PcLVbKNRGe2eS4K3SNJHlYrcjrNdNwqfsGMDsw3Y_DONCF-Euv2yi3IPAqjqmk0EvXAxl5hHM-wtNtHINd-uox2fqgq-GfsWi4USBDc-EYpDsadKUXnEFekvEj34j16mtMRgFLLMjfPovp_P1jnMK-jaJEUNmYyrqzlAd_xWWZ4f-F0-9bCQeKVhfBc90WRZ1MZp6iG-rKKxEbTQGui2jQb0oiwA6EsINwNi_0HNIE8K3zz3aBqrZmR-kVNCx7Hw90UhC8xqTvvL22NlMeZ1XdPmDETmqfWCkzq6oDufMb1ikymWvhWkuLzrho03QdIsYR3tvw.jpg",
-      "https://cdn4.telesco.pe/file/vyQGlL5eBbZrMgnuN5gNsuyu0O5FulYAZ1CsR9H7hDTlrcSUmBBKd2g5mo-RNxvmsy2kRtNEopUl4otidtoeOgeyV6htDUfJlg04wkd-OabuNuo4Hc7yJoVbyRs9KNEKmWnKB2lDwgVVmIUDwVdva_5ZHFtQXTBTgi0xYgn827GjQLu_YEb0hbZImQfKoLEjTQpiDfRSL0G0Es96dXArSWY0SLGD4l8FXp4zhCIFk3UdKPjxWPrkrDDXq7F3wjy275t_PuUtjPOAMBgfcza0VaB85nnO3PurmoKej50QykumuKgqD2V5aljHJ8n_B4UFC7LgsD9hx3nPfD2EVobk9g.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-10-13T13:42:48+00:00",
-    "views": 57
-  },
-  {
     "id": 52931,
     "text": "Конец первого в России автодрома Ф1.\n\nТрек в Сочи, на котором проходили «Королевские гонки», лишится своей самой интересной части. Останется только кусочек справа от серой перемычки.\n\nСодержать трассу F1 – дорогое удовольствие. Местные покатушки окупить ее содержание не смогут. А в отсутствие «Гран-При России» смысл проекта вообще пропадает. \n\nБывшая трасса теперь будет доступна для роллеров, пеших и велопрогулок. Отдельные участки выделят любителям дрифта и картинга.\n\n \n \n 46 views11:42",
     "photos": [
@@ -650,5 +581,58 @@
     "video_thumbnails": [],
     "date": "2023-10-11T18:06:01+00:00",
     "views": 46
+  },
+  {
+    "id": 52827,
+    "text": "МВД России выступило против инициативы об отмене для водителей всех штрафов, если перед камерой не было предупреждающего знака. Об этом сообщает ТАСС со ссылкой на ответное письмо первого замминистра Александра Горового вице-спикеру Госдумы Владиславу Даванкову («Новые люди»).\n\nОн добавил, что реализация этого предложения может сформировать у водителей предпосылки к невыполнению требований правил дорожного движения. Кроме этого, в таком случае властям придется отменить все подобные штрафы с камер, поскольку доказать наличие или отсутствие знака на момент вынесения постановления невозможно.\n\n \n \n 49 views18:10",
+    "photos": [
+      "https://cdn4.telesco.pe/file/bBVoPEXmwRp5t4r0O99u1QwXnWYBTIbiq47fnGewaRGe2uuZXC1F3LQFxTuMSv1Zr89JJ-PHlelMRYfKxugG9hk3fCsM0r4WcgA-9BxsbjG13Vy2QypyoXTDO6wIrEFjtx2m3uJz9zcLASYwI03eg-tEetpNHbftuLa57DRyjqNWsBNvh_2vwKGHuxWHu3tQ_rG3cDwYA-xqL9YxrWdZplUvILumV3HXYrIkIrin2umsMZEzgH8TQg-JCDMMOHcV244WRHY6zTcNmtaC-WUF8OT9L7xz8LuZY1xHB9CYRb5c5OHm1hx874DNHscDZBnhfdfaJ03KxrvMmheihfzd8A.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-10-11T18:10:43+00:00",
+    "views": 49
+  },
+  {
+    "id": 52828,
+    "text": "За сентябрь 2023 года в России было продано 1 736 пикапов, что на 144% больше, чем годом ранее. Абсолютным лидером сегмента стала марка JAC, которая суммарно реализовала 433 пикапа. Из них 332 машины пришлись на модель T6. Также марка продает пикапы модели T8.\n\nВ сентябре 2022 года лидером класса был УАЗ, реализовавший за месяц 175 пикапа. В 2023 году отечественный автопроизводитель улучшил показатель до 288 машин, но стал лишь третьим, уступив помимо JAC еще и марке Great Wall.\n\n \n \n 50 views18:11",
+    "photos": [
+      "https://cdn4.telesco.pe/file/YmACnFVaRBd_CR7ZtrrVg_eH5doebrFFiF8G8cw45cQsb3OR63cSBv2sOEyLC6Ee6M1Xv8txcotybPXUF4Wa2KydK1btKodxu7HT-dPWe90TjeBn0IshnUCxZlNzn0qIJs6ud3sMMwf1M9lIOCRqb20Y2bPzSRa12z6UIUSJZDsFA_u0MN18QYY5-v__ATT67RS5I7BADdoA_BOX2PE1MhtzmZ9KIBMquHAwAWc1MT7xs7mpMiG6ZNHijf55AnJ2d0SrV3BaTWeiLtETMQfiBRdv_ZopOITkxZZwn7zFMvrbxEWtKH06xUqRrgcAitqJwhYBq9j_SlUgZ0EsfZoU8Q.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-10-11T18:11:01+00:00",
+    "views": 50
+  },
+  {
+    "id": 52829,
+    "text": "Aurus выпустит обновленную версию седана Senat. Производство новинки начнется в мае следующего года.\n\nГлава Минпромторга Денис Мантуров сообщил о планах наладить экспорт автомобилей Aurus в Саудовскую Аравию. Подробности о рестайлинговой модели чиновник не привел.\n\n \n \n 49 views18:11\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/QQigDTGO_Eot1g7Z4jnbSOt_aSRC5dUV7IXjd9Hlt4z9Q6Emer5xF4lb0DLXouxFiDybELyzC02Qc3kGCbKiqfYwrWd3KBc6U_IIGqdGchdZUPvQWk6fdA6btQSNT9N3wy_ok4NhZwFXlUbiXs1zyhkuxkbbA2fQ76cAQ_KoQEYDqs2yTPNhZiJnfmVEdJ8u1f5sWJRn-Fy29re80voR_m9F8UNWZDCrsF9W9_3GrfLU1RiN1Jsd1aMxifUtTfrZvhXQQozuEuFBKJW3pGIseKozsMTFPC0pUAbuPq2SNx7sa1OZSpFBz4qYcz2o-TSuYHJaF53gakopPj2uUiIqIg.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-10-11T18:11:14+00:00",
+    "views": 49
+  },
+  {
+    "id": 52778,
+    "text": "Ferrari F12tdf в цвете Rosso Monza\n\n \n \n 34 views07:50",
+    "photos": [
+      "https://cdn4.telesco.pe/file/rNmyFHARVeW8p1CIU2msuHileNlUR3bm1sCCIa_XZ0-aWSgEjnkC54Sfb5KD2YG4ILfM1Euu9CB5gnkouVQeRZ3x-IGOR2vQ8bwaGeAlOaW1Wr3K7MvwkyfkgLhrtE3IyjhEva5j0Pf3zBWUu5ve8MFIlBZoiqEw-Nmhn8c_lY4parRel8-brAWzcmyQRJAMBlomkIdqHL2oZfsd0diq7P3-kPzg9pxI27HUAm5ZiJlWexsePHORcsW9QiZwxZQc0TFwLVdyIat0aDPkFUwxHBVXtrl8GBYvSvSxn4UhMaXYXdqylbWyqmyL8Irbqd9PGlCVnOtxCCdjc_XkABEuqg.jpg",
+      "https://cdn4.telesco.pe/file/d0OLKZrKk6n5ykvbt0guAFOY_Bs1i7FhoFYriQmi-JiZv6GR3JZiFNHzKYLPCe-fgttL3lqdjvDFu0RytBlrqVipSoRgLB07zINs-5ubRdPLvv0CfW4JuBbh0OxAcGK927N04vOia4oIYP8u7fJPQuV7Ng-qpBqwYbJ6ncem0IF-D9ppiWAFW-mjiQ-O6RYPGLD-cDNOLnBayo33l3Rdr0_qoVFRa4QE13z8bs5RI8p1Kq0OOviVMTY18xos1ilX6AwI5bUR6tU6qugQHVXD32A2Ng3-wwqinhqkLOA6hFHGgl9iJOwISo_CiD-6vYLzPPSrdVV5gIqKUuMA7y83og.jpg",
+      "https://cdn4.telesco.pe/file/iil1nm5kAjaYYhN6pshjFfg05-jMf5pgglHIjvYczPGQj5XlY_AT-5tqbjXNV2KAoChY2p5HE0AgbFIvStxFpb4qxjybKx-e9D-0TAQJnAFAAjuh9ol2DNB5MsXQl3Gahu6FEMRwLliOkqx6Z8EduWLp20knBss4LjK9dDh38hasPBFDG-24Qp7AnJ6Pz-7Z9nH1z9Q9EdfkSVUKKonYT_J0qw8FWEmIXXyBt3i4CRCQ5R6FbRj39MnGgz0AveUsvNB-LQu35VNe2vaElw__wvDIfrEApBm0ovX-NdVKaQkngEYoqvYTdbojPHXb9A4-7RmbWeBk6uBXdtxJ0C-qyA.jpg",
+      "https://cdn4.telesco.pe/file/MXU4qjTlaGQ7U1jVpN1WOKGcBFO-PMRbPyFRLkXzWgKHdto7lOaYbCm75XhXux9WKskZkkznNaEGZrpr_5RlWzcFxc780Uj4Tw6aImftVZh0L0K5HPJcc2zqEXYjh_H3puIsPkyjiC7blHwqa_If9OECYSPDHi0OScv69bIwaMHVuaDg9efvu4iRtkskEOlD1vaW_3HaXyvqOp9ydxssetdYCMXpcI9N9twbpchIOFrUod1o9aVWWJYPkbYbExwbIZ4rEOp1D7f6cZuJUJN35-AKVmEE8-1z_JMLPlpEXe6zKkhDIVrPHfuioxc2MwycmXtTQyKSvZA-bjrqBhj7Gg.jpg",
+      "https://cdn4.telesco.pe/file/ehiEXoEvYr_TIDRwa5VoKO8oBlVtLAaj2qE7gAMzwg9DibwL54DJ9mGNWN_IkJ3DbN70oKpWIulHCRDTQcRQ4MBCNj-mDqATSPp-UwxTCOnWNpR8ObS3Rt45U8Vx5XNnjNrqYakPxE0ICmO9dVXznQi9k-d30ls7J8to-28i0TrHzp50v1hcQzW3UotK8S9y2IPFCp6gFKXucq4EZPc5Y-ef2cuictQsN2helsvm1OTY4EIxYkYYLd0AhoUv2EmYJMSQAjXpWf09GstjFLWs_fSEeAFzdnzMNjbWaXfeiymnhxGBqU1li1m1q7B0-tLo8JO0GF6JE8Ow-fK_M9O0OA.jpg",
+      "https://cdn4.telesco.pe/file/GPaqRk2xQqB-aKV_XcXFRVC6YeAsYtHSNpyhNVe5HRhKc21ntAo8BFbDYr6jTazdyNZZN8tqJpXnmd-9WOOWFftR-Zuvx8QDsyqOmg5MTpwIqQId2cmQxifSFRIhQuEk5JmcPwcLhvDTALoBsd1pj8vXWywaiBe6tqFuio9Zr22Jzhzh-LcgJKloAYaHr9tzqBEIwDu2jHGjIy95g3XnZE5IHfLAs2hLyV6DyvLSqi9GuslVXtDvLPYCuoOXpNzE_s4kQnaqscVjAqUGxID7WwefquEaPm6pSb-EsRAGpIrGNlQKZNlSlNLAn_1XnfoE4SuSXIUaJJWsyg3ibyBk1g.jpg",
+      "https://cdn4.telesco.pe/file/T4aYVQK8TJWyYQ-HJDJf6158--1K7rHujNrboPyLTO_RFbHXhSKJMBq12ivD7R7t7g8lToJGoVz8Ek1KgAaI-VJ4hBEnfdJ6pF8t2h83RjaszFqZpn4NY4PQc9F5vZDWhVg5Rm_dVtRCAbwtBy2lgmnW_bSm7L-Xzaq_chE_oa6OGiJr7hYUcHqLmBzj9dJREZpyj4pgbRw_J7r44l9nTL7PP-GM3eqJoou9v6WFcweq-NuFe2Odrbh9VqLxA6J1JQJ3la641Cx_3wZAYaDqehY94wt8tqiO0gjKbrk9ysiTq1nlNYCKHSIocsjLYI-wjw8m4dZ2U-sKeFenAMOIrw.jpg",
+      "https://cdn4.telesco.pe/file/D43PQhQj_h7HKiBoSMJQC9lcI1BtHbFs9APxZzsH3DRVPxjSqJRKVK9Sj7CqnlxA8KqhmYxpdNz3cdqBvZtH_91jMnm8Bal4lxbshxIl5Oc8r8AOvvYdbkAS_DCg8l2BeDPi4K1b3dAWngt2ktwlgykac6FndPfGjbMQs32OxIY75utk5TIranw66glBtkEB6WsApAKGzEojTxqOexP8fbG7CfUi0_M4-uLD--ry0utPzC0XVk6NIENhanjBnWxaAfHtrLDiA4pXo0i5ER_IroJWAJIoGZxCGOmE4xIgrHzwac8LzCiTmt4JKWkYUN0E87NatVjpf8IQgT08mxVNPQ.jpg",
+      "https://cdn4.telesco.pe/file/CZppSyqEZcvK12dxM_nHR2Q542my1h6JE4s8NG6aI6Q7lCWfTuu1srd667irSbaiz5a8iA7p7ch8nrGSKsIvZwviT8o1cyB78o04EjXbldGgQsU0YK2wSWUOr73m-0OWLrIEFILeth_oIGQ3rl60Wx9QjwVJdKwqsz6NRj8QHeare2mBWEMHrBvWEl1dIAYByqnK628GH_Y-R9viCNMOxSSAjVZdzQAYA-jLUXtboDSgeJGL8Q1yjlGH_OF0Wt4b0xL4V_vYxEU65jfJkADRnp4C1I8UJMa-A5MDCH-YXi1fZmNHpS6iycCQIO4ipqrzrMzgNMaiBjUESlbOSM2C1g.jpg",
+      "https://cdn4.telesco.pe/file/NAk-8d8MREKSouSgktgV1DU4Q0QIPqKXZuCcEazBBUJx0N6t-ls5stLpWPxRkWSFYJYjH8ubG-4jDF8LzPuXv_N9l4kuAFUxoR07jri3R66LHj6__oBe5CCikaip_dpk5Q7FL1tNUkRW-k2M3lSQp35PgYpVvcn4Xkbf2mu3qJmTgQrFu8JlgxCLspoxGy_UF8RBlq4BCbAaFXQRJQs_pn7Y_-KsZDwoWYx3tw4P-4zoTJN2_dbekC9ayc3bfdZgxQF9RuvwJvg7iWGhWNnRpIpHO069p_3NWNyO5bVNRMg930gOfJ2u-c0dNJ8T5KBelvgrQke4QpmglOceY3Vi2g.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-10-11T07:50:03+00:00",
+    "views": 34
   }
 ]
