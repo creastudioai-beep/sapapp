@@ -60,9 +60,20 @@ let telegramMetaCacheTime = 0;
 // Products data (for shop widget) — paginated from sapapp repo
 const PRODUCTS_BASE_URL = GITHUB_PAGES_BASE + '/data/products';
 const PRODUCTS_FALLBACK_URL = 'https://raw.githubusercontent.com/creastudioai-beep/sapapp/main/data/products';
-let productsCache = null;
-let productsCacheTime = 0;
+let productsMetaCache = null;     // { pages_count, total_products }
+let productsMetaCacheTime = 0;
+let productsPageCache = {};       // page_num -> { data, time }
 const PRODUCTS_CACHE_TTL = 3600000; // 1 hour in ms
+
+const USER_AGENT = 'SochiAutoParts-Worker/10.0';
+
+const ALLOWED_ORIGINS = [
+  'https://sochiautoparts.ru',
+  'https://www.sochiautoparts.ru',
+];
+
+const MAX_RETRIES = 2;
+const RETRY_DELAY_MS = 500;
 
 // Path aliases — redirect old/alternative URLs to correct static files
 const PATH_ALIASES = {
@@ -124,6 +135,14 @@ export default {
       return handleArchivePost(postId, isEn, country, request, ctx);
     }
 
+    // --- Dynamic archive pagination: /archive/page/{n} or /en/archive/page/{n} ---
+    const archivePageMatch = path.match(/^\/(?:en\/)?archive\/page\/(\d+)$/);
+    if (archivePageMatch) {
+      const pageNum = parseInt(archivePageMatch[1], 10);
+      const isEn = path.startsWith('/en/');
+      return handleArchivePage(pageNum, isEn, country, request, ctx);
+    }
+
     // --- RSS compatibility: /feed.xml → serve /rss.xml ---
     if (path === '/feed.xml') {
       path = '/rss.xml';
@@ -165,10 +184,12 @@ async function handleAffiliateRedirect(programId, country, request, ctx) {
     if (prog) {
       const affiliateUrl = prog.goto_link || prog.gotoLink || prog.affiliateUrl || prog.affiliate_url || '';
       if (affiliateUrl) {
-        // Check region: if program has region restrictions, redirect there only for matching regions
-        // If user's region not in allowed list, still redirect (let the affiliate network handle it)
-        // This prevents losing clicks from users in adjacent regions
-        return Response.redirect(affiliateUrl, 302);
+        // Region check: if program has region restrictions, verify user's region matches
+        const regions = prog.allowed_regions || [];
+        if (regions.length === 0 || regions.includes(country)) {
+          return Response.redirect(affiliateUrl, 302);
+        }
+        // Region mismatch — skip this program, try fallback below
       }
     }
 
@@ -214,8 +235,8 @@ async function getAdmitadPrograms(ctx) {
   }
 
   try {
-    const response = await fetch(ADMITAD_DATA_URL, {
-      headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
+    const response = await fetchWithRetry(ADMITAD_DATA_URL, {
+      headers: { 'User-Agent': USER_AGENT },
       cf: { cacheTtl: 3600, cacheEverything: true },
     });
 
@@ -237,84 +258,108 @@ async function getAdmitadPrograms(ctx) {
 // Products data (for shop widget on archive post pages)
 // =============================================================================
 
-async function getProducts(ctx) {
+// Get products meta info (pages count, total). Cached separately from product pages.
+async function getProductsMeta(ctx) {
   const now = Date.now();
-  if (productsCache && (now - productsCacheTime) < PRODUCTS_CACHE_TTL) {
-    return productsCache;
+  if (productsMetaCache && (now - productsMetaCacheTime) < PRODUCTS_CACHE_TTL) {
+    return productsMetaCache;
   }
 
-  try {
-    // First, fetch the meta to know how many pages exist
-    let meta = null;
-    for (const baseUrl of [PRODUCTS_BASE_URL, PRODUCTS_FALLBACK_URL]) {
-      try {
-        const metaResp = await fetch(`${baseUrl}/meta.json`, {
-          headers: { 'User-Agent': 'SochiAutoParts-Worker/10.0' },
-          cf: { cacheTtl: 3600, cacheEverything: true },
-        });
-        if (metaResp.ok) {
-          meta = await metaResp.json();
-          break;
-        }
-      } catch (e) {
-        console.error(`Failed to fetch products meta from ${baseUrl}:`, e);
+  for (const baseUrl of [PRODUCTS_BASE_URL, PRODUCTS_FALLBACK_URL]) {
+    try {
+      const metaResp = await fetchWithRetry(`${baseUrl}/meta.json`, {
+        headers: { 'User-Agent': USER_AGENT },
+        cf: { cacheTtl: 3600, cacheEverything: true },
+      });
+      if (metaResp.ok) {
+        productsMetaCache = await metaResp.json();
+        productsMetaCacheTime = now;
+        return productsMetaCache;
       }
+    } catch (e) {
+      console.error(`Failed to fetch products meta from ${baseUrl}:`, e);
     }
-
-    if (!meta) throw new Error('Products meta fetch failed');
-
-    const totalPages = meta.pages_count || 1;
-    const allProducts = [];
-
-    // Fetch all pages in parallel (batches of 5 to avoid overwhelming)
-    const batchSize = 5;
-    for (let batch = 0; batch < totalPages; batch += batchSize) {
-      const promises = [];
-      for (let i = batch + 1; i <= Math.min(batch + batchSize, totalPages); i++) {
-        promises.push(fetchProductPage(i));
-      }
-      const results = await Promise.allSettled(promises);
-      for (const result of results) {
-        if (result.status === 'fulfilled' && Array.isArray(result.value)) {
-          allProducts.push(...result.value);
-        }
-      }
-    }
-
-    // Map abbreviated keys to full names
-    productsCache = allProducts.map(p => ({
-      id: p.f || p.id,
-      name: p.n || p.name || '',
-      price: p.p || p.price || 0,
-      oldPrice: p.o || p.oldPrice || p.old_price || 0,
-      currency: p.c || p.currency || 'RUB',
-      url: p.u || p.url || p.productUrl || '#',
-      image: p.i || p.image || p.imageUrl || '',
-      vendor: p.v || p.vendor || p.brand || '',
-      description: p.d || p.description || '',
-      feedId: p.f || p.feedId || p.feed_id || '',
-      feedName: p.fn || p.feedName || p.feed_name || '',
-      feedColor: p.fc || p.feedColor || '',
-      feedIcon: p.fi || p.feedIcon || '',
-      categoryId: p.cat || p.categoryId || p.category_id || '',
-      available: p.a !== undefined ? p.a : (p.available !== undefined ? p.available : true),
-      shortNote: p.sn || p.shortNote || '',
-      model: p.m || p.model || '',
-      type: p.tp || p.type || '',
-    }));
-    productsCacheTime = now;
-    return productsCache;
-  } catch (e) {
-    console.error('Failed to fetch products data:', e);
-    return productsCache || [];
   }
+  return productsMetaCache || { pages_count: 0, total_products: 0 };
+}
+
+// Get a single page of products. Cached per-page.
+async function getProductsPage(pageNum, ctx) {
+  const now = Date.now();
+  const cached = productsPageCache[pageNum];
+  if (cached && (now - cached.time) < PRODUCTS_CACHE_TTL) {
+    return cached.data;
+  }
+
+  const raw = await fetchProductPage(pageNum);
+  const mapped = raw.map(p => ({
+    id: p.f || p.id,
+    name: p.n || p.name || '',
+    price: p.p || p.price || 0,
+    oldPrice: p.o || p.oldPrice || p.old_price || 0,
+    currency: p.c || p.currency || 'RUB',
+    url: p.u || p.url || p.productUrl || '#',
+    image: p.i || p.image || p.imageUrl || '',
+    vendor: p.v || p.vendor || p.brand || '',
+    description: p.d || p.description || '',
+    feedId: p.f || p.feedId || p.feed_id || '',
+    feedName: p.fn || p.feedName || p.feed_name || '',
+    feedColor: p.fc || p.feedColor || '',
+    feedIcon: p.fi || p.feedIcon || '',
+    categoryId: p.cat || p.categoryId || p.category_id || '',
+    available: p.a !== undefined ? p.a : (p.available !== undefined ? p.available : true),
+    shortNote: p.sn || p.shortNote || '',
+    model: p.m || p.model || '',
+    type: p.tp || p.type || '',
+  }));
+  productsPageCache[pageNum] = { data: mapped, time: now };
+  return mapped;
+}
+
+// Get ALL products (loads all pages on demand, cached per-page).
+async function getProducts(ctx) {
+  const meta = await getProductsMeta(ctx);
+  const totalPages = meta.pages_count || 0;
+  if (totalPages === 0) return [];
+
+  const allProducts = [];
+  const batchSize = 5;
+  for (let batch = 0; batch < totalPages; batch += batchSize) {
+    const promises = [];
+    for (let i = batch + 1; i <= Math.min(batch + batchSize, totalPages); i++) {
+      promises.push(getProductsPage(i, ctx));
+    }
+    const results = await Promise.allSettled(promises);
+    for (const result of results) {
+      if (result.status === 'fulfilled' && Array.isArray(result.value)) {
+        allProducts.push(...result.value);
+      }
+    }
+  }
+  return allProducts;
+}
+
+// Get a specific page range of products (for shop API pagination).
+async function getProductsPageRange(startPage, endPage, ctx) {
+  const promises = [];
+  for (let i = startPage; i <= endPage; i++) {
+    promises.push(getProductsPage(i, ctx));
+  }
+  const results = await Promise.allSettled(promises);
+  const products = [];
+  for (const result of results) {
+    if (result.status === 'fulfilled' && Array.isArray(result.value)) {
+      products.push(...result.value);
+    }
+  }
+  return products;
 }
 
 async function fetchProductPage(pageNum) {
   for (const baseUrl of [PRODUCTS_BASE_URL, PRODUCTS_FALLBACK_URL]) {
     try {
-      const response = await fetch(`${baseUrl}/page_${pageNum}.json`, {
-        headers: { 'User-Agent': 'SochiAutoParts-Worker/10.0' },
+      const response = await fetchWithRetry(`${baseUrl}/page_${pageNum}.json`, {
+        headers: { 'User-Agent': USER_AGENT },
         cf: { cacheTtl: 3600, cacheEverything: true },
       });
       if (response.ok) {
@@ -338,7 +383,7 @@ async function handleShopProductsAPI(url, request, ctx) {
     const products = await getProducts(ctx);
     if (!products || products.length === 0) {
       return new Response(JSON.stringify({ products: [], total: 0, page: 1, per_page: 30 }), {
-        headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=300', 'Access-Control-Allow-Origin': '*' },
+        headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=300', 'Access-Control-Allow-Origin': getAllowedOrigin(request) },
       });
     }
 
@@ -392,7 +437,7 @@ async function handleShopProductsAPI(url, request, ctx) {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'public, max-age=300, s-maxage=300',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': getAllowedOrigin(request),
       },
     });
   } catch (e) {
@@ -423,7 +468,7 @@ async function handleAdsAPI(url, country, request, ctx) {
         'Content-Type': 'text/html; charset=utf-8',
         'Cache-Control': 'public, max-age=300, s-maxage=300',
         'Vary': 'Accept-Encoding, Cloudflare-Viewer-Country',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': getAllowedOrigin(request),
       },
     });
   } catch (e) {
@@ -503,8 +548,8 @@ async function getTelegramIndex(ctx) {
   // Try primary (GitHub Pages) then fallback (raw.githubusercontent.com)
   for (const baseUrl of [TELEGRAM_ARCHIVE_BASE, TELEGRAM_ARCHIVE_FALLBACK]) {
     try {
-      const response = await fetch(`${baseUrl}/posts_index.json`, {
-        headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
+      const response = await fetchWithRetry(`${baseUrl}/posts_index.json`, {
+        headers: { 'User-Agent': USER_AGENT },
         cf: { cacheTtl: 3600, cacheEverything: true },
       });
 
@@ -532,8 +577,8 @@ async function getTelegramPage(pageNum, ctx) {
   // Try primary (GitHub Pages) then fallback (raw.githubusercontent.com)
   for (const baseUrl of [TELEGRAM_ARCHIVE_BASE, TELEGRAM_ARCHIVE_FALLBACK]) {
     try {
-      const response = await fetch(`${baseUrl}/page_${pageNum}.json`, {
-        headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
+      const response = await fetchWithRetry(`${baseUrl}/page_${pageNum}.json`, {
+        headers: { 'User-Agent': USER_AGENT },
         cf: { cacheTtl: 3600, cacheEverything: true },
       });
 
@@ -558,8 +603,8 @@ async function getTelegramMeta(ctx) {
 
   for (const baseUrl of [TELEGRAM_ARCHIVE_BASE, TELEGRAM_ARCHIVE_FALLBACK]) {
     try {
-      const response = await fetch(`${baseUrl}/meta.json`, {
-        headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
+      const response = await fetchWithRetry(`${baseUrl}/meta.json`, {
+        headers: { 'User-Agent': USER_AGENT },
         cf: { cacheTtl: 3600, cacheEverything: true },
       });
 
@@ -1035,16 +1080,18 @@ footer{text-align:center;padding:2rem 0;color:var(--text-muted);font-size:0.875r
 
 async function proxyToGitHubPages(path, request, ctx) {
   const headers = new Headers();
-  headers.set('User-Agent', 'SochiAutoParts-Worker/7.0');
+  headers.set('User-Agent', USER_AGENT);
   headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
 
-  // Check cache first
+  // Check cache first — include query string in cache key to avoid collisions
   const cache = caches.default;
-  const cacheKey = new Request(GITHUB_PAGES_BASE + path, { method: 'GET' });
+  const requestUrl = new URL(request.url);
+  const cacheKeyUrl = GITHUB_PAGES_BASE + path + (requestUrl.search ? '?' + requestUrl.search : '');
+  const cacheKey = new Request(cacheKeyUrl, { method: 'GET' });
 
   let cachedResponse = await cache.match(cacheKey);
   if (cachedResponse) {
-    return addSiteHeaders(new Response(cachedResponse.body, cachedResponse), request.url);
+    return addSiteHeaders(new Response(cachedResponse.body, cachedResponse), request.url, request);
   }
 
   // Helper: fetch from GH Pages with given path
@@ -1095,7 +1142,7 @@ async function proxyToGitHubPages(path, request, ctx) {
     const responseToCache = response.clone();
     ctx.waitUntil(cache.put(cacheKey, responseToCache));
 
-    return addSiteHeaders(response, request.url);
+    return addSiteHeaders(response, request.url, request);
 
   } catch (error) {
     return new Response(`Worker error: ${error.message}`, {
@@ -1110,7 +1157,7 @@ async function proxyToGitHubPages(path, request, ctx) {
 // Helper functions
 // =============================================================================
 
-function addSiteHeaders(response, requestUrl) {
+function addSiteHeaders(response, requestUrl, request) {
   const newHeaders = new Headers(response.headers);
 
   const contentType = newHeaders.get('Content-Type') || '';
@@ -1134,7 +1181,15 @@ function addSiteHeaders(response, requestUrl) {
   newHeaders.set('Cache-Control', `public, max-age=${CACHE_TTL_BROWSER}`);
 
   if (requestUrl.includes('.xml') || requestUrl.includes('/rss') || requestUrl.includes('/feed')) {
+    // RSS/feeds need to be accessible from any reader — use wildcard
     newHeaders.set('Access-Control-Allow-Origin', '*');
+  } else {
+    // For other proxied content, restrict to known origins
+    const origin = request.headers?.get('Origin') || '';
+    if (ALLOWED_ORIGINS.includes(origin) || origin.endsWith('.sochiautoparts.ru') ||
+        origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      newHeaders.set('Access-Control-Allow-Origin', origin);
+    }
   }
 
   newHeaders.delete('X-GitHub-Request-Id');
@@ -1145,6 +1200,108 @@ function addSiteHeaders(response, requestUrl) {
     statusText: response.statusText,
     headers: newHeaders,
   });
+}
+
+
+// =============================================================================
+// Fetch with retry (for resilience against transient failures)
+// =============================================================================
+
+async function fetchWithRetry(url, options, retries = MAX_RETRIES) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const response = await fetch(url, options);
+      if (response.ok || response.status === 404) return response;
+      // Non-2xx but not 404 — retry if attempts remain
+      if (attempt < retries) {
+        await new Promise(r => setTimeout(r, RETRY_DELAY_MS * (attempt + 1)));
+        continue;
+      }
+      return response;
+    } catch (e) {
+      if (attempt < retries) {
+        console.warn(`fetchWithRetry: attempt ${attempt + 1} failed for ${url}, retrying...`, e.message);
+        await new Promise(r => setTimeout(r, RETRY_DELAY_MS * (attempt + 1)));
+        continue;
+      }
+      throw e;
+    }
+  }
+}
+
+
+// =============================================================================
+// CORS: return the request's Origin if it matches our domain, else empty string
+// =============================================================================
+
+function getAllowedOrigin(request) {
+  const origin = request.headers.get('Origin') || '';
+  if (ALLOWED_ORIGINS.includes(origin)) return origin;
+  // Also allow subdomains and localhost for development
+  if (origin.endsWith('.sochiautoparts.ru') || origin.includes('localhost') || origin.includes('127.0.0.1')) return origin;
+  return '';
+}
+
+
+// =============================================================================
+// Dynamic archive pagination handler: /archive/page/{n}
+// Returns a JSON list of posts for page N (used for infinite scroll / lazy loading)
+// =============================================================================
+
+async function handleArchivePage(pageNum, isEn, country, request, ctx) {
+  try {
+    if (pageNum < 1) pageNum = 1;
+
+    const pageData = await getTelegramPage(pageNum, ctx);
+    if (!pageData || !Array.isArray(pageData) || pageData.length === 0) {
+      return new Response(JSON.stringify({ posts: [], page: pageNum, has_more: false }), {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Cache-Control': 'public, max-age=300',
+          'Access-Control-Allow-Origin': getAllowedOrigin(request),
+        },
+      });
+    }
+
+    const meta = await getTelegramMeta(ctx);
+    const totalPages = meta.pages_count || 1;
+
+    // Return lightweight post summaries for archive listing
+    const posts = pageData.map(post => {
+      const text = post.text || '';
+      const photos = post.photos || [];
+      const videoThumbs = post.video_thumbnails || [];
+      const thumb = photos.length > 0 ? photos[0] : (videoThumbs.length > 0 ? videoThumbs[0] : '');
+      return {
+        id: post.id,
+        text: text.substring(0, 200),
+        date: post.date || '',
+        views: post.views || 0,
+        thumb,
+        has_video: (post.videos || []).length > 0 || videoThumbs.length > 0,
+        photo_count: photos.length,
+      };
+    });
+
+    return new Response(JSON.stringify({
+      posts,
+      page: pageNum,
+      total_pages: totalPages,
+      has_more: pageNum < totalPages,
+    }), {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'public, max-age=300, s-maxage=300',
+        'Access-Control-Allow-Origin': getAllowedOrigin(request),
+      },
+    });
+  } catch (e) {
+    console.error('Archive page error:', e);
+    return new Response(JSON.stringify({ posts: [], page: pageNum, has_more: false, error: e.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    });
+  }
 }
 
 
