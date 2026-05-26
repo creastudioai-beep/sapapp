@@ -152,8 +152,8 @@ if not logger.handlers:
 # ---------------------------------------------------------------------------
 
 # GitHub Pages size limits require constraining the number of generated files.
-MAX_TAG_PAGES: int = 200  # Only generate tag pages for the top 200 tags (size constraint)
-MAX_POST_PAGES: int = 500  # Only generate individual post pages for the latest 500 posts (size constraint)
+MAX_TAG_PAGES: int = 10000  # Only generate tag pages for the top 200 tags (size constraint)
+MAX_POST_PAGES: int = 10000  # Only generate individual post pages for the latest 500 posts (size constraint)
 GENERATE_AMP: bool = False  # Skip AMP pages to reduce output size
 GENERATE_AMP_HOMEPAGE: bool = False  # Skip AMP homepage
 
