@@ -758,8 +758,8 @@ async function renderAdBlocks(lang, allowedRegions, ctx, maxBlocks = 6) {
 
     const adsHTML = selectedAds.map(prog => {
       const imageUrl = prog.image || prog.logo || '';
-      const categoryKey = prog.jsonCategory || prog.internalCategory || 'other';
-      const categoryLabel = ADMITAD_CATEGORIES[categoryKey]?.[lang] || ADMITAD_CATEGORIES[categoryKey]?.ru || prog.jsonCategory || 'Other';
+      const categoryKey = prog.jsonCategory || prog.category || prog.internalCategory || 'other';
+      const categoryLabel = ADMITAD_CATEGORIES[categoryKey]?.[lang] || ADMITAD_CATEGORIES[categoryKey]?.ru || prog.jsonCategory || prog.category || 'Other';
       const description = prog.description || prog.short_description || '';
       const btnText = lang === 'ru' ? 'Перейти' : 'Go';
 

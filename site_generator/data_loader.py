@@ -32,6 +32,7 @@ import re
 import time
 from datetime import datetime, timezone
 from typing import Any, Optional
+from urllib.parse import quote as url_quote
 
 import requests
 
@@ -437,7 +438,9 @@ def _parse_admitad_data(raw_data) -> list:
                     prog["gotoLink"] = prog["goto_link"]
 
                 # Map 'category' -> 'jsonCategory' for template compatibility
-                if "category" in prog and "jsonCategory" not in prog:
+                # NOTE: jsonCategory may exist but be None/null in the data,
+                # so check for falsy value, not just key existence
+                if "category" in prog and not prog.get("jsonCategory"):
                     prog["jsonCategory"] = prog["category"]
 
                 # Map 'allowed_regions' -> 'regions'
@@ -571,8 +574,9 @@ def _load_telegram_archive(archive_dir: str) -> list:
                             media_list.append(media_item)
                         post["media"] = media_list
                     # Extract hashtags from text if not present (including Arabic)
+                    # Broad Unicode coverage: \w (letters/digits/_), Arabic basic + Supplement + Extended-A
                     if not post.get("hashtags") and post.get("text"):
-                        hashtags = re.findall(r"#([\w\u0600-\u06FF]+)", post["text"], re.UNICODE)
+                        hashtags = re.findall(r"#([\w\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+)", post["text"], re.UNICODE)
                         if hashtags:
                             post["hashtags"] = ["#" + h for h in hashtags]
                     # Generate title from text if not present
@@ -1068,16 +1072,18 @@ def format_post_text(text: str, lang: str = "ru") -> str:
 
     # Step 4: Convert hashtags to links
     # Match #word patterns (Cyrillic, Latin, Arabic, numbers, underscores)
-    # Unicode-aware: \w matches word chars, \u0600-\u06FF covers Arabic
+    # Broad Unicode coverage: \w (letters/digits/_), Arabic basic + Supplement + Extended-A
     def _hashtag_link(match: re.Match) -> str:
         hashtag = match.group(0)       # e.g. "#автозапчасти" or "#أخبارالسيارات"
         tag_name = match.group(1)      # e.g. "автозапчасти" or "أخبارالسيارات"
         escaped_hashtag = html.escape(hashtag)
-        escaped_tag = html.escape(tag_name)
-        return f'<a href="{prefix}tag/{escaped_tag}" class="hashtag-link">{escaped_hashtag}</a>'
+        # URL-encode the tag name for the href and add .html extension
+        # so GitHub Pages can find the tag page file on disk.
+        encoded_tag = url_quote(tag_name)
+        return f'<a href="{prefix}tag/{encoded_tag}.html" class="hashtag-link">{escaped_hashtag}</a>'
 
     safe = re.sub(
-        r"#([\w\u0600-\u06FF]+)",
+        r"#([\w\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+)",
         _hashtag_link,
         safe,
         flags=re.UNICODE,

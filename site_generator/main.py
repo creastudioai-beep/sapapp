@@ -450,9 +450,13 @@ def main(argv: Optional[list] = None) -> None:
         try:
             from .telegram_fetcher import fetch_all_posts
             # Incremental update: fetch new posts + expand archive backwards
-            # expand_pages=100 means ~2000 older posts per CI run
-            # After ~40-45 runs (every 2 hours = ~4 days), the full ~87K
-            # post archive will be complete. New posts are also fetched.
+            # expand_pages is now auto-computed based on archive completeness:
+            #   < 40K posts → 500 pages (~10K posts, ~3 min)
+            #   40K-70K     → 300 pages (~6K posts, ~2 min)
+            #   70K-85K     → 100 pages (~2K posts, ~40 sec)
+            #   >= 85K      →  30 pages (~600 posts, ~12 sec)
+            # With dynamic sizing, the full ~87K archive completes in
+            # ~7-8 runs (every 2 hours ≈ ~16 hours from ~22K posts).
             meta = fetch_all_posts(
                 channel=CHANNEL_USERNAME,
                 data_dir=telegram_data_dir,
@@ -460,8 +464,8 @@ def main(argv: Optional[list] = None) -> None:
                 batch_delay=0.3,
                 force_full=False,
             )
-            # Note: incremental_update uses expand_pages=100 by default (~2000 older posts per run)
-            # After ~40-45 runs (every 2 hours = ~4 days), full 87K archive will be complete.
+            # Note: incremental_update auto-computes expand_pages via
+            # _compute_expand_pages() based on current total_posts.
             logger.info(
                 "Telegram incremental update complete: %d posts in %d pages",
                 meta.get("total_posts", 0),

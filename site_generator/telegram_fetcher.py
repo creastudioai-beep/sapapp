@@ -6,7 +6,7 @@ and stores them incrementally as paginated JSON files.
 
 Architecture:
     data/telegram_archive/
-    ├── meta.json           # Metadata: total_posts, last_post_id, last_updated, pages_count
+    ├── meta.json           # Metadata: total_posts, last_post_id, oldest_post_id, last_updated, pages_count
     ├── page_1.json         # Posts 1-50 (newest)
     ├── page_2.json         # Posts 51-100
     ├── ...
@@ -557,6 +557,67 @@ def build_posts_index(data_dir: str, meta: dict) -> dict:
     return index
 
 
+def build_posts_index_incremental(data_dir: str, meta: dict, start_page: int = 1) -> dict:
+    """
+    Incrementally update the posts index for pages starting from ``start_page``.
+
+    This is much faster than ``build_posts_index`` when only the last few pages
+    have changed (e.g. when appending older posts).  It reads the existing
+    index, updates entries for ``start_page`` through ``pages_count``, and
+    saves the result.
+
+    Parameters
+    ----------
+    data_dir : str
+        Path to the telegram archive directory.
+    meta : dict
+        Current archive metadata (needs ``pages_count``).
+    start_page : int
+        The first page number that may have changed.  Pages before this
+        are assumed unchanged and their index entries are preserved as-is.
+
+    Returns
+    -------
+    dict mapping post_id (as string key) to ``{"page": int, "pos": int}``.
+    """
+    pages_count = meta.get("pages_count", 0)
+    index_path = os.path.join(data_dir, "posts_index.json")
+
+    # Load existing index
+    index: Dict[str, Dict[str, int]] = {}
+    if os.path.exists(index_path):
+        try:
+            with open(index_path, "r", encoding="utf-8") as f:
+                index = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            index = {}
+
+    # Remove entries for pages that may have changed
+    if start_page > 1 and index:
+        # Remove any entries pointing to pages >= start_page
+        keys_to_remove = [
+            k for k, v in index.items()
+            if v.get("page", 0) >= start_page
+        ]
+        for k in keys_to_remove:
+            del index[k]
+
+    # Re-add entries for changed pages
+    for page_num in range(start_page, pages_count + 1):
+        posts = load_page(data_dir, page_num)
+        for pos, post in enumerate(posts):
+            post_id = post.get("id")
+            if post_id is not None:
+                index[str(post_id)] = {"page": page_num, "pos": pos}
+
+    # Save
+    _ensure_dir(data_dir)
+    with open(index_path, "w", encoding="utf-8") as f:
+        json.dump(index, f, ensure_ascii=False, indent=2)
+
+    return index
+
+
 # ---------------------------------------------------------------------------
 # Re-pagination logic
 # ---------------------------------------------------------------------------
@@ -630,19 +691,23 @@ def re_paginate(data_dir: str, new_posts: list, meta: dict):
 
 def _re_paginate_clean(data_dir: str, new_posts: list, meta: dict):
     """
-    Clean re-implementation of re-paginate.
+    Efficient re-paginate for prepending new posts.
 
-    Strategy: collect all existing posts into one big list, prepend new
-    posts, then re-write all pages from scratch.  This is simpler and
-    correct, at the cost of re-writing pages that haven't changed.
+    Strategy: For small numbers of new posts (typical: 0–20 per update),
+    we cascade the overflow through pages instead of rewriting everything.
 
-    For an archive of 87K posts this is fine because we only do this
-    when new posts arrive (which is at most ~20 per update).
+    If the number of new posts is large relative to the archive, we fall
+    back to the simple approach of reading all posts and rewriting all pages.
     """
     pages_count = meta.get("pages_count", 0)
-    total_posts = meta.get("total_posts", 0)
+    num_new = len(new_posts)
 
-    # Collect all existing posts
+    # For small numbers of new posts, use the efficient cascade approach
+    if num_new < POSTS_PER_PAGE and pages_count > 0:
+        _re_paginate_cascade(data_dir, new_posts, meta)
+        return
+
+    # Fall back to the simple full-rewrite approach for large batches
     all_posts: list = []
     for page_num in range(1, pages_count + 1):
         posts = load_page(data_dir, page_num)
@@ -685,10 +750,113 @@ def _re_paginate_clean(data_dir: str, new_posts: list, meta: dict):
     meta["pages_count"] = new_pages_count
     if all_posts:
         meta["last_post_id"] = all_posts[0].get("id")
+        meta["oldest_post_id"] = all_posts[-1].get("id")
     meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     save_meta(data_dir, meta)
 
     # Rebuild index
+    build_posts_index(data_dir, meta)
+
+
+def _re_paginate_cascade(data_dir: str, new_posts: list, meta: dict):
+    """
+    Efficient cascade re-paginate for small numbers of new posts.
+
+    Instead of reading and rewriting all pages, we:
+    1. Prepend new posts to page 1
+    2. If page 1 overflows, push the excess to page 2
+    3. Continue cascading until there's no more overflow
+
+    This only reads and writes the pages that actually change,
+    which is typically 1–3 pages for a handful of new posts.
+    """
+    pages_count = meta.get("pages_count", 0)
+
+    # Build a set of new post IDs for dedup
+    new_ids = set()
+    for p in new_posts:
+        pid = p.get("id")
+        if pid is not None:
+            new_ids.add(pid)
+
+    overflow: list = list(new_posts)
+    page_num = 1
+    pages_modified = 0
+
+    while overflow and page_num <= pages_count:
+        existing = load_page(data_dir, page_num)
+        # Remove duplicates: if any existing post has an ID that's in new_posts,
+        # remove it from existing (keep the new version)
+        filtered_existing = [p for p in existing if p.get("id") not in new_ids]
+        combined = overflow + filtered_existing
+
+        if len(combined) <= POSTS_PER_PAGE:
+            save_page(data_dir, page_num, combined)
+            overflow = []
+            pages_modified += 1
+            break
+        else:
+            # Split: first POSTS_PER_PAGE go to this page, rest overflow
+            save_page(data_dir, page_num, combined[:POSTS_PER_PAGE])
+            overflow = combined[POSTS_PER_PAGE:]
+            pages_modified += 1
+
+        page_num += 1
+
+    # If we still have overflow, add new pages
+    while overflow:
+        page_posts = overflow[:POSTS_PER_PAGE]
+        save_page(data_dir, page_num, page_posts)
+        overflow = overflow[POSTS_PER_PAGE:]
+        page_num += 1
+        pages_modified += 1
+
+    new_pages_count = page_num - 1
+
+    # Update meta — recalculate totals properly
+    meta["pages_count"] = new_pages_count
+    # Count how many duplicates were removed from existing pages
+    # (IDs that appeared in both new_posts and existing pages)
+    # The true delta is: len(new_posts) - num_duplicates
+    # We count total posts by summing page lengths for modified pages
+    total_posts = meta.get("total_posts", 0)
+    # Count duplicates: new posts whose IDs already existed in the archive
+    num_duplicates = 0
+    for p in new_posts:
+        pid = p.get("id")
+        if pid is not None:
+            # Check if this ID existed in any page before modification
+            # Since we already filtered existing during cascade, we know
+            # that any ID in new_ids that was in old pages is a duplicate.
+            # We need to count how many of new_ids were in old pages.
+            pass  # Calculated differently below
+
+    # Simpler approach: just recount total from scratch for correctness
+    # Count only the modified and new pages (others are unchanged)
+    old_count_in_modified = 0
+    for pn in range(1, min(pages_count + 1, new_pages_count + 1)):
+        old_count_in_modified += 50  # Approximate; we'll get exact count below
+
+    # Get exact total by summing all page lengths
+    total = 0
+    for pn in range(1, new_pages_count + 1):
+        posts = load_page(data_dir, pn)
+        total += len(posts)
+    meta["total_posts"] = total
+
+    first_page = load_page(data_dir, 1)
+    if first_page:
+        meta["last_post_id"] = first_page[0].get("id")
+    last_pg = load_page(data_dir, new_pages_count)
+    if last_pg:
+        ids = [p.get("id") for p in last_pg if p.get("id") is not None]
+        if ids:
+            meta["oldest_post_id"] = min(ids)
+    meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    save_meta(data_dir, meta)
+
+    # Rebuild index — only for modified and new pages to avoid full rebuild
+    # For now, do a full rebuild for correctness (can be optimized later)
     build_posts_index(data_dir, meta)
 
 
@@ -831,10 +999,11 @@ def fetch_all_posts(
             if page_posts:
                 if meta.get("last_post_id") is None:
                     meta["last_post_id"] = page_posts[0].get("id")
-            # Save meta after every 10 pages to minimize I/O but still be safe
-            if (page_num - 1) % 10 == 0:
-                meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-                save_meta(data_dir, meta)
+                # Track oldest post ID from the last post on this page
+                meta["oldest_post_id"] = page_posts[-1].get("id")
+            # Save meta after every page flush to ensure resumability
+            meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+            save_meta(data_dir, meta)
 
         # Progress log
         if fetched_count % 1000 < 25:
@@ -863,6 +1032,12 @@ def fetch_all_posts(
     first_page = load_page(data_dir, 1)
     if first_page:
         meta["last_post_id"] = first_page[0].get("id")
+    # Track oldest post ID
+    last_page = load_page(data_dir, meta.get("pages_count", 0))
+    if last_page:
+        ids = [p.get("id") for p in last_page if p.get("id") is not None]
+        if ids:
+            meta["oldest_post_id"] = min(ids)
     meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     meta["channel"] = channel
     save_meta(data_dir, meta)
@@ -889,7 +1064,33 @@ def _update_meta_after_flush(data_dir: str, meta: dict, total_count: int):
     save_meta(data_dir, meta)
 
 
-def incremental_update(channel: str, data_dir: str, expand_pages: int = 100) -> dict:
+def _compute_expand_pages(meta: dict, requested_expand: int = 0) -> int:
+    """Compute how many pages to expand backwards based on archive completeness.
+
+    If the caller specifies a positive ``requested_expand``, that value is used.
+    Otherwise we choose dynamically based on how far the archive has progressed
+    towards the expected ~87K total:
+
+        * < 40K posts  →  500 pages  (~10 000 posts, ~3 min)
+        * 40K–70K      →  300 pages  (~6 000 posts, ~2 min)
+        * 70K–85K      →  100 pages  (~2 000 posts, ~40 sec)
+        * >= 85K       →   30 pages  (~600 posts, ~12 sec)
+    """
+    if requested_expand > 0:
+        return requested_expand
+
+    total = meta.get("total_posts", 0)
+    if total < 40_000:
+        return 500
+    elif total < 70_000:
+        return 300
+    elif total < 85_000:
+        return 100
+    else:
+        return 30
+
+
+def incremental_update(channel: str, data_dir: str, expand_pages: int = 0) -> dict:
     """
     Fast incremental update — fetch new posts AND expand archive with older posts.
 
@@ -911,8 +1112,9 @@ def incremental_update(channel: str, data_dir: str, expand_pages: int = 100) -> 
         Path to the telegram archive directory.
     expand_pages : int
         Number of pages to fetch when expanding the archive backwards.
-        Default 100 pages = ~2000 posts per incremental update.
-        Set to 0 to disable expansion (only fetch new posts).
+        Default 0 means auto-compute based on archive completeness
+        (see ``_compute_expand_pages``).  Set to a positive value to override.
+        Set to -1 to disable expansion entirely (only fetch new posts).
 
     Returns
     -------
@@ -975,14 +1177,11 @@ def incremental_update(channel: str, data_dir: str, expand_pages: int = 100) -> 
 
         print(f"[telegram_fetcher] Found {len(new_posts)} new post(s).")
 
-        # Re-paginate
+        # Re-paginate (also rebuilds index internally)
         re_paginate(data_dir, new_posts, meta)
 
         # meta is updated inside re_paginate, reload it
         meta = load_meta(data_dir)
-
-        # Rebuild index
-        build_posts_index(data_dir, meta)
 
         print(
             f"[telegram_fetcher] New posts added. "
@@ -993,23 +1192,30 @@ def incremental_update(channel: str, data_dir: str, expand_pages: int = 100) -> 
 
     # ------------------------------------------------------------------
     # Expand the archive backwards (fetch older posts)
-    # This grows the archive over time — each incremental update adds
-    # ~expand_pages pages of older posts. After ~40-45 runs, the full
-    # ~87K post archive will be complete.
+    # This grows the archive over time. The number of pages fetched per
+    # run is determined by _compute_expand_pages() based on completeness.
+    # With dynamic sizing, the full ~87K archive completes faster.
     # ------------------------------------------------------------------
-    if expand_pages > 0:
+    actual_expand = _compute_expand_pages(meta, expand_pages if expand_pages > 0 else 0)
+    if expand_pages == -1:
+        actual_expand = 0  # explicitly disabled
+
+    if actual_expand > 0:
         meta = load_meta(data_dir)  # Reload after possible new-posts update
-        oldest_known_id = _get_oldest_post_id(data_dir, meta)
+        # Use oldest_post_id from meta if available (avoids reading last page)
+        oldest_known_id = meta.get("oldest_post_id")
+        if oldest_known_id is None:
+            oldest_known_id = _get_oldest_post_id(data_dir, meta)
         if oldest_known_id is not None:
             print(
                 f"[telegram_fetcher] Expanding archive backwards "
-                f"(up to {expand_pages} pages, oldest known ID: {oldest_known_id})"
+                f"(up to {actual_expand} pages, oldest known ID: {oldest_known_id})"
             )
             older_posts_batch: list = []
             before_id = oldest_known_id
             pages_fetched = 0
 
-            while pages_fetched < expand_pages:
+            while pages_fetched < actual_expand:
                 try:
                     page_posts, next_before = fetch_telegram_page(channel, before_id=before_id)
                 except RuntimeError as exc:
@@ -1035,9 +1241,13 @@ def incremental_update(channel: str, data_dir: str, expand_pages: int = 100) -> 
 
             if older_posts_batch:
                 # These are older posts — append at the end of the archive
+                old_pages_count = meta.get("pages_count", 0)
                 _append_older_posts(data_dir, older_posts_batch, meta)
                 meta = load_meta(data_dir)
-                build_posts_index(data_dir, meta)
+                # Use incremental index update: only re-index the last page
+                # (which may have been filled up) and any new pages
+                start_page = max(1, old_pages_count)
+                build_posts_index_incremental(data_dir, meta, start_page=start_page)
                 print(
                     f"[telegram_fetcher] Expansion complete. Added {len(older_posts_batch)} older posts. "
                     f"Total: {meta['total_posts']} posts, {meta['pages_count']} pages."
@@ -1070,60 +1280,70 @@ def _get_oldest_post_id(data_dir: str, meta: dict) -> Optional[int]:
 
 
 def _append_older_posts(data_dir: str, older_posts: list, meta: dict):
-    """Append older posts at the end of the archive and re-paginate.
+    """Append older posts at the end of the archive efficiently.
 
     Unlike re_paginate which prepends new posts, this function appends
     older posts at the end, maintaining the newest-first order.
+
+    Optimized: Only modifies the last page (if not full) and adds new
+    pages. Does NOT rewrite existing full pages.
     """
     if not older_posts:
         return
 
+    # De-duplicate older posts against the existing archive
+    # We only need to check the last page for potential overlap
     pages_count = meta.get("pages_count", 0)
+    existing_ids = set()
+    if pages_count > 0:
+        # Only load the last page to check for overlaps
+        last_page = load_page(data_dir, pages_count)
+        for post in last_page:
+            pid = post.get("id")
+            if pid is not None:
+                existing_ids.add(pid)
 
-    # Collect all existing posts
-    all_posts: list = []
-    for page_num in range(1, pages_count + 1):
-        posts = load_page(data_dir, page_num)
-        all_posts.extend(posts)
-
-    # Append older posts at the end (they are already sorted newest-first
-    # from Telegram pagination, which is the same order as our storage)
-    all_posts.extend(older_posts)
-
-    # De-duplicate by post ID (keep first occurrence)
-    seen_ids = set()
-    deduped: list = []
-    for post in all_posts:
+    # Filter out duplicates
+    deduped_older: list = []
+    for post in older_posts:
         pid = post.get("id")
-        if pid is not None and pid not in seen_ids:
-            seen_ids.add(pid)
-            deduped.append(post)
+        if pid is not None and pid not in existing_ids:
+            deduped_older.append(post)
+            existing_ids.add(pid)
 
-    all_posts = deduped
+    if not deduped_older:
+        return
 
-    # Re-write all pages
-    new_pages_count = (len(all_posts) + POSTS_PER_PAGE - 1) // POSTS_PER_PAGE if all_posts else 0
+    # Step 1: Fill up the last page if it's not full
+    remaining: list = list(deduped_older)
+    if pages_count > 0:
+        last_page = load_page(data_dir, pages_count)
+        space_left = POSTS_PER_PAGE - len(last_page)
+        if space_left > 0:
+            fill = remaining[:space_left]
+            last_page.extend(fill)
+            save_page(data_dir, pages_count, last_page)
+            remaining = remaining[space_left:]
 
-    for page_num in range(1, new_pages_count + 1):
-        start = (page_num - 1) * POSTS_PER_PAGE
-        end = start + POSTS_PER_PAGE
-        save_page(data_dir, page_num, all_posts[start:end])
+    # Step 2: Add new pages for the rest
+    next_page = pages_count + 1
+    while remaining:
+        page_posts = remaining[:POSTS_PER_PAGE]
+        save_page(data_dir, next_page, page_posts)
+        remaining = remaining[POSTS_PER_PAGE:]
+        next_page += 1
 
-    # Remove stale pages
-    stale = new_pages_count + 1
-    while True:
-        stale_path = os.path.join(data_dir, f"page_{stale}.json")
-        if os.path.exists(stale_path):
-            os.remove(stale_path)
-            stale += 1
-        else:
-            break
+    new_pages_count = next_page - 1
 
     # Update meta
-    meta["total_posts"] = len(all_posts)
+    new_total = meta.get("total_posts", 0) + len(deduped_older)
+    meta["total_posts"] = new_total
     meta["pages_count"] = new_pages_count
-    if all_posts:
-        meta["last_post_id"] = all_posts[0].get("id")
+    # Update oldest_post_id
+    if deduped_older:
+        oldest_id = min(p.get("id", float('inf')) for p in deduped_older if p.get("id") is not None)
+        if oldest_id != float('inf'):
+            meta["oldest_post_id"] = oldest_id
     meta["last_updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     save_meta(data_dir, meta)
 

@@ -15,6 +15,7 @@ import math
 import re
 from datetime import datetime, timezone, timedelta
 from typing import Any, Dict, List, Optional
+from urllib.parse import quote as url_quote
 
 from .i18n import t
 from .config import (
@@ -393,11 +394,12 @@ def generate_hreflang_links(
         tag_match = re.match(r"/(?:en/)?tag/(.+)$", path)
         if tag_match:
             tag_name = tag_match.group(1)
-            escaped_tag = escape_html(tag_name)
+            # URL-encode the tag for proper link resolution (especially Arabic/Unicode tags)
+            encoded_tag = url_quote(tag_name)
             return (
-                f'<link rel="alternate" hreflang="ru" href="{SITE_URL}/tag/{escaped_tag}" />'
-                f'<link rel="alternate" hreflang="en" href="{SITE_URL}/en/tag/{escaped_tag}" />'
-                f'<link rel="alternate" hreflang="x-default" href="{SITE_URL}/tag/{escaped_tag}" />'
+                f'<link rel="alternate" hreflang="ru" href="{SITE_URL}/tag/{encoded_tag}" />'
+                f'<link rel="alternate" hreflang="en" href="{SITE_URL}/en/tag/{encoded_tag}" />'
+                f'<link rel="alternate" hreflang="x-default" href="{SITE_URL}/tag/{encoded_tag}" />'
             )
 
     # Articles listing page
@@ -1477,7 +1479,7 @@ def generate_tags_sitemap(hashtag_index: dict, lang: str = "ru") -> str:
         if count < TAG_MIN_POSTS_FOR_SITEMAP:
             continue
 
-        tag_encoded = escape_xml(tag)
+        tag_encoded = url_quote(tag)
         lastmod = tag_last_dates.get(tag, now)
 
         urls.append(

@@ -291,6 +291,7 @@ footer a:hover { color: var(--text-link); }
 .shop-pagination a:hover{border-color:var(--primary);color:var(--primary)}
 .shop-pagination .active{background:var(--primary);color:#fff;border:1px solid var(--primary)}
 .shop-pagination .disabled{opacity:0.4;pointer-events:none;background:var(--bg-card);border:1px solid var(--border-color);color:var(--text-muted)}
+.shop-pagination .dots{border:none;background:transparent;color:var(--text-muted);cursor:default;min-width:28px}
 .shop-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2rem 0;padding:1.5rem 0;border-top:1px solid var(--border-color)}
 .shop-features .feature-card{text-align:center;padding:1rem;background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-color)}
 .shop-features .feature-card .feature-icon{font-size:1.5rem;margin-bottom:0.5rem}

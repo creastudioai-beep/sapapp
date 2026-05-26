@@ -174,8 +174,8 @@ def _format_post_text_no_tags(text: str, lang: str = "ru") -> str:
     safe = escape_html(str(text))
 
     # Strip hashtags (including Arabic, Cyrillic, Latin, digits, underscores)
-    # Unicode-aware: matches \p{L} (all letters) + \p{N} (all numbers) + _
-    safe = re.sub(r"\s*#[\w\u0600-\u06FF]+", "", safe, flags=re.UNICODE)
+    # Broad Unicode coverage: \w (letters/digits/_), Arabic basic + Supplement + Extended-A
+    safe = re.sub(r"\s*#[\w\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+", "", safe, flags=re.UNICODE)
 
     # Convert URLs to clickable links
     def _url_link(match: re.Match) -> str:
@@ -960,7 +960,7 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
     for prog in programs:
         if not isinstance(prog, dict):
             continue
-        cat = prog.get("jsonCategory") or "other"
+        cat = prog.get("jsonCategory") or prog.get("category") or "other"
         if cat not in seen_categories and len(selected_ads) < max_blocks:
             seen_categories.add(cat)
             selected_ads.append(prog)
@@ -974,7 +974,7 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
         raw_image_url = prog.get("image") or prog.get("logo") or LOGO_EXTERNAL_URL
 
         # Get category label
-        json_category = prog.get("jsonCategory") or "other"
+        json_category = prog.get("jsonCategory") or prog.get("category") or "other"
         internal_cat = ADMITAD_CATEGORY_MAPPING.get(json_category, "OTHER")
         category_label = ADMITAD_CATEGORY_NAMES.get(lang, ADMITAD_CATEGORY_NAMES["ru"]).get(
             internal_cat, json_category

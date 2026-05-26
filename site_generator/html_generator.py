@@ -955,9 +955,9 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
                 tag_links.append(f'<a href="{tag_url}" class="hashtag">#{escape_html(tag_name)}</a>')
         tags_html = '<div class="post-tags">' + " ".join(tag_links) + "</div>"
 
-    # Telegram link
-    telegram_link = post.get("telegramLink") or f"https://t.me/{CHANNEL_USERNAME}/{post_id}"
-    open_in_tg = t("open_in_telegram", lang) if lang == "en" else "Открыть в Telegram"
+    # Back to home button (for main page post pages, NOT archive)
+    home_label = "← Назад на главную" if lang == "ru" else "← Back to Home"
+    home_url = _lang_base(lang)
 
     # Body
     body = f"""
@@ -976,7 +976,7 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
 </div>
 {tags_html}
 <div class="post-actions" style="margin:1.5rem 0;">
-<a href="{telegram_link}" class="btn-cta" target="_blank" rel="nofollow noopener noreferrer">💬 {open_in_tg}</a>
+<a href="{home_url}" class="btn-cta">🏠 {home_label}</a>
 </div>
 </article>
 {related_html}
@@ -1123,7 +1123,7 @@ def generate_amp_post_page(data: dict, post_id: int, lang: str, output_dir: str)
 </main>
 <footer>
 <div class="container">
-<p>&copy; {_get_current_year()} {SITE_AUTHOR}. {"Все права защищены." if lang == "ru" else "All rights reserved."}</p>
+<p>&#169; {_get_current_year()} {SITE_AUTHOR}. {"Все права защищены." if lang == "ru" else "All rights reserved."}</p>
 </div>
 </footer>
 </body>
@@ -1888,67 +1888,30 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
             '</noscript>'
         )
 
-    # Client-side shop script with pagination (30 products per page, "Load More" button)
-    load_more_text = "Показать ещё" if lang == "ru" else "Load more"
+    # Client-side shop script with numbered pagination (30 products per page)
     loading_text = "Загрузка..." if lang == "ru" else "Loading..."
     showing_text = "Показано" if lang == "ru" else "Showing"
     of_text = "из" if lang == "ru" else "of"
     products_text = "товаров" if lang == "ru" else "products"
+    prev_text = "Предыдущая" if lang == "ru" else "Previous"
+    next_text = "Следующая" if lang == "ru" else "Next"
     shop_script = f"""
 <script>
 (function(){{
-var products={products_json_data};
+var initialProducts={products_json_data};
 var totalProducts={total_products};
-var allProductsLoaded=products.length>=totalProducts;
-var apiPage=1;
-var isLoadingAPI=false;
 var grid=document.getElementById("shopProductGrid");
 var searchInput=document.getElementById("shopSearchInput");
 var sortSelect=document.getElementById("shopSortSelect");
 var emptyEl=document.getElementById("shopEmpty");
-var loadMoreBtn=document.getElementById("shopLoadMore");
 var pageInfoEl=document.getElementById("shopPageInfo");
+var paginationEl=document.getElementById("shopPagination");
 var currency="{currency}";
 var buyText="{buy_text}";
 var PER_PAGE=30;
 var currentPage=1;
-var currentFiltered=products;
-
-/* ---- Fetch additional products from /api/shop/products ---- */
-function fetchMoreFromAPI(){{
-  if(isLoadingAPI||allProductsLoaded)return;
-  isLoadingAPI=true;
-  if(loadMoreBtn)loadMoreBtn.textContent="{loading_text}";
-  var url="/api/shop/products?page="+apiPage+"&per_page=200";
-  fetch(url).then(function(r){{return r.json();}}).then(function(data){{
-    if(data.products&&data.products.length){{
-      var existing=new Set(products.map(function(p){{return p.id||p.url||p.name;}}));
-      var added=0;
-      data.products.forEach(function(p){{
-        var pid=p.id||p.url||p.name;
-        if(!existing.has(pid)){{
-          products.push(p);
-          existing.add(pid);
-          added++;
-        }}
-      }});
-      apiPage++;
-      if(data.total)totalProducts=data.total;
-      if(added===0||products.length>=totalProducts)allProductsLoaded=true;
-    }}else{{
-      allProductsLoaded=true;
-    }}
-    isLoadingAPI=false;
-    if(loadMoreBtn)loadMoreBtn.textContent="{load_more_text}";
-    filterAndSort();
-  }}).catch(function(){{
-    isLoadingAPI=false;
-    if(loadMoreBtn)loadMoreBtn.textContent="{load_more_text}";
-  }});
-}}
-
-/* ---- Start loading more products from API immediately ---- */
-fetchMoreFromAPI();
+var totalPages=Math.ceil(totalProducts/PER_PAGE)||1;
+var isLoading=false;
 
 function renderCard(p){{
   var n=(p.name||"").length>80?(p.name||"").substring(0,80)+"...":(p.name||"");
@@ -1973,56 +1936,139 @@ function renderCard(p){{
     '</div></a></div>';
 }}
 
-function renderProducts(){{
+function updatePageInfo(count){{
+  if(!pageInfoEl)return;
+  if(count===0){{
+    pageInfoEl.textContent="";
+    return;
+  }}
+  var start=(currentPage-1)*PER_PAGE+1;
+  var end=Math.min(currentPage*PER_PAGE,totalProducts);
+  pageInfoEl.textContent="{showing_text} "+start+"-"+end+" {of_text} "+totalProducts.toLocaleString("ru-RU")+" {products_text}";
+}}
+
+function renderPagination(){{
+  if(!paginationEl)return;
+  if(totalPages<=1){{paginationEl.innerHTML="";return;}}
+  var h="";
+  // Previous
+  if(currentPage>1){{
+    h+='<a href="#" data-page="'+(currentPage-1)+'" aria-label="{prev_text}">&laquo;</a>';
+  }}else{{
+    h+='<span class="disabled" aria-disabled="true">&laquo;</span>';
+  }}
+  // Page numbers with smart range
+  var maxVisible=7;
+  var startPage,endPage;
+  if(totalPages<=maxVisible){{
+    startPage=1;endPage=totalPages;
+  }}else{{
+    var half=Math.floor(maxVisible/2);
+    startPage=Math.max(1,currentPage-half);
+    endPage=Math.min(totalPages,currentPage+half);
+    if(currentPage-half<1)endPage=Math.min(totalPages,maxVisible);
+    if(currentPage+half>totalPages)startPage=Math.max(1,totalPages-maxVisible+1);
+  }}
+  if(startPage>1){{
+    h+='<a href="#" data-page="1">1</a>';
+    if(startPage>2)h+='<span class="dots">...</span>';
+  }}
+  for(var i=startPage;i<=endPage;i++){{
+    if(i===currentPage){{
+      h+='<span class="active" aria-current="page">'+i+'</span>';
+    }}else{{
+      h+='<a href="#" data-page="'+i+'">'+i+'</a>';
+    }}
+  }}
+  if(endPage<totalPages){{
+    if(endPage<totalPages-1)h+='<span class="dots">...</span>';
+    h+='<a href="#" data-page="'+totalPages+'">'+totalPages+'</a>';
+  }}
+  // Next
+  if(currentPage<totalPages){{
+    h+='<a href="#" data-page="'+(currentPage+1)+'" aria-label="{next_text}">&raquo;</a>';
+  }}else{{
+    h+='<span class="disabled" aria-disabled="true">&raquo;</span>';
+  }}
+  paginationEl.innerHTML=h;
+  // Bind click events
+  paginationEl.querySelectorAll("a[data-page]").forEach(function(a){{
+    a.addEventListener("click",function(e){{
+      e.preventDefault();
+      var p=parseInt(this.dataset.page,10);
+      if(p>=1&&p<=totalPages&&p!==currentPage)goToPage(p);
+    }});
+  }});
+}}
+
+function renderProducts(products){{
   if(!grid)return;
-  if(currentFiltered.length===0){{
+  if(!products||products.length===0){{
     grid.innerHTML="";
     if(emptyEl)emptyEl.style.display="block";
-    if(loadMoreBtn)loadMoreBtn.style.display="none";
-    if(pageInfoEl)pageInfoEl.textContent="";
+    if(paginationEl)paginationEl.innerHTML="";
+    updatePageInfo(0);
     return;
   }}
   if(emptyEl)emptyEl.style.display="none";
-  var showCount=Math.min(currentPage*PER_PAGE,currentFiltered.length);
   var h="";
-  for(var i=0;i<showCount;i++){{
-    h+=renderCard(currentFiltered[i]);
+  for(var i=0;i<products.length;i++){{
+    h+=renderCard(products[i]);
   }}
   grid.innerHTML=h;
-  // Update "Load More" button visibility
-  var hasMore=showCount<currentFiltered.length||(showCount<totalProducts&&!allProductsLoaded);
-  if(loadMoreBtn){{
-    loadMoreBtn.style.display=hasMore?"inline-block":"none";
-  }}
-  // Update page info text: "Показано 30 из 95165 товаров"
-  if(pageInfoEl){{
-    pageInfoEl.textContent="{showing_text} "+showCount+" {of_text} "+totalProducts.toLocaleString("ru-RU")+" {products_text}";
-  }}
+  updatePageInfo(products.length);
+  renderPagination();
 }}
 
-function filterAndSort(){{
+function goToPage(page){{
+  if(isLoading||page<1||page>totalPages)return;
+  currentPage=page;
+  isLoading=true;
+  if(grid)grid.style.opacity="0.5";
+  // Build API URL with current filters
   var q=(searchInput?searchInput.value:"").toLowerCase();
   var sort=sortSelect?sortSelect.value:"popular";
   var activeSupplier=document.querySelector(".supplier-filter-btn.active");
   var supplier=activeSupplier?activeSupplier.dataset.supplier:"";
-  var filtered=products.filter(function(p){{
-    if(supplier&&(p.feedName||p.feed_name||"")!==supplier)return false;
-    if(q&&q.length>=2){{
-      var name=(p.name||"").toLowerCase();
-      var desc=(p.description||"").toLowerCase();
-      if(name.indexOf(q)===-1&&desc.indexOf(q)===-1)return false;
+  var url="/api/shop/products?page="+page+"&per_page="+PER_PAGE;
+  if(q&&q.length>=2)url+="&q="+encodeURIComponent(q);
+  if(supplier)url+="&feed="+encodeURIComponent(supplier);
+  if(sort&&sort!=="popular")url+="&sort="+sort;
+  // If page 1 and no filters, use embedded data
+  if(page===1&&!q&&!supplier&&sort==="popular"){{
+    isLoading=false;
+    if(grid)grid.style.opacity="1";
+    renderProducts(initialProducts);
+    return;
+  }}
+  fetch(url).then(function(r){{return r.json();}}).then(function(data){{
+    isLoading=false;
+    if(grid)grid.style.opacity="1";
+    if(data.total)totalProducts=data.total;
+    if(data.total_pages)totalPages=data.total_pages;
+    else totalPages=Math.ceil(totalProducts/PER_PAGE)||1;
+    renderProducts(data.products||[]);
+    // Scroll to top of product grid
+    var rect=grid.getBoundingClientRect();
+    if(rect.top<0||rect.top>window.innerHeight){{
+      grid.scrollIntoView({{behavior:"smooth",block:"start"}});
     }}
-    return true;
+  }}).catch(function(){{
+    isLoading=false;
+    if(grid)grid.style.opacity="1";
+    renderProducts([]);
   }});
-  if(sort==="price_asc")filtered.sort(function(a,b){{return(a.price||0)-(b.price||0);}});
-  else if(sort==="price_desc")filtered.sort(function(a,b){{return(b.price||0)-(a.price||0);}});
-  else if(sort==="name")filtered.sort(function(a,b){{return(a.name||"").localeCompare(b.name||"");}});
-  currentFiltered=filtered;
-  currentPage=1;
-  renderProducts();
 }}
 
-if(searchInput)searchInput.addEventListener("input",function(){{filterAndSort();}});
+function filterAndSort(){{
+  goToPage(1);
+}}
+
+var searchTimer=null;
+if(searchInput)searchInput.addEventListener("input",function(){{
+  clearTimeout(searchTimer);
+  searchTimer=setTimeout(function(){{filterAndSort();}},300);
+}});
 if(sortSelect)sortSelect.addEventListener("change",function(){{filterAndSort();}});
 document.querySelectorAll(".supplier-filter-btn").forEach(function(btn){{
   btn.addEventListener("click",function(){{
@@ -2037,21 +2083,8 @@ document.getElementById("shopResetFilters")?.addEventListener("click",function()
   document.querySelectorAll(".supplier-filter-btn").forEach(function(b){{b.classList.remove("active");}});
   filterAndSort();
 }});
-if(loadMoreBtn)loadMoreBtn.addEventListener("click",function(){{
-  currentPage++;
-  renderProducts();
-  // If running low on local data, fetch more from API
-  if(currentFiltered.length-currentPage*PER_PAGE<PER_PAGE&&!allProductsLoaded){{
-    fetchMoreFromAPI();
-  }}
-  // Scroll to newly loaded products
-  var cards=grid.querySelectorAll(".shop-product-card");
-  if(cards.length>PER_PAGE){{
-    var scrollTo=cards[(currentPage-1)*PER_PAGE];
-    if(scrollTo)scrollTo.scrollIntoView({{behavior:"smooth",block:"start"}});
-  }}
-}});
-renderProducts();
+// Initial render with embedded page 1 data
+renderProducts(initialProducts);
 }})();
 </script>"""
 
@@ -2075,13 +2108,11 @@ renderProducts();
 <div class="shop-suppliers">
   {supplier_cards}
 </div>
-<div class="shop-product-count" id="shopPageInfo">{showing_text} {min(total_products, 30)} {of_text} {total_products:,} {products_text}</div>
+<div class="shop-product-count" id="shopPageInfo">{showing_text} 1-{min(total_products, 30)} {of_text} {total_products:,} {products_text}</div>
 <div class="shop-product-grid" id="shopProductGrid">
   {product_cards_html}
 </div>
-<div style="text-align:center;margin:1.5rem 0;">
-  <button id="shopLoadMore" class="btn-outline" style="padding:0.75rem 2rem;font-size:1rem;">{load_more_text}</button>
-</div>
+<nav id="shopPagination" class="shop-pagination" aria-label="{"Навигация по страницам" if lang=="ru" else "Page navigation"}"></nav>
 <div id="shopEmpty" style="display:none;text-align:center;padding:3rem 1rem;">
   <p style="color:var(--text-muted);margin-bottom:1rem;">{empty_text}</p>
   <button id="shopResetFilters" class="btn-outline">{empty_reset}</button>
@@ -2375,14 +2406,16 @@ def generate_tag_page(data: dict, tag: str, lang: str, output_dir: str, page: in
     tag_posts, total, total_pages = get_posts_by_tag(data, tag, page=page, per_page=POSTS_PER_PAGE)
     popular_tags = get_popular_tags(data, limit=12)
 
+    # URL-encode the tag for canonical URLs and paths (needed for Arabic/Unicode tags)
+    encoded_tag = url_quote(tag)
     if lang == "en":
-        page_url = f"{SITE_URL}/en/tag/{tag}"
-        path = f"/en/tag/{tag}"
+        page_url = f"{SITE_URL}/en/tag/{encoded_tag}"
+        path = f"/en/tag/{encoded_tag}"
     else:
-        page_url = f"{SITE_URL}/tag/{tag}"
-        path = f"/tag/{tag}"
+        page_url = f"{SITE_URL}/tag/{encoded_tag}"
+        path = f"/tag/{encoded_tag}"
 
-    page_url_rel = f"{_lang_path(lang)}/tag/{tag}"
+    page_url_rel = f"{_lang_path(lang)}/tag/{encoded_tag}"
 
     if lang == "ru":
         page_title = f"#{tag} | SOCHIAUTOPARTS"
@@ -2684,7 +2717,7 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
     for prog in admitad_programs:
         if not isinstance(prog, dict):
             continue
-        prog_cat = prog.get("jsonCategory", "")
+        prog_cat = prog.get("jsonCategory") or prog.get("category") or ""
         if prog_cat == category:
             matching_programs.append(prog)
     
@@ -2839,7 +2872,7 @@ def generate_ads_index_page(data: dict, lang: str, output_dir: str) -> str:
         cat_url_path = f"{_lang_path(lang)}/ads/{cat_key}"
 
         # Count matching programs
-        matching = [p for p in admitad_programs if isinstance(p, dict) and p.get("jsonCategory") == cat_key]
+        matching = [p for p in admitad_programs if isinstance(p, dict) and (p.get("jsonCategory") or p.get("category")) == cat_key]
         count_text = f"{len(matching)} {'программ' if is_ru else 'programs'}" if matching else ""
 
         # Get first program's affiliate URL for the main button
@@ -2993,7 +3026,7 @@ def generate_amp_homepage(data: dict, lang: str, output_dir: str) -> str:
 </main>
 <footer>
 <div class="container">
-<p>&copy; {current_year} {SITE_AUTHOR}. {"Все права защищены." if lang == "ru" else "All rights reserved."}</p>
+<p>&#169; {current_year} {SITE_AUTHOR}. {"Все права защищены." if lang == "ru" else "All rights reserved."}</p>
 </div>
 </footer>
 </body>
