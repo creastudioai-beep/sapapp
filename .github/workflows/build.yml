@@ -272,3 +272,49 @@ jobs:
           else
             echo "Cloudflare cache purge returned HTTP ${HTTP_STATUS}"
           fi
+
+  deploy-worker:
+    name: Deploy Cloudflare Worker
+    needs: deploy
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy Worker to Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "Cloudflare secrets not configured — skipping worker deploy"
+            exit 0
+          fi
+
+          echo "Deploying Cloudflare Worker v8.0..."
+
+          # Deploy using Cloudflare Workers API
+          WORKER_FILE="sochiautoparts-worker-proxy.js"
+          if [ ! -f "$WORKER_FILE" ]; then
+            echo "Worker file not found: $WORKER_FILE"
+            exit 1
+          fi
+
+          # Upload worker script
+          HTTP_STATUS=$(curl -s -o /tmp/worker-deploy-response.json -w "%{http_code}" \
+            -X PUT \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/scripts/sochiautoparts-worker-proxy" \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            -F "metadata={\"main_module\": \"${WORKER_FILE}\"}" \
+            -F "${WORKER_FILE}=@${WORKER_FILE};type=application/javascript+module")
+
+          echo "Deploy response HTTP ${HTTP_STATUS}"
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "Cloudflare Worker deployed successfully"
+          else
+            echo "Worker deploy failed with HTTP ${HTTP_STATUS}"
+            cat /tmp/worker-deploy-response.json 2>/dev/null || true
+          fi
