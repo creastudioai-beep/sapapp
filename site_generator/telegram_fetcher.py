@@ -909,7 +909,9 @@ def fetch_all_posts(
     # Only use incremental update if we have a valid last_post_id.
     # If meta exists but last_post_id is None, we need a full fetch
     # (otherwise we get infinite recursion with incremental_update).
-    if meta and not force_full and meta.get("last_post_id") is not None and meta.get("total_posts", 0) > 0:
+    if meta and not force_full and meta.get("last_post_id") is not None and (
+        meta.get("total_posts", 0) > 0 or os.path.isfile(os.path.join(data_dir, "page_1.json"))
+    ):
         return incremental_update(channel, data_dir)
 
     # --- Full fetch path ---------------------------------------------------
@@ -1021,11 +1023,29 @@ def fetch_all_posts(
         save_page(data_dir, page_num, all_posts)
         meta["pages_count"] = page_num
 
-    # Final meta update
+    # Final meta update — but DON'T overwrite meta if fetch failed with 0 posts
+    # (e.g. rate-limited by Telegram). Preserve the existing meta in that case.
     total = 0
     for pn in range(1, meta.get("pages_count", 0) + 1):
         p = load_page(data_dir, pn)
         total += len(p)
+
+    if total == 0 and fetched_count == 0:
+        # Nothing was fetched — don't overwrite meta with empty data
+        print("[telegram_fetcher] WARNING: No posts fetched — preserving existing meta.json")
+        # Restore from the backup if we moved the data dir during force_full
+        if force_full:
+            backup_dirs = sorted([d for d in os.listdir(os.path.dirname(data_dir)) if d.startswith(os.path.basename(data_dir) + "_backup_")], reverse=True)
+            if backup_dirs:
+                backup_path = os.path.join(os.path.dirname(data_dir), backup_dirs[0])
+                print(f"[telegram_fetcher] Restoring from backup: {backup_path}")
+                # Remove the empty data_dir and restore the backup
+                import shutil
+                if os.path.isdir(data_dir):
+                    shutil.rmtree(data_dir)
+                os.rename(backup_path, data_dir)
+                meta = load_meta(data_dir) or meta
+        return meta
 
     meta["total_posts"] = total
     # The first post in page_1 is the newest
@@ -1126,9 +1146,42 @@ def incremental_update(channel: str, data_dir: str, expand_pages: int = 0) -> di
         return fetch_all_posts(channel, data_dir, force_full=True)
 
     last_known_id = meta.get("last_post_id")
-    if last_known_id is None or meta.get("total_posts", 0) == 0:
-        # Archive exists but is empty/corrupt — need a full fetch
+
+    # Check if archive actually has page files (meta.json might say total_posts=0
+    # from a previous failed fetch, but page files could still exist)
+    has_page_files = os.path.isfile(os.path.join(data_dir, "page_1.json"))
+
+    if last_known_id is None or (meta.get("total_posts", 0) == 0 and not has_page_files):
+        # Archive exists but is truly empty/corrupt — need a full fetch
         return fetch_all_posts(channel, data_dir, force_full=True)
+
+    if meta.get("total_posts", 0) == 0 and has_page_files:
+        # Meta says 0 but page files exist — fix the meta by counting actual posts
+        print("[telegram_fetcher] WARNING: meta.json says total_posts=0 but page files exist — repairing meta")
+        import glob as _glob
+        page_files = sorted(
+            _glob.glob(os.path.join(data_dir, "page_*.json")),
+            key=lambda p: int(re.search(r"page_(\d+)", p).group(1)) if re.search(r"page_(\d+)", p) else 0,
+        )
+        total = 0
+        for pf in page_files:
+            try:
+                with open(pf, "r", encoding="utf-8") as f:
+                    page_data = json.load(f)
+                total += len(page_data) if isinstance(page_data, list) else 0
+            except Exception:
+                pass
+        if total > 0:
+            meta["total_posts"] = total
+            meta["pages_count"] = len(page_files)
+            # Also rebuild index since it might be empty
+            build_posts_index(data_dir, meta)
+            save_meta(data_dir, meta)
+            print(f"[telegram_fetcher] Repaired meta: {total} posts in {len(page_files)} pages")
+            # Now proceed with incremental update
+        else:
+            # Page files exist but are all empty — need full fetch
+            return fetch_all_posts(channel, data_dir, force_full=True)
 
     print(f"[telegram_fetcher] Incremental update for @{channel}, last known ID: {last_known_id}")
 
