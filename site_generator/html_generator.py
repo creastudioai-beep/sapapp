@@ -727,6 +727,57 @@ def generate_all_pages(data: dict, output_dir: str):
             telegram_archive_src,
         )
 
+    # ------------------------------------------------------------------
+    # 15. Deploy products data to GitHub Pages (for Worker to fetch)
+    # Files: data/products/{meta.json, page_1.json, page_2.json, ...}
+    # ------------------------------------------------------------------
+    products_data_src = os.path.join("data", "products")
+    products_data_dest = os.path.join(output_dir, "data", "products")
+    if os.path.isdir(products_data_src):
+        logger.info("Deploying products data to GitHub Pages output…")
+        os.makedirs(products_data_dest, exist_ok=True)
+        _prod_files_copied = 0
+        for fname in os.listdir(products_data_src):
+            if fname.endswith(".json"):
+                src_path = os.path.join(products_data_src, fname)
+                dest_path = os.path.join(products_data_dest, fname)
+                shutil.copy2(src_path, dest_path)
+                _prod_files_copied += 1
+        logger.info(
+            "Copied %d products JSON files to output/data/products/",
+            _prod_files_copied,
+        )
+    else:
+        logger.warning(
+            "No products data found at %s — Worker will not be able to "
+            "serve shop products. Generating minimal products from pipeline data.",
+            products_data_src,
+        )
+        # Generate from pipeline data if available
+        if products:
+            _gen_products = []
+            for p in products[:200]:
+                if isinstance(p, dict):
+                    _gen_products.append({
+                        'n': p.get('name', ''),
+                        'p': p.get('price', 0),
+                        'o': p.get('old_price', p.get('oldPrice', 0)),
+                        'u': p.get('url', p.get('productUrl', '#')),
+                        'i': p.get('image', p.get('imageUrl', '')),
+                        'v': p.get('vendor', p.get('brand', '')),
+                        'fn': p.get('feed_name', p.get('feedName', '')),
+                        'fi': p.get('feed_icon', p.get('feedIcon', '')),
+                        'cat': p.get('category_id', p.get('categoryId', '')),
+                        'a': p.get('available', True),
+                    })
+            if _gen_products:
+                os.makedirs(products_data_dest, exist_ok=True)
+                with open(os.path.join(products_data_dest, 'page_1.json'), 'w', encoding='utf-8') as f:
+                    json.dump(_gen_products, f, ensure_ascii=False, separators=(',', ':'))
+                with open(os.path.join(products_data_dest, 'meta.json'), 'w', encoding='utf-8') as f:
+                    json.dump({'total_products': len(_gen_products), 'pages_count': 1, 'per_page': 200}, f, ensure_ascii=False)
+                logger.info("Generated minimal products data: %d products", len(_gen_products))
+
     logger.info("Site generation complete!")
 
 

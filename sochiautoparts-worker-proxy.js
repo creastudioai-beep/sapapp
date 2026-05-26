@@ -57,8 +57,9 @@ let telegramPageCache = {};  // page_num -> { data, time }
 let telegramMetaCache = null;
 let telegramMetaCacheTime = 0;
 
-// Products data (for shop widget) — from zap.online repo with abbreviated keys
-const PRODUCTS_DATA_URL = 'https://raw.githubusercontent.com/creastudioai-beep/zap.online/main/products.json';
+// Products data (for shop widget) — paginated from sapapp repo
+const PRODUCTS_BASE_URL = GITHUB_PAGES_BASE + '/data/products';
+const PRODUCTS_FALLBACK_URL = 'https://raw.githubusercontent.com/creastudioai-beep/sapapp/main/data/products';
 let productsCache = null;
 let productsCacheTime = 0;
 const PRODUCTS_CACHE_TTL = 3600000; // 1 hour in ms
@@ -243,21 +244,45 @@ async function getProducts(ctx) {
   }
 
   try {
-    const response = await fetch(PRODUCTS_DATA_URL, {
-      headers: { 'User-Agent': 'SochiAutoParts-Worker/7.0' },
-      cf: { cacheTtl: 3600, cacheEverything: true },
-    });
+    // First, fetch the meta to know how many pages exist
+    let meta = null;
+    for (const baseUrl of [PRODUCTS_BASE_URL, PRODUCTS_FALLBACK_URL]) {
+      try {
+        const metaResp = await fetch(`${baseUrl}/meta.json`, {
+          headers: { 'User-Agent': 'SochiAutoParts-Worker/10.0' },
+          cf: { cacheTtl: 3600, cacheEverything: true },
+        });
+        if (metaResp.ok) {
+          meta = await metaResp.json();
+          break;
+        }
+      } catch (e) {
+        console.error(`Failed to fetch products meta from ${baseUrl}:`, e);
+      }
+    }
 
-    if (!response.ok) throw new Error(`Products fetch failed: ${response.status}`);
+    if (!meta) throw new Error('Products meta fetch failed');
 
-    const data = await response.json();
-    // Products may be an array or a dict with products key
-    let rawProducts = Array.isArray(data) ? data : (data.products || []);
-    // Map abbreviated keys from zap.online format to full names
-    // n=name, p=price, o=oldPrice, c=currency, u=url, i=image, v=vendor/brand,
-    // d=description, f=feedId, fn=feedName, fc=feedColor, fi=feedIcon,
-    // cat=categoryId, a=available, sn=shortNote, m=model, tp=type
-    productsCache = rawProducts.map(p => ({
+    const totalPages = meta.pages_count || 1;
+    const allProducts = [];
+
+    // Fetch all pages in parallel (batches of 5 to avoid overwhelming)
+    const batchSize = 5;
+    for (let batch = 0; batch < totalPages; batch += batchSize) {
+      const promises = [];
+      for (let i = batch + 1; i <= Math.min(batch + batchSize, totalPages); i++) {
+        promises.push(fetchProductPage(i));
+      }
+      const results = await Promise.allSettled(promises);
+      for (const result of results) {
+        if (result.status === 'fulfilled' && Array.isArray(result.value)) {
+          allProducts.push(...result.value);
+        }
+      }
+    }
+
+    // Map abbreviated keys to full names
+    productsCache = allProducts.map(p => ({
       id: p.f || p.id,
       name: p.n || p.name || '',
       price: p.p || p.price || 0,
@@ -283,6 +308,23 @@ async function getProducts(ctx) {
     console.error('Failed to fetch products data:', e);
     return productsCache || [];
   }
+}
+
+async function fetchProductPage(pageNum) {
+  for (const baseUrl of [PRODUCTS_BASE_URL, PRODUCTS_FALLBACK_URL]) {
+    try {
+      const response = await fetch(`${baseUrl}/page_${pageNum}.json`, {
+        headers: { 'User-Agent': 'SochiAutoParts-Worker/10.0' },
+        cf: { cacheTtl: 3600, cacheEverything: true },
+      });
+      if (response.ok) {
+        return await response.json();
+      }
+    } catch (e) {
+      console.error(`Failed to fetch products page ${pageNum} from ${baseUrl}:`, e);
+    }
+  }
+  return [];
 }
 
 
