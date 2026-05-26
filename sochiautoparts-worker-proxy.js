@@ -7,7 +7,7 @@
  * Provides /api/shop/products and /api/ads endpoints for client-side dynamic content.
  *
  * Architecture:
- *   1. /api/{id}              → Admitad affiliate redirect (region-filtered lookup by program ID)
+ *   1. /api/{id}              → Admitad affiliate redirect (direct lookup by program ID, no region filter)
  *   2. /api/shop/products     → Products API for shop page pagination/filtering
  *   3. /api/ads               → Region-filtered ad blocks HTML (for static pages)
  *   4. /archive/post/{id}     → Dynamic archive post page (full layout, ads, shop widget)
@@ -184,39 +184,37 @@ async function handleAffiliateRedirect(programId, country, request, ctx) {
     if (prog) {
       const affiliateUrl = prog.goto_link || prog.gotoLink || prog.affiliateUrl || prog.affiliate_url || '';
       if (affiliateUrl) {
-        // Region check: if program has region restrictions, verify user's region matches
-        const regions = prog.allowed_regions || [];
-        if (regions.length === 0 || regions.includes(country)) {
-          return Response.redirect(affiliateUrl, 302);
-        }
-        // Region mismatch — skip this program, try fallback below
+        // IMPORTANT: Always redirect to the SPECIFIC program the user clicked.
+        // Region filtering is done at the ad DISPLAY level (renderAdBlocks),
+        // not at the redirect level. If a user has a link to program X,
+        // they should be redirected to program X regardless of their current region.
+        // The affiliate network handles region-based validation internally.
+        return Response.redirect(affiliateUrl, 302);
       }
     }
 
     // Program not found by ID — try to find a similar program in the same category
-    // and redirect there instead of the homepage
     const referer = request.headers.get('Referer') || '';
     const categoryMatch = referer.match(/\/ads\/([a-z]+)/);
     if (categoryMatch) {
       const category = categoryMatch[1];
-      const categoryProg = programs.find(p => {
+      // Shuffle category programs to avoid always picking the same fallback
+      const categoryProgs = programs.filter(p => {
         const pCat = p.jsonCategory || p.category || '';
-        const regions = p.allowed_regions || [];
-        return pCat === category && (regions.length === 0 || regions.includes(country)) && (p.goto_link || p.gotoLink);
+        return pCat === category && (p.goto_link || p.gotoLink);
       });
-      if (categoryProg) {
-        const fallbackUrl = categoryProg.goto_link || categoryProg.gotoLink || '';
+      if (categoryProgs.length > 0) {
+        const randomIdx = Math.floor(Math.random() * categoryProgs.length);
+        const fallbackUrl = categoryProgs[randomIdx].goto_link || categoryProgs[randomIdx].gotoLink || '';
         if (fallbackUrl) return Response.redirect(fallbackUrl, 302);
       }
     }
 
-    // Last resort: find any program available in user's region
-    const anyProg = programs.find(p => {
-      const regions = p.allowed_regions || [];
-      return (regions.length === 0 || regions.includes(country)) && (p.goto_link || p.gotoLink);
-    });
-    if (anyProg) {
-      const fallbackUrl = anyProg.goto_link || anyProg.gotoLink || '';
+    // Last resort: redirect to a random program (shuffled to avoid same result)
+    const progsWithLinks = programs.filter(p => p.goto_link || p.gotoLink);
+    if (progsWithLinks.length > 0) {
+      const randomIdx = Math.floor(Math.random() * progsWithLinks.length);
+      const fallbackUrl = progsWithLinks[randomIdx].goto_link || progsWithLinks[randomIdx].gotoLink || '';
       if (fallbackUrl) return Response.redirect(fallbackUrl, 302);
     }
 
@@ -317,6 +315,8 @@ async function getProductsPage(pageNum, ctx) {
 }
 
 // Get ALL products (loads all pages on demand, cached per-page).
+// WARNING: This loads ALL 42 pages (~8200 products) — use ONLY for the shop API.
+// For widgets, use getRandomProducts() instead.
 async function getProducts(ctx) {
   const meta = await getProductsMeta(ctx);
   const totalPages = meta.pages_count || 0;
@@ -337,6 +337,41 @@ async function getProducts(ctx) {
     }
   }
   return allProducts;
+}
+
+// Get random products for widgets (lightweight: loads only 1-2 pages instead of all 42).
+// Used for shop widget on archive post pages where we only need ~20 products.
+async function getRandomProducts(count, ctx) {
+  const meta = await getProductsMeta(ctx);
+  const totalPages = meta.pages_count || 0;
+  if (totalPages === 0) return [];
+
+  // Pick 2 random pages to get variety without loading all data
+  const pagesToLoad = new Set();
+  pagesToLoad.add(Math.floor(Math.random() * totalPages) + 1); // page 1..totalPages
+  if (totalPages > 1) {
+    let secondPage;
+    do {
+      secondPage = Math.floor(Math.random() * totalPages) + 1;
+    } while (pagesToLoad.has(secondPage) && pagesToLoad.size < totalPages);
+    pagesToLoad.add(secondPage);
+  }
+
+  const promises = [...pagesToLoad].map(pn => getProductsPage(pn, ctx));
+  const results = await Promise.allSettled(promises);
+  const products = [];
+  for (const result of results) {
+    if (result.status === 'fulfilled' && Array.isArray(result.value)) {
+      products.push(...result.value);
+    }
+  }
+
+  // Shuffle and take requested count
+  for (let i = products.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [products[i], products[j]] = [products[j], products[i]];
+  }
+  return products.slice(0, count);
 }
 
 // Get a specific page range of products (for shop API pagination).
@@ -703,17 +738,11 @@ async function generateFullArchivePostResponse(post, isEn, country, ctx) {
   // Ad blocks (region-filtered)
   const adBlocksHtml = await renderAdBlocks(lang, [country], ctx);
 
-  // Shop widget (products from zap.online) — show 20 products (matching main page posts)
+  // Shop widget (products from zap.online) — show 20 products
+  // Use lightweight getRandomProducts() instead of loading ALL products
   let shopWidgetHtml = '';
   try {
-    const products = await getProducts(ctx);
-    // Shuffle products for variety, then take 20
-    const shuffled = [...products];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    const shopProducts = shuffled.slice(0, 20);
+    const shopProducts = await getRandomProducts(20, ctx);
     if (shopProducts.length > 0) {
       const shopPath = isEn ? '/en/shop' : '/shop';
       let productCards = '';
