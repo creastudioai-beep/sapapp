@@ -794,8 +794,8 @@ def generate_homepage(data: dict, lang: str, output_dir: str, page: int = 1) -> 
     # Shop widget
     shop_widget = ""
     if FEATURE_SHOP_ENABLED and page == 1:
-        products = data.get("products", [])[:6]
-        shop_widget = render_shop_widget(products, lang)
+        products = data.get("products", [])[:20]
+        shop_widget = render_shop_widget(products, lang, count=20)
 
     # Pagination
     pagination_html = render_numbered_pagination(page, total_pages, _lang_base(lang), lang)
@@ -940,8 +940,8 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
     # Shop widget
     shop_widget = ""
     if FEATURE_SHOP_ENABLED:
-        products = data.get("products", [])[:6]
-        shop_widget = render_shop_widget(products, lang, count=4)
+        products = data.get("products", [])[:20]
+        shop_widget = render_shop_widget(products, lang, count=20)
 
     # Tags
     hashtags = post.get("hashtags", [])
@@ -1693,8 +1693,8 @@ def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: 
     # Shop widget (6 products)
     shop_widget = ""
     if FEATURE_SHOP_ENABLED:
-        products = data.get("products", [])[:6]
-        shop_widget = render_shop_widget(products, lang, count=6)
+        products = data.get("products", [])[:20]
+        shop_widget = render_shop_widget(products, lang, count=20)
 
     # Body
     body = f"""
@@ -2814,7 +2814,54 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
 {programs_section}
 <p style="font-size:0.75rem;color:var(--text-light);text-align:center;">{legal_text}</p>
 </div>
-</div>"""
+</div>
+<script>
+(function(){{
+  // Region-aware partner program filtering
+  // Each program card has data-regions attribute; hide programs not available in user's region
+  var userCountry = null;
+  // Try to get country from Cloudflare headers (set by Worker as CF-IPCountry response header)
+  // Since we can't read response headers from JS, we use the /api/ads endpoint to get region-filtered programs
+  fetch('/api/ads?lang={"ru" if lang == "ru" else "en"}&max=20')
+    .then(function(r) {{ return r.text(); }})
+    .then(function(html) {{
+      if (!html) return;
+      var container = document.querySelector('.ad-blocks-container');
+      if (container) {{
+        // Replace the static programs with region-filtered ones
+        var temp = document.createElement('div');
+        temp.innerHTML = html;
+        var filteredItems = temp.querySelectorAll('.ad-block-item');
+        if (filteredItems.length > 0) {{
+          // Check which of our static programs are in the filtered set
+          var filteredLinks = new Set();
+          filteredItems.forEach(function(item) {{
+            var link = item.querySelector('a[href*="/api/"]');
+            if (link) filteredLinks.add(link.getAttribute('href'));
+          }});
+          // Hide programs not in filtered set
+          var staticItems = container.querySelectorAll('.ad-block-item');
+          var hiddenCount = 0;
+          staticItems.forEach(function(item) {{
+            var link = item.querySelector('a[href*="/api/"]');
+            if (link && !filteredLinks.has(link.getAttribute('href'))) {{
+              item.style.display = 'none';
+              hiddenCount++;
+            }}
+          }});
+          // If all programs hidden, show region message
+          if (hiddenCount >= staticItems.length) {{
+            var msg = document.createElement('p');
+            msg.style.cssText = 'text-align:center;color:var(--text-muted);padding:2rem;';
+            msg.textContent = '{"В вашем регионе нет доступных предложений" if lang == "ru" else "No offers available in your region"}';
+            container.parentNode.appendChild(msg);
+          }}
+        }}
+      }}
+    }})
+    .catch(function() {{}});  // Silently fail — static content still visible
+}})();
+</script>"""
 
     return _build_page(
         lang=lang,

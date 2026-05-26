@@ -1,5 +1,5 @@
 /**
- * SochiAutoParts Cloudflare Worker v8.0
+ * SochiAutoParts Cloudflare Worker v9.0
  *
  * Proxies sochiautoparts.ru → GitHub Pages static site.
  * Dynamically generates /archive/post/{id} pages from Telegram archive data.
@@ -156,26 +156,52 @@ export default {
 async function handleAffiliateRedirect(programId, country, request, ctx) {
   try {
     const programs = await getAdmitadPrograms(ctx);
-    const prog = programs.find(p => String(p.id) === String(programId));
+    // Try exact ID match first, then string comparison, then admitad_id field
+    let prog = programs.find(p => p.id === Number(programId));
+    if (!prog) prog = programs.find(p => String(p.id) === String(programId));
+    if (!prog) prog = programs.find(p => String(p.admitad_id) === String(programId));
 
     if (prog) {
-      // Check if program is available in the user's region
-      const allowedRegions = prog.allowed_regions || [];
-      if (allowedRegions.length > 0 && !allowedRegions.includes(country)) {
-        // Program not available in user's region — redirect to homepage
-        return Response.redirect(SITE_URL, 302);
-      }
-
       const affiliateUrl = prog.goto_link || prog.gotoLink || prog.affiliateUrl || prog.affiliate_url || '';
       if (affiliateUrl) {
+        // Check region: if program has region restrictions, redirect there only for matching regions
+        // If user's region not in allowed list, still redirect (let the affiliate network handle it)
+        // This prevents losing clicks from users in adjacent regions
         return Response.redirect(affiliateUrl, 302);
       }
     }
 
-    return Response.redirect(SITE_URL, 302);
+    // Program not found by ID — try to find a similar program in the same category
+    // and redirect there instead of the homepage
+    const referer = request.headers.get('Referer') || '';
+    const categoryMatch = referer.match(/\/ads\/([a-z]+)/);
+    if (categoryMatch) {
+      const category = categoryMatch[1];
+      const categoryProg = programs.find(p => {
+        const pCat = p.jsonCategory || p.category || '';
+        const regions = p.allowed_regions || [];
+        return pCat === category && (regions.length === 0 || regions.includes(country)) && (p.goto_link || p.gotoLink);
+      });
+      if (categoryProg) {
+        const fallbackUrl = categoryProg.goto_link || categoryProg.gotoLink || '';
+        if (fallbackUrl) return Response.redirect(fallbackUrl, 302);
+      }
+    }
+
+    // Last resort: find any program available in user's region
+    const anyProg = programs.find(p => {
+      const regions = p.allowed_regions || [];
+      return (regions.length === 0 || regions.includes(country)) && (p.goto_link || p.gotoLink);
+    });
+    if (anyProg) {
+      const fallbackUrl = anyProg.goto_link || anyProg.gotoLink || '';
+      if (fallbackUrl) return Response.redirect(fallbackUrl, 302);
+    }
+
+    return Response.redirect(SITE_URL + '/ads/', 302);
   } catch (e) {
     console.error('Affiliate redirect error:', e);
-    return Response.redirect(SITE_URL, 302);
+    return Response.redirect(SITE_URL + '/ads/', 302);
   }
 }
 
@@ -565,7 +591,7 @@ async function generateFullArchivePostResponse(post, isEn, country, ctx) {
   let shopWidgetHtml = '';
   try {
     const products = await getProducts(ctx);
-    const shopProducts = products.slice(0, 6);
+    const shopProducts = products.slice(0, 20);
     if (shopProducts.length > 0) {
       const shopPath = isEn ? '/en/shop' : '/shop';
       let productCards = '';
