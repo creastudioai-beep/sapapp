@@ -570,9 +570,9 @@ def _load_telegram_archive(archive_dir: str) -> list:
                                 media_item["poster"] = post["video_thumbnails"][0]
                             media_list.append(media_item)
                         post["media"] = media_list
-                    # Extract hashtags from text if not present
+                    # Extract hashtags from text if not present (including Arabic)
                     if not post.get("hashtags") and post.get("text"):
-                        hashtags = re.findall(r"#([a-zA-Zа-яА-ЯёЁ0-9_]+)", post["text"])
+                        hashtags = re.findall(r"#([\w\u0600-\u06FF]+)", post["text"], re.UNICODE)
                         if hashtags:
                             post["hashtags"] = ["#" + h for h in hashtags]
                     # Generate title from text if not present
@@ -1067,18 +1067,20 @@ def format_post_text(text: str, lang: str = "ru") -> str:
     )
 
     # Step 4: Convert hashtags to links
-    # Match #word patterns (Cyrillic, Latin, numbers, underscores)
+    # Match #word patterns (Cyrillic, Latin, Arabic, numbers, underscores)
+    # Unicode-aware: \w matches word chars, \u0600-\u06FF covers Arabic
     def _hashtag_link(match: re.Match) -> str:
-        hashtag = match.group(0)       # e.g. "#автозапчасти"
-        tag_name = match.group(1)      # e.g. "автозапчасти"
+        hashtag = match.group(0)       # e.g. "#автозапчасти" or "#أخبارالسيارات"
+        tag_name = match.group(1)      # e.g. "автозапчасти" or "أخبارالسيارات"
         escaped_hashtag = html.escape(hashtag)
         escaped_tag = html.escape(tag_name)
         return f'<a href="{prefix}tag/{escaped_tag}" class="hashtag-link">{escaped_hashtag}</a>'
 
     safe = re.sub(
-        r"#([a-zA-Zа-яА-ЯёЁ0-9_]+)",
+        r"#([\w\u0600-\u06FF]+)",
         _hashtag_link,
         safe,
+        flags=re.UNICODE,
     )
 
     # Step 5: Convert newlines to <br>

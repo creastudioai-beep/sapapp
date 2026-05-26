@@ -1,18 +1,21 @@
 /**
- * SochiAutoParts Cloudflare Worker v7.0
+ * SochiAutoParts Cloudflare Worker v8.0
  *
  * Proxies sochiautoparts.ru → GitHub Pages static site.
  * Dynamically generates /archive/post/{id} pages from Telegram archive data.
  * Handles regional filtering for Admitad partner programs.
+ * Provides /api/shop/products and /api/ads endpoints for client-side dynamic content.
  *
  * Architecture:
  *   1. /api/{id}              → Admitad affiliate redirect (region-filtered lookup by program ID)
- *   2. /archive/post/{id}     → Dynamic archive post page (full layout, ads, shop widget)
- *   3. /archive/page/{n}      → Dynamic archive pagination (for large archives)
- *   4. /rss.xml               → serve from GitHub Pages /rss.xml
- *   5. /feed.xml              → serve from GitHub Pages /rss.xml (compat alias)
- *   6. All other requests     → proxy from GitHub Pages
- *   7. 404 from GH Pages      → try .html, then /index.html, then custom 404
+ *   2. /api/shop/products     → Products API for shop page pagination/filtering
+ *   3. /api/ads               → Region-filtered ad blocks HTML (for static pages)
+ *   4. /archive/post/{id}     → Dynamic archive post page (full layout, ads, shop widget)
+ *   5. /archive/page/{n}      → Dynamic archive pagination (for large archives)
+ *   6. /rss.xml               → serve from GitHub Pages /rss.xml
+ *   7. /feed.xml              → serve from GitHub Pages /rss.xml (compat alias)
+ *   8. All other requests     → proxy from GitHub Pages
+ *   9. 404 from GH Pages      → try .html, then /index.html, then custom 404
  *
  * GitHub Pages URL: https://creastudioai-beep.github.io/sapapp/
  * Route: sochiautoparts.ru/* → creastudioai-beep.github.io/sapapp/*
@@ -100,6 +103,16 @@ export default {
     const apiMatch = path.match(/^\/api\/(\d+)$/);
     if (apiMatch) {
       return handleAffiliateRedirect(apiMatch[1], country, request, ctx);
+    }
+
+    // --- Shop Products API: /api/shop/products ---
+    if (path === '/api/shop/products') {
+      return handleShopProductsAPI(url, request, ctx);
+    }
+
+    // --- Region-filtered Ads API: /api/ads ---
+    if (path === '/api/ads') {
+      return handleAdsAPI(url, country, request, ctx);
     }
 
     // --- Dynamic archive post page: /archive/post/{id} or /en/archive/post/{id} ---
@@ -219,6 +232,108 @@ async function getProducts(ctx) {
   } catch (e) {
     console.error('Failed to fetch products data:', e);
     return productsCache || [];
+  }
+}
+
+
+// =============================================================================
+// Shop Products API: /api/shop/products
+// Supports: ?page=N&per_page=N&q=search&cat=category&sort=field&feed=supplier
+// =============================================================================
+
+async function handleShopProductsAPI(url, request, ctx) {
+  try {
+    const products = await getProducts(ctx);
+    if (!products || products.length === 0) {
+      return new Response(JSON.stringify({ products: [], total: 0, page: 1, per_page: 30 }), {
+        headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=300', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
+
+    const page = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10));
+    const perPage = Math.min(48, Math.max(1, parseInt(url.searchParams.get('per_page') || '30', 10)));
+    const query = (url.searchParams.get('q') || '').toLowerCase();
+    const category = url.searchParams.get('cat') || '';
+    const sort = url.searchParams.get('sort') || 'popular';
+    const feed = url.searchParams.get('feed') || '';
+
+    // Filter
+    let filtered = products.filter(p => {
+      if (feed && (p.feedName || p.feed_name || '') !== feed) return false;
+      if (query && query.length >= 2) {
+        const name = (p.name || '').toLowerCase();
+        const desc = (p.description || '').toLowerCase();
+        if (!name.includes(query) && !desc.includes(query)) return false;
+      }
+      return true;
+    });
+
+    // Sort
+    if (sort === 'price_asc') filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
+    else if (sort === 'price_desc') filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
+    else if (sort === 'name') filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+    // Paginate
+    const total = filtered.length;
+    const start = (page - 1) * perPage;
+    const pageProducts = filtered.slice(start, start + perPage);
+
+    // Build supplier stats
+    const supplierStats = {};
+    for (const p of products) {
+      const feedName = p.feedName || p.feed_name || '';
+      if (feedName) supplierStats[feedName] = (supplierStats[feedName] || 0) + 1;
+    }
+
+    return new Response(JSON.stringify({
+      products: pageProducts,
+      total,
+      page,
+      per_page: perPage,
+      total_pages: Math.ceil(total / perPage),
+      suppliers: supplierStats,
+    }), {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'public, max-age=300, s-maxage=300',
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
+  } catch (e) {
+    console.error('Shop API error:', e);
+    return new Response(JSON.stringify({ error: e.message, products: [], total: 0 }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    });
+  }
+}
+
+
+// =============================================================================
+// Region-filtered Ads API: /api/ads?lang=ru|en&max=6
+// Returns HTML of region-filtered ad blocks for client-side injection
+// =============================================================================
+
+async function handleAdsAPI(url, country, request, ctx) {
+  try {
+    const lang = url.searchParams.get('lang') === 'en' ? 'en' : 'ru';
+    const maxBlocks = Math.min(10, Math.max(1, parseInt(url.searchParams.get('max') || '6', 10)));
+
+    const adBlocksHtml = await renderAdBlocks(lang, [country], ctx, maxBlocks);
+
+    return new Response(adBlocksHtml || '', {
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'public, max-age=300, s-maxage=300',
+        'Vary': 'Accept-Encoding, Cloudflare-Viewer-Country',
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
+  } catch (e) {
+    console.error('Ads API error:', e);
+    return new Response('', {
+      headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' },
+    });
   }
 }
 
@@ -611,7 +726,7 @@ ${shopWidgetHtml}
 // Render ad blocks with regional filtering (matches old Worker)
 // =============================================================================
 
-async function renderAdBlocks(lang, allowedRegions, ctx) {
+async function renderAdBlocks(lang, allowedRegions, ctx, maxBlocks = 6) {
   try {
     const programs = await getAdmitadPrograms(ctx);
     if (!programs || programs.length === 0) return '';
@@ -622,7 +737,7 @@ async function renderAdBlocks(lang, allowedRegions, ctx) {
       return prog.allowed_regions.some(r => allowedRegions.includes(r));
     });
 
-    // Shuffle and pick up to 6, one per category
+    // Shuffle and pick up to maxBlocks, one per category
     const shuffled = [...regionFiltered];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -633,7 +748,7 @@ async function renderAdBlocks(lang, allowedRegions, ctx) {
     const selectedAds = [];
     for (const prog of shuffled) {
       const cat = prog.jsonCategory || prog.category || 'other';
-      if (!seenCategories.has(cat) && selectedAds.length < 6) {
+      if (!seenCategories.has(cat) && selectedAds.length < maxBlocks) {
         seenCategories.add(cat);
         selectedAds.push(prog);
       }

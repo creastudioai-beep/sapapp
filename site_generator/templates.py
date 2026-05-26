@@ -163,21 +163,46 @@ def _looks_like_image_url(url: str) -> bool:
 # =============================================================================
 
 def _format_post_text_no_tags(text: str, lang: str = "ru") -> str:
-    """Format post text for card preview: escape HTML, convert hashtags to links, preserve newlines."""
+    """Format post text for card preview: escape HTML, STRIP hashtags, linkify URLs, preserve newlines.
+
+    Matches the old Worker's formatPostTextNoTags() — hashtags are REMOVED
+    from the feed preview. Tags are only shown inside individual post pages.
+    Also supports Arabic hashtags (e.g. #أخبارالسيارات).
+    """
     if not text:
         return ""
     safe = escape_html(str(text))
 
-    def _hashtag_link(match: re.Match) -> str:
-        hashtag = match.group(0)
-        tag_name = match.group(1)
-        escaped_hashtag = escape_html(hashtag)
-        escaped_tag = escape_html(tag_name)
-        prefix = _bp("/en") + "/" if lang == "en" else _bp("/") 
-        return f'<a href="{prefix}tag/{url_quote(escaped_tag)}.html" class="hashtag">{escaped_hashtag}</a>'
+    # Strip hashtags (including Arabic, Cyrillic, Latin, digits, underscores)
+    # Unicode-aware: matches \p{L} (all letters) + \p{N} (all numbers) + _
+    safe = re.sub(r"\s*#[\w\u0600-\u06FF]+", "", safe, flags=re.UNICODE)
 
-    safe = re.sub(r"#([a-zA-Zа-яА-ЯёЁ0-9_]+)", _hashtag_link, safe)
+    # Convert URLs to clickable links
+    def _url_link(match: re.Match) -> str:
+        url = match.group(0)
+        escaped_url = escape_html(url)
+        display = escaped_url
+        if len(display) > 60:
+            display = display[:57] + "..."
+        return f'<a href="{escaped_url}" target="_blank" rel="nofollow ugc noopener">{display}</a>'
+
+    safe = re.sub(r"https?://[^\s<>\"]+", _url_link, safe)
+
+    # Convert @username to Telegram links
+    safe = re.sub(
+        r"@([a-zA-Z0-9_]{5,32})",
+        r'<a href="https://t.me/\1" target="_blank" rel="nofollow ugc noopener">@\1</a>',
+        safe,
+    )
+
+    # Preserve line breaks
     safe = safe.replace("\n", "<br>\n")
+
+    # Clean up excessive whitespace
+    safe = re.sub(r"(<br>\s*){2,}", "<br><br>", safe)
+    safe = re.sub(r"\s{2,}", " ", safe)
+    safe = safe.strip()
+
     return safe
 
 
@@ -919,15 +944,17 @@ def render_ad_category_buttons(lang: str = "ru") -> str:
 
 
 def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> str:
-    """Render Admitad ad blocks.
+    """Render Admitad ad blocks with client-side region filtering.
 
-    Shows category buttons + ad cards with images, titles, descriptions, and affiliate links.
-    Uses actual affiliate URLs from program data when available, falls back to /ads/{category}.
+    Renders static ad blocks as fallback, then injects a client-side script
+    that replaces them with region-filtered ads from the Worker's /api/ads endpoint.
+    The Worker uses request.cf.country for geo-targeting.
+    Static fallback ensures content is visible even if JS fails.
     """
     if not programs or len(programs) == 0:
         return ""
 
-    # Select up to max_blocks programs, one per category
+    # Select up to max_blocks programs, one per category (static fallback)
     seen_categories = set()
     selected_ads = []
     for prog in programs:
@@ -960,10 +987,8 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
         prog_id = prog.get("id", "")
 
         # Build affiliate URL - use /api/{id} format for proxy Worker redirect
-        # The proxy Worker looks up the program ID and redirects to goto_link
         affiliate_url = f"/api/{prog_id}" if prog_id else ""
         if not affiliate_url:
-            # Fall back to /ads/{category} page
             affiliate_url = f"{_lang_path(lang)}/ads/{json_category}"
 
         # Legal info
@@ -976,14 +1001,9 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
 
         desc_truncated = description[:150] + ("..." if len(description) > 150 else "")
 
-        # Build region data attribute for client-side/Worker filtering
-        regions_val = prog.get("regions", prog.get("allowed_regions", []))
-        regions_str = ",".join(str(r) for r in regions_val) if isinstance(regions_val, list) else ""
-        region_attr = f' data-region="{escape_html(regions_str)}"' if regions_str else ''
-
         ads_html_parts.append(
             f"""
-<a href="{escape_html(affiliate_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;display:block;"{region_attr}>
+<a href="{escape_html(affiliate_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;display:block;">
 <div class="ad-block-item" data-admitad-id="{escape_html(str(prog_id))}">
   <div class="ad-block-media">
     <img src="{escape_html(raw_image_url)}"
@@ -1005,7 +1025,12 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
         )
 
     ads_html = "".join(ads_html_parts)
-    return f'<div class="ad-blocks-container">{ads_html}</div>'
+
+    # Client-side script: replace static ads with region-filtered ads from Worker API
+    lang_code = "en" if lang == "en" else "ru"
+    region_script = f"""<script>(function(){{var c=document.getElementById('ad-blocks-dynamic');if(!c)return;fetch('/api/ads?lang={lang_code}&max={max_blocks}').then(function(r){{return r.text();}}).then(function(h){{if(h&&h.trim().length>0){{c.innerHTML=h;}}}}).catch(function(){{}});}})();</script>"""
+
+    return f'<div class="ad-blocks-container" id="ad-blocks-dynamic">{ads_html}</div>\n{region_script}'
 
 
 # =============================================================================

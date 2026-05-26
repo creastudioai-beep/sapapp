@@ -460,6 +460,8 @@ def main(argv: Optional[list] = None) -> None:
                 batch_delay=0.3,
                 force_full=False,
             )
+            # Note: incremental_update uses expand_pages=100 by default (~2000 older posts per run)
+            # After ~40-45 runs (every 2 hours = ~4 days), full 87K archive will be complete.
             logger.info(
                 "Telegram incremental update complete: %d posts in %d pages",
                 meta.get("total_posts", 0),
