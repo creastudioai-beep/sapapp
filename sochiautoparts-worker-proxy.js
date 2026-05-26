@@ -371,9 +371,10 @@ async function handleShopProductsAPI(url, request, ctx) {
 async function handleAdsAPI(url, country, request, ctx) {
   try {
     const lang = url.searchParams.get('lang') === 'en' ? 'en' : 'ru';
-    const maxBlocks = Math.min(10, Math.max(1, parseInt(url.searchParams.get('max') || '6', 10)));
+    const maxBlocks = Math.min(20, Math.max(1, parseInt(url.searchParams.get('max') || '6', 10)));
+    const category = url.searchParams.get('cat') || ''; // Filter by category (e.g. 'autoparts')
 
-    const adBlocksHtml = await renderAdBlocks(lang, [country], ctx, maxBlocks);
+    const adBlocksHtml = await renderAdBlocks(lang, [country], ctx, maxBlocks, category);
 
     return new Response(adBlocksHtml || '', {
       headers: {
@@ -789,31 +790,43 @@ ${shopWidgetHtml}
 // Render ad blocks with regional filtering (matches old Worker)
 // =============================================================================
 
-async function renderAdBlocks(lang, allowedRegions, ctx, maxBlocks = 6) {
+async function renderAdBlocks(lang, allowedRegions, ctx, maxBlocks = 6, category = '') {
   try {
     const programs = await getAdmitadPrograms(ctx);
     if (!programs || programs.length === 0) return '';
 
-    // Filter by region
+    // Filter by region AND category
     const regionFiltered = programs.filter(prog => {
       if (!prog.allowed_regions || prog.allowed_regions.length === 0) return true;
       return prog.allowed_regions.some(r => allowedRegions.includes(r));
     });
 
-    // Shuffle and pick up to maxBlocks, one per category
-    const shuffled = [...regionFiltered];
+    // Apply category filter if specified
+    const categoryFiltered = category
+      ? regionFiltered.filter(prog => (prog.jsonCategory || prog.category || 'other') === category)
+      : regionFiltered;
+
+    // Shuffle and pick up to maxBlocks
+    const shuffled = [...categoryFiltered];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
-    const seenCategories = new Set();
-    const selectedAds = [];
-    for (const prog of shuffled) {
-      const cat = prog.jsonCategory || prog.category || 'other';
-      if (!seenCategories.has(cat) && selectedAds.length < maxBlocks) {
-        seenCategories.add(cat);
-        selectedAds.push(prog);
+    // If category is specified, show all matching programs (no one-per-category limit)
+    // If no category, pick one per category for variety
+    let selectedAds;
+    if (category) {
+      selectedAds = shuffled.slice(0, maxBlocks);
+    } else {
+      const seenCategories = new Set();
+      selectedAds = [];
+      for (const prog of shuffled) {
+        const cat = prog.jsonCategory || prog.category || 'other';
+        if (!seenCategories.has(cat) && selectedAds.length < maxBlocks) {
+          seenCategories.add(cat);
+          selectedAds.push(prog);
+        }
       }
     }
 

@@ -2822,7 +2822,7 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
   var userCountry = null;
   // Try to get country from Cloudflare headers (set by Worker as CF-IPCountry response header)
   // Since we can't read response headers from JS, we use the /api/ads endpoint to get region-filtered programs
-  fetch('/api/ads?lang={"ru" if lang == "ru" else "en"}&max=20')
+  fetch('/api/ads?lang={"ru" if lang == "ru" else "en"}&max=20&cat={category}')
     .then(function(r) {{ return r.text(); }})
     .then(function(html) {{
       if (!html) return;
