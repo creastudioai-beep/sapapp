@@ -942,93 +942,89 @@ def render_ad_category_buttons(lang: str = "ru") -> str:
 
 
 def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> str:
-    """Render Admitad ad blocks with client-side region filtering.
+    """Render Admitad ad blocks with three-level regional filtering.
 
-    Renders static ad blocks as fallback, then injects a client-side script
-    that replaces them with region-filtered ads from the Worker's /api/ads endpoint.
-    The Worker uses request.cf.country for geo-targeting.
-    Static fallback ensures content is visible even if JS fails.
+    Three-level system:
+      Level 1 (Worker-Side Injection): Cloudflare Worker replaces the
+          <!-- REGIONAL_ADS_PLACEHOLDER --> placeholder in HTML with
+          region-filtered ad blocks based on request.cf.country.
+      Level 2 (/api/ads): AJAX endpoint for SPA navigation updates.
+      Level 3 (Fallback): Static <noscript> fallback with global (WW) programs
+          for when Worker cannot determine region (e.g. direct GitHub Pages access).
+
+    The Python generator outputs a placeholder that the Worker replaces at request time.
+    A <noscript> fallback with WW-coverage programs ensures content even without Worker/JS.
     """
-    if not programs or len(programs) == 0:
-        return ""
+    # Level 3: Build noscript fallback with global programs (WW coverage or no region restriction)
+    fallback_ads_parts = []
+    if programs:
+        seen_cats = set()
+        for prog in programs:
+            if not isinstance(prog, dict):
+                continue
+            # Only include programs with WW/global coverage for fallback
+            regions = prog.get("allowed_regions", [])
+            if regions and "WW" not in regions and "RU" not in regions:
+                continue
+            cat = prog.get("jsonCategory") or prog.get("category") or "other"
+            if cat in seen_cats:
+                continue
+            seen_cats.add(cat)
+            if len(fallback_ads_parts) >= max_blocks:
+                break
 
-    # Select up to max_blocks programs, one per category (static fallback)
-    seen_categories = set()
-    selected_ads = []
-    for prog in programs:
-        if not isinstance(prog, dict):
-            continue
-        cat = prog.get("jsonCategory") or prog.get("category") or "other"
-        if cat not in seen_categories and len(selected_ads) < max_blocks:
-            seen_categories.add(cat)
-            selected_ads.append(prog)
+            raw_image_url = prog.get("image") or prog.get("logo") or LOGO_EXTERNAL_URL
+            json_category = prog.get("jsonCategory") or prog.get("category") or "other"
+            internal_cat = ADMITAD_CATEGORY_MAPPING.get(json_category, "OTHER")
+            category_label = ADMITAD_CATEGORY_NAMES.get(lang, ADMITAD_CATEGORY_NAMES["ru"]).get(
+                internal_cat, json_category
+            )
+            description = prog.get("description") or prog.get("name", "")
+            btn_text = "Перейти" if lang == "ru" else "Go"
+            prog_name = prog.get("name", "")
+            prog_id = prog.get("id", "")
+            affiliate_url = f"/api/{prog_id}" if prog_id else ""
 
-    if len(selected_ads) == 0:
-        return ""
+            legal_html = ""
+            advertiser_info = prog.get("advertiser_legal_info")
+            if isinstance(advertiser_info, dict) and advertiser_info.get("name"):
+                ad_label = "Реклама" if lang == "ru" else "Ad"
+                legal_html = f'<div class="ad-block-legal">{ad_label}: {escape_html(advertiser_info["name"])}</div>'
 
-    ads_html_parts = []
-    for prog in selected_ads:
-        # Get image URL
-        raw_image_url = prog.get("image") or prog.get("logo") or LOGO_EXTERNAL_URL
+            desc_truncated = description[:150] + ("..." if len(description) > 150 else "")
 
-        # Get category label
-        json_category = prog.get("jsonCategory") or prog.get("category") or "other"
-        internal_cat = ADMITAD_CATEGORY_MAPPING.get(json_category, "OTHER")
-        category_label = ADMITAD_CATEGORY_NAMES.get(lang, ADMITAD_CATEGORY_NAMES["ru"]).get(
-            internal_cat, json_category
-        )
-
-        # Get description
-        description = prog.get("description") or prog.get("name", "")
-        btn_text = "Перейти" if lang == "ru" else "Go"
-        prog_name = prog.get("name", "")
-        prog_id = prog.get("id", "")
-
-        # Build affiliate URL - use /api/{id} format for proxy Worker redirect
-        affiliate_url = f"/api/{prog_id}" if prog_id else ""
-        if not affiliate_url:
-            affiliate_url = f"{_lang_path(lang)}/ads/{json_category}"
-
-        # Legal info
-        legal_html = ""
-        advertiser_info = prog.get("advertiser_legal_info")
-        if isinstance(advertiser_info, dict) and advertiser_info.get("name"):
-            ad_label = "Реклама" if lang == "ru" else "Ad"
-            _adv_name = advertiser_info["name"]
-            legal_html = f'<div class="ad-block-legal">{ad_label}: {escape_html(_adv_name)}</div>'
-
-        desc_truncated = description[:150] + ("..." if len(description) > 150 else "")
-
-        ads_html_parts.append(
-            f"""
-<a href="{escape_html(affiliate_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;display:block;">
-<div class="ad-block-item" data-admitad-id="{escape_html(str(prog_id))}">
+            fallback_ads_parts.append(
+                f"""<a href="{escape_html(affiliate_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;display:block;">
+<div class="ad-block-item">
   <div class="ad-block-media">
-    <img src="{escape_html(raw_image_url)}"
-         alt="{escape_html(prog_name)}"
-         loading="lazy"
-         referrerpolicy="no-referrer"
-         onerror="this.onerror=null;this.remove()">
+    <img src="{escape_html(raw_image_url)}" alt="{escape_html(prog_name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.remove()">
   </div>
   <span class="ad-block-category">{escape_html(category_label)}</span>
   <h4 class="ad-block-title">{escape_html(prog_name)}</h4>
   <p class="ad-block-desc">{escape_html(desc_truncated)}</p>
-  <div class="ad-block-btn">
-    {btn_text}
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px;"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-  </div>
+  <div class="ad-block-btn">{btn_text}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:4px;"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
   {legal_html}
 </div>
 </a>"""
-        )
+            )
 
-    ads_html = "".join(ads_html_parts)
+    # Build the complete output:
+    # 1. Placeholder for Worker injection (Level 1)
+    # 2. Noscript fallback (Level 3) — hidden when Worker replaces the placeholder
+    lang_placeholder = f"REGIONAL_ADS_PLACEHOLDER_{lang.upper()}"
+    fallback_html = "".join(fallback_ads_parts)
+    fallback_container = f'<div class="ad-blocks-container">{fallback_html}</div>' if fallback_html else ''
 
-    # Client-side script: replace static ads with region-filtered ads from Worker API
+    result = f'<!-- {lang_placeholder} -->'
+    if fallback_container:
+        result += f'\n<noscript data-ad-fallback>{fallback_container}</noscript>'
+
+    # Level 2: AJAX script for SPA navigation (loads /api/ads on route change)
+    # This only activates if the placeholder was NOT replaced by Worker (direct GH Pages access)
     lang_code = "en" if lang == "en" else "ru"
-    region_script = f"""<script>(function(){{var c=document.getElementById('ad-blocks-dynamic');if(!c)return;fetch('/api/ads?lang={lang_code}&max={max_blocks}').then(function(r){{return r.text();}}).then(function(h){{if(h&&h.trim().length>0){{c.innerHTML=h;}}}}).catch(function(){{}});}})();</script>"""
+    result += f"""<script>(function(){{var p=document.querySelector('[data-ad-placeholder]');if(!p)return;fetch('/api/ads?lang={lang_code}&max={max_blocks}').then(function(r){{return r.text();}}).then(function(h){{if(h&&h.trim().length>0)p.innerHTML=h;}}).catch(function(){{}});}})();</script>"""
 
-    return f'<div class="ad-blocks-container" id="ad-blocks-dynamic">{ads_html}</div>\n{region_script}'
+    return f'<div class="ad-blocks-container" data-ad-placeholder>{result}</div>'
 
 
 # =============================================================================
