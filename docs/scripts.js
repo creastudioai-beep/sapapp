@@ -239,7 +239,8 @@
           var pName = (p.name || '').length > 50 ? p.name.substring(0, 50) + '...' : (p.name || '');
           var pPrice = p.price ? (typeof p.price === 'number' ? p.price.toLocaleString('ru-RU') + ' ₽' : p.price + ' ₽') : '';
           var pImg = p.image || '/logo.jpg';
-          shopHtml += '<a href="' + (p.url || '#') + '" class="widget-product" target="_blank" rel="nofollow noopener sponsored">'
+          var pLink = p.product_page || (p.id ? '/shop/' + p.id : (p.url || '#'));
+          shopHtml += '<a href="' + pLink + '" class="widget-product">'
             + '<img src="' + pImg + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='/logo.jpg'">'
             + '<div class="wp-name">' + pName + '</div>'
             + '<div class="wp-price">' + pPrice + '</div>'

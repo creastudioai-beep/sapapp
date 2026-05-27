@@ -688,11 +688,49 @@ def generate_all_pages(data: dict, output_dir: str):
         logger.info("Deploying products data to GitHub Pages output…")
         os.makedirs(products_data_dest, exist_ok=True)
         _prod_files_copied = 0
+        # Build product_map to get generated IDs
+        product_id_map = {}
+        for idx_p, p in enumerate(products):
+            if isinstance(p, dict):
+                pid = p.get("id", "")
+                if pid:
+                    product_id_map[idx_p] = str(pid)
         for fname in os.listdir(products_data_src):
             if fname.endswith(".json"):
                 src_path = os.path.join(products_data_src, fname)
                 dest_path = os.path.join(products_data_dest, fname)
-                shutil.copy2(src_path, dest_path)
+                if fname == "meta.json":
+                    shutil.copy2(src_path, dest_path)
+                else:
+                    # Add 'id' and 'product_page' fields to each product
+                    try:
+                        with open(src_path, 'r', encoding='utf-8') as f:
+                            page_products = json.load(f)
+                        if isinstance(page_products, list):
+                            # Determine the offset from filename (page_N.json)
+                            page_match = re.search(r'page_(\d+)', fname)
+                            page_num = int(page_match.group(1)) if page_match else 1
+                            per_page = 200  # matches meta.json
+                            offset = (page_num - 1) * per_page
+                            for i, prod in enumerate(page_products):
+                                if isinstance(prod, dict):
+                                    global_idx = offset + i
+                                    pid = product_id_map.get(global_idx, "")
+                                    if not pid:
+                                        # Generate ID same way as _generate_product_id
+                                        pname = prod.get("n", prod.get("name", ""))
+                                        pvendor = prod.get("v", prod.get("vendor", ""))
+                                        import hashlib as _hl
+                                        raw = f"{pname}|{pvendor}|{global_idx}"
+                                        hash_hex = _hl.sha256(raw.encode("utf-8")).hexdigest()[:8]
+                                        pid = f"{global_idx}_{hash_hex}"
+                                    prod["id"] = pid
+                                    prod["product_page"] = f"/shop/{pid}"
+                        with open(dest_path, 'w', encoding='utf-8') as f:
+                            json.dump(page_products, f, ensure_ascii=False, separators=(',', ':'))
+                    except Exception as e:
+                        logger.warning("Failed to add IDs to %s: %s", fname, e)
+                        shutil.copy2(src_path, dest_path)
                 _prod_files_copied += 1
         logger.info(
             "Copied %d products JSON files to output/data/products/",
@@ -1823,6 +1861,17 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
         p_url = p.get("url", "#")
         p_feed = p.get("feedName") or p.get("feed_name", "")
         p_available = p.get("available", True)
+        p_id = p.get("id", "")
+
+        # Link to internal product page if ID exists, otherwise external URL
+        if p_id:
+            card_link = f"{_bp('/shop')}/{p_id}"
+            card_target = ""
+            card_rel = ""
+        else:
+            card_link = p_url
+            card_target = ' target="_blank"'
+            card_rel = ' rel="nofollow noopener sponsored"'
 
         price_display = f'{p_price:,.0f} {currency}' if isinstance(p_price, (int, float)) else f'{p_price} {currency}' if p_price else ""
         old_price_display = f'{p_old_price:,.0f}' if isinstance(p_old_price, (int, float)) and p_old_price else ""
@@ -1837,7 +1886,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 
         product_cards_html += (
             f'<div class="shop-product-card" data-supplier="{escape_html(p_feed)}" data-price="{p_price if isinstance(p_price, (int, float)) else 0}" data-name="{escape_html(p_name.lower())}">'
-            f'<a href="{escape_html(p_url)}" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;">'
+            f'<a href="{escape_html(card_link)}"{card_target}{card_rel} style="text-decoration:none;color:inherit;">'
             f'<div class="product-card-image"><img src="{escape_html(p_image)}" alt="{escape_html(p_name[:80])}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\'/logo.jpg\'"></div>'
             f'<div class="product-card-body">'
             f'<h3 class="product-card-name">{escape_html(p_name[:80])}</h3>'

@@ -121,22 +121,32 @@ def _get_current_year() -> int:
 # =============================================================================
 
 def _get_poster_for_post(post: dict) -> str:
-    """Extract the first image URL from a post for thumbnails."""
+    """Extract the first image URL from a post for thumbnails.
+
+    For video posts: only returns a poster/thumbnail URL if it's an actual
+    image (.jpg/.png/.webp etc.). Never returns .mp4 URLs as they can't be
+    used in <img> tags. Falls back to LOGO_EXTERNAL_URL for videos without
+    real thumbnails.
+    """
     media = post.get("media", [])
     if isinstance(media, list) and len(media) > 0:
         first = media[0]
         if isinstance(first, dict):
             if first.get("type") == "photo":
                 url = first.get("directUrl") or first.get("url") or first.get("src") or ""
-                if url:
+                if url and _looks_like_image_url(url):
                     return url
+                elif url:
+                    return url  # photo URLs are generally safe even without image extension
             if first.get("type") == "video":
+                # Only accept actual image URLs as poster, NOT .mp4 files
                 poster = first.get("poster") or first.get("thumbnailUrl") or ""
-                if poster:
+                if poster and _looks_like_image_url(poster):
                     return poster
-                url = first.get("directUrl") or first.get("url") or ""
-                if url:
-                    return url
+                elif poster and not poster.lower().split("?")[0].endswith(".mp4"):
+                    return poster
+                # No real thumbnail available — return logo fallback
+                return LOGO_EXTERNAL_URL
         elif isinstance(first, str) and _looks_like_image_url(first):
             return first
 
@@ -473,31 +483,32 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
                 video_src = first_media.get("directUrl", "")
                 poster = _get_poster_for_post(post)
                 is_logo_fallback = (poster == LOGO_EXTERNAL_URL or poster.endswith("/logo.jpg"))
-                if is_logo_fallback:
-                    # No real thumbnail — use <video preload="metadata"> to show first frame
-                    # The browser loads just enough data to render the first frame
+                # All video cards link to post page for playback
+                post_link = f"{_bp('/post')}/{post_id}"
+                if not is_logo_fallback:
+                    # We have a real poster image — show it with play overlay
                     media_block = (
                         f'<div class="post-feed-media">\n'
+                        f'<a href="{post_link}" class="video-card-link">\n'
                         f'<div class="video-container video-card-preview">\n'
-                        f'<video src="{escape_html(video_src)}" preload="metadata" muted playsinline '
-                        f'referrerpolicy="no-referrer" '
-                        f'style="width:100%;max-height:400px;object-fit:cover;background:#1a1a2e;" '
-                        f'class="video-preview-thumb"></video>\n'
-                        f'<div class="video-play-overlay" data-video-src="{escape_html(video_src)}" '
-                        f'data-video-title="{escape_html(title)}" data-video-type="video/mp4"></div>\n'
+                        f'<img src="{escape_html(poster)}" alt="{escape_html(title)}" '
+                        f'loading="lazy" decoding="async" referrerpolicy="no-referrer" '
+                        f'style="width:100%;max-height:400px;object-fit:cover;">\n'
+                        f'<div class="video-play-overlay"></div>\n'
                         f'</div>\n'
+                        f'</a>\n'
                         f'</div>'
                     )
                 else:
+                    # No thumbnail — show styled video placeholder with play button
                     media_block = (
                         f'<div class="post-feed-media">\n'
-                        f'<div class="video-container">\n'
-                        f'<div class="video-thumbnail" data-video-src="{escape_html(video_src)}" '
-                        f'data-video-title="{escape_html(title)}" data-video-type="video/mp4">\n'
-                        f'<img src="{escape_html(poster)}" alt="{escape_html(title)}" '
-                        f'loading="lazy" decoding="async" referrerpolicy="no-referrer">\n'
+                        f'<a href="{post_link}" class="video-card-link">\n'
+                        f'<div class="video-placeholder-card">\n'
+                        f'<div class="video-placeholder-icon">▶</div>\n'
+                        f'<div class="video-placeholder-text">Видео</div>\n'
                         f'</div>\n'
-                        f'</div>\n'
+                        f'</a>\n'
                         f'</div>'
                     )
             else:

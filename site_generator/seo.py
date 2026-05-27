@@ -36,6 +36,7 @@ from .config import (
     LOGO_ICON_512,
     SOCIAL_LINKS,
     PRODUCT_CATEGORIES,
+    ADMITAD_CONFIG,
     POSTS_PER_PAGE,
     CURRENT_YEAR,
     PRODUCTS_PER_PAGE,
@@ -1100,8 +1101,8 @@ def generate_static_sitemap(lang: str = "ru") -> str:
     # ── Privacy ──
     urls.append(_static_url_entry(PRIVACY_PATH, f"/en{PRIVACY_PATH}", "monthly", "0.4", now))
 
-    # ── Ads category pages (all PRODUCT_CATEGORIES) ──
-    for cat_key in PRODUCT_CATEGORIES:
+    # ── Ads category pages (only ADMITAD_CONFIG keys — matching generated /ads/{key}.html pages) ──
+    for cat_key in ADMITAD_CONFIG:
         urls.append(_static_url_entry(f"/ads/{cat_key}", f"/en/ads/{cat_key}", "weekly", "0.6", now))
 
     # ── RSS feed ──
@@ -2311,7 +2312,8 @@ def generate_scripts_js() -> str:
           var pName = (p.name || '').length > 50 ? p.name.substring(0, 50) + '...' : (p.name || '');
           var pPrice = p.price ? (typeof p.price === 'number' ? p.price.toLocaleString('ru-RU') + ' \u20bd' : p.price + ' \u20bd') : '';
           var pImg = p.image || '/logo.jpg';
-          shopHtml += '<a href="' + (p.url || '#') + '" class="widget-product" target="_blank" rel="nofollow noopener sponsored">'
+          var pLink = p.product_page || (p.id ? '/shop/' + p.id : (p.url || '#'));
+          shopHtml += '<a href="' + pLink + '" class="widget-product">'
             + '<img src="' + pImg + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\'/logo.jpg\'">'
             + '<div class="wp-name">' + pName + '</div>'
             + '<div class="wp-price">' + pPrice + '</div>'

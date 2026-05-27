@@ -512,11 +512,13 @@ async function handleShopRandomProductsAPI(url, request, ctx) {
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     const randomProducts = shuffled.slice(0, count).map(p => ({
-      name: p.name || '',
-      price: p.price || 0,
-      image: p.image || '',
-      url: p.url || '#',
-      vendor: p.vendor || '',
+      id: p.id || '',
+      name: p.n || p.name || '',
+      price: p.p || p.price || 0,
+      image: p.i || p.image || '',
+      url: p.u || p.url || '#',
+      vendor: p.v || p.vendor || '',
+      product_page: p.product_page || (p.id ? '/shop/' + p.id : ''),
     }));
     return new Response(JSON.stringify(randomProducts), {
       headers: {
