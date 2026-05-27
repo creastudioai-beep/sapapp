@@ -82,7 +82,7 @@ RSS_DATA_URL: str = ""
 # =============================================================================
 
 POSTS_PER_PAGE: int = 50
-MAX_POSTS: int = 100000
+MAX_POSTS: int = 15000
 ARTICLES_PER_PAGE: int = 30
 
 # =============================================================================
@@ -610,14 +610,14 @@ COPYRIGHT_EN: str = f"© {CURRENT_YEAR} {SITE_NAME_EN}"
 
 # Telegram parser settings
 TELEGRAM_PARSER_CHANNEL: str = CHANNEL_USERNAME
-TELEGRAM_PARSER_FULL_LIMIT: int = 25000  # Max posts for full daily parse
+TELEGRAM_PARSER_FULL_LIMIT: int = 15000  # Max posts for full daily parse
 TELEGRAM_PARSER_RECENT_LIMIT: int = 50   # Max posts for hourly recent parse
 TELEGRAM_PARSER_DATA_DIR: str = "data/telegram_posts"
 
 # Maximum number of individual post pages to generate (to control output size)
-# The homepage and listing pages show ALL posts (up to 25K), but individual
+# The homepage and listing pages show ALL posts (up to 15K), but individual
 # post pages can be limited to save space on GitHub Pages (1GB limit).
-# 15K posts * ~40KB = ~600MB, leaving room for 8K product pages (~240MB)
+# 15K posts * ~30KB = ~450MB, leaving room for 8K product pages (~200MB)
 MAX_POSTS_TO_GENERATE: int = 15000
 
 # Product pages settings

@@ -2864,11 +2864,22 @@ def generate_ads_index_page(data: dict, lang: str, output_dir: str) -> str:
 </div>
 </div>"""
 
-    # REGIONAL_ADS_PLACEHOLDER for Worker injection of region-filtered
-    # featured programs; category grid is always shown as static navigation.
+    # /ads/ index page: show featured region-filtered ads first,
+    # then category navigation cards below. The REGIONAL_ADS_PLACEHOLDER
+    # is replaced by the Worker with region-filtered programs.
     ads_content = (
+        f'<div class="ads-featured-section">\n'
+        f'<h2 style="font-size:1.2rem;margin:1rem 0 0.75rem;color:var(--text-muted);">'
+        f'{"Рекомендуемые партнёры" if is_ru else "Featured Partners"}'
+        f'</h2>\n'
         f'<!-- REGIONAL_ADS_PLACEHOLDER -->\n'
-        f'<div class="ad-blocks-container">{category_cards}</div>'
+        f'</div>\n'
+        f'<div class="ads-categories-section">\n'
+        f'<h2 style="font-size:1.2rem;margin:1.5rem 0 0.75rem;color:var(--text-muted);">'
+        f'{"Категории партнёрских программ" if is_ru else "Affiliate Categories"}'
+        f'</h2>\n'
+        f'<div class="ad-blocks-container">{category_cards}</div>\n'
+        f'</div>'
     )
 
     # Breadcrumbs

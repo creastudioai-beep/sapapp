@@ -425,7 +425,7 @@ async function getProductsPage(pageNum, ctx) {
 
   const raw = await fetchProductPage(pageNum);
   const mapped = raw.map(p => ({
-    id: p.f || p.id,
+    id: p.id || p.f || '',
     name: p.n || p.name || '',
     price: p.p || p.price || 0,
     oldPrice: p.o || p.oldPrice || p.old_price || 0,
@@ -444,6 +444,7 @@ async function getProductsPage(pageNum, ctx) {
     model: p.m || p.model || '',
     type: p.tp || p.type || '',
     goto_link: p.goto_link || p.gotoLink || '',
+    product_page: p.product_page || '',
   }));
   productsPageCache[pageNum] = { data: mapped, time: now };
   return mapped;
@@ -739,7 +740,7 @@ async function proxyToGitHubPages(path, request, ctx, country) {
     const contentType = cachedResponse.headers.get('Content-Type') || '';
     if (contentType.includes('text/html')) {
       let body = await cachedResponse.text();
-      body = await injectRegionalAds(body, country, ctx);
+      body = await injectRegionalAds(body, country, ctx, path);
       const resp = new Response(body, {
         status: cachedResponse.status,
         statusText: cachedResponse.statusText,
@@ -803,7 +804,7 @@ async function proxyToGitHubPages(path, request, ctx, country) {
     const contentType = response.headers.get('Content-Type') || '';
     if (contentType.includes('text/html')) {
       let body = await response.text();
-      body = await injectRegionalAds(body, country, ctx);
+      body = await injectRegionalAds(body, country, ctx, path);
       const resp = new Response(body, {
         status: response.status,
         statusText: response.statusText,
@@ -829,7 +830,7 @@ async function proxyToGitHubPages(path, request, ctx, country) {
 // and replaces with region-filtered ad blocks
 // =============================================================================
 
-async function injectRegionalAds(htmlBody, country, ctx) {
+async function injectRegionalAds(htmlBody, country, ctx, requestPath) {
   // Quick check: does the HTML contain any ad placeholder?
   const hasPlaceholder = htmlBody.includes('<!-- REGIONAL_ADS_PLACEHOLDER -->') ||
                          htmlBody.includes('<!-- REGIONAL_ADS_PLACEHOLDER_RU -->') ||
@@ -840,8 +841,20 @@ async function injectRegionalAds(htmlBody, country, ctx) {
   const langMatch = htmlBody.match(/<html[^>]+\blang=["']([a-z]{2})/i);
   const lang = (langMatch && langMatch[1].toLowerCase() === 'en') ? 'en' : 'ru';
 
-  // Render region-filtered ad blocks
-  const adBlocksHtml = await renderAdBlocks(lang, [country], ctx, 6, '');
+  // Detect ad category from request path (e.g. /ads/autoparts.html → 'autoparts')
+  let category = '';
+  const adsCatMatch = requestPath.match(/\/ads\/([a-z]+)/);
+  if (adsCatMatch) {
+    category = adsCatMatch[1];
+  }
+  // Also check for data-cat attribute in the HTML
+  if (!category) {
+    const catAttrMatch = htmlBody.match(/data-cat=["']([a-z]+)["']/);
+    if (catAttrMatch) category = catAttrMatch[1];
+  }
+
+  // Render region-filtered ad blocks with detected category
+  const adBlocksHtml = await renderAdBlocks(lang, [country], ctx, 6, category);
 
   let result = htmlBody;
 

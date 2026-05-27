@@ -6,9 +6,20 @@ on:
     paths-ignore:
       - 'docs/**'
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Build mode: full or recent'
+        required: false
+        default: 'recent'
+        type: choice
+        options:
+          - full
+          - recent
   schedule:
-    # Run daily at 03:00 UTC (06:00 MSK)
+    # Full scrape daily at 03:00 UTC (06:00 MSK) — refreshes ALL posts & media links
     - cron: '0 3 * * *'
+    # Recent scrape every hour at minute 15 — fetches latest 50 posts for news
+    - cron: '15 * * * *'
 
 permissions:
   contents: write
@@ -32,13 +43,63 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Parse Telegram channel (full)
+      - name: Determine build mode
+        id: mode
         run: |
-          echo "=== Running Telegram parser (full scan up to 25000 posts) ==="
-          python -m site_generator.telegram_parser --full --limit 25000
+          # Default: determine from schedule trigger
+          if [[ "${{ github.event_name }}" == "schedule" ]]; then
+            # Check if this is the daily cron (03:00 UTC) or hourly cron
+            EVENT_HOUR=$(date -u -d "${{ github.event.schedule }}" +%H 2>/dev/null || echo "")
+            # github.event.schedule gives the cron expression
+            CRON_EXPR="${{ github.event.schedule }}"
+            if [[ "$CRON_EXPR" == "0 3 * * *" ]]; then
+              echo "mode=full" >> $GITHUB_OUTPUT
+              echo "BUILD_MODE=full" >> $GITHUB_ENV
+              echo "=== Daily full scrape build ==="
+            else
+              echo "mode=recent" >> $GITHUB_OUTPUT
+              echo "BUILD_MODE=recent" >> $GITHUB_ENV
+              echo "=== Hourly recent posts build ==="
+            fi
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "mode=${{ inputs.mode }}" >> $GITHUB_OUTPUT
+            echo "BUILD_MODE=${{ inputs.mode }}" >> $GITHUB_ENV
+            echo "=== Manual dispatch: ${{ inputs.mode }} build ==="
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "mode=recent" >> $GITHUB_OUTPUT
+            echo "BUILD_MODE=recent" >> $GITHUB_ENV
+            echo "=== Push-triggered recent build ==="
+          else
+            echo "mode=recent" >> $GITHUB_OUTPUT
+            echo "BUILD_MODE=recent" >> $GITHUB_ENV
+            echo "=== Default recent build ==="
+          fi
+
+      - name: Parse Telegram channel (full — daily)
+        if: env.BUILD_MODE == 'full'
+        run: |
+          echo "=== Running Telegram parser: FULL scan (up to 15000 posts) ==="
+          echo "This refreshes ALL posts including media links that may have expired"
+          python -m site_generator.telegram_parser --full --limit 15000
         env:
           PYTHONUNBUFFERED: '1'
-          PARSE_LIMIT: '25000'
+          PARSE_LIMIT: '15000'
+
+      - name: Parse Telegram channel (recent — hourly)
+        if: env.BUILD_MODE == 'recent'
+        run: |
+          echo "=== Running Telegram parser: RECENT scan (latest 50 posts) ==="
+          echo "This fetches only the latest news posts and merges with existing data"
+          python -m site_generator.telegram_parser --recent 50
+        env:
+          PYTHONUNBUFFERED: '1'
+          RECENT_LIMIT: '50'
+
+      - name: Clean old build output
+        run: |
+          echo "=== Cleaning docs/ directory to remove stale pages ==="
+          rm -rf docs/
+          echo "docs/ cleaned"
 
       - name: Build static site
         run: python -m site_generator --output docs
@@ -48,6 +109,8 @@ jobs:
       - name: Verify build output
         run: |
           echo "=== Build Output Summary ==="
+          echo "Build mode: $BUILD_MODE"
+          echo ""
           echo "Total size of docs/:"
           du -sh docs/ 2>/dev/null || echo "docs/ not found"
           echo ""
@@ -78,11 +141,14 @@ jobs:
 
       - name: Commit and push docs/
         run: |
+          # Remove all tracked docs/ files first, then add new ones
+          # This ensures stale product/post pages from previous builds are removed
+          git rm -r --cached docs/ 2>/dev/null || true
           git add -f docs/
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto-build: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git commit -m "Auto-build ($BUILD_MODE): $(date -u '+%Y-%m-%d %H:%M UTC')"
             git push
           fi
 

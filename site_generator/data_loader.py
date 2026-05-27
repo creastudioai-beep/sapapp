@@ -842,30 +842,23 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     )
 
     # ------------------------------------------------------------------
-    # Load products from local file
+    # Load products from local file (products.json is the primary source)
     # ------------------------------------------------------------------
     products_path = os.path.join(data_dir, _PRODUCTS_FILENAME)
     products_data = _load_local_json(products_path)
 
-    # Also check data/products/ directory for additional product files
-    products_dir = os.path.join(data_dir, "products")
-    if os.path.isdir(products_dir):
-        import glob as _glob
-        for pfile in sorted(_glob.glob(os.path.join(products_dir, "*.json"))):
-            extra = _load_local_json(pfile)
-            if isinstance(extra, list):
-                if products_data is None:
-                    products_data = []
-                if isinstance(products_data, list):
+    # If products.json doesn't exist, try loading from the paginated
+    # data/products/ directory instead (used by the Worker API).
+    # DO NOT load both — they contain the same data and would cause duplicates.
+    if products_data is None:
+        products_dir = os.path.join(data_dir, "products")
+        if os.path.isdir(products_dir):
+            import glob as _glob
+            products_data = []
+            for pfile in sorted(_glob.glob(os.path.join(products_dir, "page_*.json"))):
+                extra = _load_local_json(pfile)
+                if isinstance(extra, list):
                     products_data.extend(extra)
-            elif isinstance(extra, dict):
-                # Might be a dict with products key
-                extra_list = extra.get("products", extra.get("items", []))
-                if isinstance(extra_list, list):
-                    if products_data is None:
-                        products_data = []
-                    if isinstance(products_data, list):
-                        products_data.extend(extra_list)
 
     if isinstance(products_data, list):
         result["products"] = products_data

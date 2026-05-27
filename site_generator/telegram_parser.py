@@ -5,7 +5,7 @@ Telegram Web Parser for SochiAutoParts.
 Scrapes the public web preview of a Telegram channel (t.me/s/{channel})
 using requests + BeautifulSoup, with support for:
 
-  --full       : Full archive scan (up to PARSE_LIMIT=15000 posts)
+  --full       : Full archive scan (up to PARSE_LIMIT=15000 posts, daily)
   --recent     : Update only the latest N posts (default 50)
 
 Features:
@@ -54,7 +54,7 @@ from tenacity import (
 CHANNEL_USERNAME: str = os.environ.get("CHANNEL_USERNAME", "sochiautoparts")
 BASE_URL: str = f"https://t.me/s/{CHANNEL_USERNAME}"
 
-PARSE_LIMIT: int = int(os.environ.get("PARSE_LIMIT", "15000"))  # Max posts for --full
+PARSE_LIMIT: int = int(os.environ.get("PARSE_LIMIT", "15000"))  # Max posts for --full (matches MAX_POSTS in config)
 RECENT_LIMIT: int = int(os.environ.get("RECENT_LIMIT", "50"))    # Max posts for --recent
 POSTS_PER_FILE: int = 50  # Posts per paginated JSON file
 
