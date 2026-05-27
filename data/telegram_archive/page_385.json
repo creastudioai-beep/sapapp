@@ -1,11 +1,376 @@
 [
   {
+    "id": 38662,
+    "text": "Компания Jeep представила обновлённый внедорожник Wrangler\n\nРестайлинговые машины можно опознать по компактной решётке радиатора и отсутствию антенны-штыря. В оснащении обычных машин появилась мультимедийная система Uconnect 5 с загруженными в навигацию внедорожными маршрутами, шторки безопасности. А у Wrangler — задний мост Dana 44 HD с полуразгруженными полуосями. Продажи рестайлинговых вездеходов в Америке стартуют летом этого года.\n\n \n \n 35 views16:20",
+    "photos": [
+      "https://cdn4.telesco.pe/file/cIMRvKTnO4s2YtQ-wk1wh60cLuUStKlQKhAB6c6McF-IPRd3rGlAhmQJ4sSEKHLoRR0ppfh8tnOXTcVeqkPPsx47u_Bh4p8H67F-Rp5mk9OGpHlWmft_THN1h3DMww6CFFutz5fOQmuCfmdX4zjqdk8XyYXzZZbolsbJz1o6nmZOgvxxKRw2SnfLIZNjQD4vku9aqp2YsyRt7RhDywm5tQA7W-eBRnPZjBlxTOPERZdyJWeW--CxPtKL2W_Six74tnKwz4dyaOYOWyV-2U9rP6_qCvxP8-TMXnVMe_iNs4s1JacIqrOiFU4q2nMxuqpwtZuJ-yHxwXIf9oeEKW7m-Q.jpg",
+      "https://cdn4.telesco.pe/file/N7z-j3m_0RNBymtPjwyiDnuU-N3cUexITadLyxdJU_zA8W0spVkNTYypmG4yjMsI5CoqVulAj2Tcbzzfai1xM8O-HYlVByUWNS-qeUhk3VlLEoh-EXlUCA_WvXedZC7jkgqUZeHERlYNH-unFIyoyDWpgC4218kp_YBEs9BDltunXJx55K_UyzPS39pFu-RXp49ahKKgdMi8PeYSBlF5w_VNY7bdrSJ_ZeCdtepSaRQr33BO8Q2-F16oTHwCHvins7yRrjl6rnnVwTEiw9SMC70Bnd-0nDGhahNBDgBzCOYICXjAvPelsU9w_L8qtYk9T8W2fgtCpXnqRu4qryuDzQ.jpg",
+      "https://cdn4.telesco.pe/file/c07JlONvgg9eKyurXVLXNoy7OKNjVP1FHilNJ0ZgtPg-06LjIJ8LU6zYmuEZPVFhw58ZWEdvklepgKQmmqzyFNbqU5J7-zsbdyk2U16-CZ2IXHj_2SLw5h4UqyhQEywVAq0XXWOtgLZjqqEHhfbgT8C_rQ5mCmsSwkkT0zz7TjMMBJIVyiMSIj4FDbn7bxCrziuOMT3xuxKa5UO2moWTsX9bUVElfrXHINWri0V6KckHEk7VKib5lmzeeyn7CRQzfwpHqrevZWWJ5sEum0q7WvvV8wyL47E6h-cvP3aEBaWDWetab1ZnDJzGHZ5WXPlVwcKJNJCRac7W695OEPamfQ.jpg",
+      "https://cdn4.telesco.pe/file/JOerw0FzbQ-NreOBg-lw39l6lOJBr-lM75Pk5tutv4IrfCeYbDPDSxaXb1g6U-5NC9rIedEx8qa-enEJLLG7ah6H1ENYw6aM2IVPcphigxwEfiDynC-ODUgA6AvKV3lpxwd3iGQm85ShmNY6QQQPl8wXyuqiW7hqxyvJVESOYEoVdbpq3L0AG1ZetSGJX48eqUyWd-Kb8HCdK_KwMhJz7F1DTsoe5IdYfr0dsSwkGsbOMvmqkscyc3ZeBtJic86G-tRm0r7tHQ53Q_d-JXoYoIggFnBGqi4VJLwB80ZkJTo3t4segvA0rEnSmo7ycjHasFY8h2g4dIBqb3yliWt2Iw.jpg",
+      "https://cdn4.telesco.pe/file/YJyLZqi3dQCOYppS8MnKbyBhDRLVC5zquJu6V8bX3baY0G6GNw-lL-1GQC8mqe2j_lpYyXWt3SzE-RM8tDMUWHnhP8OAjuoVkekl3r_6NIGxP-TkdCdTnXugtSFta0uIkXsd5Fn4FXwlqINqSlgP8Tf7Pdd-KfWrb7in4QFxQkIyxnpeGB2IoU5SY1Cf7ZcZWPRPxTSTQaXu14ZcyxW8ZeIaQQD7Do4snG5hP9g3uwnfu5A_079Z71z-wAALBAzkWIfIq2tSl1PtfRQW4S6r61XeDLHRkYgOOOGtKHioBRg7zABwdv7yKlhIMUFiyMHGVAuoI8xzzon7RVq1ssPmsw.jpg",
+      "https://cdn4.telesco.pe/file/lPKOwO8v1mqiy0jYWKp7pLa3x6Jgm9mtXcb7g3wDcMONRE-ZsDo1oJlbhDmLLOPdTiUEthA5auWuE_cCuLRK4XErXaz3n4NIt7kf9xE5jvt2o7Mb5Dk4EegVbgqEUBglyB8k0l8MyU2DScnGn2yChzr3e-mHF53zBm5e3f5GTIoI6HWw68jF54NlIf8_PVYAqJolt8jeuHxMr0rxnBG47OsSxA0qKLQ3FqSrovKmQB5XDIGYOlRZxOJtzrMfLvaKA_E0qFA1BgI5CGnsmSZEQQn6Gxx8yhdtdR3C-2RYb_PgDUlxPLY4B9BybwBOE9qc2BjDzFXOxMGjHxDPOGMYQw.jpg",
+      "https://cdn4.telesco.pe/file/NB6WGejj8pAd7Ej1NpYg4F53fSXqpTQYPR-IBcaf0Cq2V9-iLxs2GkkgEAPh8j8cTOy1HSLymENl6P3I2DLpHiXMuFtFaHpgJmghIIi-rUJqN_KfVOAK71u09A8E91y-cI7IadI89sexj2kLBWkP40UjblxMRf_h_Ivkev9CU-pBAHra0VRkcDQAjDQS9ouaHjq_RCTNdKJT1nevQ-Skzda9HN_kqofYXTTCxoodPqkF0r3jyU4uubZzOeJWKuQLxDnlb3JHMyIj0rSdG2Q4SkQz73YmqOQvjLbdmc8uL3ij7nCKQhO9DNdm-QfR_vbmh3lirzXIXIMbcG0QG74fQA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T16:20:44+00:00",
+    "views": 35
+  },
+  {
+    "id": 38669,
+    "text": "В российских автосалонах продают Volvo XC40 из Китая за 4,4 миллиона рублей\n\nПартию кроссоверов привёз на российский рынок по параллельному импорту один из крупных дилерских центров. К покупке доступны автомобили 2023 года выпуска без пробега. По словам продавца, перед продажей модель прошла тщательную проверку по 43 параметрам, включая исследования кузова и технических узлов. Приобрести кроссовер можно с электронным паспортом технического средства.\n\n \n \n 37 views16:21\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/dOmFBLv6WlKfGxq7hio8x5MlUn4GEOnqmhRVyE3B38qaRutjzJBgJgGT2HPFkmxPp4CYf9IOQ66pQ9a6ARsgAZH7wLVLT3WRZUa7XLC879uXJiIUGulHX8br5k-Y73ye_HpG_MOl5IOVm33iCufc_FZHrPDTr4-kBl9yN4I-dfCSXq2C2z5oBJCKYKEc_qwjEspN0N3YQa8E1JoCLNSKb3gRVIlC3QjPVC8jxGqhFOKRqRa69udSSuUk7CmO6czddz80ltkrjC91WNIMHgt-DOlg8DEnUG1iNMCE_G0PFZFxYULHTqq0wGT2_3uZvS1v2scHCdZ5ZGst3-5QnOmBxw.jpg",
+      "https://cdn4.telesco.pe/file/RaMBUuX_Y22pQpVFI1sf58AlWXKHcM2tVpZP3_1YpJX8QvR9FwMIK07IDCNRB_tpfhPccj_b2lVzolX5ILFScjmFcff2FeEqbg9mysyijER0zAwz8iUj3U0FJToUyN8M9I8ISoaAFrR1XCM0QMuQUpOfMOwWMAYMWFHAcXL2-0h_gD4wsWpF1N6RsUrN-4sMtKX4H24ju6W823UOpal2_vNOQaobEEH58MiUmyZmrqy2Zc6g5QQ6jopXYQYxxd1rKtG6qmGzfBFMeglSsWFObR5sOWQG-KZrWjEOhfv73fvLHml5WH9rijURM26YjecyF1Bt9LgtQPs91jUH2gJI-w.jpg",
+      "https://cdn4.telesco.pe/file/hu5MapWaIXZIyDIJ6VHlF2pQiB1JwbQGWWkgiho6SbnuPPpS9F9SsYlKG-UUcIWjKzOwUKrhbJqmfImRohnL21hkXogSFfWfiZM7Dk6XmpnicxuoV1mZc6dFPhuoM5nakiN2P0VOJxM38CzZ-PEcoqhogE3zzj-aWx-J0VsxY5y8XytTnAVY9lDrO5DO08zn6phuhSctFLcQjglls4aKnJnvG9JGHhiI8moweZrWFDwc2B1Vf_upRs8P0WsyXvfaky8X76b8On6dASeb82LYydo3hYfu6G-1dNofmLDzBZuVFUQJgFvP3MCmp0iiXTQCVJZW8tnfhts0GTOy3SRAkw.jpg",
+      "https://cdn4.telesco.pe/file/jjtnFbifKvFAaiJizQzJBxymrXuxRY1ufW0ubeJ4vX5oFPPPMCjDaJwtMDp7hHC4EOcuodfwLs5kg-oj765FpirXDLFBjaPDo8k5Fu3q5yhP0ZLMIwMbX6Hu-Tk4Axa6cELKkyvuMyKvOvJtcee9TEZoN_tX6NiY4ihzjJY-njQ11sEUJnE1Y3QWo30OflaM3c62Rjy8AGYV-CQcF5aurSHG71C8wSOn5eCyqqogAce5uXHPkt3Mhx7l9dwR09IBHGOiwwyhTpul8yMFiMcA-CiLUXRkRCO7-Tb7Afpk6bH6OO1z9rsW_OTZImdnOFiUDAdCnK9Y8-rbgbmXr3KGnQ.jpg",
+      "https://cdn4.telesco.pe/file/M917NqMjnVPYVm2BbT4deb7c4a56S81MdtL0AEVjimZt29VrAR2C1rLaxNYG3IGMlDgAAcp4ZdohpiYx3vKk02MeyRu1MxS0IQUtwuiA09iCG4en0st9yZsdUvppWpI3ojWODdOJlXF_WolutbIyfur9kd07QOhngzfHrhAmFak8wdck4auK5csb1BcTXzm2jS1CueiA_I3gyNQtBbM40dd0HFcKWS8xsQ3ta-s5hqL2MLEYyudsoiKMlDBA13j0_mU292x6LUIqjnLHTT_IwMcwhGnkz_wkixDnLFKdxWmba2UWcIC3GTXikUUeaICbAuDSaUnaIoD8kyKiXOOGlw.jpg",
+      "https://cdn4.telesco.pe/file/K8md_vftzFS0p2DngQ0-9hb_dVtH7xXAPIOBs7gOmR1FTmtxDF3dpa59g7XbkL-NG-d-PDS5SB7-mUeZDDnz_bnXEuwvbxu3F3mtX4j7Ly_joxrbpRxt8hshEeukRijTreLFBbIjuAqpIkOtOOTqMJVNV5nvsU44l88_UmGyCnMBaucZvmK-Wlfc4SYKbhpUVgHmnr6J-EBt4ucSaq1fjGSeWEIOkjO7MY2YGgicI14l9c46gdFxkbv8SHkxCJI-gQBs9z3nJnjxNCzc9HS23m-8masNcMrfQgDbQyKV5lZH2oK3wIommTn6SYJH3XiVYb4e51KlHpkq0HlyWVxC5A.jpg",
+      "https://cdn4.telesco.pe/file/l9o8xVQlPvRy-gjVJNahcXzyM33i2aYU7seT46A8yEXN5s9-6QsLPl8HwbKcsWsk_X7OYcSYQdQ7swKIMD7z--as5aLvln_FqdHOpIb4YotQ-F1mcbZ-im7WcqWtxucxy6io_T8w5c8Tqb1Q1cT2FujuKTW8y44pi_OdGKB40j3oEOIi0RHNNaVRhPqdLTve4X28bnGCIAlL6n1lIhecpgP89Lwom3gxnPmVSI9PGng2sHznz2gW668GTNakgDkFOn9Tty44DQEfMuhZcY9uwguDoAhCwipXR9Iw5QuVdNH3v11sW8Jg80_F7gjKfeZQHwkDk8orI9rvO1tMsvzWoA.jpg",
+      "https://cdn4.telesco.pe/file/HI6838V_dvA82MVXILoeF7jYfghdW7zo_KrGz2wKMr3OCO4HeQ8MRyUmohIS8IGwu6xHsc36_F_gLKKNjxMBcMrqMMHX-xcdYJqcqbhJNLfL1sNBNFrtKABKMsP1wK3WiMoL67J9Y0C6qJMKG6hV73z3c05O7k0B01-nyxcv9AVqMoC_Z-m7L1K-pwtkVX3UQVkda4lPGKTZn9_9b3YvackrwlyBhXphx6vHf0lC28G0xG1g2qfk9-vI1UJ610C1B0i0ZxPhu7gd7Jlmgk9aycKkrCTVY0yrL-2342NYb0L7PgevwOAnAQSylewbgWYO5Izr4Te_Gs5BLaFfsd1MxQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T16:21:05+00:00",
+    "views": 37
+  },
+  {
+    "id": 38625,
+    "text": "На автосалоне в Нью-Йорке альянс Stellantis представил серийную версию электрического пикапа Ram 1500 REV и раскрыл технические подробности.\n\n– коэффициент лобового сопротивления Cd = 0,34. Это лучше, чем у Tesla Cybertruck (0,39), но хуже, чем у Rivian R1T (0,3);\n\n– две батареи на выбор, емкостью 168 кВт·ч (запас хода 563 км) либо 229 кВт·ч (запас хода 805 км);\n\n– рабочее напряжение – 800 вольт, максимальная мощность зарядки – 350 кВт;\n\n– Ram 1500 REV будет оснащаться двумя модульными электроприводами мощностью 250 кВт (340 л. с.) каждый, пиковая отдача – 481 кВт (654 л. с.) и 840 Нм. \n\n– 100 км/ч пикап набирает за 4,4 с;\n\n– Ram 1500 REV сможет таскать прицепы массой до 6350 кг, однако заявленная грузоподъемность у «Теслы» все-таки выше: 1588 кг против 1225;\n\n– объем переднего багажника – 425 л;\n\n– есть две розетки (мощностью 3,7 и 7,4 кВт) для питания небольших домов или других электромобилей;\n\n– Продажи Ram 1500 REV в Америке начнутся только в четвертом квартале 2024 года.\n\n \n \n 38 views04:56",
+    "photos": [
+      "https://cdn4.telesco.pe/file/qOMwpZJHQtxd85qIxWroB9-CjyPcyoRnJ01uMsXMgkMhzkp7LLMwnKqR-BwDpQWTTtjIXIn1FIHX8Irr5luB-w-e3b_p_CbIn1pk29Xr_pxUHC_FmZqs-zb8VdlxepI1AuvE8FPEuQeWWJ-WLiXCv2aMIJQ_KMpvwzO_NMoC5E13oK63lvdQO9yHvzh9ZeEd449Clrn7wnBk4fneJy60ZZrAeBx0cpypMULMYR8L2gifcJQCGdFNs0c27vo6D2vrM7ouHl8hN3GEfrZaww7c9UfF8jBgpYKQsDs1NqQMdBulxeXzjHQHSfdNj_erqcae7DcLiy8DYOhWDGR9blMsEg.jpg",
+      "https://cdn4.telesco.pe/file/IHoHR3eruodJCIGZAvt1R7ol6VvK7o1wz0fyGuZTzdT0fXeo4wvwG-lQ1gkmZx5pFF03gNeqg2CTz1K07tyO2JZF_N3rI8JCg28Hx1QaUa1jCr6Ae4365q2ie9Jy9ehKp30hIHZy9B99zWeCnsWE3vzRgE9sbjUst4LkiEEPhCbyrRXFtOIzgbYnyJrzJ2h5ta5oUZd53azq9CBPcqGU7xvvfOc4Ai1_wp14qqvktH3Qzqn8C-plaibErzJ_zmD3wlJZ3UltH3CSA_2WURbtzdodnmuFsKDiLJPEdoEHz2pHslATzMH156bko0Fx7zlQh-mt3my6NzDVRc1s6yk9Vg.jpg",
+      "https://cdn4.telesco.pe/file/AZpBl2_2HoBERBxoHtiPLfzpYX--Zqwsb3qET3cjpLD6KJdXpvfvN3W9C9oTQrI5cmlrbG_WpJFEOFxf2m-J7MtHTicAxemz1j-d6vcaklYRLXeHUEX7C4JDdAowxsahvaf4-gZquga-fAFKDTer234qbIAJMBWmyG57N0mdNjT5CwqV0692bVei_tAf8lmzHuUhzfF3Pql7Ad001fe8JqP8WBX3CuOOk-H4O_yYcsNRjehc24Q7bWupnk1Ld3-vt0P6dDDcNzlwZjj2bXo5X0zYLkJmd1i_NrwHKVbIkKnbrhUyYnWsayQZ4U-0sTGT8ompFIETcpfrnFYpGu8Rag.jpg",
+      "https://cdn4.telesco.pe/file/idFsogie6_8abIH4w11Pf43KFvaWtWaNM28CJVDNqu9C_utYokg9k6EbAbrLs0b7HjXkGW1Iws1fRJiD1vd8ySHgPjoHs3T0rWpPMea20nSBH58PS1dCJYi5kUnYnNqM8jkSnhOt3bIncJvNPzjm-yHenyxtoYLIDmf2TYL6lcLGFbJ9uwsfudfrU_o1z2t4vD_HjukGn5OOWlXLAGVUVcQFO1xLx1sBoxuOh4MZiRg02o9P24h_GQeVJeihNT1jLW6J254AnujHCpvX2B-TTDAjrmrQoHeiC2a9D4GLHR5GW4AQOTPRVKwllvwrHRVLKLmWIWKosY3qzY4Ziettvw.jpg",
+      "https://cdn4.telesco.pe/file/jlewCnoC3q2KO6NI-OX5qciHWQIK63RjLtypqItLBuuqHidDDRd5MY4c4qAlK_sMUwd2mvQyAXTpoDC5kqoOHbKHMZ-lIMjn4yMHqALNmFveEMtsnfbP7tQSMcyflDIaqV38Ou3ohqd7xl6_FJGNq6-1eUrPSfmUBZ1aQ6FoR4C2ulx1M4xej1Upda1lxEbk-ZIzNHipu-buAmC_zi8Z6ZygnAryj00ylGi8XSNafVvRKNWv0wF-j2DkyVh669U-TSohudA8ct4uOcd-_fLPmQAMOeTnbTyJmeV4Jcn3xwVeUq-SqLPb7YjQwdjqn3-xaMr3BvPnOhR0cfmuCHckDw.jpg",
+      "https://cdn4.telesco.pe/file/l9DosUSeflvoaP2ddfHKFVBCnfyLurHRoJisxAoA-3mT-BOZ34J5_1dtXzbIwmync_k2-sVLyqktITe91NZXlDE8aZu0JHnRX1rRFGPVb29-w010OhTBNT_E4B6Ovx81dv4q-NGow9ok15CRSr0l1NsCuwKGSz6aALCQpD7qyVUvlhNGPdqUeReOu-f59mz76Bj_Ad9LYKVNothaK1F9hADPnroUCEBrKfnOlGiYN7QhsRZDuc_Xonr7H44OMNU8MGJEaJGExRHWb2RBl_-qRYt7VcHpH--b2zWRPOojnGeRkU2YHaWU0sDdEzGMO8_mF1Zpl5e-T2J3hbpLSC0l9Q.jpg",
+      "https://cdn4.telesco.pe/file/TVhkXa89dIumfw2aAsQ_nKrvmcPavJlAYvsMGkt0SWNj2Vk3fzQ05KM-tKa97DBWr9ejHMc-ehLu_y1fGtRI6iAs2ues4XRlmk5paanu2qhOC-v5FZXaUc47i8UeJNiipGrL-WEzO0ytBJsFRmp3uDdPFS_pgx31xc1ghnZqJqlGYx00-K4R49ocUttjoLm3sdpPr3vhCXVP57pGdwi6LXWyMev4x6-o9YJdlG65CS9uxiNXSgqP8nmLesdHdEpwst9sN3OtlqxR_KTsi251tDScA5wamTp1c9wtUQByLDJC4TTOWLYPzRJaCfjSIFHXRDHSHycTGC-anA4JUWIwwA.jpg",
+      "https://cdn4.telesco.pe/file/oqbAvxy6gFjCMMKtcKuiyOPQoDZtSkkUFdfn18-Wp2mHlnqfhfJ1Z7ds0NrjUSXvuktsHncq4bC2-iNHTJMxKgcaBcQHwrpGOo6fNvSPkFb5R1xS2Kn8A2WpfNYsuYy5L0J8RYzKqiGJMapOo0-ZAsfBM3lWf8BrPWTwpwe-1cS1fc1MgMwGJokkM2S48kag1YHpA9lB2TNYGdF5f1C7OGGwRCpHcPf7PkOM3AkLQWIRf3dRSud5agDVzkBPlWFXlDS6OxHCyvbvoww5W6Z8GunAgkpNGUOZrwJwlC4IrGIjepYL3oFyR3w0vND6nD19k7rYeY4BszYRQZ-XKKaLeQ.jpg",
+      "https://cdn4.telesco.pe/file/TOvd9ydbeGvvFzZF6OX0yN7ld0yk75BRe732N_51976oALm2AkVnQvLZpEoftn3sIDe5jMTDuLUVk6N5S5DNZ_fdXagcI2uqLe0Z64ngQqlwCtmbhOq_Kwv_Op1PdHhEiMw3-9NzMs470mZXS-8MugCzy9ivKM0WdWgmiyibYrRNPyvN93Ug91PUFN4ikiFY0-24l0NqypEKGTuVYg2imO2ubgFJ_GOo1N12Zih8lOVQGnP__mqA3D7fZ5C8JM_kWXXjikVfXY5mz8r0UcHqtKamZKB8seDtherseA1vzTWiZlZJ5QLdCdSLboK-jm5luWgeBnm4aU9ZiHucAUZ_0w.jpg",
+      "https://cdn4.telesco.pe/file/dIVt_8RzKPO4e53inZlV6ShIxHqngttV0ja3idtpwECLW2X9cmDmxirG0Knl25A3A0VvSoEMTkjobLx80FA9eXbwz7TY3W73lqYafpinG3N87i6FOhv0Tnh2r5XdbQnRIQmbzqK7jvDPyMREBUxGvOI03Krl2iyBTAMVXU9nS21PQqtolI2l1S7lUCL2mRB2BY7MQaGXr2N-BKRUpexGTp9Sc4aRoRQb6toZZTHwDvy855e_O0YiSVAjdxq_ZlrBl6eu2YR6oc2AmFp0ytpbPsNC0pMOKMXrn-ysNPop1bBwka8Fv68CqDL4IKoYQ4bH6FjHwuBhNqB1XyJ6OyOewQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T04:56:17+00:00",
+    "views": 38
+  },
+  {
+    "id": 38635,
+    "text": "Состоялась премьера экслюзивного суперкара Erebos X \n\nВ основу новинки легли концепты Mercedes AMG Vision Gran Turismo 2013 года, который был создан для видеоигры Gran Turismo. Вдохновленный им Erebos X имеет те же пропорции и акцентые детали: большую решетку радиатора, агрессивные фары, двери типа «крыло чайки» и двухместный салон.\n\nНовый Erebos X оснащен 835-сильным двигателем V8 с двойным турбонаддувом. Разгон от 0 до 60 миль в час (0-96 км/ч) у эклюзивной модели занимает всего 2,9 секунды, а максимальная скорость, которую она способна развить, достигает 325 км/ч. \n\nДаже при наличии большого желания и крупной суммы денег заполучить себе Erebos X будет невозможно — его выпустят всего в 10 экземплярах. Каждый из них будет стоить 1,5 млн долларов или около 119 млн рублей по текущему курсу.\n\n \n \n 34 views04:57",
+    "photos": [
+      "https://cdn4.telesco.pe/file/VtUDBw1gVtEOUU-njN7BYoIfNqTW9VVDy0ZrXw3pOXRuwPJQ5l-eZPcxdNyVtlYnIg64GTH9BAMAgPSxbdB52QJv8yYLi2y88Ljy-55I_UswMBAIYWkGKgPUoPR6SCX2iVWQSqsIXdIOQO8fd2c7xnOqq_ABZIHilN2i_G5aCS0Fw4R3mY9S1MGtoHrArmgZWLP1GGNUomLqevMHj4_ZSOJh9oqV3XiuaHq3kFUNNr09KJ2PwYJChIw6A210rq7f5xfMkR2cE1nkGRAsh82ZKdCojUDObq7CXTIZivFTfsTqKEiqCN4xA8wM0BPeVd_Yjdi0Rcprz47g7P_-StWrUQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T04:57:34+00:00",
+    "views": 34
+  },
+  {
+    "id": 38636,
+    "text": "Mitsubishi ASX 2023 года выпуска теперь в России\n\nЦена японских автомобилей, попавших на российский рынок через параллельную систему импорта, составит от 1,9 до 2,8 млн. рублей.\n\nВ линейке представлены разные комплектации Mitsubishi ASX: самая бюджетная версия с двухлитровым бензиновым двигателем мощностью 150 лошадиных сил, вариатором и передним приводом, а также версия подороже с 177-сильным «атмосферником» объемом 1.6 литра.\n\nОбъявления о продаже вседорожников без пробега появились на нескольких онлайн-сервисах. Сейчас Mitsubishi не поставляет автомобили в Россию, а их сборка и производства на заводе в Калужской области остановились в апреле 2022 года.\n\n \n \n 39 views04:58",
+    "photos": [
+      "https://cdn4.telesco.pe/file/STSkTqlscD6hhln2R8VqF6QH7Bsro-GLw8hYcAkhFyuo6sD69xE_cMhugeTcJyFKIgALxW-Qgrq3T2ZySmcDy6q_bnD0sT5bhICawLsvY62TCpuKJfHAweJK-9k-HZ4QHWUhk3r125epq6NeKr8Sq-2tWZ-5G9P3e0aah7HrM5IWThWC52pEOVZeuoD42u8F2RC8JIXRhwzoAPkYp7o20jyomfkhPTtOMjO7zwKWD6IBimomEtQOUwGSGrewn5lprskGblQfyFzvnrqIY3Ix5OLXH_truduSmZtKsGI6NvygcEEfbawgBqXYoxJuQ0hA25Lsf0RjL0-vz7m_snlg5A.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T04:58:01+00:00",
+    "views": 39
+  },
+  {
+    "id": 38637,
+    "text": "https://t.me/s/sochiautoparts\n\n \n \n 53 views05:04",
+    "photos": [
+      "https://cdn4.telesco.pe/file/TzRb8szXGQzbjXPazxhmiHOcOKNB-IonRnP6FTn-DOURo9SfYg6OTx4oxnnCDQ50p0KgP9UPl8ryBTcaHNlDVuLFrSrwTTGHI832MQUS2ijIrfYPp3ITmRhaGDIaFshoTiWQbr_ZvcKbDV9EQJDanD0O_FXv0gD3UhhDuw5FvAnuLY8SXgCHxbKzBgR9ub4D3JoZiao-L4qkfI2reDn-xcSdLmbUFA-ai_jXB9YPfNL42djHtMjGwNcHKQwCSO7Nu7NCjmKd9BTAp-ih7Aft_2i8N290SxsxK9qJNGlNjjYNU8QiV8XV3Tf-leMcMsbPs0bvsX2K5YA0GC-RssVgRQ.jpg",
+      "https://cdn4.telesco.pe/file/jaDNApuxJ7tzOk8yJUChUKYCcMhNo3xXCPzJD2b3WFOvPcpbCvYjQKuyH3j7v4-AyXe5jeWr0-sFSyaly_aFTHZB6E31hmszoqo9I2mLeTeEAIVyIqoTBhyt0iObZxfEm7AkOKO7Salwi2qrFRQChJkwjC4Xc6Jz43HAnhNFUIJHaZV1Y7o631uuvMlp9IP9yFsA42O8EqtUvOWmOmtIZKoqwpWLEMAfl8ZRyEB2poe4PExwzbHPjCarLuSG1Q7CC0tXOoFcBhECImrqB29IdRyuVMMnTkClSzoHzpEeB4iXJaRE4wW4-4o8EujBceIba_sOaAIjJZiHlLncLAry1w.jpg",
+      "https://cdn4.telesco.pe/file/aXHM5toDIvaD3Yjf89UbzmhSu-WOwzQDQoSKi55P91IinUaz-B7NYdouS-eT1J4XdYsAq6SuzB5rX-cSnYooywXV3n1OI2gj5xqiBo2bu3jIggoFCRAV2Y7Dc9ZhxhtLOaIZnH9IHoMHO-rPj5GX5nJWYNaaZ8f4J6JDO59T3Dd-da45hKFuA6lNuP7tcy3gel6VDekVussUqHvMq1kHhs5_HXlzP6MtQGvAmRdylgePakcXaBnlvc22uwX937wNl_oSYZUNrkyy2rBnLhCL0KmFO1oiyavXGEvLRgmB-uLS6Q7RIjd8PJKy3ONiL1OkJGSFwWi5bbkBCRZpw0rzQw.jpg",
+      "https://cdn4.telesco.pe/file/aLsAHrAnoMH5fR4m3nK69-9Jjs4VE537JCNWqVLSnvy-8U9CLCCvQn43W2I9AL3WKadMLB1if5poJk9KABSvKmCHy4zSLEz2AitQT7Z1lx4TkrakxQzqoSE5J56x7-utH9uVsPY2kj7zs9pE9QtGNWNUpQJTLTb8Iuqsl2c1dew9Bgt-mmo4qdTxzPForOx442S9rbSiw7BQnvoU4oP_MfveCMtPMCrp8gT3yabj4kahI-aK6FGntV14Ahnwo98fLbLtFH6ZyPHaHWNgIfaTjMLJ3lOAz7TlQo8DwPVKRcHcK8Li-0YI-7CvqCRALq8-FgtywNGoV_k7QOkBi9mITg.jpg",
+      "https://cdn4.telesco.pe/file/lQUFHrG1MiyYpHZfNwg8JwewADoh9N9TBV_1Z1neiZLOHefNSoVZttJ2Cj3ku4oezIvKOtqt35xIFQxceTOim9py7ebz67oK3QIxWaXWmN_M0xGP0pgdVhpsk5YeqvsM1GQOxQz6xluyA9bo1ofMAbAccNiWJMPCLU82OjEER5SizUffJgrtvdCdquT-w7qAZ9CQzKcmgtS6yLFNY-oxkbbYFYHWmWJs8VPWb-b_yFmO5QtxyDYB0edJBE9DjccBjl5ioKZLJIi8xvEh8-0bFDxNk-fbmFPxKhrkmxRJKx9NYQ3e8mg_ay_8FEJDXZKEYKhYX-c7hTI7q22XwMG_hg.jpg",
+      "https://cdn4.telesco.pe/file/FcNBDxsu0BiHkhr1GvGGUiT65KlmzyqEyu_0xOy-bHRB0ZWPKVninedQo6xD96LagflJOLIoVbbH3vp5OY2NH6aTjPyV9Y_CdaqMC3PkHh3eL0EAXjCsSbF3aA7Vy6SDHsXhfqW0qSBzWtT3csLWm5hyTETeOSctVPgjXCNawCvM2wqG4G1qLh0V81Hjt4YtCyUtL4A7vjgC2rCAd7ZaHvi_5ZKIMMBmxRIJL6Z4gy_OuDmnrtJRPtThAgag_MVyz9MBFugZiIAHKMOy3itZppZc6Zbzp0lwOctBuWVASTrdjxuwoYF8hZE95YqkN2p7-0X0IfBWVtLmPoP8pKrGVQ.jpg",
+      "https://cdn4.telesco.pe/file/QuHdrA_uDm7KMB18aC4enV1EqsfETRjwlxaqxpfJ-MpadnZGx8DVse_N6U1aoqxRH4KR0eOSJ_S9WyPl6zg-ylpkORAJS26iy4rishOxUv4ap3bscQnYrYWojacel092jrnDaropfhNWhmGkFArsVk5Sfkcvu8DR8EkI5pLx1V-wVXCn-h9DeJn7OQxSIsVtJcMNX8d1S8BulcfT0xguHY73s-jPQch9DoOJwUJCZG7ZFVyLs-ZkkEZA320KqQhAls5OprbNB7W7WAKx1C-t6W_kHGrH5Gmz3QX42pwRoUtnc4d8OeJWqIzya09i6dQyRxjS-FbGXf0907rEBnHjDg.jpg",
+      "https://cdn4.telesco.pe/file/rAF50f5ZasAz3v0-oCxeMfLTAToql1pCmDa_fq3ZuUw7IsHwSjBG3T4x8pl8dYtKYDa8t2sav35FLyPSWZZK3SEbLa8w6WgWwlHAYJaPHYSBiKQ6vtZYWASfYVvsJnV-ae-2XRDBeM4Bs7q4GV9FBWfoyuoiLR4gJP9ut78ZLLoSlQYVR84Le1LzrIkiXXqfMTLClv_AglHshCkS6UCOd66Q96uAPmTHQ-pcyXnYBQEyvesLNulzDb-g_VSESm8R_7Yz-DNuNK_dp-HGr8rbD6GC16GgekkWk-B7Zo-GtcGa30a2tvBpgG5DKXZbxSWXsxEmU24k15w3tfUoGx0twQ.jpg",
+      "https://cdn4.telesco.pe/file/cj_wiYulx0Q1GpbfKceeS0mR0u7WRvto3I97XdDqEvqXjJRhKh50G8HiXVgT3p8Y7i5OciBNb_GgLQ8dS22etzxrjJ6un1XQNz5GkeEJSxFFllEjbgDMFdMjKkcYIqoXylUF8LgqK3iQet6S0oAZVBAQXjmvuTTf9YFL0anF1GYlF6AWtxoC28c-ZozU6geMersZaNALJCRN5uJ7P7g5NLL0GthFIYyrP-Pj5YOz9xHIdQbNlbLJKFUzHLGbWJdFJ0aDoWbr2JtpznIlD1LV-NfvVT_r5iy_ZIxSJoYxbZgSnzqJt_3qaArDgcc-oiySao8_3mBEhns7w1GX-zhGGw.jpg",
+      "https://cdn4.telesco.pe/file/ak7dqXXzw0N-GTHVZ33cTQupZ2pDicBXocLQ0gvc7CzuaKfdXzF-YXYwqV1v9gCqgROFgRVjaAuoqXf-udowQRyQVfw-Afk7IW-O5yc1gY4EWvBqt31k20pasNJI4Cnto5LneL4hhcgpmP2VqGAlkiXndyL2OB4rpIxrOu_FZiidbvIFhYP-GCVES4fZ2eY7KpndYWSeoNQzCDQflzPaoyLRAuUnjJ5OaT7d2zpqmT1vwcD3-ZL52t0SKmXZnlVZ2RZlOIMebCCx9RT7j4NWcmzSnsc8GGABG-RIFjUI77AiEJYxaFZ-KSI3Tvgvm6_R_MSCqCJffSM84jhpsS6NYg.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T05:04:03+00:00",
+    "views": 53
+  },
+  {
+    "id": 38647,
+    "text": "BMW M2\n\n \n \n 114 views06:56",
+    "photos": [
+      "https://cdn4.telesco.pe/file/CqAeJs6j090IW0j9YrZqy4DB5cnCUMjSHDALd2lhthqTGsj4jkL5mLIkHge3GmvV0w81wUlo1NDDRKDlJ67e4dU0xC6k4OsPhuaN33su-AwpRLsLLD-SW7B8y7xUeYJvl6LseKp9aCWa3xblG_t4WlCYlXrGLB38jTNGcbL-4aAIWbbdzIZtrGxN2LwzswT5VN0vr2TTsnwhNKSrYuMkRB0drGFhgznCtmyyPaz5eJedT2JVLNB3pliWBi5aKFPNJ_0VraLmLtyiUCoM8Ty-Xr2ay38WCG0StjSDJfIDXLVd2Khv0bL149QFu6gsdDVCWVyNgsEOwcEmzZ9MzMq_zw.jpg",
+      "https://cdn4.telesco.pe/file/vUH3BoS7e_cUMmpVY76mASEYF_T-BPvZJkJAQT5G5CUvzjTUFX7T33Dz_vsEMU33KWpuEHGqyw1ZqEF-X7i8uv9oX6j0laTgat2akD5Qaok2EDjiujNg2II0LGBRxcINK1ja7-mtitjyBhHh-eIdvdkhKoMIHMEk--uCA9mxEvt7feV9pPUKYcEFgn46Q6vHTHZE3JYkCxS1dBniaIGmIblY3MSWtV-aGf66MHN9NZs0rOh9ybVFxp5NKSHmalR6kd_zJyxpPy2rsJFkV1y__xKvekgrU3sacpFTunhudsOoaZuktdISlS4JEAY61ISgXg3AkZUfvqI6n45rwhtmFw.jpg",
+      "https://cdn4.telesco.pe/file/OpbeZngtddTcaZgU5KyRFmcHYBUyb3P7MPTPywNRbrUpUE-5IA1IzGd3QgCcSYCftOgpX5Bn7YuuL2yzFgsMudnRrMQCw0l8uxwO_tO3P-bzjBeba0BHPbwdTgn32u5Lg0bvT2zKRN0eS10mT6kl7ie8EhH1PZnwwZgBlc8o8wzhPsUtrxgx7pH44IGFNA5pFgQIY6tTsvFyUTu-CCAZrCfBR3x4YN9TTsQuUCBftmoqHKmaXCwcO8CflYYOezS5RgWKd_Fih2jaIoJz5tv2bmWdMgI5UCgBfbcGbUx7Ft0OLmQltOs5yOFpJCMVJLaDxaG5WgBCwc7P8p4BD0fXMw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T06:56:28+00:00",
+    "views": 114
+  },
+  {
+    "id": 38650,
+    "text": "​​Они нам бессовестно врали!\n\nНичто не забыто! Особенно жалобы многих глобальных автокорпораций на тяжелейшие за последние десятилетия проблемы. Нехватку чипов, разрушенную систему логистики, рост цен на сырье. Они громко скулили весь прошлый год, одновременно повышая цены для розничных покупателей. И аргументируя свои действия безвыходной ситуацией: иначе же никак в этом лабиринте проблем…\n\nОбывателю даже казалось, что автопроизводители едва выживают… Между тем, по сути они нам бессовестно врали! О наглой лжи буквально теперь кричат годовые финансовые отчеты. В частности, большинство европейских автоконцернов по итогам прошлого года получили приличную прибыль. Выручка практически всех компаний выросла на 10-15 процентов (за исключением только Renault). Больше всей удалось заработать BMW – баварцы признались в росте доходов на рекордные 50 процентов. А теперь вопрос: в этом году они продолжат скулить или все-таки поменяют тактику?\n\n \n \n 50 views07:08",
+    "photos": [
+      "https://cdn4.telesco.pe/file/IptQYg2nYpMq_VdD1DIXB4oACVTe0IaXIvVrWs5ddJcRmw7_bhj3-7vxvz699Kbs-SG9vchSBF9WpWDH8b7R8rtEk95kNRGKw4ZmMy7pV4r7db-IX6Gdy7qi_QrYKXtgmDA-XwxeZWLFFV0kCFBye6KLyKDmwqGQ0oz5S4M3VK5tZPriX7MipbgSJr_QGtOe9CdpBzf02p1pdka4VJwIOjqTGujO4-Lv40l_t-5HuPA38pw9R49WXgqj99Tm_mA45aI2pfNldah6EUjsgrYbuwmU4y2806SacC_pIonW2o6NyyckyO6AtblhGobDUY4iE-AeF7kXy8JD_J32hom9PQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T07:08:20+00:00",
+    "views": 50
+  },
+  {
+    "id": 38651,
+    "text": "Всемирный автомобиль года: объявлены победители!\n\nЖюри конкурса World Car Awards на автосалоне в Нью-Йорке огласило список лучших моделей 2023 года. Напомню: они определяются по результатам голосования автомобильных журналистов из ведущих стран мира. Россию я там теперь представляю в одиночестве, да и голосовать в этом году полноценно не получилось: из-за войны не смог протестировать главные новинки мирового авторынка.\n\nИтак, победителями в основных номинациях стали:\n\nЛучший дизайн – Hyundai Ioniq 6\nГородской автомобиль – Citroen C3\nСпортивный автомобиль – Kia EV6 GT\nПремиальный автомобиль – Lucid Air\nЭлектромобиль - Hyundai Ioniq 6\n\nВ главной номинации - World Car of the year – лучшим также признали Hyundai Ioniq 6. У этой корейской электрички три приза из шести! Настоящий триумф.\n\n \n \n 47 views07:09\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/CjrzS0xaFdHNs5x-cXU_UPrGlJVnRzWsvKML0Lu1azBvjXDtRe1_gg84Fc3ftuTMXRzPWZO0mJVtFXavsJ4cgQ7B1yXTOQIPVFoE4Ax13Ih138by_0Fq3MeIDfNvfN7sUhDMFYfgo-h1_ILd7ixUFtvDjhEiD8xD3An_oOUAVNHRgPQmHlbEAS9CZAzhJIs4aUDn9IQoQ9K01NK7aPv9_SRunzqW6MnZ2DteNtYxzj4py_IFQPtJ9zhjMYSabeXbs-yelSIPMhCiXLodyJnHCWS3jJNNEeFM_hmpxTCgIQ2wBQpU6oPgYa1UHTNafXO-nQv9WaDuQV4PlHRW0I3DJg.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T07:09:03+00:00",
+    "views": 47
+  },
+  {
+    "id": 38604,
+    "text": "Что происходит с запчастями в России, какие бренды ушли, какие новинки появились, а также интересная статистика, аналитика и собственные исследования в канале https://t.me/sochiautoparts 🚨 \n\nПодпишись и будь в курсе!\n\nВсегда много уникального контента 💯\n\n \n \n 89 views13:26",
+    "photos": [
+      "https://cdn4.telesco.pe/file/ZZsk1zP7kVWHGo6vVxAppimN7s5O5m7jcY7IwjzaQoeb023UeOzSTwTh0Kf6Lttrc5PfzsYQLx550faKqzF5B4DA7PyVI_VA-paQo36Ep3YJ-b_67buqdbA53sqHAfndq9-7ZM10iRn6iBxU1_rP_-8fD-eb9FqOuNi5mGz6Lq2aMP9RLbIG8-RObVMsSUFdfHhIJyw4soYS34SDky8oX63VV7ASVaHNwfEv8-RcS7Zcnw46Ic4FWxDvn6__OcoTll7lH1oi7qkHBLj90zFWdYAw2uV2PVbu0HQR732e9t1BVkgw91oHL07uMO5uHzyYcYH9kPwZHYmeD3O8H_a0og.jpg",
+      "https://cdn4.telesco.pe/file/F33AZr1TWIeMAi2M_rx-D7mQxk7yHojbhd69YLoyohoMkUzTz9MdvBgR_AZj5naTtdb7G096plzJV3FrQ6x-9rf_wnDhV70PyluW4LBR47pGZK2K7aZrvZFDBx5ztiqdi54TKEqAyXkTFttKVX_7a-pWG-3tPJZfxAb-soTCUaMDkH_OyVH6IgNOixEnx-CIBpZnyzswFm-wGQUfgeZHqJdK8s46JO6v25_XItFVi8YvsRYSAEKVvkR_3tyk2_rDmF1H4xb41VqJOenmeGqEWq0GspVZvcsbhDXXgB_veCeHPZ2SpzT0JgLMS5v1eUEa_K_mbckPSX6CYj5XP92N9Q.jpg",
+      "https://cdn4.telesco.pe/file/C4WbUENyZLLq1f4u1GCch4Y_0Fd-exUxVLSr83X7g8boZ5bThBdNWv5zmxaCbZPFIyvRRiPxo7t4wPU2wRlnesldBM4_K7ygtKf0eUsJeTQG9r7TFa1QHgFr8Rk2_jrH4B2rKc1febwfKZ0lvjYrxjZJVzapuhO6RPq7Kh-gpWuJtz1LT85OEs23BJR_rtO-zImyW-YiTpI-tBJyC9Nd7mZemiE0M34sWup3vYFIzenExlDg8KCfJipTc35yWez5Hf34P9IPwr4Ltz7Tg5WCB5ED75B1BlwnJbVDdReuQKQ11mu8RSnCXd5SK2SBXQEzIUs3Ks0Tj0btSgrzWIV6Eg.jpg",
+      "https://cdn4.telesco.pe/file/okT5MOewCzMz9o5br4eb0mOFvTfhuZxspSglZg1taZV1dAzwhfEVn3mLgInDydGPh6DN0ME4RrZiqMBts42hQhg_6u809btC67z1To3VgXJ61WVuyTXWUEi8DI3JFOuh07RBMY0_cjXwiJVedq-uebOdKa48K-iUH0GXWiQc-psujmMVgHK9MpVoFk3aozijD0nps6DbZD2_AfAKNfGaCzboXksFGj4JqDK2e2K3jguf9x56K_d1Lvo5JbkdO8K12uhVSf7weRG_sc_Jo_Ja_krwXRBKLFAtFgd6EPOEysMXDLZ9EbCe0DXVhMOSKNoZkEhkiRbgtYmP_SEEvHhBJQ.jpg",
+      "https://cdn4.telesco.pe/file/iTc0iBdJYdBkvdYEvbwPWFkan85JyauvvzLK4gMLBMrHomr3Ywf3AZ4Ll2zLIm_w1ipeox84hn5xsyZ1xaY3BwuUdFrwVOb0ogKZIEzC-RHPGNyXHTe8fZnDIzx3XL0lTVancaLFdSwQJ3pr8oChP-BPnlHRWNSTNVD880kBh3mv_i3OEyBdHjGWeEEsOeldLZxBtaOL829oR5nFwisANkxtw4EAhnJYaWGEc7qzofia1a4LWwDfNtjhpLfM7s34j_dk-7nXtMH9BtllTnDJwGG7WdwJKAxoMMcDiR32Ex3l4FRPW9d-op42LaITZ4khKgI-LUsbnUsWqxEuPSIInQ.jpg",
+      "https://cdn4.telesco.pe/file/fNKJRR0RTZbxRUGdEHykhjI6jY4tigeIvYVxeGav6Qh1Xi1PgZGi2s-svrm3gK0d8qbkMUefD32wKAJmkIy0rrz489yZueLG_CiuA0ajUsTxmk8V8TkeHEOD0DcRviq-5hJcDjuEZRlMwnxxy0QvEsI4Q7iVfb6QRlpFNfs-_3BvmIgPaRVGeYcJ-toqGEoBpEWmVPcUPoOKzgsDzdDe4MMzP_I_a74vVasT1JarV2PWGZ_TJj-DJUmHelSuedv1a9UDD-NlCto9TpD4e1rWwv7ogXGomdUQTSNBnaJhsGvdRT9ZHg-x8v0O4N6ykRvyoltSdOS8YfIiWzZ2AYdBSA.jpg",
+      "https://cdn4.telesco.pe/file/rUt4JG1fNlMa-Z_Q5u1Qn_Wx86TxGXo93UFDhiDwKwsoiVUkLNTAMDE6fTr7ebZMyr-Cj8oiGnuWd2Kz19VC2ruVIAWTwIhrYebT3l8ICYRjeUCBwUrIuR0RwLEH3umYuldyhVKLn25MhW5c5R6yUBhGxsztqnBBsgDuyYNESqzpsvfVsPn0snlJ1sxeRsL5zpZHeOCFwm4TFRe0VrJvexK3wNeiwJ_N9obMlh9RLS5hDpRGlsvGuXoxzjHpocVTt0Pr-uAJqMAiIhDU7SquYJki97FTVYoSxIlHcMRsU_ZQnf9pFMq6dCChhUlHuHI5Uww4prbSVoxw-Du9KY8lig.jpg",
+      "https://cdn4.telesco.pe/file/SrI33QLzzgGX4dLNpDMWQG4cCLebCCFTRBHbslRaFAXUs4XDoC0RJKO6UNKLPUch8evd5CXIOAhrWbXTUmtcnG_lwj_dVldIrftV9pwDtGbe2G4qc1u44b8NqurzNW1G4djo6oeDrCtk9uFoEFIJ7iqB4q09lk_6Y851okY_lZ4RH8SSs6l37ZfYJCmAX2d_WBGX-hvn7W5pCV7KceHxUtt7Z7wo3wvwACEe-ie5EXLEGXFAxUwxJe7yLmAyuEzZHOQivzMA5TBVG5tx0vrhYb1vWfhcdbJWtAkDY5iDb9WxlwnX1h5-akmueeh3DqJf2n8SOis-plnZzGHr2JMeXw.jpg",
+      "https://cdn4.telesco.pe/file/YUXgwQlY_N-2kdm3WGcnBkPtMCsfrhkWH7eZYu7ZlE7sD2gFVszrUqgOOClmRewakiw-kckoc9AMbUKFATu7a6aZEpE0ON6d435efpFXyzq2Ts99KWE6x-RpA8Lx_UQP9jqMpvrkdG91rWW0c2R2nvN-fC0YKsN8T816rjSExECuYKxtO-V-W4zMPyCFZuND4RuHQM7_KJdpsNA09zEzkVNioB64N2UvDxegcHOWbR2INh6vNvhOaDjHJ48JelCJmeCSQk-DzQbgzxeCKR0jKhzLt5h4p-tA5EmjL5QHOHjoot67nX_9idcGSKf8F0QH8BkmG84YEpYt1743gSPltg.jpg",
+      "https://cdn4.telesco.pe/file/AuOIuU6ysJ-qd3HJjLTuIQbeWPDfNeudtEKMvtpnR_njgcaj6jvDzlS8Jy0HBsoPSKUJvC3CsILV3K9CfWs4RQH1zNQdDAWR-Ywn4YVABKNKhGPK5XDCLkAlGefxfRum05--r0kigpI-TxTjWTrEN304BdujJMhmIFSkPvP8Ybe8KTqi1M3KRX3Xmo0b8az_JqzUvjOBvrH0XFQZnNJdpdPe8FIFhR599CSotScUa2aSxwb5pNG8oJICUg8mPJ75c29VuY2PiHdcpdvRYHKbR4Q8ysrnAjAbmejLIkaFf1fBT-LTNr9F-SnkZk4V2kZN3R3Rcq5nU4XqgIC9TsNiMw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T13:26:30+00:00",
+    "views": 89
+  },
+  {
+    "id": 38614,
+    "text": "Продажи автомобилей в России упали на 11,4 процента в марте 2023 года\n\nПо подсчетам «Автостата», который опирается на данные АО «ППК» о количестве регистраций, россияне за месяц купили 69 913 новых машин. Первенство на рынке по-прежнему принадлежит отечественной Lada, которая реализовала 24 252 автомобиля. Остальные четыре места в мартовском «топе» достались китайским брендам: Chery, Haval, Geely и премиальному Exeed.\n\n \n \n 52 views16:37",
+    "photos": [
+      "https://cdn4.telesco.pe/file/XGRsaG54l7uSRr0Z232ErA2UGxi_RylGiyZdJIhU-HZ9sLAJ4yMCF7V7A26Ehy67b5rTOH-k46vSQtt8lXIrYy4yY9bAws9puBsaJsgHYckcks1Xsoh3zDzO6Q734w5gp67LmBqxMNKgia5Dp0dQZ0duuJgPo2cXzaQG1qad2KWnF92qObYqPySLut3OKUI9sANCI3t43Gq0O8ZxRB_s-NF3Dkw6fHaZpMNJXnLrx85dAqkUcyjiJFGXHcHNI8QiwUcaOClsKDUxsT4FTcKKCPNTn82QYCnOlCgupa9cvXei4ldn1pMupC03o1LtJdYeZO3zYKIyrSnrnXOmCGbKAQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T16:37:49+00:00",
+    "views": 52
+  },
+  {
+    "id": 38615,
+    "text": "Компания Bugatti показала уникальное карбоновое яйцо стоимостью 200 000 долларов\n\nЭксклюзивный аксессуар разработали совместно с ювелирами из фирмы Asprey. Специалисты выпустят всего 111 необычных арт-объектов, которые представляют собой яйцо на подставке, отделанное драгоценными материалами. Вместе с аксессуаром, который отсылает к истории Bugatti, покупатели получат персонализированный NFT-токен. Стоимость новинки сопоставимо с ценами на суперкары Lamborghini.\n\n \n \n 54 views16:38",
+    "photos": [
+      "https://cdn4.telesco.pe/file/fGKnqqGGQyxmlo-JD6FoSKEf-9tbYJIH61neUOvkNKmmmMiEJ_E85hppxQ4GQ_T4A7OzqE18S7WCAX3S_mHVybjVOnaZTB2bcOd-Zkhq4A4-lIFnZ58hvXog_A7tkkHgJBZJAcBExcM5iLQd1Y0Om6XGqScTsTX8gB6LBG5fQX-mcR8uLp0omS9cl0_6xRsDdVF6fQGy-g3QcVzdkAJeikNxcp6qXYIxlZd6LjykWsOZlCEUSCs2hDSgDq0XJyy_vGFOcU1W5cclY3KpBhnP22_vsrSEclSk9SvgGWyO3MHSEm7XWNzPpJnG-9GSrlzD_k4gdDrakvbKlzVhc0OAJg.jpg",
+      "https://cdn4.telesco.pe/file/EefqGQ1Ijx-x9w1m4-8Ptj5nv3B88TuSVDfJlgkmx6rvhFFN32Aprf-ykBHIBye3k7-g5C6jybR2RbIJDvbZziEWI6EWyooulpQeGsPLd4QeEPqj8YpVZPs9Al6DehtoyFFZB8cEzd2ktjw-T4k-kuOgpS9dR9sQLw4SwV5ml8g336Ccqzl27oJjMH1HLQ7cxoK6_mAVtK__RWiEc1Af8JjG32HbbEdvGWGRMQ_FspYTx2MZ4VAc49Hr34LfRNpdDyYL0apke0kzfPAX8HNp4Rpj0wNWig6g1H8fNkXj2zq2pUGCMG2RWF38d8TjoQuL_w33-mBXp_-hEUUQj1Cy4Q.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T16:38:29+00:00",
+    "views": 54
+  },
+  {
+    "id": 38617,
+    "text": "https://t.me/sochiautoparts\n \n Telegram\n \n Автомобильный канал sochiautoparts\n Ежедневные автомобильные новости, обзоры новинок, тест-драйвы, потрясающие проекты тюнинга в Telegram \n\n#sochiautoparts\n\n\n\nhttps://t.me/zaponline24_bot/zap\nsochiautoparts.ru\n\nhttps://t.me/Lukoiloil_bot/oil\n\nСотрудничество\n👇👇👇\n\n@Sochiatoparts_bot\n\n\n \n \n 47 views20:48",
+    "photos": [],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T20:48:37+00:00",
+    "views": 47
+  },
+  {
+    "id": 38618,
+    "text": "BMW раскрыла характеристики будущего электромобиля Mini Countryman \n\nСамый крупный Mini станет ближайшим родственником кроссовера BMW X1 поколения U11. \n\nПри этом именно Countryman будет позиционироваться маркетологами как более драйверская модель. Mini, что неудивительно, будет короче (4429 мм против 4500) и несколько ниже (1613 мм против 1642 мм), чем BMW. \n\nИзвестно, что в гамме будущего Countryman будут как полностью электрические, так и бензиновые версии. \n\nНачальная модификация Countryman E будет иметь единственный электромотор на передней оси мощностью 140 кВт (190 л. с.) и тяговую батарею емкостью 54 кВт·ч.\n\nНа вершине списка расположится модификация Countryman SE All4, которая будет аналогом iX1 xDrive30. Суммарная отдача двух электромоторов (по одному на каждой оси) составит 230 кВт (313 л. с.) и 494 Нм, полезная емкость \nаккумулятора – 64,7 кВт·ч (номинальная – 66,5 кВт·ч). Запас хода, по заверениям представителей бренда, превысит 450 км (против 436 км у BMW).\n\n \n \n 46 views04:55\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/tt0w22d6XB9u3Ss2cNuVBU8IqaOmjM3YlfV2dNyMuoZVFrSFKSrPR2r1AV3MWl2rGS0m7XXw-r_owBu79ct-o4nPJjgxdqV6X9LKJ5dJlDTIuK6jm0yCUwzyyeD69eUMOJp_y8qGiBuxXDtuGR3sJFBH0uaMGZEED-RI7TDnn1E7STHCGdz00R7D3OJw2gxr6lxIG-77-VMYj1dDn4bUoaI6pcFrAdDMEWs35lpG7-FwvpZ7UGWkO-LZdV0DbnExmuwLonb8oy2mrAzt_WFN2zKzYsx7RGOV62W-PocFegyWxYlGTPu-NX9Yqmdm74HTp3fV5qKFIf-K_qwshc4v2A.jpg",
+      "https://cdn4.telesco.pe/file/UhARWgkSDpduIRf6fXR-L5XQ7Z8HO6jhpIAdJ4fGt3dF_k0EG6kSFzABsIgZ-MZ_JP0-vhEefladLxF8GoZMiTaEF8TO6wevktKNv-PJwOmtIWz4hm7zrCqS84GY8LaqJNtGazeGAwFZkiHf0NOwYwUMRoDkviXHcDctmc15zHGUPuUYBEXBNB3Ef-51jHhOauVZk0OhZzDWTcKkxqNT0ZZBJIA0OFN2INeHzxYqq3w2hrGfIdDI8ZWtXvB7Jqri2tKGz3KnvCYXnZAhtNJPKX4Ox_T3j9ibjYtfHs3zvQH0IscWT2MhUwz8Co1IqqD3b_gvpnwER8jvUKXslOrD6A.jpg",
+      "https://cdn4.telesco.pe/file/vcAIjloBm-jNRsXFDR66NNXKIaGo9WUuViNDLh_oRqiNbSNsdWub0JFmqN01BVuuUMMhAdIN5-60jUlDdgbqDsoU9BwHKpKsdWF1mxw4SYGF-_JFeB2-s0buB9y-X--hYwCrvFTcA2ry5podr5uz_H4uW1EQ9w9pUfuTqQuurhFPDK04YhUZBHCyvTnWHOKs8kSCQCHLiK0O_umKAc4-CSbQszxDV3dCg9mQTK492wy2T1W80xmSlIbMm2eVpcKdg9lZmBr3SL0X7cIrQO0Awx2NQLw4aPxKuKDPDPwQKPjd_mMyfYXAdZUPb-9onXqWp1aUMelEUk0ahtu89R3UUA.jpg",
+      "https://cdn4.telesco.pe/file/YQ0WoOlc-OkuAVJlZBcMb22jjhjacPOEJX1dp1sl5duk3EqmVDQWEr8Daifru4b1i97l9H4wWItonYZBE_lAlcbmxtKkJ8r1bve5KlM3WX8nXYWe2wg4up8qglUltJTXgzI8AR6ulFaE_B_P32Pl2PnCRAIKZHWox6lj1XGjOkXXW15u-9-r-QULYBck9Ck6lMG_e9qGiDCmUWT_1L-IKVv-lcon9asZ3roJlhI0m347ktfScUPx_zugLiZLa32U7fW5n2gge3HKphGviyWOrK5-il_fBTzaDZRYU7hmXhU4nNnGruVyDuqwQyVEdenwxiLSNp_Ry3t5jLe_3igZ5A.jpg",
+      "https://cdn4.telesco.pe/file/urDlGFA6uqw5_Vif3sHJNq3OcaU8YnurNP-SvJKxbPqHXIMKZuxi-Fg8k5cxOWbGYbCvaqshFVe6jV6upLXX9oPuZfNVPA9kubky5cjB5My_noLilL5u0ePIg79-GpF4MK3u1cLqsUbo236TR_H99nGi2qqMiVpLUAkLj4lcDrRVfJf9XJ-IM0o7YolGwVPbrcIuf-R_FFhRvyNEdhkIQGLKTk5eePoJV_tEnm3tgtTvIgOs8y9wCM8PMlU-jjs676RSNnRks2jJUttZf9SVRgmyiQO3utBAf8bWXbkWiCnu2xjwwa5Ii4TOrJDNe95-9x-fa2qww3rl_zexA6XmAQ.jpg",
+      "https://cdn4.telesco.pe/file/fUoS2thOWpwifk_SwqOAHum7S9AaARxrlWo9Ai4MFcgqIlSscNhbqRUKGr75LTm83iemsc5T3vZjGfniLBMRj_Haq8J3MefGCPktSF6mxbLtNBx98EfBtichnIOcb3eyAJD_fLSdyv-i4PSRF1oueINhmv63QDnO1YbAhM9Ebn9WMZU6mWqJzh4JRBS3iZDY_WJg9xZ9EwKYo8Js2Gn8LjQXZ89QaTgkcGcZfQPM1yFGHZVMtsW1hXw6wbEPXX7s01nyckn5_CcKBhBWAC-Ujgio_jLvDg6UVdNT2sbJNT1V5Zs5425mNHfDDvk1aJUvZk31nhRai3S2fUHHIvyS7A.jpg",
+      "https://cdn4.telesco.pe/file/cRD7h1I-hKWyT8PvNN4jrtETeg3Yw_jOy4NgXnGTQUmdOouzWm3nyJdzoV4X_mBYzqUahNLuAOuuOicGiLOCs64MaKOVVzKl1ygcEjB0WZVhRkrSwOMvK0GW_IVevbKIjp1gF4QMcxX0Jyi2ECEgzLciw0hqap6RiPa2RV1A_a4WBtNPI7-iNADXQFYppffkZyTwXKuGPUBUwD_zPJqh7QknB6b4iIDWwxwd-Hy2EYFOz2H3I_36BMPfrVqfrmXGrRLHKm-TWpsds9xNk9tI5tGQALT80yjAi4U0NDwkc4Jy0XOj_diJiOo3wstOiCYg8eKaj8VgdH7uvax5dyuVlA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-06T04:55:28+00:00",
+    "views": 46
+  },
+  {
+    "id": 38584,
+    "text": "Chery проверила прочность микроавтомобиля Ant танком Т-59\n\nКузов Chery Ant на 68,7% состоит из алюминиевого сплава серии 6000, он по прочности близок к сплавам, используемым в авиационной промышленности. \n\nПрочность небольшого автомобиля проверена танком, который поставили на четыре автомобиля. Масса T-50 составляет примерно 30 тонн, получается на каждый из Ant пришлось по 7,5 тонн.\n\n \n \n 42 views10:40",
+    "photos": [
+      "https://cdn4.telesco.pe/file/HnoHy5aco8X3eDCFdrYOIg2Exv0bjMkYiCbJAOykzkIcxBcrYNZLTH1j-wd3KutLQXejCQir5dyBOJHyixyYMXKIX74o1jJfkj_daeHgWTzoO05oaM5jWZFLU3OagqyyQEhycE2OpMXsGy3CCa13DvxPRWttj39zqjfdH2qsR2YNs5NKaC5RKkZncbRsdVVPDJkTmBFfOPBjvhyEUSymv7no_1oJ3D3z6pW2LBmRLevSMFr_J4y8TXnRj6VrrNvIqPNnEY_QEkT_OXoyQ2PHSab3pQjRclsbLRltw7ZtU9ap0o33w4wjYmCuUoBS3-XAuNCT8TC0CzBITE5EN2PWGg.jpg",
+      "https://cdn4.telesco.pe/file/GNN5VNoPwozblgAAWsqqhFOXHO9a5l8oqV_UXozV8roPxggra-txE3Q_Ryy0c9VR3P0nMueh8Uz41MwvNVUFeDNQT5RV9HTdU24MIQIeC5z7g43ZNpNBQIvJ3Jf8mdIG6iXLQeIWuCvcSps640CkNGo2QIqjhxJCmeazZ3ebNq0rm-nKLmAF3PtSYlv76xEU4Ci-_s_aQVoh3twgw-emfNNYsp7AGledlURbRlELgXNQuFRiJddAWB6lXYLjIcFNOGU4i96AAZlnU3I22k5ki9eOk4XVdMEzbvYPXdgU0lp7bkMUXTMPSHVW3EKnVaRxFHt1lhQ0ElUKb_AAx3f8uw.jpg",
+      "https://cdn4.telesco.pe/file/IQ2I5eLUA8AqHDl3mc-gxim6EzaRDNNizZ7BFEXLmnGtjnGhwNvex6P98tpRExupjLlpY2g-W__TxKRBi9bFQeyLb8MiQ6R3bVkhgGizweIiEQwZ1LKgkrt6uvTqy1zyeoH-mvuaSLY2TsbyXwowe6i8YWK9Zf2ruDBOBHMV7lM3mtYqOo7QaR1hYcgg42K9yIYPx7kKH8p7h0qLjzaxMyPAI1c_fJbL6X3HHuSmIx2aKlfoYwlgeo_2Pjeb2kkc2Ocg_YmyJzVpP9YMOJcaRx3bjkoxEI7sD9takAkeO1z8zosZisiSLCz8kESR9xa_OtbNJxCmBXWafWgE_AQc_w.jpg",
+      "https://cdn4.telesco.pe/file/hdYfs_MreuDfYPuoMWIOS-jvIUV-I5cvWA2GP9SpuFMYdAsA_p6AmIB3QfcwxFZO-osqRn1AGMYLsEnIAlmzKZA3_JIRDgS70tErj7LPrHUP_FWqBrTan3dRBsjXYWf5e4zJFnLu3jnKSujsXcKu2pVx2UaZm2qKDNyxDnoQWzkGl5CmKKkDzzFPB_kfTP7pBRnLecSSdWTVixV0KRxGFODdZDVzSsMp17NAJkJh4FigzH_1mW-EkNHTTVpXb8uN9lW_UieC-NzN3JThIxeXL010OoAq9J2yg-3zPe45KFLv9yfh4OroJi3GGETNGFNbTWAYAeVgohNL9Uj3mPN4yA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T10:40:49+00:00",
+    "views": 42
+  },
+  {
+    "id": 38588,
+    "text": "Mitsubishi анонсировала выход нового Colt\n\nКомпания Mitsubishi обнародовала тизерное изображение возрождённого хэтчбека Colt.\n\nНовый Colt станет гибридом и будет технически унифицирован с уже продающихся моделей Renault и Nissan.\n\nОфициальная премьера нового Colt состоится 8 июня.\n\n \n \n 40 views10:41",
+    "photos": [
+      "https://cdn4.telesco.pe/file/lxv6UdKGTTVua_hgITbVodjCtngSdHc_ogNTqyROxo6x_SdIluykpXrxR1SjnUEkNesuLizNwBQAs5NxQLX6J2Rnpb19Ovk2sDEYzpmDoD01IpvPUhMuPrO1jLPwWBI4jXlts6bCjbZiqb55ZeZj6wfTFaNV586falAbuCmhOGayF43uT-6LAk-xOn5INq3xpsxZ5aU2O34k8Y7E-xZbgAjPaSu967dB5tdOrTKvYK-_x9KUzNRbKFCQOxm3zbdpMFYUaAFRXYimi9YL_xo_bK4Y0XFpJTNLiFn5lsCxrZYSnx2hhVEC22yzzQn2WTTUAk96zcTu0FiFgJbHQ58EVg.jpg",
+      "https://cdn4.telesco.pe/file/K2j7l8ggYrKhWHDyHVaunsIDghggvXPA1EVTxmjfNmUKUIosiA-ELvS7-2VnuJCNwKQJvLpshQiAUAdK_J_u8Bn21U0ul_fngN7xJEy1lwLMxDlTaVAE0MONrretVHQZcs7AXI4oHEDB-8EFbgfkESZgTlMsO0aqQISj9ggY5LEPkOY_S2xMXGwwmcCbUvMhqKg8SAe9K7ecfklYTmPuip_-ECyXOoRMwJYL2OWaXT-XCgrbo_dw8o29a1F_1REP6qz8Wx-Vd-DUNNYMZtdo8BEGS4wUdGU6kHI_nCA0d_nUjfkGjzvmfA845z5GOjI0JWhMk5YMJas2YgwPzonWIA.jpg",
+      "https://cdn4.telesco.pe/file/k277NfT1_jApy8k1DCukbLYuM7pq-3pEhxuwSmH2B0gTzhK6hqoI8W8EG_EkgnjMEtsixrlB5ngvI9DtHSPwXLMs31mUIUW4HNIjUlsCXgcjjQ70WMR79R-tGKUlU1fsuUG-sFVOp_uJsPQx7nXLJniBe5zFEBprpKzxdKgOC65PdadFQ3hR6ZcouXUNE8BLLstcsjUZB6A7E1G22ePPZld6s5KIQWS8sF0viV1pUKuHLaQavchxIoIC4FlbKhw-UXFsX2NL5dGjNn7LGT5e2zRswXuih01rF0MpGr0R0FLhAsSIocGLKxpubqePeIaJegeHStBUDJhuiMdAY03OKg.jpg",
+      "https://cdn4.telesco.pe/file/l5fzOB39XNUvXE5wHdQzmolFF_skCpixT3EPLinegKo53fhU5GbzvV8UlKe9kY54TiX-PeJaqwxzMJFL_eQ99WW5X-Be8I1MM1t5cpqPeQSEl3tvL-DJ7Wq9UBfdo8pFLWsx6PDUEtDA1FcbBsW7PXKlvDBjRRSmqcdjQ9N8S9QI7ClnH9pmVj2tX3irkF3nngaZbQnW_1xoA3W9sULTuVZDzs6eOhHk4BtBp6LzPRGu5ipdAPRszKTHiIDsmrdxDZozrCEuVbRq1GGYYjD1wzyo9y1IlyTl5FFh1ymxgGcrfVwGTb81iOE9tIqWIETYCjufFFdr9MB-V-V44zcRww.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T10:41:14+00:00",
+    "views": 40
+  },
+  {
+    "id": 38592,
+    "text": "Нет слов… 😐\n\n \n \n 45 views10:43",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/55fd795f6d.mp4?token=NrAPqBU8YI3TVf_CimWxX30hgUXm8Rv6bL3dMp_mHp332JmpWZtqIKh04dy7jQGvb8_Z8qYI0ApZOmNjOkVcq6qOJ99xoHknhoqaqPqjm2WtaBx3lryYxS4WmNtCWPh9BxrmrNCnnPZYvDFYBS7jqLTWgjanZ2Zyry9x1LRPYCLgNWY32XNnSxmSx9yb2PDUtiu_BJhxboBIBhbZm6RqcFrmcsCOWlmzh7qEZJjJIQP8sROCjDvXslWBE46T-aIjlGgNUtoaKauvG_o7iuKLgm6Fk2NfELlk0ngdorORusi73i1-I4t-7M_mJWnu4VvJnGuTx7H0kCaTFK6GoetzcQ",
+      "https://cdn4.telesco.pe/file/55fd795f6d.mp4?token=NrAPqBU8YI3TVf_CimWxX30hgUXm8Rv6bL3dMp_mHp332JmpWZtqIKh04dy7jQGvb8_Z8qYI0ApZOmNjOkVcq6qOJ99xoHknhoqaqPqjm2WtaBx3lryYxS4WmNtCWPh9BxrmrNCnnPZYvDFYBS7jqLTWgjanZ2Zyry9x1LRPYCLgNWY32XNnSxmSx9yb2PDUtiu_BJhxboBIBhbZm6RqcFrmcsCOWlmzh7qEZJjJIQP8sROCjDvXslWBE46T-aIjlGgNUtoaKauvG_o7iuKLgm6Fk2NfELlk0ngdorORusi73i1-I4t-7M_mJWnu4VvJnGuTx7H0kCaTFK6GoetzcQ"
+    ],
+    "video_thumbnails": [],
+    "date": "2023-04-05T10:43:21+00:00",
+    "views": 45
+  },
+  {
+    "id": 38593,
+    "text": "BMW ACTIVE TOURER OUTDOOR💣\n\n \n \n 49 views10:43",
+    "photos": [
+      "https://cdn4.telesco.pe/file/mwxoI20vJgU4ScgLt2xa6FCX6byRBJJBm95DcKT3jQWSD22yBxQpBlNyG8DXJF8pWffdXnZlQds5JjIEjps_468PXHvQQVbRguBWS15joBxiOVnCdoP3U4LjN00vy4w4T8YacHCa0xzmXzGCVIhBZcHDe7b2zZqtkwWe8LwMYkE58wrR_I3vNIPZuEqVcMXXaF3TV1LzRfHNtuDXTm61kvdo0YuzuvPjU6rQ8NLJrgLELPq8OeB3Yuo6Q5hsUbDM7oWCJyTj_Ei7fdwnPtxfg5KSJcO-nOabwmWjBsCOLeJ2aBbGZ7C1MADAvEiapPIQIbswcyWO_NI1w4bYXrX8fA.jpg",
+      "https://cdn4.telesco.pe/file/dO8ku02WKhKaF6kN04tDQCIwP2iOBiFaA5E_n0JsalvBjJnkqNxRsbMdgsMZDqqZydn2d07QxM8cRqfoaJ9zzwWMzThjD8yJylSnKaNhsJjIu3EmJD5bN-RqTIpEUBZPhNM_2UBHYq1KbIDWrwOK60WAN8U2mJl43Bd3W3r6htQJdN8thFgRwABVm8advAw7oUDeJJWSZe3z4QbdiVZDn4aferAF_Q7X33MYnOO1YWVN7p02ynNyozUlguFbXAXP5BjQiyCz_g8P_FxFO41bVD2bsm7dmgeatzE3GIimq8fDsCLCFOvnB8bP-jusDTWVA75Z0_UyhOhP9RF_Sf2K9A.jpg",
+      "https://cdn4.telesco.pe/file/ie2vXU7yl5FtfyoFHF7vtVfb2UmstgwtJWhaZTdyVsMcW-9lcs664f77qRvqphbs5KEvOC_HERIGPg-bbzy62WA2O91BZFvQzADVrSWQ8EyfkVj7028fnctmwlykWpD8RZF4XtsUPisHI34ROl5p2cwqOkxCMe37dgmHtZhtZYCK8b4gK390Wnu8ljK9Bx0Pa-6H0bv2SFUPfZSV8K2gPj5hTGvPtqbI_eOWLuCzQfXDGLtH6xsP5wdYysJZ6sWE3N7Y79tgeDtJCczl7hAbnnV2gkUGwjdvwrKOcV0Eg_LUpUg1BacB7q_U5kB_40SmiJWJYJmLvIzAKHjaPx3tXQ.jpg",
+      "https://cdn4.telesco.pe/file/sPNtKMi8oQJlrMmUmmxLcSta2QVyWXYeylbKtmY8GOKSNkLJzTyYl3KO4qI8M3bIWqW2OTFENG7fWJBtStLDjf46z5NcrdvTKGI7MDhxMajRr3IBhCx5PBvHiSFeMTT2n4NaWJdfqJeHjgVNAVH-GPK2Vxonnegn5wc3v2bKw7HGLMoknCXUjKL_0WD8CEzJSErLiCHrRiR9DiWP5dQPgGKaNUkZxxeLaAZlzTWMtA2wP_yPfdYSSIMAKXdRlhZAFUJR37O34hCR9jnZ1z4f7crvCtTc3PHUr3ozudhwjjlCnowfM6DWJkxyionebgb-cFdpQUMe8jrdDKR7NxRJgQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T10:43:42+00:00",
+    "views": 49
+  },
+  {
+    "id": 38597,
+    "text": "Житель Санкт-Петербурга отсудил у компании Genesis 34 миллиона рублей за неисправный G90\n\nРоссиянин приобрел седан 2018 года выпуска в 2021 году. Спустя некоторое время, у автомобиля появилось несколько дефектов, которые представители дилера не смогли устранить. Владелец обратился в суд с требованием компенсировать ущерб, поскольку на машину действовала четырехлетняя гарантия автопроизводителя без ограничений по пробегу.\n\n \n \n 52 views13:21",
+    "photos": [
+      "https://cdn4.telesco.pe/file/Y6jW0m-4K4ZbFwXKIk5CzZz9BcMixA332B_7F63yvAqSOrMeSGrwwMKK6rM4qM9aZf3bGfxFRk7MxjetlIMBWDPdXUCH-ESS6Vg78FHphFXL6Vmca5IIQ6gZvWrVClLF2i5r6Guuq-eZjahQF-p_Jvofmg6WWUHztb0m37_0clDtXu1zTNWFdtJFGkPBnaQrCykwUNIWSbY3zAX1SjN6TV4vldxwDMOauUP07FZnvLTV8rYKekPe-VdCahlgvyZAF6CcN7ByDYAP_iW3WAQgLE1LE03KK0pxyGuIQF1fUDF5ejMbDejNxjp3Q-VOgFSGPaRATKjwcOtKYmsGtEX3RA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T13:21:24+00:00",
+    "views": 52
+  },
+  {
+    "id": 38598,
+    "text": "Новый Mercedes-Benz S 63 E-Performance оценили в евро\n\nСамый мощный седан с ДВС в истории мирового автопрома оказался лишь немногим дешевле «Майбаха» с V12. И тяжелее.\n\nБез учета опций новый S 63 оценен в 208 393 евро. Автомобиль штатно оснащен полным набором электронных ассистентов, 20-дюймовыми дисками, аудиосистемой Burmester 3D Surround с технологией Dolby Atmos и многим другим, но и перечень опций внушительный. \n\nНапример, 21-дюймовые кованые колеса стоят 3800 евро, карбоновый аэродинамический обвес – 5831 евро, а еще 1940 евро с вас возьмут за панорамную крышу. Отодвинуть электронный ограничитель можно, но только до 290 км/ч и за 2261 евро сверху. Карбон-керамическая тормозная система обойдется в 8925 евро.\n\nНа старте продаж будет доступен «приветственный» пакет AMG Edition 1, в который входят серый оттенок из линейки Manufaktur, 21-дюймовые диски, «черный» декор, обивка салона сочетанием кожи и ткани Microcut с красной строчкой и защитный чехол. Размер доплаты за такой набор не уточняется.\n\n \n \n 58 views13:22\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/odamywc_Qosv6R8kaFssQ-0cBiL19AhMpaqXP_XlMa8NiyT08mRi-iQ6UXhWJhO889PUmNiKG5g2XJziDRFKILn0yXApr0FwP9KdYvMvMMZwCF-Mk5Xgt0qVKddBqz_sHRd1Fkf4u5v6p2Vnpq6fOQpr3S5dyhqlm2FgxAbyJCZ4iMOMx0kcjlhm5ib5xSXitrFb085PIKHFZRbERDyCrSWi7-G6tup8-eyFoIBC9wV4NTze20FMBA6JI_RSpq74XqCE_TTZXScsP5Eh-VeE9svPQSW6CzHM0sSosYP-YNJ8yZ4xPzKy6hWsrxNdEx4qbb_uc8YrVshxDOotFoaRtA.jpg",
+      "https://cdn4.telesco.pe/file/Qz_-DQK7hS1v-xJEcL55G_s7cyvMWJFbuVd1bo7I2mvyZNom6o45HQa_KuyYyNj8wQkr-etQBKRcO6kCdlI_JxIR5T2aKsF8B6ZpJ3XC8-vR_3EqMBGfrKoK3JL2XeYj1CNni5Y4Nk0yIjkO8BwMeVlvJgT_SNpPs4n5uE_0PQrg4xRDmccoVdJAhlsVnibKZ8k1hnl8unPda_97NqoyfGqZ_dySAvRSkzI5VXwMEbicyX_2c-zmSA1NCavZO2OlT4x7U0Gx_okmmpRrsFNCxaeixZkuNcK3UAkqOVwT3_Q2xDmQtkUW67-McTWd1o6sYylpqOifLPH-eC8fDiZ2Uw.jpg",
+      "https://cdn4.telesco.pe/file/teQgoCBcUdRIgSQavPUZZE5zmUY6Djkz3f3i1fYkfTiA8hZyPZxHLmqGJ4-3G8ARnzDDqLOjyQ_Jf0rqvLSSYODqQ0JvhqL_QZKQSSfD722AeWNASNYPl6WKOIKw01BFVKZdiUgvoUg4IA_FYMGneHyggpeTyxbQhLEoYUegeKkiHaMohm68U4F-ukbsFKFCk9m2pwiNDuuojBxrvbtMoO7yiZCq_U3muMQLmz2nLVW3u80Y8ZalYgQSDzXzIDX0B0bLNa-pnjzCuWdUOVqNrmQBPbeefAwxHgNLUcad22F_bqDlbnK8WVNqD2bbN_xGCxi6EblzSS-p40UthW_xWg.jpg",
+      "https://cdn4.telesco.pe/file/IbHsHb9Ds7wmdYMwyV_gr8Slr9Jdy3MDlUDPLl5H9JYksf_fkY2Za4Y1sz4n44Vxuhppk_o4kK2gebu68Yy1TZ3zHm3iFfL7dDxI_euyk52ph-0pHd_6f3eMrz_LAKwuaSK03mPDlfW9zrts02L9NMdsxwc2QklwSpeWE0aKlD3r-_waaAJ1dxmv5I88fuj59_wiPb8kNagdZs_t_q65LXeNRtv6RWPfjd7vETMehpG0N6pAlndfoKwYRF1DxUbc_0lGNHkqAWlu_90GweRY0wIL7u-YqqJ-i1eaXAZfhiGpNP4s1Y1Eq02-xD1UZAovc4VDW1U9FgRySwrmXlDFvw.jpg",
+      "https://cdn4.telesco.pe/file/u_AL1bDtrlS1kwoVt38kCKfNePuipllKX7xfiiW3XaXs4e94N9zGH4D_cqgKTF0PLu6WBsa89-aoqrILEV-LoetiBQv9XBlBNiy3sen8SfLSqr4RDmiUqq9gNIrAKh1KKo712uUGtsiM5cUeqfSpEE1Heuq1lOB0NB1rAyzIoOJxPwfWJpLEGPpzOOVxrS93CK4BLGp51IWw4oTCrFkI2RhB7xbZdNwGvFY6XF07ELz61Omq5Z9PTrG4dmRw-U4cuimclZOWZHP0BvtpE16DWUfBqcXfNgM_29r9DIpGT9oxqY9_fjHFbfmhtpXwqA8Hd18B0f68NUaqh6rAzJP4fw.jpg",
+      "https://cdn4.telesco.pe/file/sMJrFHIZyh0z-gQLxJcqrXHsXT1PBV9763l16l8ejjOwLYKnCkLLigvCXfzNjkGc-919SWOfrJXl6bnDkYjkxcRYahpDkwGQUdynyRmIN5zUYDJ562q_t8VLT2POsCJA3FokFRDBfYxCprthYdvQw_hflNrUeDphWbSqhk2f3op6XkgaQBbDKFPXVfgpX75ff95rFnjMXNn8ahgNIQp-_aCwax7AdTCzP2helVH2kj5TEGPwYkuCNE-on7gXZgL41fSitelQnGF7CFzztQXzHuc6tZl_E3SYBt0JHP-8IW9_7QDnEE96Oc-RaGEryg5XP6dQnHbpZjjxa8IV1Ydb9g.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T13:22:42+00:00",
+    "views": 58
+  },
+  {
+    "id": 38553,
+    "text": "Встречаем GLS, GLS Maybach 600 и AMG GLS 2024 модельного года в качестве обновленных конкурентов X7\n\n \n \n 62 views19:38",
+    "photos": [
+      "https://cdn4.telesco.pe/file/qfrrV4TXliA2KLEBdq8Hh4uAK4cHdFoG3CnV0PsfowMK9k1bHiP_BlX3nmiMiYNEr6k-ZkdGqaP16rmUTmd6WV50-3O4SUlTjl8d8MDU6FOJtca8-17yVKV6jXNQCHVKQ8PHm3pDfa__9ioDga6bIvvsB3VJFGaTxeBmtQPhL4pCPHiDwV51rA6CeZzKSamnpuguWVTCVcw3CCa8lXzfHoCETyorJHPexxahj0ZuiaMF7-XWXmE8KzoAEO_ezpIA2VGzTmltsN5OewDXO2sXInXM1TwnzQfxCg3JLmIC6uEk0W9Uens1wqR1gtmkvsoQnH88duninxwa6plILxn08g.jpg",
+      "https://cdn4.telesco.pe/file/F8Y75HR0vnJMR8HwRboi1hnxmawjQl95UjEg5tKBj7i6y_bJGu2kW9ZpzXTZffbywNC7k5Ny_SmSi9B10OjiZgOl2ckenMlQcnEbcuTFCkLofUqYugDg1pJIWQUDE--STQYK59jV0_tV7LVw1KniUbq5z1JFKkE5BNivOK39UoydD6nINdfN6RljouwPSDd9CVhwJrwSSTF0y9QXt3-5k6MYRhq7keFogPvqkUQ5oYjmO45imk2MzeIz5jKENLa6ZrBXXquEhRrHF4sZCeqP1sliXdPbUhWytRikuuCwWgb8vmYult6Mz-bC4v_6Lrx_qUz5r5Td8jfZNFSEMk6e7Q.jpg",
+      "https://cdn4.telesco.pe/file/V1sJirGHGzNd80A70rzan9YPVwDudDsc0tuR5rCUMcGfiY3LDwo-3jY1qwXlJDhLDHjbqlEoIHq3ygzP05at__3-Drm1ZwWWN463_M5VcqHZJ2sLwpeLlbHsj0Yb01O8YgenAI8RNtpsXwX4hZ5H_DGaCY8wKrhU5xuHEfC63VtS8BpM7yjp7ZfAwXkiWVGpW9all4lBI4zP9J4XgkdOn8T9XmYMZfY4z2QV57vn8tuTMfyjI7F80-4mCSdPGeVplnjyMVDMx0XSyry2LP0BeCaIjTn-pAcluC_dPORG1gamPW6RcQbzg8k_nXMJNsQ8qfrIFL_f_SiiZhbYSNRVfQ.jpg",
+      "https://cdn4.telesco.pe/file/Is8TdAcDAzg4hCgmx7o6KKvBN9gPjJnGFnrWjj3bnNOj5hDFCy3n3AW3k7nRMwahIXaq-HDrNxCNb3JJSf2RQFe9lATAiWt1Kn4_weYtGiPPDGHXwBFPWWuAMXuWHGlUH7mWvwkFUShYmWN6t88qsOzD12OKtEVPaBVrfexdyZr2IPUWS1D66N7XSRXTlIHdPBEmVPjkTSwDx9EkQ4q-sANeOBrBfOuA11MFftKYGMhSBGwXU9v5hcidPy4WLxopKasiocm234vLnKzZ8qeuoVfQbDVltTh3e1UT7ycNwGOkzZ96mDrNfbo3nSH2vLlVQFJxrentoK-VRWl8UzDWzg.jpg",
+      "https://cdn4.telesco.pe/file/DXNRJSPejp4DVEfNCh53okdnpp-syVXkj4fwv8wPw3TrPS-3dZi7IcgrV0Ya1i2oxHzEAl79icKG8ho0MbtIv1ox_5IsOkENTig6oyxH1aHxVAvg_5JIOSnEmWE0VmGw1D91NFjPQ7HsG314A_9ZVgNAErT8VKHF6OJ0D175ei8Q7627IvSXN6gFQlhp5_hFjQxn5R79nFmV4mcDAjrMEBktmUZmjgUA9mTaiI4klTXMKPMwWktmj8aQ6HBHUckwf0SfMC0KbHaimOh2KXtsWRdGMJJgdmIrCVsTejkaOYeNxBOraIaQJZnEuNKPLAjVsJk8PxpuU92rKRykB5SJrQ.jpg",
+      "https://cdn4.telesco.pe/file/NGwqwF93mJoH2zk8rE-1zrnff9dj15Yr5b5Fvrg-huTpThqPuxjwgswXS5TNrkYkubBwcfXsHxgg9P5VjZAQsj3u9Xek8UCQOrf2-N9JQQVLlJCVjgkrc-e_tp7ppTdvy5w37_CxsWoamD44hGvJ8k6WU9Iv4QJcQrplkXOgwhsIrgO2cbxPg_Y-hxoHfuy2xhBUoA7TzUJnwchdkerIT8VfgqTC2BpmOem85LbY-Ryf5akZaDdTEvJc9SnzK4LaRhtwy3Aa2WNuI_hZnO0HI6Dfb767difAFwEot7tJTrHCvBAWonr0q1VtUb8d70Ag66qCRD1bb6VWG1pp4_LoBQ.jpg",
+      "https://cdn4.telesco.pe/file/KfBG4tRRqIP48n0jE1WtpvoBjkVcgIjwFkyLHBZT-PP1shaKCVoruVvnpjpCmIZNxKfmJOCgCijSeRYg4H5IHRvEi-vnCcXUItkNyeb4LSo6xwfINL27aQRsXj8i2OBe_dZoDdSjaO8vKSFkH3KiuKorQ8njROU7xs9ZFlwLwgVp3zsn9DDAs4HQiDswHqt4d5j84wID56NNb6mZIe36pXtel9CMml5EIXmmf88P49T3fhE9lK5b7_RrlzyVXPVIHQKVqgANC0lhUwQFRXInl4jM9PccnjiXVeO6ap7RrhvG3Aso0Bas3HZcGVbUT-fie5jRu84-hYKOnUgftCJv6g.jpg",
+      "https://cdn4.telesco.pe/file/f8ssmE3yE73jYnDeWnzbLQLk7ilQOK1q7ZL3XMzQzabfTtlbiYdGnlRJjxVZqTYHqAmVMos5I1lb2i1aozh-syu7tHQ-SWuHBO8PLmajHr2_eeBlqHFjEYtlCP4DnYLMroM9bMfUDL2KElrCiAxT_8stwfp4G7cZ4MdIQ4cFiMfWSvk-H6cMeTB-ifyznr7BMbYlm4CLrpgUEB-c2ED34DB5Vml4uXXKX5JoA1z2YZ9o6iuFVqnrt0sVOY2QNE2WQ5572VPlJNvbRC1Wv7TGed10icJZ5RbXxY2vy5qmkRUtfYFV3xbytw8-7EqagAMJMnxcOPk7da-V5lsBjy82sA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-04T19:38:03+00:00",
+    "views": 62
+  },
+  {
+    "id": 38571,
+    "text": "Прощай-прощай: автомобили, готовящиеся к отставке\n\nКак и всё в этом мире, история каждой модели рано или поздно заканчивается. Причины могут быть разными: например, это низкий спрос, несоответствие силовых установок экологическим нормам, переориентация производителя на более выгодные или трендовые автомобили и так далее. В нашей подборке — машины, которым осталось недолго. Если в некоторых случаях речь идёт о смене поколений или всего лишь об уменьшении «ареала обитания», то в других ситуациях можно говорить о намерении автомобильных компаний расстаться со своими творениями — даже весьма известными — навсегда.\n👍1\n \n \n 44 views09:56",
+    "photos": [
+      "https://cdn4.telesco.pe/file/eRpvhMAPL3dL2ekDHkpyHKehULhDCfaw7BfnDGh2c16c8-TsjU0-b6jHEcliKLLj8Tvvfb75pRME_jyEUfGYVI_kEtVN116L5Ujz14qnqmhEb83JYnxTcW12VoKhsalc4nSSy9TaLq3T7dWoqlB1WGduyiSynjBN1Axd9OhW8NHNyNuS7_zpvfUYUjknPWUWspEV6R5-t0wF8CnLvqBIRWdejrGkg2k_LrSbWgAyc5kLYvJ0J-FuuDkmpO4k8sMPmeaOw0fvvsbraDRV6iBeloFjWZKpwRLJA5Zt7ybUxNNrZkfDWFxcqPnRNCnTy_-FpmzQiHi1llbxXNIBKonOfA.jpg",
+      "https://cdn4.telesco.pe/file/SMrcWrZyBgI84TMb56J77cSgp1ecpMlS-6v6ijfl5h4A89HesZOmDsEaeQXH6G0KWYKByqY8AnpfP4FIgQRUYpFU3r2vOy-MQqeLrzNhFTdTmvIcXoL2rOzzcsfzJ2TrkizdZbewTGF1sC3T8j3lulCTAnrivJ31KYpvKUDaAycNRUM9KxTe8NP8AMBDR7_y74tVsGsISC3ru2BWxpwTM-H3igtkdL7MPC7aC6IbYnhedOmNSp4fR2kCgB4G_SheiOQ0gSVNMpNNm456WHuQoXYrudQuukzX4MBtXq9dj2Ydrk4u__U9OEHrc23ijQZBu6NLK6eJatSpO_nMvStejQ.jpg",
+      "https://cdn4.telesco.pe/file/NAVnu9XUHgeFmaZk8td-yAq2aeVEuEl5s_MaF8NqioBc5yncPRs-i-L25yWnvzxLh0yrYhC1B3941_RcQJly2wl404bICcOuTTj9hYM8KN2xutWl4FjPnD1VT6WJNESveJjJ-ANTwWKJ75OAUj_TfM3Apsx-SydfDZBrC5Iym_HqCSv5p4uvHEzlhM68arhatn4-70EwiAMPvXf3HEzKyjSw2MI7gPQFzUh3mmmzyDk3-qZn2TZl2o1FGr9jKyG1ea_iJJ2c0JoqK1WvnH8zjOTvmR0Nu3aOZS-UDH1_xwWEFS_ChP6ugNDS0yfW_pLBKoAbfVqG4mymhF_Gn6DNSw.jpg",
+      "https://cdn4.telesco.pe/file/jcsaVkULNNzfV93C7zEsBa7dXwuuxpDoE5IF55_WfuhWWfW1aKlp4aG4EOpauZiPe7FoCJsuJoUZcJ_92Kpet_dOF5pXcCKtkwlprdzG5Vr-2aCo7OEo-K8xIirnv1QAqjiKw2qQsUB5tDHyZQayNrOOeSQuFFkaCLYFWyn5KwEjtdgQvmLuOZGSLcJY5latOC7-aoCw9B7_dKmfoeew6nZg59koDqHg78Euk1Y2NNrLYYaqtogutLtSZLhQUSgpEpIOaK_OV0B6xkAFtZNxi0tJqABOqKzEUrpwfjbnZuYRGCFh7nIhaSq3lOJ5kJilL5UzEriR-fXkzsMVUfKAcQ.jpg",
+      "https://cdn4.telesco.pe/file/TTpxYbPdzx3EMsAl1rQj86wcyoIu9DCLU_vCa25Sy41bDnbbeO6yIY5XkDYehrRwqt2YWmnH4NqTVrxlrLKWf2f2XG-PLjhWCR-bOwIG3qRZa4RufGUnuAYqlWFCGZgVrirQmFVUH53m59nMHCsbQsLir75nOdAeFyd-ag8LK8-3IYDWNdJpjgm7HgbFoLgLpmMAt5es7i6-adHtCQ7lvUMt1XYXtY-IWYyhbUc1Fywb6ImLyA-ia0TI38jYfBDkvwmy4rSjG6tqNbKKQ3KuZrt9Zo9yB5VFBofJgv6FPBITQQbTkrSTjUFoRXA4XBA9tQhZdNvh96HY06kTVQtLBw.jpg",
+      "https://cdn4.telesco.pe/file/M8vYTaHrYdOSwenVzmK-uc8gTVBxv2eiEtycOAMv0S49ozd6foFl6PScsJP24ssDB1-BWv-xpH8y9yMv7LR3YN-HxpxvH8hqSPs72fwu-4Z2fekum5EFJSbiu87TSGHdjNgu8COSOkuPJvSPpL6nLDrVL3zzg2YFUCi7hoaB_1p-p2FetG8UlujcvN9vnulHDXHdkPLL4p0IahX65bBTZNhM7vAeiyr7PsVn9esZ-G1etf5Ye-qM2spvVJIrsCuYzuql9WHJkMSEkM3bVLUKtIdJq9I9tLG0SIAb-K3TTXRczbFq-SMXbYJopdAUG46LN4Dzpss2rVfKZQhfxUrsbg.jpg",
+      "https://cdn4.telesco.pe/file/qKLV2rxGkTFhQFPDDg0Hg3YHrkIFhJsIn1nxSBlVBQ8zmitZA_1qK7x5_Ho_aDSr-FUww0_yTRIEreHCS498Lt9twsppWvlOMGRbh-G1gd2pGyZzDbCtlyyfcvFz_b_NkABBcbAxVvpCCv59huUXtEB7mL1VTvjWoD5d4OU_6OEcs6ycG1WvGCV6RRlSsKANg7Tt4mygtl7YyZcAQ-7ZfUz9lLsih3kDhkDloOKGx_YpNNqZswBtFIl8s2f_pSSo1YbmbEtgGmGsCqRPNontPZ5SHXX_Sj_8ytNw1AXO-DF79qZuAl4nXJIugnuyDSbZ5Ep44ofnEYYtSiqPN6OVPg.jpg",
+      "https://cdn4.telesco.pe/file/i8UbMqPgUp93Yo57YpQwCYuFwgcBXLZARCD31uVbzE-jZ4BMwXURpHCXeRIy0dCAOPlhFYQfZHm00ep1LBVebpjcbGZrFP1Dt9GBPmNU4Xo-IT2vYS_Nf46kNjJejMgCrgJIzCh14w322HAvenz-vL3TvKQpYSxMKqaLhTSx-u-0X9yNIW_T_P6FIYl6qrWuXuS30Bw3tXCmFFXsmynJ2bpLBGFYL_j5qe59MqSjFP0hY3ofWHdZ9oLS5KUUG28LNrY3XS1a0Aywi3aC-4WhC2nPtyVVniB5PBLuBL1p3PKdOQab-kOIifRw7-Yho7xGw-mUcsPKBJA8UnF1Tb5k4w.jpg",
+      "https://cdn4.telesco.pe/file/gXoI2G9BV3x26WnMygT37L7xlGdotWs68xa0P4P_5si1Ls2Tsaz1a1RqW2DGj4J2pKBAfY-nXtFIbJy1TMjgfxmLKqRppmga53zPxzHoHc-cyOKOZtkfjC_ai-Nd3hNMjivPGCacZchGi6lCufxM2B2IA2JU_oof2wxl82SJTmmQ27XSYBuFGaSPE49K33RVhTyHSdg91dx0Q329RiNy-UUJhDBn0qmTJfVX3EwB2H5w2ZWiuTjgPGd2Zs8pEoHNu_OIM1opFrc8konYj7788jtlqQMmVvM6Kl6rBQouSwXNax7SpGb3hTCFkOxi34sp07FCtA8HuvXpuiznCrrFCg.jpg",
+      "https://cdn4.telesco.pe/file/wB_NYNH3fiODnp9eDKMOi0PqAJgDUl4wj_1i04IUjlvhnfnYed_zOsWq_k21qZNhdYHbd2UaixeedOdALZF_jKH_FZAdArybAk6gh62A68JG8Na4P27YTYDxP9jfR4XwA1qGm3z1uu0WPdCE2n0Iy6YzWuiTu1D_reKRp85zBQKwZouJHS7O_-nQ-XVwalPGonUKLxJyzQ3Db7eGFBAFzzFkXj-5Angn4cMlpBXFRx_UndELNR7cz_tO7D7fOzpa1L6yEw2p2FNtvScP1kfI0Jcpmj0UgeT9DhrfMC3OBd7WLmedC69c_oNYamhPHEBgu0OKkG49Wq5WGAPj_MG02g.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T09:56:42+00:00",
+    "views": 44
+  },
+  {
+    "id": 38581,
+    "text": "Владельцам тысяч кроссоверов Volkswagen Atlas запретили перевозить пассажиров спереди\n\nПод отзыв попали 143 тысячи больших вседорожников, известных за пределами США как Teramont, сообщает агентство Reuters со ссылкой на Национальное управление безопасности дорожного движения США (NHTSA). Сервис придется посетить американским хозяевам Volkswagen Atlas 2018-2021 модельного года и Atlas Cross Sport 2020 модельного года.\n\n \n \n 42 views10:36",
+    "photos": [
+      "https://cdn4.telesco.pe/file/ln-d0V8LkOTw7M8Ij4-ixlTEe4ioqGVAbz1s9PQyAWOKT6oif-HMgoY8Y_t_Yjuzhz8GyGf_izeo20HWT_4bAuohfUja8gtwfh4wSscIchaGpq-1LAqACIovCg1ON5FaKUsb91xgNzsfveaycYlQ0gIlhxIDL4AICKtYp0sT78xCjYdObzyoDD5N3Gl6AVCgRXappCAdZuwPDkIJP8ejmxNg1aATUCELuYPEMZGT4ZsvCjHoJbZ08JB8juCKrxNY19db8Ydl8vJS7WG3JEZx_eqiFshCRpqub41c2uHCwuheHne4ObIoUnmE04AsUG6U3rTFjV4aNNeTp1U83k9qmw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T10:36:19+00:00",
+    "views": 42
+  },
+  {
+    "id": 38582,
+    "text": "В России собираются штрафовать водителей на 5000 рублей за езду без ОСАГО\n\nО повышение санкции, а также методах фиксации правонарушения рассказал заместитель министра финансов Алексей Моисеев. По словам чиновника, в министерстве неоднократно обсуждали возможные повышение штрафов, однако многие эксперты сомневаются, что такая мера будет эффективна. При этом Моисеев назвал нынешнюю ситуацию с отсутствием полисов обязательно страхования у автовладельцев вопиющей.\n\n \n \n 49 views10:39",
+    "photos": [
+      "https://cdn4.telesco.pe/file/hrAGYmW_tHoyk8WYfo0fnfRzJ2WDOJ0ZXCICZD7LsixXelAh5NhL--fcrLm_K1t4dkJAsEdoWBBgkHAokCNvLAkooIGvbaZgocXEOaMoFbcFjvT4ldrteid2-R7mVQ3zzdA07gIEBDpEy2vo8-O2elw1XvRdbQllcdG7jbFnXo11hbCwvz9f8188l-NE-uMTu7GmSGmgDEGJjOOrdu1eEpiKfguWUkbSkw30RpIfyzKmMst9KZG7gOhsOAdwczSMzqxsqWVQPlvj3eZ9V4226xejxnMQhFJC5nq5NNz1QpVVw7Ev-7gC8Sdy4m2MuAaCvh9sAH-kDE9Xw_EB6_WvGg.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T10:39:15+00:00",
+    "views": 49
+  },
+  {
+    "id": 38583,
+    "text": "В марте в РФ было продано почти 70 тыс. новых автомобилей\n\nАгентство «Автостат» опубликовало мартовскую статистику первичного рынка легковых автомобилей. За прошлый месяц в России было поставлено на учет в общей сложности 69 913 новых легковых машин, что на 11,4% меньше, чем в марте 2022 года.\n\nСамые продаваемые бренды:\n1. Lada (24 252 ед., +41,9%)\n2. Chery (8037 ед., +315,1%)\n3. Haval (6850 ед., +152,0%)\n4. Geely (5257 ед., +230,2%)\n5. Exeed (3368 ед., +313,3%)\n6. Kia (3366 ед., –64,2%)\n7. Hyundai (2864 ед., –66,5%)\n8. Omoda (2395 ед.)\n9. Toyota (1942 ед., –59,4%)\n10. Changan (1030 ед., +270,5%)\n\nСамые продаваемые модели:\n1. Lada Granta (17 009 ед., +276,1%)\n2. Lada Niva Travel (3985 ед., +54,9%)\n3. Haval Jolion (3325 ед., +187,4%)\n4. Geely Coolray (2734 ед., +531,4%)\n5. Lada Niva Legend (2701 ед., 130,5%)\n6. Omoda C5 (2395 ед.)\n7. Chery Tiggo 4 Pro (2309 ед.)\n8. Geely Atlas Pro (1638 ед., +220,5%)\n9. Chery Tiggo 7 Pro Max (1595 ед.)\n10. Haval F7x (1376 ед., +124,5%)\n\n \n \n 43 views10:39\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/lj0Os4NLustqMcOt2GA4tFECDnqblFqksiB8Fnzn5IPK26CA2e5h1j-g7fzPE9xMNrOWgCCo4FL1zfUnnuxUKBxHpK-POZUT8M2rDwKPXCuQ-2faKlSrcRIR3jo1s_xNY4bjJYvq3q5mD_-YTC4barFslA3lw57yAaBZHUwrS-RUsD8GoKCaGuwaKKVETZgA23kDsvNufcGMKkv64QOfi7feZ9JwJW_gVW33lDnjIsaGsRNH35WjTi4ADNCYXCcvKdHUT23EHf_f7jsZwoH-wuS2CwfmiwhsgGlbxcvj8erA-ssW8ukMIvRVJ50lC6j71rSM2XOua3BWXZ__Lx4G0A.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2023-04-05T10:39:44+00:00",
+    "views": 43
+  },
+  {
+    "id": 38533,
+    "text": "Ауди 💪\n\n \n \n 49 views18:35",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/f8c0ed2655.mp4?token=rFdSX1PcYzeenqntrC4BRPKoF3nmK62FzVoh2QtwB_ml0etkrfK-0Vl-9I6miF0nYEoXr3hhBnHhYtSc179-6ENMqvW5BlywVtXUO6AkTh5hSrM3yV1aQp226ORzrUoym7jErrAxWjWKI80yqWWr8HgJeYYVmPSTvkGVrL2Jdq4BUmIbHphv5mvfZGn4TFYj5ExU_CJydG3Ua_9E4A3rqekKLwAdjOE8BqluWb15Fr8vtSw8erWyGz-yRL2MFcp-kg_ETf9sO0H5F1iaBLExi6EOPaps9LlbDsGy4J1mjxPqLmp6mg4zc4i2-4ux6dZAw50WwD_UT77jM5wT0JoaVA",
+      "https://cdn4.telesco.pe/file/f8c0ed2655.mp4?token=rFdSX1PcYzeenqntrC4BRPKoF3nmK62FzVoh2QtwB_ml0etkrfK-0Vl-9I6miF0nYEoXr3hhBnHhYtSc179-6ENMqvW5BlywVtXUO6AkTh5hSrM3yV1aQp226ORzrUoym7jErrAxWjWKI80yqWWr8HgJeYYVmPSTvkGVrL2Jdq4BUmIbHphv5mvfZGn4TFYj5ExU_CJydG3Ua_9E4A3rqekKLwAdjOE8BqluWb15Fr8vtSw8erWyGz-yRL2MFcp-kg_ETf9sO0H5F1iaBLExi6EOPaps9LlbDsGy4J1mjxPqLmp6mg4zc4i2-4ux6dZAw50WwD_UT77jM5wT0JoaVA"
+    ],
+    "video_thumbnails": [],
+    "date": "2023-04-04T18:35:41+00:00",
+    "views": 49
+  },
+  {
     "id": 38534,
     "text": "GMC\n\n \n \n 52 views18:36",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/50897e3a8f.mp4?token=jGvB0HIUndLNveKfUI3uBLj5ng5Qd-_qxgKdgT5cvTMNBU5RNODqXyGlxz1Omg_v701OuvA2Txk-iGAv8ARbQb2hfbaqzwxRahzUpl4R0uh8TIk0_o8NTeFC2GwW5MB9yeo_g4BNCuQgTb9H54UwYSEDmlBA-shIbq6xW3Lt0y7vO3dOYBaErGCYbm7ikf0pQh5SaEPrFmDlxOCKtZCap-sW9ATcK_HtuKI1kd6-V5zLs4AIYIsxgrv6URDrLDzJ6dSadzf9EtMtAuv0EtJSc3FrHStEgJ5GbRkeitySDPlR_XnnM7O746Rxm6hlE_uckyLhMiRwj-3so2-Y2dMi4A",
-      "https://cdn4.telesco.pe/file/50897e3a8f.mp4?token=jGvB0HIUndLNveKfUI3uBLj5ng5Qd-_qxgKdgT5cvTMNBU5RNODqXyGlxz1Omg_v701OuvA2Txk-iGAv8ARbQb2hfbaqzwxRahzUpl4R0uh8TIk0_o8NTeFC2GwW5MB9yeo_g4BNCuQgTb9H54UwYSEDmlBA-shIbq6xW3Lt0y7vO3dOYBaErGCYbm7ikf0pQh5SaEPrFmDlxOCKtZCap-sW9ATcK_HtuKI1kd6-V5zLs4AIYIsxgrv6URDrLDzJ6dSadzf9EtMtAuv0EtJSc3FrHStEgJ5GbRkeitySDPlR_XnnM7O746Rxm6hlE_uckyLhMiRwj-3so2-Y2dMi4A"
+      "https://cdn4.telesco.pe/file/50897e3a8f.mp4?token=TibF2ewo0st9Js3ZcJktUeAd8AqHIRLkyBZqQRSgpLFyTeQja5D3bQ7qU1rMraso3O6c-u14oVkVlpSt9Ll92Fz0uWRrxA_TZtA9xAsqwB7btkQt9C2Dm3ghfD_v1dTpPhKDrvVwfhvaVnZjOr9Ubrsd0EpZAsilMURjsgO5TYPpWjihQpy-8EB1cFUYYuX5SmUZI3BOW2xzgiNgZBCP4oH381F95HPmt8JiHXGisyrtOcAfjxiHh245Efa9KaUYSlvgqnp3-hswPO92bkNcpfnRJ1GmZzU8Er3Ial79YAa_pyAEttnFYmBFknil4amJKBVo0HcsoQ1fAMkUe5ErSA",
+      "https://cdn4.telesco.pe/file/50897e3a8f.mp4?token=TibF2ewo0st9Js3ZcJktUeAd8AqHIRLkyBZqQRSgpLFyTeQja5D3bQ7qU1rMraso3O6c-u14oVkVlpSt9Ll92Fz0uWRrxA_TZtA9xAsqwB7btkQt9C2Dm3ghfD_v1dTpPhKDrvVwfhvaVnZjOr9Ubrsd0EpZAsilMURjsgO5TYPpWjihQpy-8EB1cFUYYuX5SmUZI3BOW2xzgiNgZBCP4oH381F95HPmt8JiHXGisyrtOcAfjxiHh245Efa9KaUYSlvgqnp3-hswPO92bkNcpfnRJ1GmZzU8Er3Ial79YAa_pyAEttnFYmBFknil4amJKBVo0HcsoQ1fAMkUe5ErSA"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:36:59+00:00",
@@ -16,8 +381,8 @@
     "text": "Лайфхаки подъехали 😂\n\n \n \n 44 views18:38",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/7203133fba.mp4?token=LXWd48x23F4CpN0gP63VcjSNhb35IVkAWx31_tQ2Pl1SmeG4my9lnGMUxSKTpOFiwbtPzBc9dlnpsdjJaC3ZVHlmVjNuKLM19ZEGFsyglhaz-KduUtvgZrNOmrgCCz7KaPYBP4mVQEJFW6sGhYLqOwes7tCvwc_6gx2E2kJcE0Sf5ISd3IL3NrD0DDRzfl_42aiCkOaoZITnbZNPq_rT02aJe9RqRr7r4oQkGw6mU-xQCfGxWir3SrV-pI7Eizsg9cceIVIJ2YaTTbXiGeyZYfIPZtaxAByRoz7SxZomIgW-SIhVv5hRV8p-Hg_dElMiYOud2zIrPZkZH4uw1eCKNg",
-      "https://cdn4.telesco.pe/file/7203133fba.mp4?token=LXWd48x23F4CpN0gP63VcjSNhb35IVkAWx31_tQ2Pl1SmeG4my9lnGMUxSKTpOFiwbtPzBc9dlnpsdjJaC3ZVHlmVjNuKLM19ZEGFsyglhaz-KduUtvgZrNOmrgCCz7KaPYBP4mVQEJFW6sGhYLqOwes7tCvwc_6gx2E2kJcE0Sf5ISd3IL3NrD0DDRzfl_42aiCkOaoZITnbZNPq_rT02aJe9RqRr7r4oQkGw6mU-xQCfGxWir3SrV-pI7Eizsg9cceIVIJ2YaTTbXiGeyZYfIPZtaxAByRoz7SxZomIgW-SIhVv5hRV8p-Hg_dElMiYOud2zIrPZkZH4uw1eCKNg"
+      "https://cdn4.telesco.pe/file/7203133fba.mp4?token=tHMNFbPgKhHfl2zmnvegVbFNIfB9lFYMfqOoR3urXAOFihRuez18hdLCFNC98BZ8hLvRjKpnZ2fErngI0-M0kLay7jtP6MMq_Gk3TqEN6jBXgH00X6tuIzo2ZgzddLAv_t0pRmxBWTfoUoW0L_Gg5Am_ksh92ogTQ56A38A2tqPTC3QCZqa-GG5fIfozthObTIsutRlMCJp5H6Xr2EOR5gZCoUGol5m8JsRR39Tspv1ZOmDp5OYw3_Q_sFYNJ9k0pQSb9D5jJNWiI1luio1qV06NIll4SLdAZ9t7_2s_92WkgvEvfTUT3E8NGiqeRaMhrFXv9y5xieCZmSx8_8cWLg",
+      "https://cdn4.telesco.pe/file/7203133fba.mp4?token=tHMNFbPgKhHfl2zmnvegVbFNIfB9lFYMfqOoR3urXAOFihRuez18hdLCFNC98BZ8hLvRjKpnZ2fErngI0-M0kLay7jtP6MMq_Gk3TqEN6jBXgH00X6tuIzo2ZgzddLAv_t0pRmxBWTfoUoW0L_Gg5Am_ksh92ogTQ56A38A2tqPTC3QCZqa-GG5fIfozthObTIsutRlMCJp5H6Xr2EOR5gZCoUGol5m8JsRR39Tspv1ZOmDp5OYw3_Q_sFYNJ9k0pQSb9D5jJNWiI1luio1qV06NIll4SLdAZ9t7_2s_92WkgvEvfTUT3E8NGiqeRaMhrFXv9y5xieCZmSx8_8cWLg"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:38:45+00:00",
@@ -28,8 +393,8 @@
     "text": "Яндекс 🤑\n\n \n \n 67 views18:39",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/938e838d3a.mp4?token=CeBzgzZz5q02Z1w9ToyOis_lQuoYCp3feLc5bmJNvSwefhB1ronh7aSVqd24XlMJZSxK7WOCuqYuFA0gQMwvQxt40UJk7ey2hKJrDROrVROSG9GRvuVJBQnH5H_js7IqwuaQ-fw8tjZdH2Nf4aIL8M8sLVhptqIRVpaP9ItUTvVnUpHZswdsRhtrXPTlYcB-NC1zYOA2UTOy1jx8qqHolhhItHaUUZhOX7XDmaGUYJmqH23WjQtd1HVOMTtUJIaqqOXwwxJVQij3sxLT-TT8uLnI0YVai26_V1a5U_sJXN5Xh3Gi14uz6FRIU-MV1DrwJzy8V8-AiWzppiwNC-sk3Q",
-      "https://cdn4.telesco.pe/file/938e838d3a.mp4?token=CeBzgzZz5q02Z1w9ToyOis_lQuoYCp3feLc5bmJNvSwefhB1ronh7aSVqd24XlMJZSxK7WOCuqYuFA0gQMwvQxt40UJk7ey2hKJrDROrVROSG9GRvuVJBQnH5H_js7IqwuaQ-fw8tjZdH2Nf4aIL8M8sLVhptqIRVpaP9ItUTvVnUpHZswdsRhtrXPTlYcB-NC1zYOA2UTOy1jx8qqHolhhItHaUUZhOX7XDmaGUYJmqH23WjQtd1HVOMTtUJIaqqOXwwxJVQij3sxLT-TT8uLnI0YVai26_V1a5U_sJXN5Xh3Gi14uz6FRIU-MV1DrwJzy8V8-AiWzppiwNC-sk3Q"
+      "https://cdn4.telesco.pe/file/938e838d3a.mp4?token=lcE-PmbRtblUYKCMGBJk0Ahj-zLfBavDNsTxa9lJiMEyKIj3hGDtv6diBjZDNjrjAZdPSviOSWFu6uNuHYPHD44wmRXW3sFmIW3_D0iRkdvwlwPYJI3fUle7QCDB0OZE_fF5LT4btnfSPz5JolhDg9cxeP6zbOKFmhr6tRJOY4U1FtJ-__2pXGoB9MD4x75C8z_XPfCTGVTLYU60blWSMfsYYvK1IFgcRl63MZSf3gyUhKO6YjPs6zIyf7ZYBuvwZsH42WLMTskvdWf0pT2wbkkdUD-fmBkPV79HON_FIBbCqECJYYM80vNVjlzOPRxmMAE85QUyChcCofFoJarInA",
+      "https://cdn4.telesco.pe/file/938e838d3a.mp4?token=lcE-PmbRtblUYKCMGBJk0Ahj-zLfBavDNsTxa9lJiMEyKIj3hGDtv6diBjZDNjrjAZdPSviOSWFu6uNuHYPHD44wmRXW3sFmIW3_D0iRkdvwlwPYJI3fUle7QCDB0OZE_fF5LT4btnfSPz5JolhDg9cxeP6zbOKFmhr6tRJOY4U1FtJ-__2pXGoB9MD4x75C8z_XPfCTGVTLYU60blWSMfsYYvK1IFgcRl63MZSf3gyUhKO6YjPs6zIyf7ZYBuvwZsH42WLMTskvdWf0pT2wbkkdUD-fmBkPV79HON_FIBbCqECJYYM80vNVjlzOPRxmMAE85QUyChcCofFoJarInA"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:39:34+00:00",
@@ -40,8 +405,8 @@
     "text": "БМВ & поворотники\n\n \n \n 44 views18:39",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/5c7db6c463.mp4?token=A4wuyz7Z4mWtPftZLK7pYAJnVEmtRM0xxxFYGL2QjNa0lF39KBNaw9T0dOLLklZoEGt-o18HlUEUoorZ2Zw5hLVcMfizvr0xjtLUVS0_ysHO4rPW1Pur14RYuHA51j6T2BMRLSnWoMN0OriCNp-JxvAbmngwTv9kCXIuzFKzbqkYMyEvpYBanm5FAupDk1RxFs5w8AE-D6RP4XZpQy_BeWJu3e6bAsQfzOo5ZqO94gYrt6OTMAH0GBfSqY9KvPxZbAGQtaP96c2Q_Ji5lB931ogo7AVZE0cXeebjLX6TSDfMyVJ2xtdENxDpPkWDNh8Dj__Wp_-pmX206NndKJWIEA",
-      "https://cdn4.telesco.pe/file/5c7db6c463.mp4?token=A4wuyz7Z4mWtPftZLK7pYAJnVEmtRM0xxxFYGL2QjNa0lF39KBNaw9T0dOLLklZoEGt-o18HlUEUoorZ2Zw5hLVcMfizvr0xjtLUVS0_ysHO4rPW1Pur14RYuHA51j6T2BMRLSnWoMN0OriCNp-JxvAbmngwTv9kCXIuzFKzbqkYMyEvpYBanm5FAupDk1RxFs5w8AE-D6RP4XZpQy_BeWJu3e6bAsQfzOo5ZqO94gYrt6OTMAH0GBfSqY9KvPxZbAGQtaP96c2Q_Ji5lB931ogo7AVZE0cXeebjLX6TSDfMyVJ2xtdENxDpPkWDNh8Dj__Wp_-pmX206NndKJWIEA"
+      "https://cdn4.telesco.pe/file/5c7db6c463.mp4?token=bNy0VAll9B0RkA30In1LVpk9PPG2o70ej-14smSAA8c3BMKg9Jr7q_Yjf0MAF7D3-Hz26xGS1q5oIJWsjx7KIEfqQasCAR0ji_gRIenCK4tHllreoMJPWny5shxqlt6vKIrG_ibThRkxQi8yMoAvLauFIGOqHAxQdjJGXd1Sv8CVEk67guDv4w1jgSyxQweAb-O65pnDCdOxLoYO-WZzzUv5hZlodoaPSnUVl3D5KEP3BWvqOjgg6TgzJPag6O_Tpy8pnw6_T2QClsI5CHdwMgYNpbN_O_RnJiv1Nl9YDC1Ld9mCmCGJ_-KLyr9OwiXBtalNzIkIsXB4VZkeYDCh7g",
+      "https://cdn4.telesco.pe/file/5c7db6c463.mp4?token=bNy0VAll9B0RkA30In1LVpk9PPG2o70ej-14smSAA8c3BMKg9Jr7q_Yjf0MAF7D3-Hz26xGS1q5oIJWsjx7KIEfqQasCAR0ji_gRIenCK4tHllreoMJPWny5shxqlt6vKIrG_ibThRkxQi8yMoAvLauFIGOqHAxQdjJGXd1Sv8CVEk67guDv4w1jgSyxQweAb-O65pnDCdOxLoYO-WZzzUv5hZlodoaPSnUVl3D5KEP3BWvqOjgg6TgzJPag6O_Tpy8pnw6_T2QClsI5CHdwMgYNpbN_O_RnJiv1Nl9YDC1Ld9mCmCGJ_-KLyr9OwiXBtalNzIkIsXB4VZkeYDCh7g"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:39:52+00:00",
@@ -52,8 +417,8 @@
     "text": "Игрушки 🔥🔥🔥\n❤‍🔥1\n \n \n 41 views18:40",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/c9b524ef5b.mp4?token=UpmqMH8iWhqwgcr-9qBDlSopOTB4OA4PbDImrs2WGmZ4RXZu50qjbgqchpF8lVAiYQiq7HNh90H3zu2O1fSjzIlHXedI-L9poJzDmOH4wfuMeTD5IN-8vze4zJsaNeqpdoIqb7F_KN8zhv4Bob6GHpxrgKlq1q-FRN4cJZ_pQ6hx04P4GNCGPaFOTCBNeAdyF6oTR9Wh65ftqFhc58XAJEqNyCeQuYY4s1ku4E2i82bJM7ARtF70Hio5zWJZC9Qoey91XDToW7X8TB7ub5tHcJ879fE6RbGlce3pNWIuAqmseBrvo_P3N0trP9PS6K4GByRjSIZ8W-MeazMuTSUPIQ",
-      "https://cdn4.telesco.pe/file/c9b524ef5b.mp4?token=UpmqMH8iWhqwgcr-9qBDlSopOTB4OA4PbDImrs2WGmZ4RXZu50qjbgqchpF8lVAiYQiq7HNh90H3zu2O1fSjzIlHXedI-L9poJzDmOH4wfuMeTD5IN-8vze4zJsaNeqpdoIqb7F_KN8zhv4Bob6GHpxrgKlq1q-FRN4cJZ_pQ6hx04P4GNCGPaFOTCBNeAdyF6oTR9Wh65ftqFhc58XAJEqNyCeQuYY4s1ku4E2i82bJM7ARtF70Hio5zWJZC9Qoey91XDToW7X8TB7ub5tHcJ879fE6RbGlce3pNWIuAqmseBrvo_P3N0trP9PS6K4GByRjSIZ8W-MeazMuTSUPIQ"
+      "https://cdn4.telesco.pe/file/c9b524ef5b.mp4?token=ZpySIrotyU8opT66Edh550jaCTecZ63kvYo5N1kjDjPvysC8NbhyCzYDf0NRFdwKJh2YEvRuMTN9O08x_39Tj15FX5eT-EIFNtP8JEhrDH2DVECaRjykTSkZnxjpoB2I_8EgKLmyyRceONpCNlLhjVbyga_A0wDwTZIi6CIr9wFzgmEG_f9UXay2XPp78nYwiHw5KAfgs-Zal6YOjTfWCb9g5eMmmWqHqWhWJIujxD-SfFGmSPIi11Ev5duzrOkLHET6fFV5SyidwhYt7TbJSm4QqslFxiIACPlo-g1AlmH32qArfozN0es7x7Yt4aTUXSoRpEVZEiuc1nwtBU4g0w",
+      "https://cdn4.telesco.pe/file/c9b524ef5b.mp4?token=ZpySIrotyU8opT66Edh550jaCTecZ63kvYo5N1kjDjPvysC8NbhyCzYDf0NRFdwKJh2YEvRuMTN9O08x_39Tj15FX5eT-EIFNtP8JEhrDH2DVECaRjykTSkZnxjpoB2I_8EgKLmyyRceONpCNlLhjVbyga_A0wDwTZIi6CIr9wFzgmEG_f9UXay2XPp78nYwiHw5KAfgs-Zal6YOjTfWCb9g5eMmmWqHqWhWJIujxD-SfFGmSPIi11Ev5duzrOkLHET6fFV5SyidwhYt7TbJSm4QqslFxiIACPlo-g1AlmH32qArfozN0es7x7Yt4aTUXSoRpEVZEiuc1nwtBU4g0w"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:40:49+00:00",
@@ -64,8 +429,8 @@
     "text": "Параллельный импорт\n\n \n \n 38 views18:42",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/d73d34077d.mp4?token=VGt0XBIMnDz0N_aCeKN8_p2YytYV23RoaRsPhNf_feNDT4XLLcfXzmVuleDHP8ZmfWG3WHKVEEH0joZLcE69w286uvqHtvGjVIamByfZipiv_CzB6XOZveoHgcXPmhT1mMoty33ZO7dPcU2SR25_K0m4PJmAijxkSfAskO03T0tHhq5keuoWSNA3c07MGwHDxD9TdX8R86sgrUomo2jvKJBmfbdCwaoWO7ImDaTv9NL0JsrVe9jtgF0W9IgG7ylccpKXuVqpcijBjRmgsDZch7o1br1A9b1oiO_vzA0kgs72a3bnDVQm1kPoiG_4HDKjvjaYz6lze7du463GZP5OKQ",
-      "https://cdn4.telesco.pe/file/d73d34077d.mp4?token=VGt0XBIMnDz0N_aCeKN8_p2YytYV23RoaRsPhNf_feNDT4XLLcfXzmVuleDHP8ZmfWG3WHKVEEH0joZLcE69w286uvqHtvGjVIamByfZipiv_CzB6XOZveoHgcXPmhT1mMoty33ZO7dPcU2SR25_K0m4PJmAijxkSfAskO03T0tHhq5keuoWSNA3c07MGwHDxD9TdX8R86sgrUomo2jvKJBmfbdCwaoWO7ImDaTv9NL0JsrVe9jtgF0W9IgG7ylccpKXuVqpcijBjRmgsDZch7o1br1A9b1oiO_vzA0kgs72a3bnDVQm1kPoiG_4HDKjvjaYz6lze7du463GZP5OKQ"
+      "https://cdn4.telesco.pe/file/d73d34077d.mp4?token=PPcl4eXcBdummbRtbxgasNoHp68IvzasBR4Ew0hMWcdLJgcesBCIudxAQhWqk43czvcvKI0eb0jq06i8QxRK27u2fjxL24ALPf-Jwcoel61-X0VbYaaOe2eoLnwpTSOF0KeoKqUcubMd9lEjX1BOeGZ9wb5C3pa7u8QoKMlJ5jY-lHFTc93CHxyIWQMmo5QNYJjn_yFpQO7SwAZQch0vsdzHJrXZ7SZzmBVcSGyU_Teia8odVCWrep5EZwvcpzJmRHP1i4Iwm8r5x3vK-e3NvaAx7dmewYJRlQPAOSwwNxKRuNrAcuv2QgCMH1xaYJsJBouwiMyaU1tyw5WTnwBnhw",
+      "https://cdn4.telesco.pe/file/d73d34077d.mp4?token=PPcl4eXcBdummbRtbxgasNoHp68IvzasBR4Ew0hMWcdLJgcesBCIudxAQhWqk43czvcvKI0eb0jq06i8QxRK27u2fjxL24ALPf-Jwcoel61-X0VbYaaOe2eoLnwpTSOF0KeoKqUcubMd9lEjX1BOeGZ9wb5C3pa7u8QoKMlJ5jY-lHFTc93CHxyIWQMmo5QNYJjn_yFpQO7SwAZQch0vsdzHJrXZ7SZzmBVcSGyU_Teia8odVCWrep5EZwvcpzJmRHP1i4Iwm8r5x3vK-e3NvaAx7dmewYJRlQPAOSwwNxKRuNrAcuv2QgCMH1xaYJsJBouwiMyaU1tyw5WTnwBnhw"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:42:01+00:00",
@@ -76,8 +441,8 @@
     "text": "Infinity\n\n \n \n 40 views18:42",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/5a16575efe.mp4?token=hADMWB-HnnRDoMjgeXNwyEOmisTvbtla_fQdIJRnO4UwHPoR0gxt_4a_gz4YvvHzC9CPvL0lgnlDcyI1106eVPcdWWDCOddgalLg51FfpNT7m3pFjKbmpli4l_nTyJsDqh8ERDiJFOfvjUEw9yZU6CIW1zKfkPbdl3snswujhlsrLhaMaYWBlJSXFpz5JbTUuFLOBdIFuVPYv97POrbm3N2ObasPn7wl44HAoCDIEp6gLCC8MtsL4_J2xWOhrwsej-WJ6agfnERh62PN6YHHPqK5kgeTjzihW6enGgFAiFUrEeoUiAFnjsPh82mwH8ynAVzto8fnUVR7pGQ5iPO5mA",
-      "https://cdn4.telesco.pe/file/5a16575efe.mp4?token=hADMWB-HnnRDoMjgeXNwyEOmisTvbtla_fQdIJRnO4UwHPoR0gxt_4a_gz4YvvHzC9CPvL0lgnlDcyI1106eVPcdWWDCOddgalLg51FfpNT7m3pFjKbmpli4l_nTyJsDqh8ERDiJFOfvjUEw9yZU6CIW1zKfkPbdl3snswujhlsrLhaMaYWBlJSXFpz5JbTUuFLOBdIFuVPYv97POrbm3N2ObasPn7wl44HAoCDIEp6gLCC8MtsL4_J2xWOhrwsej-WJ6agfnERh62PN6YHHPqK5kgeTjzihW6enGgFAiFUrEeoUiAFnjsPh82mwH8ynAVzto8fnUVR7pGQ5iPO5mA"
+      "https://cdn4.telesco.pe/file/5a16575efe.mp4?token=jsFZghneSIsbFyz0cQrvhRpRUm29IWtUou2If-BZmnO-c3rmE3KWIopWjkjZ6tUaUujkvWEd11d01Xj2gD1EV6Y7juldTi4SJYJY6Y_yCYBJSNdwjCEKIK2sDgCl4fBEYhZPcqDzZNHmdjE9hE53H4eXCim4R6QXS5GZkxdO7a0WQGq9SEh5vMmBRrUX0-QcDkkiJx-0NcUwRerKJQOcw3oW52jIRM1CT3Tk1Df0pELG4fTswCOmctrDsTKW7SUvw8ZbEZDNtCsNh6K30XljbwzlmAszmYLKJZB-9N5tBiOQRC79o1GN5GnrhcRqd7kcGJl41adbYK--38KsULru2g",
+      "https://cdn4.telesco.pe/file/5a16575efe.mp4?token=jsFZghneSIsbFyz0cQrvhRpRUm29IWtUou2If-BZmnO-c3rmE3KWIopWjkjZ6tUaUujkvWEd11d01Xj2gD1EV6Y7juldTi4SJYJY6Y_yCYBJSNdwjCEKIK2sDgCl4fBEYhZPcqDzZNHmdjE9hE53H4eXCim4R6QXS5GZkxdO7a0WQGq9SEh5vMmBRrUX0-QcDkkiJx-0NcUwRerKJQOcw3oW52jIRM1CT3Tk1Df0pELG4fTswCOmctrDsTKW7SUvw8ZbEZDNtCsNh6K30XljbwzlmAszmYLKJZB-9N5tBiOQRC79o1GN5GnrhcRqd7kcGJl41adbYK--38KsULru2g"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:42:53+00:00",
@@ -88,8 +453,8 @@
     "text": "Хоба 🏆\n😁2\n \n \n 41 views18:43",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/2701691cdc.mp4?token=k-93qkyVnhxXmLILPD1zpiahDULy8C-8FMym6rFGShrz9Bm0ADUwdhypzg01mzmOxG7ehj20CH4MUqlkW63XUi3Gz0E7MeydpcUoCYMcWYYWQbw3DG2iFZRbXMeVMgL8zRT6SnWMwfg54GfW0GkVLla1OkOInYDirpW-h5e_aRRsZoHpNlN5VA2qHySns4Ct-BjLPmHtHRTADg4XfAWnZN8-9TbQxS4rfci6YnrQmT9lbeL9X0clZPOEAeyBtN7AFkSEwqpdFIsCSJgp5QQescNn2rCACRH7XrljgduwB_99OiHFxZPmb06xqfBbykFnf_0zCaeZCpcAIk-Xd_14XQ",
-      "https://cdn4.telesco.pe/file/2701691cdc.mp4?token=k-93qkyVnhxXmLILPD1zpiahDULy8C-8FMym6rFGShrz9Bm0ADUwdhypzg01mzmOxG7ehj20CH4MUqlkW63XUi3Gz0E7MeydpcUoCYMcWYYWQbw3DG2iFZRbXMeVMgL8zRT6SnWMwfg54GfW0GkVLla1OkOInYDirpW-h5e_aRRsZoHpNlN5VA2qHySns4Ct-BjLPmHtHRTADg4XfAWnZN8-9TbQxS4rfci6YnrQmT9lbeL9X0clZPOEAeyBtN7AFkSEwqpdFIsCSJgp5QQescNn2rCACRH7XrljgduwB_99OiHFxZPmb06xqfBbykFnf_0zCaeZCpcAIk-Xd_14XQ"
+      "https://cdn4.telesco.pe/file/2701691cdc.mp4?token=rFVj4ZALAiK8SiOTeE8MDcFbUHIIe9NcF-2xJtqi5sdlvhSRjgZ4k8igRz201w2LzsMVdBRuZ7hyWRbbrx1ap-6znkeKXs3gjRFhxWQjGCE5nK88UHgX1WFQgResT7FlD_BZfUbu9BuN9rHJjv5c1gZ5_ZsC9-MsKufeSpFMrM1X1kVbYUNYAP6tClyzefcro-9FMPZIyMBPO4FB8-LWxBwU8RZQUZTzm6Jm-Ta3iXgMt1F30pdALHt0h173kz5djaz2JL5gfLkOchfYP1LmNII0wMX7B7uZXlNsuOeQNc9uygYW-YD-DHvH3DJCHEw_KMPgKWNujhDumvyuYAEmJQ",
+      "https://cdn4.telesco.pe/file/2701691cdc.mp4?token=rFVj4ZALAiK8SiOTeE8MDcFbUHIIe9NcF-2xJtqi5sdlvhSRjgZ4k8igRz201w2LzsMVdBRuZ7hyWRbbrx1ap-6znkeKXs3gjRFhxWQjGCE5nK88UHgX1WFQgResT7FlD_BZfUbu9BuN9rHJjv5c1gZ5_ZsC9-MsKufeSpFMrM1X1kVbYUNYAP6tClyzefcro-9FMPZIyMBPO4FB8-LWxBwU8RZQUZTzm6Jm-Ta3iXgMt1F30pdALHt0h173kz5djaz2JL5gfLkOchfYP1LmNII0wMX7B7uZXlNsuOeQNc9uygYW-YD-DHvH3DJCHEw_KMPgKWNujhDumvyuYAEmJQ"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:43:15+00:00",
@@ -100,8 +465,8 @@
     "text": "Вальс\n\n \n \n 43 views18:43",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/dc02c18b23.mp4?token=J4XlpZXk2NqGY080bkfHDUbPj_aC6EhKfpQMxKBURZh-UKRxUDN0gUlL22_hlIwmSAid071HSSOtKQskm4NSToJoMBEWk1Gs19C5ypupwLhPRFpyHkNT7uctCBhMnXLqiVnAS7WTqj6IandkZYDpYkb5DmUU2W4ZHkjKE1o4mCijMt7GvEXvLTDZM3DJlkQ3JJD5l3LSsx7cFP5I4mLAKosygU3pNim6assHaW9uM6iJB5A93916QnsgrJZ_jE8-Jyym9Cs98unDkV32DVAJh3Drl_xY_brxdPRg093y3TevPQ-MGAmBCNYbUAAxtL4v1Gqv_2H7Ut6poUDwStkkjw",
-      "https://cdn4.telesco.pe/file/dc02c18b23.mp4?token=J4XlpZXk2NqGY080bkfHDUbPj_aC6EhKfpQMxKBURZh-UKRxUDN0gUlL22_hlIwmSAid071HSSOtKQskm4NSToJoMBEWk1Gs19C5ypupwLhPRFpyHkNT7uctCBhMnXLqiVnAS7WTqj6IandkZYDpYkb5DmUU2W4ZHkjKE1o4mCijMt7GvEXvLTDZM3DJlkQ3JJD5l3LSsx7cFP5I4mLAKosygU3pNim6assHaW9uM6iJB5A93916QnsgrJZ_jE8-Jyym9Cs98unDkV32DVAJh3Drl_xY_brxdPRg093y3TevPQ-MGAmBCNYbUAAxtL4v1Gqv_2H7Ut6poUDwStkkjw"
+      "https://cdn4.telesco.pe/file/dc02c18b23.mp4?token=YlkOgICYe3z3-nNjQOSc9waVnE6cJ_Zh_aOOtgJ2Sw_pq78u5BjWGtt-z9hAulQUHi9sdPj8-etFLqlS6hQGHFVlpQRe6YuGdfm8qOJJG0oEW7KR2qTBNWNlcRklcDX88vu-iEWxxF0xmvK9LGDfzTQ6eXUlOM_GG0nsH2P_4-e4O1saqZBD4xVQGYGN2oEzc0HDw-PYLsUotvyvvymdv9tj-bnT3g-834ifEy3aELQcY373cjcl7DbbkPNf0AhcpL1naq8m6e4GpuysMv8fPnGJFsTkO3gGUPu9-MWKMLDhy2IPgijSXZCzP7GV0dNW-NI3tzGOYJ_DnlhQOC2sEQ",
+      "https://cdn4.telesco.pe/file/dc02c18b23.mp4?token=YlkOgICYe3z3-nNjQOSc9waVnE6cJ_Zh_aOOtgJ2Sw_pq78u5BjWGtt-z9hAulQUHi9sdPj8-etFLqlS6hQGHFVlpQRe6YuGdfm8qOJJG0oEW7KR2qTBNWNlcRklcDX88vu-iEWxxF0xmvK9LGDfzTQ6eXUlOM_GG0nsH2P_4-e4O1saqZBD4xVQGYGN2oEzc0HDw-PYLsUotvyvvymdv9tj-bnT3g-834ifEy3aELQcY373cjcl7DbbkPNf0AhcpL1naq8m6e4GpuysMv8fPnGJFsTkO3gGUPu9-MWKMLDhy2IPgijSXZCzP7GV0dNW-NI3tzGOYJ_DnlhQOC2sEQ"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:43:50+00:00",
@@ -112,8 +477,8 @@
     "text": "Porsche\n\n \n \n 53 views18:46",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/40776b771d.mp4?token=pnQff-A_qoai_ubpiEeKQEJYqE0GXIipcjOXeeHt4ayjZZVoQMQm24s-B_nXDAfSh9r8X28j1vWCBpyJMtA4VbTb_CTVwSISjxxYNbxERc5exOzOGsM5UdJ5Io9dJ3bfgm4cWXUAd37NXHvZMz9rbH_dI54N9vVHrq-Lz4W6_z85zTfcjsZTawZdMmij6puzU47liNK9vcFMqstXNl-1QR09b9HDpdtHTw-Jd4RU4tzvxdq36hl2Uq5m6byovKAOgCAVmxkrhu48Fne0kRIU12B79kPJvf-ktR8klJNiK-eF5E25v167X9zJIy3uc-FtNL4jRtfUVQt0o14hKJul1A",
-      "https://cdn4.telesco.pe/file/40776b771d.mp4?token=pnQff-A_qoai_ubpiEeKQEJYqE0GXIipcjOXeeHt4ayjZZVoQMQm24s-B_nXDAfSh9r8X28j1vWCBpyJMtA4VbTb_CTVwSISjxxYNbxERc5exOzOGsM5UdJ5Io9dJ3bfgm4cWXUAd37NXHvZMz9rbH_dI54N9vVHrq-Lz4W6_z85zTfcjsZTawZdMmij6puzU47liNK9vcFMqstXNl-1QR09b9HDpdtHTw-Jd4RU4tzvxdq36hl2Uq5m6byovKAOgCAVmxkrhu48Fne0kRIU12B79kPJvf-ktR8klJNiK-eF5E25v167X9zJIy3uc-FtNL4jRtfUVQt0o14hKJul1A"
+      "https://cdn4.telesco.pe/file/40776b771d.mp4?token=kWBDSroee24NA5Z3Lj1K1ADsSn9kJaQNpvltJIgQoStdtiCzCB9O4hgzNVrcu6qkW0qymxXzsvjCZA-GutG8-zJCcthLL3In8Z_eoAe-0vVJtM1hUb4vpiOMK8qhsutuHq2gLM9BeP_ksbR6Xs1fd_aLqDSqPO9mc7FgsWI26Bra9pbtznLO9xi2fbWp-23vaJh6s7yUwuHwx5HtknHhZGa2asaXXYlfUys1NXdmcbLyFTHeEdHfCP_MpSEkFoY3jsRZ-SDIybYl4rrA_zzp_JYKZOrpmyn_d9ifYlZa801NVQoxnUYt5NFJefbOIzYOx4Bd-zRhAvXlOOTietkVlA",
+      "https://cdn4.telesco.pe/file/40776b771d.mp4?token=kWBDSroee24NA5Z3Lj1K1ADsSn9kJaQNpvltJIgQoStdtiCzCB9O4hgzNVrcu6qkW0qymxXzsvjCZA-GutG8-zJCcthLL3In8Z_eoAe-0vVJtM1hUb4vpiOMK8qhsutuHq2gLM9BeP_ksbR6Xs1fd_aLqDSqPO9mc7FgsWI26Bra9pbtznLO9xi2fbWp-23vaJh6s7yUwuHwx5HtknHhZGa2asaXXYlfUys1NXdmcbLyFTHeEdHfCP_MpSEkFoY3jsRZ-SDIybYl4rrA_zzp_JYKZOrpmyn_d9ifYlZa801NVQoxnUYt5NFJefbOIzYOx4Bd-zRhAvXlOOTietkVlA"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:46:51+00:00",
@@ -124,8 +489,8 @@
     "text": "BMW M4 😎\n\n \n \n 52 views18:48",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/268d446110.mp4?token=CYKKzqnFnITonF8kfcqiqOjYXfG3q-LL-76u4M0nEcfeOz53Tlpnj1QGxmKSTR4Cd1qCNTnVg78dygp7Ll-w1PpJeKT29ujiP3SYRpdTtuLD7Pc1cDUMN9tnDTWdMXqTBE3q7M_nrjJFwkeSKJuoH7eCIR9M41ZRCHlBTdeTm4Mf96AC-Wm2upOVuTUADpT7wvoXe_yVxuXxTM0mCtbFi2hc7cLclRBGdFCBqSgijZ94AKSD_yPGNh3UGD6ypzdBXqZBn5077QTD0NkuddwVKX1rwbUf3nP2ZWKqO-1NR1uzntGSMGF2b84y3v0benPTWJE2mTZ-1Fao1lM0l9Hr6w",
-      "https://cdn4.telesco.pe/file/268d446110.mp4?token=CYKKzqnFnITonF8kfcqiqOjYXfG3q-LL-76u4M0nEcfeOz53Tlpnj1QGxmKSTR4Cd1qCNTnVg78dygp7Ll-w1PpJeKT29ujiP3SYRpdTtuLD7Pc1cDUMN9tnDTWdMXqTBE3q7M_nrjJFwkeSKJuoH7eCIR9M41ZRCHlBTdeTm4Mf96AC-Wm2upOVuTUADpT7wvoXe_yVxuXxTM0mCtbFi2hc7cLclRBGdFCBqSgijZ94AKSD_yPGNh3UGD6ypzdBXqZBn5077QTD0NkuddwVKX1rwbUf3nP2ZWKqO-1NR1uzntGSMGF2b84y3v0benPTWJE2mTZ-1Fao1lM0l9Hr6w"
+      "https://cdn4.telesco.pe/file/268d446110.mp4?token=WpYxrNylxNXQin4EVjdf8iOwkXBENVCSbWYHO8Ixu1AQBOTxyfFO1kpYii27CVsNBu8MhCFLeBVAiUdsqBX2h-vK69pS6PWRhe1mq3zdg60iZ3Gdl_tpLV8um_bmcPZmPRkJXnPU3Y-644ukN8tSLm2CucPpDOGIKSscy0Mt_FV7xPc0XQD_gNikMnlvNJ8zvLAYxlutSjoR3sG4umMJxQwO7wOpz97e7tiFXmrxPsR5Ak0xtMOS08k3vpHHJGbhgZMTL5BPTDcXSnoXfDWe5pe2EP791_YtOgY1ibqaugjFDMRpCt4yj54hN-k0fWj9b5BnOWpSVYUyvUY1odTdlg",
+      "https://cdn4.telesco.pe/file/268d446110.mp4?token=WpYxrNylxNXQin4EVjdf8iOwkXBENVCSbWYHO8Ixu1AQBOTxyfFO1kpYii27CVsNBu8MhCFLeBVAiUdsqBX2h-vK69pS6PWRhe1mq3zdg60iZ3Gdl_tpLV8um_bmcPZmPRkJXnPU3Y-644ukN8tSLm2CucPpDOGIKSscy0Mt_FV7xPc0XQD_gNikMnlvNJ8zvLAYxlutSjoR3sG4umMJxQwO7wOpz97e7tiFXmrxPsR5Ak0xtMOS08k3vpHHJGbhgZMTL5BPTDcXSnoXfDWe5pe2EP791_YtOgY1ibqaugjFDMRpCt4yj54hN-k0fWj9b5BnOWpSVYUyvUY1odTdlg"
     ],
     "video_thumbnails": [],
     "date": "2023-04-04T18:48:13+00:00",
@@ -135,14 +500,14 @@
     "id": 38545,
     "text": "Gordon Murray T.33 Spider\n\n3.9-литровый двигатель V12 и механическая коробка передач\nМощность 617 л.с.\nМасса 1100 кг\nВсего изготовят таких 100 штук\nЦена £1,890,000\n\n \n \n 57 views19:37\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
     "photos": [
-      "https://cdn4.telesco.pe/file/T9v2BvGxHQgZKUCyYlJm2lKXuPfFjSp06Vd-YN5R9Xg3p2S_G_OSynJr0LolNfc2r21P8rTB4fsnlIxyJFJSRx-Z4D5NtVW5pskLHoAXH79v5VxT-dGvAldHlkfUucyzKOWCeS2vbIa7QV9K8bT2-eY8xCXSwnTEYg1GM3mgCMsEVbJFjfWMUa522rsW-wshfaZOJNKE_2_lhZ3QCJb_tOoXxHxnu8HFbU21JzBnFz8Zr2GfbSlfd26VBByRIPi12OtJLVssPuPIrbfsb-a38mC1Fdj8odf_0e8gUwH2g-w832RBkU6zpx3T6gmLCfvZFT6_xnazyFlbdDXYGlUoPA.jpg",
-      "https://cdn4.telesco.pe/file/U-m0lZAz12V0OcEHpUpAVRHtFk2zmG_Ih-Dz5qZgDqqIV1v51nFeJX_nK66dmOFWrBLYAChj8x5UERC8jA1Jt0Z8gIyoRZdIR49fX3f6YrBT4c3ndRvOeiz94OrBJu7_c1hC0H0JmodtMTMeCY9kZN0_wx_wruX8PzF01SSSPcleJ_l9mXpWkilbJYZr4ujdFA8NyDNz-_V_vRU_ee_4rbE2nv1Jqtcnr71v7QdXJPGgSvVSZjE6OcGIzjZjPdgX2efim2ERKFwjckEoZk2r9CG5-GXvRlwMNxAwaP3y241iEaVF3Zt6eTy7v0eTnomUrlljJmFwo3g9gfBk3P-PPA.jpg",
-      "https://cdn4.telesco.pe/file/VpFCt08mbRb1V9Cnag3sK7QTuBOUbkIWNvUnZOYxaScV89JsmBgrveoyctNAhSk6WtlnE_GktM4cZbmFayosOqj_tb4RdhvLRowwG5wwRZKRaydHqGJlpWDvU6Iria4iYnrUib0BQMdTuNTYthfWkKmcQVyKaRn9Q5gbMyskALB6ReJlBFU7nn7DxeO9zsHqrNXT9tTSkK5GfJQs2dqOABI8i67n6u0Fdi4cqVSkCQ2-pGrcT3L3mneGRLaxTozA64UlKlKNEqYmyepGk-Ncv2p-JwFNKPSj2NZkXmRBDWIU3oTkK58tOpCZRI3gA2p3V7xKo6m8zpMUVm0zkZ3Q6w.jpg",
-      "https://cdn4.telesco.pe/file/XJfok7gDzC3P3pIujGExTR8HDCmWqJmuB9Sw52azjK4MM36GDRUcoR3xypswNB3HKGbhTC9P2x0wRyet79oJmfGmpuri8TaBvJPvtkO5FI-T9oUvyfNxAMXkBc2cJpufLRn9M_JpQYpcOiAJUA6m6Sk8xVwIUwdpeogCZxiUnh3F-xiMnY9ZKTGFIhHgcO1Wfh7Os-bdHGLPNlCKS-lwidN2K7m6A8Dl1fy_Jzd1SM_yBFHSHmsITwiIgb0mz3uzcvDY89Hm99JFcf6LZbFSpnjWX72QIUP0Uy9AGh-THMtxPOUAYiYt2eYWN9ci3WWRbzinbVQare0Mzc2WpOJSyQ.jpg",
-      "https://cdn4.telesco.pe/file/bB787VY5FdWkGHj-027rvqjF6DkQwvyHtL9ASPolfd9McC7Qu0tEHsmbkC_ZL9m0mz0EkJjDgW45cVZHPeUUu446h7kUit_DPKqC6DYlZIX1AcVS-AimjePa6iCJgKM4xhkRbXvyLTEYXjPzo4biZFpanNwcNuywLnkiQFDtDP1Jw9uzB5Bm27MMsj2ehKtLGVeCzaG3-trd1Ji833etwzbpkkIkFS-s7tQQDe2L26PthdxX6_oRHqy5Juooszza4PqlSJxiSx7fp9Lb4bkK3OEA6rbnSnUqMSSTilUPmT0MwBtPipmDYG24Isn8c1F3CfcouMB1T9knNGOl1HLPeQ.jpg",
-      "https://cdn4.telesco.pe/file/lSvhyL7reKOWIDGSIzkCriiLMdIUzLabgmJIZCdUpczOzCN0emwG2A_7JQ21xNDTQXNe9z-RBe9C7OlkBZAwtyGti3JNxbriR3yfeBgf-cvhxoYKoBh6jbqgTdE29I1TdB1FnrZnl95XFGO4gzDJ0Ls0rGXB0G2ICuDQEsoHCw7MYnhTrCtATmIA83P_jfQAaxasQiZkQwmBl2bbf9eDJaQ7BeNArhTwSjs44-4h_jvwriSkIKQUCDRthEVje21aE2QvvzCuV9jKmGfcByn7prgtgbNENcu6qM7kiTCpMVtU0r9fJYjwEe-Rn8NHwpAx-CB4iAmoDilGZoL8G3Lp8Q.jpg",
-      "https://cdn4.telesco.pe/file/Uvjpmjfubtplof5uzHriC5doSFGLgMGYugmMnAHrAxuIZYtK5kvr8lOM2mHwOQCYlH9tkPHGAncEvSr0Pb6auMBe5uiURIgNCXPJnTFvRKgyVirbLzZAFvNQF46x-5Fy2pKL5vDGOSX-ktVe94yuooizu_YPhH8vUikK9tRoAdVfiUVWUD7LQXriR2iydaI-0gTJ2yE50JeI4i8Mss0qxruFrKUwZeaaHD5n16wZt-QoiDsZST4nwuApBkiBPy3P6OLo9jXYYpLA2vtHupU18Gve3718TTRzfKXGI5EyICIyOkEgCWc83Gtb6UNcOQndnEuzRnFvjxZ_QhrM1kXaFQ.jpg",
-      "https://cdn4.telesco.pe/file/Fin5T9lAv0jSqBfbmzNfvGIpdgXLBpHpg9qpM-c_p7oxXh2VqMK66aSmbZTH1zpTbML20sVzBp_mQJ_-zGjSD_5h9ODC5iQrFb26D-167w8dYYBID5Y39VADMK0ofkD7vdUdIAV1df2ZHhO-LRuIHSKxdhAZVvVKDxg8WFJzDCy6m4LZTPeoOauI7VlthhE6BW84ldxrhf7MhvgNwMZDrgjQ0T6tuQAaV7HZuVLOe4T3528gyaQ29I01qxqZJVJbkFluyIxYqUnI0u6GA32K7MhayoTYxpFH11fYJjSmL-bDmqbkL7Cj58q-21efKndAToK0SlRtnNt4NfEFSlS-WQ.jpg"
+      "https://cdn4.telesco.pe/file/alcsYAZuuQXwyLNSqMJ4p10Y_HQPHZCEbN1djAnrCYHzGw10Fx1Wq4Tu4II46shYP-rVUXNHIWmcIziBscC25gipRbehzwfbA9OhP73n1M0ndXUjJbcF-BjuVq3uHueMdeESGPL9oCR1Xa_1J-lIupbvNjowdGnC23dVFVrSDO43ICEQgyrSbCADIx_lVOmwN5_h0FNWesYDqvhIC3zVU2WdJFFoURQmNCi7oSUgNTLjBWtrZfapdSJrzws9Jlrh4RZjvy3YDWY_lwwfQFSMVsT2X81YzKvrRknzHXV-vCRZLcd6S6hXSl2U7bAs3h320hxGeN5sdgZ2pIMLT9pHVg.jpg",
+      "https://cdn4.telesco.pe/file/dSCp_Y6xM4pC1E_6LcXrRfiMAMoOHC3u8Dg9G_HMOvvUkesjVHImfKNsu3Q54a7qvS0eX9UgSmZFfQYfXcl7EHUkvxHb94pSy6JVeU0EmNt4WG63W_VN_8hZeBGVeE5vB_cWPhMV8VeAPbTAlQ40YKCaaIU47XUXSXrr_GdnDSs4g91M860swILs8Uomi_NPY7kDREqY2tBeVcK05Y_vDhWM1zlYNtjC2oqQF6qdCWM284DWwu0gzaxoW40jQR5hU6Jk1HekVJL0iTtpbjI_e0WRXs3iTBvgNwHCZ8JXHgHDGF4Vo3_EWrBBQqYDWvHq4G_lg2EZjaB1mTaayNqyaQ.jpg",
+      "https://cdn4.telesco.pe/file/XrHrzImOkYF9chelwTjj_xMSM2tfBkyqyCMW8Y08pwoDMxFh--wobypwLZLd9scaotc2MQeoho26tnMaFOW8R1tb_GdnLhWxNd8ngZfiHiRXAjJAC2xyQJtNPBEXAkn9QrN1wbQ8DafrFjzgC9pdxEabUl2Mb5AwNSeIqTSwVhJhCyYsntRinqPFTLLS2zaYyr-gxxDE1ht8CteUAGE2HKZmBoxmMqncWfvxk0iYxdpSL_sZdbnIjNtr2aucEAvpefsAg64MFb8C8EvcEds_RyVd-jHGL-IjzqYOB6awFD3wRK2drpTY--s2D95m0LL6PbGmxsPUCu0lwzsaZHyWmg.jpg",
+      "https://cdn4.telesco.pe/file/Uk0OG9qoIpFd4P35oJmReziEt14V6NvXSf0ZO9MNLJKVectTP6_a3LP5yvh8Ibc3ZiWZtDWT-f6xzk_pTF2lVna2tSSbwSvWdpnoCmqlNbOJt9Y3MyMRjLw0cIcVx4AAUWCh4AhtM39xiIjt8AcMfJ3Vb5neHKPS_hS2gl1u6Z1A3Ol96rtThgIr99vsPZsMATXboDPzC5XYptDU9IOjISpBmfPtKLdMunB76-BAbNOrSgP6pWDrRUBdQSdgGFx0aaChzND6NYr3fmNmEY1_ml3HVundrnzaB3BsgKs2lSZA_tFofUUtPoOSbkeBtMBKGT0pzCYs4wHHokEvjNxv5Q.jpg",
+      "https://cdn4.telesco.pe/file/fP9GcgD5vP-3dzBB-Y0qg-0_SVgw3m2tZkMyzmESQno29HvB_eca2XySo4kL7goEcCkDCnE1ECQAyYnRl6qKONeCFRoO6UUKR-e5Y_2KmABwS-JN4bEv6EfJLgYlkp7LnW4_Cuxrzx3AkHEEIP4cO7QBVwd81W9eS6Iv4MiR6_V4ntcKPYv5f8DhHgH8QPxjugXIRjTocVDZTVMWgA6q6dr09FnFE39iPTsZHjkQve282khRB_2k0kixuJEjivSAzLHLAq7VkRHCN8rLrjg0zz7yXNhops8ro92aILuvTEBd97XyrEwSExOMBvLC1vsXU4M5JmQMrs0IV4N8dH7EnA.jpg",
+      "https://cdn4.telesco.pe/file/O7hB-Rm5CNvq2YuSPNdyNw7-wgmL-uSaj6tUvnX0mPM4hi5QToiKp1yHXRYOrAKrCs0qXsiv_vI3DFHGscQyA6BrLOAFxOGicwqXASV6Q-dlNWLqtI4ilzOdzydTpNwfoGvofLEC6nsTPIs-skoyYGtERkUz-hu5e2TccXJkTPnHJ57m5Jx_wcXPc1epoYT2bp7wNuIkLCxHgpRoCshegbvNfcNrL8_Jfw4GX30eEvB5gyq_DNRlPehMcEj5MBhQCsqSXSWmNLcq1LqDZbk9XFS3wxAnhWh9DKoOy_zAU5Hyj5sHVCR3oPFLrFvX4oysDSwRd1OwCfh2782a6WjL4A.jpg",
+      "https://cdn4.telesco.pe/file/rkH3aXban5UMj-DUoFOv4F7Ek1IYGZkQysrXisSIqoWTX9rv5rJ9US8BOUXPPg2Q1ooGMeeFZ3dMuMHZRpjaHwAnjxYkFBF9BmzqnHgiamtX4NkTm-VNW4n7XflodRNZxgCJbdd61TcOHKAUfqBXq54kBuVtsYoWnYnkLqWKVH43cFYqoLSKpzYpnr7POSkHT-sbygyDTdBMMjZfr2DiJz4PHR52pL7M9PeahA_GEG_kTh_9FO0spoKrbQ8qW1RFNEH8HaHeS91-k00EBl3xWxJkwRXAu3Cf4Wi6_yNqThR1URzhS4byV5dc4O-SLEN9gg8VZsVv26CmzRmb1yPCGg.jpg",
+      "https://cdn4.telesco.pe/file/mKQED78BoqXkfxFAZ7lPRdAIVrSlZgICN2aj-EoJNXpA0MhrAP2YZLZte5MN20v7l07pnrZBcHiBP_XhWbuxhSwkULVTDb18A0ZzpyGiAlrD4FoeDs4DEpMU8JxWOBhxuUjKNnWhREZf0fujPkIqBkO_J5i9EZDjDiY5jbMgQDQylSplOFVBrwEB380vi07ynOGbu31Z7tOQnLSQe6clNxKpQI-qrKVCQiLx1zh93QqkNWWjursg9Yx-W2sd-vUTcwxonRR2YSHtj2QhrKkKEAc4BtMCYWWh-tHSo61FW3QcOT4ZGmkk1CDVPko9-TfVJLDiLBrPfrgu1DD59XBg2g.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -153,16 +518,16 @@
     "id": 38507,
     "text": "Представлены обновленные Mercedes-Benz GLS: главное\n– передняя оптика не изменилась, а у задних фонарей пересмотрели «начинку»;\n\n– радиаторная решетка стала крупнее и обзавелась четырьмя горизонтальными ламелями вместо двух;\n\n– мультимедийная система MBUX теперь может обновляться «по воздуху», а в меню появится функция «прозрачный капот»;\n\n– расширен список штатного оснащения (добавлены панорамная крыша, вентиляция передних кресел, адаптивные фары, камеры кругового обзора, «музыка» Burmester и др.);\n\n– у всех версий появился 48-вольтовый стартер-генератор;\n\n– у GLS 63 переработали подвеску и отодвинули ограничитель (до 280 км/ч);\n\n– у версии Maybach новый бампер с небольшими вырезами;\n\n– Продажи в США начнутся в сентябре. В Европе – в середине осени.\n\n \n \n 71 views15:17",
     "photos": [
-      "https://cdn4.telesco.pe/file/PZNU4s-hpAIaK9zhKmWtcVRI3Yo2LwFxkc4bSIgH9gSMsvFlPDxhlVfBrVJsjoJkCTLF4jrLzuebhJgN13z6iq3wk9PRhQNEoJqPMeRDgdt4gLTAZu_CIifgHvzd1M-Eo_eJdbupk9DJqe_QYsf9PZjCjo5D9_5BWSMjk6qppxIbm-_QdsEMeUSOuULbCABvKrjwcdc7nfFIgVuk68cYbrStEf-GxY-ORKCj1ZDdo5mMS1a8-EC2uEJO42GC86aBdxIqDBw1N93YKXmIKQzctY_u_TLUsOxt-Jmu4qUPfq4hagqRSfEGVkCdMHjDv_YhAEGIVwseUMdYVir6NbaWuQ.jpg",
-      "https://cdn4.telesco.pe/file/DT6_FK4uq_WZ_hhkBP7yjvis8HrbwJuuRzbDUmdl2v_BYR5uR9ONeY16qbzyRXzhYjtwBh0bHaGO7poTI7iDm-98IY_eNFXc6KVd4Ynp82du2y9gCQ8qm93x8cIoFroDhervDqCGc-7kd5-wWKZZnOL7eEpySTts90zME7lgAAssofgCmEL4Wd7854J9rIQVs4HtAAsL3jcNG91R9yuP3Uw35AtKBMsidYFFlT-sU8M69grm2kLp7R9Ii7eUIe-WuWFCiAgcDAccXLyu8Ez3COj1IzkNvOfu9qSP1TrYCYnsK5aA6QeRhu2nEgT0daeVDUe4l1U73HDksSDY8yvHoA.jpg",
-      "https://cdn4.telesco.pe/file/dUozEnIHEBQg9mx1r0mA8OQpd7s4ZCrMIQVeXIK0qJKzZf6qmedlxeYMsO821XFaweaT8xvayTwjLL49FPdDoF9YKY8QzzMADLfbf2lnj0_4M-dJoCEfU_QvUeZtNjo6TeW4M9kZZ2Cp_SWcnZhxsfs9E-8WSD-10VyWM7ON2xbLciBUzPNsoMjFIAg7mqCnefe9KXshZlo7M8SYsCwln02IfWjOHWXTjuJTfv4XnhgMeXMgyO-22hsUM8zDe9rUTAFpdDUAWkXKc_JTQL2mjjB5obPHyh-ZWoOfS9n_p5B4q75xKYo6e91YlgLjwmV6gWow3yHBfgOq24e-8zLcPw.jpg",
-      "https://cdn4.telesco.pe/file/W6Jbp5cKeYitkiRjTpBe3aq8x2ETWZEfZm5EvR6NuchNPyJKDwGIYaX0mAg2tR2CKr2ASku0r_b8Imny9vmrhYGx0hLWaDtjAkKWp6Phv1N0L_7eA83gHw7Yk-pC9KfADSybYQi9DlEcPg0fJ6oiHuQemkj513A_lDTku6C5kp5fj3sDq5yrTGH57zjMpXmVvrVY1bfgvHjmNcDUkPnrnip-LsWLBLd156IDzQb89zBEC3nqBdPPxkDBIisfpUZsM84vy2OX3WQNTYQihnhlaMCZLhEh6r-ntnVNVmvheqHW5N5f9GLGAqSTS8lBofs_7HBha4KbxG7Sle6_ZzI4oQ.jpg",
-      "https://cdn4.telesco.pe/file/H2ao5N8KxkAhfLSel4AyVUPqnKLFaerBLaNe76HsxBJ-6N8yZ7fKTU6ekaDW0O_3IOaDdJhBOODwVg86V2UGftBlJ1vQqS28u9w5T8YVXbEvyEQ2T96G1h-gkjoGJWrQ0tP2yGu2Y610UB-Vx6KOa_G-VWoFRW85_UhBlr4aNHO28nSDh9M79uLq2xc_RlckXj4_-QrJuS4Hg4pfIgMlI-tbbytzvfra_d8m31PobMtRrHNZ2CRFQMBh6pqXLISUUtgNCn2HluWWGGMnJ21S40Xna60QQWzpP2-C86DpqeOzF1CZ2nMd15pp40fyySaEkAFp_nc49RJ_TzejoxUOSg.jpg",
-      "https://cdn4.telesco.pe/file/onmS4KPk7sHLYnGNbJDMrGbxMj0pNfySQ_9AF5Ec03lRleoHczDMo-piC_rabWRcCZgQIQXtQ_WCskEyjw8fBncxZlBxE-5eve18HYeUH1DLbUvuUjGI293IYsAO3I5guFgstHkr7MujdPW0Lld7mGDtfvQWGkOnEWsARGK6wbw3HYfZ2g5IbQEpDKkdB5DUeokS2Ez8wYIlqNjNhDi10d6rZFwkbxRimZf_kUq2DFjGqgwtaZ7axnZZCygLi544jc1vZUE1WmQda60K7t4E7gQGBRzVgmQ3W1g4g1-SU4xHnWxnwN0INml1RQWiEQlD38YCv2eSRtIfBROj8sIyYQ.jpg",
-      "https://cdn4.telesco.pe/file/ZjzqXdPnY90RLGnwEO5OQO63Hg7dEFFwj2J3ysb_MtSzKjwEaszthPJM64F8dWmDJNTD6NJE18p1xCVh_G_M3ohLbTg2fdfBVqv5mOQpHG11Ojvzp8_NLG8DjdRRdTpVeSLZgbrovFxDyvKkEC90iiU57CConhtX5E2cvKCSZXLRx7XjqBL9GCELa-MAA9Q8BYFxtlt7QZmVqAnH2HG_THmvaUVOtUPa9o4csDwxMUYxCgjSAkKIuJ6H3m8LF6747luvmeNLlLj_pU8wNyxPJ5a3fRMiVSp92GmpsF7Fp_wfptOIQ-2kfhJQenDgnRgRFgf5BiZj4LIEZZsS02hreg.jpg",
-      "https://cdn4.telesco.pe/file/B7kePyoifzyeqz-x-Cp1_k3WCRKTKhEnb8c2q2c1mojZxO4RHTNAY_W4Yn-Qh1VVjwAYUCgHq5GGMLfVYYKOrnCQHk6LiqA0XohRMejo9bWfJ37KYtumcD_4-8Gy5rMpq8a9FtGvkGZH62CQIa33T6QK9yVjVWpSxpmxhBiB_mqr6CqO2GUE0UGBaX6NOFQcKIpvbJ4psHCS-A7UC5RmgYu9e4nAAxv_EAkropIz_Qhdk2GbdZxywMExdkhfvJ99Ak73Ik5wr2fFneSZviv22ZwcOYEaqjshQ748V_Tn3m7Fian3rgaagm5v_Mi3M7SboePRWsBTf-upOr_3zk-INw.jpg",
-      "https://cdn4.telesco.pe/file/ie6xJtKNkUl5PWjaYRMufZiAVtGqizSf1pxFVZVoZpa7SiDiLyMc2ZspgPmpB8tHHkPet4Dh8AX8KCq8KBLrqjeE2l9iiG_pXI98wmhVUO8V2yGB-WoObBdfg3KbmTGrZ5s0qcoI5VqJ01F92T3CtHqXek_6tUuKHE8h7RmUXKLesw8R_BgtQjC4mI3jc5SnOw-DWPSgYKIiBYA4k4fRLcPMrbMIgRryusnQs9rQlgQTZMixBDCT_O94yasnpl-daGAjgn4TIhJiSUhgk0Zt8MXyrCELWr2YKi7FYteErCX6p2L_Ym01pcd0rVqXhxLz592oU1OIIiHM94O8Mp7Aww.jpg",
-      "https://cdn4.telesco.pe/file/i2_zlpItgP3WMAzaztwXTNmntFbs0tLQA-NndRgIKoIHfiSySBf3wP-bgSEVTiC8DGoP5C-Us3hhSH_NjM9AiJrb-UzDadL2O6JmH8ZVZU112IlKsO4UtONZcla9HN6n-pBUCAAOZC0lREJRnqFoh2RZuR4VzUoh3lgOwzuONEqyh2zauWApyPOrWhqoHneYOPtjrBHihnIuVFKZmtmg8O4vrG0qqpjEDYj1ajeBiqJxfBg0KectCRMDxTXTEGXt1GaN8qKEm-ZJOkoKAPljHCZQXF8dPFdctIXCMAJwXyTys_RBfM8bG_ciUTUXHNqvQy13lJO3FFDdwNkVEYE4zg.jpg"
+      "https://cdn4.telesco.pe/file/X47MVB6J6n_O4Z9SYvvu0NSdTBpbNGu5FLwr0F5s1A_oyfIB2riFWTbavFz0V9vCbxiils_uE9X5wUof19kwM4cMkYWWcQcP4X625VFzt6xokZ7WHZQhZ1IO6XS054MmlnbKDt_RAx_xWdNTCs_aEV9qQpU0gCBES3aauB_D6j5aW-XSKZlXTxVawf-mJQL8s0eRGoGotQjDYUNBD9A2shqTcLTmy4pHHPHPngXIAR7sG56PI-NvESNX4YILQTeCTgdd90VI_es0bxua46qYtI0t7JR7rx1STtlo31NHXc79Firwr-Garb9147bVPqbjNoh8rclmCz0XbASuvJZ8HA.jpg",
+      "https://cdn4.telesco.pe/file/Qwr1-koo-oGF1jEpA0zRbAmiI42nX4uaZb8sD5XeN1f_hC2_a1s0ch3sJ8zRkfSiUpE4QY1SE1IPy8mq1kQWQbBO_ZJ3xg84n_yFE9419rvl9lMr0zsNlE24qDJjvIwy6X2w9vHwxtJLYu92kCh4762xcJt__Ls_5UgNkZud2XLdDCW0bZABSo6pGt4BmxNLCRlpl72xVBITQpaTtzlbaWXeVF0C2_7vcBzfCzZOPshg4lwKdCjWugXhPujEvTJ58iCOOTrTaxsqvdSpecQrlzZ8NrFFZ1luLKtr7HmJr5ZB8b0SRqOyjK8ImQ-qr2REE3FCJmYFuFxbztgiKP_maw.jpg",
+      "https://cdn4.telesco.pe/file/C-AtkDqUdK_dMWYTQuDXPd3NXa4W3LvFnwAw7P1iWAOPcFNE1vdRiPZmzQvPw0E3KKov9sIyYaVl9_izySamnXvmP6fcn9ZdxpBPL4sGkXXCwv-Pwpt8ZkYS0Uc87E04Uy7JjkOvaVJMbB7-4e5ifJcYaBdNluc2oFjjhTAmM-NCwGQABf3eRg3r7WmqkNUOWRn0Ai-ChY6zqbyhCnqrHB_2CVz_LPAlI2q3D66ZwCpQehmfs4Gq9QEUkDtX0SytPxt54cZ87lv-cgCkvQ_JgkPAuR0XSVxfd_37YkeE5-GN0xjC8OFi2PtEJc9D_aBHch2nUBK93kTLHGxNEpwTvw.jpg",
+      "https://cdn4.telesco.pe/file/mJmOK0XGZeF20v3jyU59c9mQfWcr_RLCv5okai09O5hDl-fAusIO84tDEXv9B3-H68Lg_MS1j5SB0v3SSDzHHpmZJhHWp7zKlMfxyM0aAwHmNYmFJqfWQmiUpIR2iucZDCk6tkzU_5jTYaE0E6NdijbZy_3ByQxwIAqHe2CepA3_pA82bvGDDqIS76HqgpO9geW_7yFrY-hjgpjJDGyyH2hpHFCVH3ZD4EIcD1yRUSVPfLWnbX9VNa7XIDDMDC-u1hUawNC6t3A9Hcz8facF4Aqf2awM7z3ShkdN69KUwGwLPRdr1t60yRelCWUmXMq0apU310RMdORYMs6HhP0M0Q.jpg",
+      "https://cdn4.telesco.pe/file/abig-C_qxnmPdIG_376iWZ_KBCr3tI7m4nNKkqOwT9KI0O5FkxEkfScgLnoW0oTxRNxmScOLrgm3dfz0pjmDy1PZ43vWFf385vT6vMY9WpIr8m5z9uJ7ezzQdnbxQ_iXQrkk9mgHe_QVkR1IaIukHXg7UlaMulizhVEA4F89PapBWIuPqtfar2qhNRow1iY1Epst_6D12MxrYiUrejFwD0XwCftxZSuQWDwbjB19ijNZASiByj3F9p_0QG5cju9Hi8CZsoDVyNA3_5Cfx6nafuNN7ywYKSHC8ABRxI5YoWK-O0aOkxh0rgX8WbJyxHFgO4enku9Nmr80kxJcntTpGA.jpg",
+      "https://cdn4.telesco.pe/file/vqXiLgg7A-b6ENRzJVBYxU4XQy3E-G4NW4MSMOONcZeOy5qVKw_HwZLbFeK22wvirSHVET5gvYoRq0GKCWbmfPtna417Gj_tJlqNoStQSqkGH4kxkp5zFDxTyRlgFSzbxwF6cPNj62Hbt21GzbvdaF0eBgyj5OxZwLZgbt2XIHHLEjUj96K1JOR8I3GkMFMr1zaspwNOpgJMfz92H0TOsX-RQk5Y2AoU7sAATHmeQnp6g-MyCy_r3U2kNqMmoShc9w15Koi6Prk3k6WL7j-GPIMpAqwkXAGMEw1bj0XAm2iyyuUDLa3V5_Fx9vGuRUHkI0RK_QOe-9h9Mf0RMymucQ.jpg",
+      "https://cdn4.telesco.pe/file/B-i4Ag0hvRZErdXXN4waopeIbjK1mW7wCznEhyYlcoDTLE9K7q9Q1RM7qC-cwnCQaVhPCVrdkjP9jTZHFXuLzqU0urRr_SJXFA1BdgHte81fn7UaphNqrJ4vZAAWWv8cWfapxZWcVXlgzGL6RcR_3FlfhTPGwUhbEjYzSjJNpa5zkGqgn_pJdVdrRgjaJQNYP_dCLMiXIyLpExy7665W6hh24qB6e-U8Fqp8UU0wfICJ8BtXH0A15IwHkphyXhqjeXTOhHYRXEjg9wcXQTR_qOa0Mc7dMCOawaVkqG42OENPuknNVFV0IvRGdudfdKLGnmvD7C-QDdYptdbUPXyCFg.jpg",
+      "https://cdn4.telesco.pe/file/W3R3qoN7QqdktppnTUxZiTQC1vLEzkn96JC894LOXPkq3_CcJ85g_RiEIOoNxOqBweC0HfTrW0GvsFGHyWLEjP3OMBMUy2JQ9HSafbyKXelVYqZMG_zsu_21V_WrdPqdgF5nYTptsNgiEYxg6EoZ-b_BNR2xgzCehyffCaPqC90FFReU0YyS7K7mDwV8Oy-zIy2Omu85_c5NGL-PIPlXRePgJlw1aqjQmv8CcsKn53dwnmVcBraOT2G70eBFzSS9yEZvpvykRZbjC0bGeyIirxJZthjVD9pIzYwh-0rHRgbLJMky3HQLJqO0tUpfdK-XQ2x77hyP3F3Fet1Xlvwjnw.jpg",
+      "https://cdn4.telesco.pe/file/IUEACJag1yc_hlz9hQWELDNMcbZlBrDGd2x1wcUyMhLbglmkHFdKCf0FjSi_dpzyHvrnIR-NlTVw43oHSlOGBJ8F7OCcYX6xL00blxL7PAixK9Hz1PkmJGIbb1jdFhD7x47LlzHVb5hzlq4cPy-QH-StwZDUQsCEblQrE0XjIaWb2aRNvBuqVYm7Svko5U3lg57el7FjFt2vlYNqYOzjrq0eQcKO5njjNBUzf_xp6lz1y7gmA6IQNfCQNt3o-YWX4mMeew3BO3AiuSo5xDDNv9JJdA__ODgqD0xY57LeAooMDtFmojBgsTxR5fX_R4tjNIRDQWwjHXkdC98uRHtnZw.jpg",
+      "https://cdn4.telesco.pe/file/G_nxN3B0wY5nyxJEBNQ3JTozytppgchhgpVIn9lNlFy8BXVXneVYNnAXxJf4T5_feUeGcZZSNOgigz26Klmfpt1CBw3hCnwAobYOyZqVj_Nkgez8aK8R2wR0E3akEYod0DB0Q9LOmEngr-dntRye5AdtcT6lg74qEOPdyqrnv041d_hoAGUPsiqy-QsxO62JBj9Z86FcJVZu9GDyGv7Gdzq3etZ60z7zgcIIehmcPm2GkCRUi5viR5ydM6VxixCtRTONS33MnJKUxra1QlQI3FRwvry3QOvv42G6c8PnZSsgibHW5CrDKXhGNspbTZMizsn4zwOSPVzi8MZ6Uq5tHg.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -173,16 +538,16 @@
     "id": 38517,
     "text": "Что происходит с запчастями в России, какие бренды ушли, какие новинки появились, а также интересная статистика, аналитика и собственные исследования в канале https://t.me/sochiautoparts 🚨 \n\nПодпишись и будь в курсе!\n\nВсегда много уникального контента 💯\n\n \n \n 124 views15:52",
     "photos": [
-      "https://cdn4.telesco.pe/file/tU_h8U2-vHsGk9rSnqJlUP2-b5waZ_yHeM3XVsKKd9Hj-UHL43VfTMcIlmaQC6QHpJytD7LCi_n9kBRWGlbGEu8Em3WmHFZ-TmHOU88ysyt8Xy6DBg-IV797i67tNRV3wyJxYq4ZDx_6Bf_24TQe1PuqX5pJM-teSoUIlEa0E_Pf_Nyd19S1lD3Zm7TX7_eubSZPy-lN0qKsT-tIyPHBHIc1zdW1WROv8RQnq0gE3xg5aLE6dMkzHN8hPq3IEnSediMeZRhJQX5jMlEq04iKUaVV6EvHT1hLWiuFKEI2yTyKV-sF1ive0B-7OBkI7ZuJV6OR-tf-Lo0iae6rAO7Qyw.jpg",
-      "https://cdn4.telesco.pe/file/goKtIKb7ftmfwcwo-2j8AXJxAWfkevhD57zEpBsYyLM5-iqU4qQLXDnsDrJyp10DQGHMzz9lqM0pMdLv_SPW80_1DbuOodLWEq5d5JQyvjzaZv_46zD3pIDlF1Rj5N_IJfh3qWFpSTZ_yT4FUhZNhISEZAfD5wboU7L5BcLxf1xBP3dr_TUlN5ZB7BKMxSt-JPZo0yY3yT3T0G1iI1WZFXLwZAAFuLcQnWFouo1hqslJjH4TIj5gZXTd1O8ShQblzR-sfxmt8eo0GOxxMT2whKueyJbqZEo2BSOKbMMlc_LiG-5QW9J-k_BBk5rGeUY6B_5Wnsfnxzn1JpolUvuqOg.jpg",
-      "https://cdn4.telesco.pe/file/C3sVDIP0cNDyalG_kCQDg5ApI3Ed1UWPeM3j2bQagSxTJahl5TKEsP50T1dKJUDoLaAIB5aETo5AedX8QfN4BA2EMoy1qj7ejlyEAbpvsTxlPlqOJGEJqWUTk2UjOQ2sDUWawIaoXljNKoyPV1nAAXE5aDVKLvGjBJJWWyZQhgf28DwXYW0EdNTmqccu0YuftWDgmxp2XZJqppi_LUMk6mJYRz9MWoQuih6MF2X2trQsQ2_K5kJduNOchnH2ucFM2_EqsucCUhdFTIKD0s3Tf8G3JMjkjxmVNGEV4ovNCGo5E5dJwZACecsM346wA1nSwxTXGXBnZwxhMXiapWly9A.jpg",
-      "https://cdn4.telesco.pe/file/gfvqgoAzbvHuZuVn5G-C1oVMR4zGecWBaGvjCOvVA5fkzBCBhYkO4Kfd18_P1pCBpDklC5k-Uad-H0KPOH--SCL4qlwO-lEAymDYNhAQbwJlERrQ8BM8SvfP30i0kHzw_DcMBox3yqee_Q5mi2QEhnr6qbZn5CMq_Vton21j6GlYcv6uwgpELr947Ff5z-hjwr6hZBN2PTGD8vpwP4OphfqJpqyexvZgqbTc7SoLhBLUnClUE73bmS74AGADUK6z7KDbRS9mcMbphe2W7iye6PyXme7bnalWSigQM0MncNYUv2q1HSGLMYv8ncro_yKdia9OC4qSz7xiygk_96q_-g.jpg",
-      "https://cdn4.telesco.pe/file/bKiQgWkZvkZIc5AQ1-_HoV6K6caTL09KtBFGlEMToCufm0NZjMJYyOLO0R4QByISG0hpIAefX_l_G3d54lDMIFpn9T38q88A6u-Um2Mx_YROEV70htxatTmdpuw_h-JCOpxE-Ue9wdVq8pjDrz-E1Ceazf8dYEGInhu9x75uZtD5-56iDhywfTFybKPm44B19nj5BeCWXBCrxODLTULJm0YWDyBu6XVqogdTo61VRlKktuReRY6OFoa7zPNRWMUmuJ1kD1WA4BKeKMrwm_Rt5xjgBtVDf_vxpFelWqwDEeJdvkoXDJ-otDtCx1mmUyLto1053nZCbaoa4xgDxNKIug.jpg",
-      "https://cdn4.telesco.pe/file/gbZRSg5WQEuYQXhqcCR2YZOR-CIubFBCv5UQOeX5zqWmIVw11LCHUu41_EmrtgUfC03o4h6Lu8L71X7HqLDxcKTDYHJ6OJocu_atTnf01mLGRr-zOGBMmnMeu85YDslRVHN217ZB_o8b6nlF0mO06FxIgct96dI_UZPAahAqKqxPrYvA2UjdqgOyoaQd4z8i88SD-kpXSc1RGASHcVsr0r-7rPxFwooTPiZDNPJeCllpJAeVAuavWx3Ax4I61pN362Uv2E18E-IypIXX6D9ljcCfl1w3q5MflT4pkqQKePpLkld44hIWhmQk1WpLDO7aoCIqco-HK0K-6zsQQASB-A.jpg",
-      "https://cdn4.telesco.pe/file/ckFbdkuoEVk3h4nKAo9n_8VtLFQvbk9jcLtWN3tAKVZwgQYO-B57TU9UiLdyiIDwI-ZNH0nta2UkzR6Z8XnsIYWn6GtkU3ob9pGtIStKaH2dz5m_6eEX89IBoBoTaN-XO6TLHG8v9robDo-ROzM_a0pDL-fP-H-dUPIZGovjN_CG1bCB2OHZNloOPodLAi1V2uQ74NFe-iWenTMlCZJPC5LmK6nAAOQH1Xbbln0GCMNo5bwOmvgTS3SyereJVfO9_7u8k7AjzrtPMY8rluAkR2W4mxHQxIq856lO4Cln3npliFsdzb8CENoLi-UtjGL-oO6MpGM7CkS9cb-sUlGJJg.jpg",
-      "https://cdn4.telesco.pe/file/hUfVH8My18kFm0MRmyuaR-yBrsbg2wXYDsmqHx8-PGB6y1z6xGCQmoHvA_J-dHAFMEXwY8tjUZ6zjVrXvIa60EL_NwAiHCyPNkXa2k_b0t_uvOGrDlhGpQeMQWKS4IgdswCuXprIpNyBTJM6pWa5uuna10XSzgEa8luIDbOKbvGGZoJn46c9Z2yt1LRRGnicFbpF2IA4CiftsGiHfvujCDLlQEZdfBAO6nkiEpjwKVdRVm7J7OsX5MDUIldHtbWJfVVoc4uEtRvwJBelcYWG6fp5UGamxR7Og7pX5rZ8czxPTAtte3m0e8QA62glzFaTAx9cr-QF8nDrpk5v6QPreQ.jpg",
-      "https://cdn4.telesco.pe/file/bWKeu-2VtalVlk0mVHElAjZGFXgCEkDtLLkFLwMByPbsqqbufmFJfoqldMAUm7-_ZuMKxPDEQ7e9eN9emssCVRBzCGE1Nc274gkvoJ5bRhjfuET2tIGPF7aoZoMp2chEf2ANphYb09xHAC1r4fYmyhnQuNk-GT0xmguWYuAOSe1_xZmG6wzEezYL_-UFSZ1hK5VVAtmB-2wzex8f_egAgZx3m-K6J-2FfY-qAim27rWhRaG1xcch9NDubJznh7OaIdPleFFtXKqa2crhMML8t11XTOk_8oabl56rKLFtjfqOdw1z9amd3yUwLDyw2KC__lOACTnlsf3YxrQEn_i65w.jpg",
-      "https://cdn4.telesco.pe/file/IMTxwwd2zTE4FxSQsx-0aJrVCtjXUdIaCYqy1pIJZAaoaSMfimBMYP-APJpwOT7u8nmBRCqettPnsQsDDl4djr-5jPGBX76Yoq2ZVuIqoQz1gCDC7BSSvcfXxRB6GhMYPgWZzNhkixZcDV1JW6KUJKgydSkorF5TzWrmSsxOk5bwJHr-5e9MahKNcwOtt18k82B1gSAoEdoWXaLqTcjd1SIQRNL_Q3HzreKVJM5GVLpxdumzI1pP7dxPwb6zpDPMDORioB0GFEe3NxVmSn9W_MAG1se5WuAWC7lH04TunrZlZiJsaKkNIIFuAglZjKzAooy8HhZf6V81lmWJwhJCLw.jpg"
+      "https://cdn4.telesco.pe/file/HvUPRYvOOeJDTpM40T0nd0KDtrO_1IRz7G2ZXl65HOo7MqSp-Mlds0XuXtnxy7v-TcZvOHgJhNJPfdwbZGRXxu3gLb4w9TiFIe2rgroCW3itQVGDLLcu-3IDJm5YI5KWplMpXiYmwZtDO8k9aDhd2tfTGZ7VQb2Pj_G8eBS52I9b117JuaST6YAja7Jv60p4aXmOw0vlaXN-isdEC_MRMc_YlnJZ1FGZhcikLW5ezx7zUzxpz693m5e969EiAZNsHuv2WkErS6Krv3I3hB7vM-6XMjXty_wTfnuK12FqxwCnfb_b7J4TDqoTQE35uY3I-tK90bHeicjL9-_auL0R_w.jpg",
+      "https://cdn4.telesco.pe/file/qNexlo_SGOSHP4ZdEHIEVj_x2qbnwVIgpzZ6YlSWm9j90bg20zCRohdZ7qB0qcyFk0ObIwJfyZI3Rk4cmQTRV4gvlNgbW9XZpW9lUFJW0Aa3C--xNURxXVJk6vXvChA0BYEDZZ5rDa9-gSlnewEbJH0JT2tgmnMRANs9fAgLvSya85M8lZ1SUB_Sb9zoxqh6BOALKNHxsHXozxqHvk7pFW2p628C90SU2Wa4LtJ967mJK80ii5TwkSvwOqSJjWICah4aWQbtZi_1Dfoz1TX7N66F4UJJrh0feTp0PTbf_AYXOM_T2vImiTY3FuJt5NR3R28PCw2Z0s1LPyaMLDat3w.jpg",
+      "https://cdn4.telesco.pe/file/LaOTj8y4Wo3DnqCcK4zMUzph-yUQYbtVSFLsesUtiRkd0JLtmKnpzrAfl2TkYTHklFPprZvkTEABKqdyb3EgA6ggM7Kr29IRxP8kmCAwFRk8G7-f7h3VldGz13lIpAv71raqciY14ZZRAFT2IEQaH5gyVhmtb8lbSZHXUcjIoJ0ursI2RWVpLMZ6YGH0OQlTodPEtScenotmVAk2avu9xV07-MkcqES3jLG1h9uzIX4DD0AIGFFptoM24Qbt22RsxORfs3mEzTouMqIYcI5W1Z53Wfp-vCYP_78Epp3CaDjNmYcom0NDKIr1CYfByb3umXD_dsIMMdlZSTWgKlQh2g.jpg",
+      "https://cdn4.telesco.pe/file/AhAVdMAmvPEkJ7VxLPLcrEqB6dAH-A3XhE1RdeDWtwC4wE1lna0DXVpCsC02n5p46rPTcp8DkDjQ-2IQxdzXkN-Z2WchU9IlkMmp0f7aSOXkEzbQMJr-STI21VQhYeLhxv8yKLMiPpL7F0BeTk98llc5sW1Zd4qxaCdd0WvbZEh2aNpijSDHIjjdEyPPWA3BXya2pM3XFskMJUAcYlnsre1S0cMyLUyD6rWqc9TOZBaaIeg7w3TXHpq6_6utIsuI2VkecFqlcuFrnFT_20q7iC2NsuNlbAh41OT3ofTwxh1OX5xDt1N_7zJULDhSMD3fJparVULurdTjgOAk2-9rdQ.jpg",
+      "https://cdn4.telesco.pe/file/nvaV9j2_Pr96sLWqHq4xuwG60BOE829gM_pgRd_cBAlcZl_ojfxMzopkoWTqIDPVEtS0UvuP4h8tcJ_JhJpNKTZFIj0s1B1Qcc-dYRtPAVeudvY7CDXwD0uuTUtGQnTZuKPDJBgCKT0HF4a8xlA5vi-W8KtQNNa9Fd4IvG9UagEokUXYfbPbZvrxJaonC9JOAUtnIsl-Tq0FfVACUAGq2sid2lbLdO9a3BbaJSY3iYtcyPF3oTHkVin36X47mgyW6U2_51yTJk590HWzWq_xcGQfw1vE9jStwbZhj4sNJnfiEDR4O0rG73LG1BflCz6W8Udf5AFv3H4NTMZyAMafyg.jpg",
+      "https://cdn4.telesco.pe/file/MLaAqgyqNNBJA1NEx9BSSL4zek7ouWtRzrbX7PsiESIobC5k7mb3R410UUM8pqy2tLmDKtgy2YulC2PXmsHxW9Bt4dBeyBko-H5A6p2n3gwSXXSB9dPwItU_BctCNUFJ-uFQ5SNPCQYwy_XnJmfPmeUsd70ToqlZRU_LXwEDmUo8ZPgehXiXX1q8YW9cZm3jpTWcOCII5U2RX5o9Pq7CPOB7d39Xf5zhGZmQgQfbEsYKK9fvGouJKGWbncH26MMjqFPCjQ1bJi6PknenNQjus1ODMftxj-1kZ0fYqZf6g-fxYd0gvNkEa3_-Yg_QWGwAioAw3ldU-Vxd7q6RJcXKrg.jpg",
+      "https://cdn4.telesco.pe/file/e_bP-le35dclYf2JNdf6xxWqJb34UY7yDgzyCSNB2zbau1ZCTadka1FTI63Y4yyFMI51mqGCtLaoIkBxOLd93EO5fg7bwfGAFJ2zgeSckgC_sAM03bgNnxKTdxdaS689tKcgTQ7Ot6K2pcdZXsNWOJQsSUjJ2jey0GudWVUDVrMO7A6afHba2K7XQjcNVQYLb9hAr0IlQqmluKI07Ki9N-kZ8d1Q1ZJEtYZMmtWp3_H4NfVSJZeSxfohjSoK0pZrh393MgzbM8RMTUATIYqEdw6JFDRla18lP9C-lVpze3tu4MHj_jLClT_EW4Jb6rpj3ccgyY8yUPzxLGrEZfhQdQ.jpg",
+      "https://cdn4.telesco.pe/file/mnqoD8VaYMC9N0blMF6iF42I83tONJGonSixAlQMXKSNntFL0L-kKSV78bprMc5eVoNVty7JOAlGiTAOZopNHOVbDSmhurnnuRMKh2hiVfFLNwHAOeH7vxzCXJ1JQSqyo9tTldq4IB8Cbc5IQdT1ydX6QLbH8Di1MAQTbs1o3iV0blFXbmVDxtxzK57pNQ2NurlaYO0xzjzlrLWFjWXNTl_fQCnCwT18yJmt1GfI00EwUNLmY96IyMT2GMJqOBQuSydBlP6EQCGDRLWN-BAmXc_3ORB70HmF9MYXmQoyzX1HH4930cKcDkkKkaAJwi5MWWUSa7gr2mw3JR8uCNpDwA.jpg",
+      "https://cdn4.telesco.pe/file/ZFeUBNmmy9LfkWCYQMpOhkVX5r7KRY_9rh8plF7dld2aqUGocVhj7gdQPLrKui_2v3NGLLK01K8_u7DxxpDIoTjw1WfwPmpCWJBJ5D4B906BzMtXTCjI7zYlgc-6AxvVYcoL23XdTJVJ95f3FXSKdxJJq7b_xVmKy8qZPJS3gSpFLSaoLvHXbEki7Ids7mtFJhoaTqrcamQhe06AiKHpbUrWK2nxT5S6OK5IsWrdul_2YFDqpbk4z0lpIS0zP5jgLc3hIN3KlLxrxhYR7YUI58ds6qY1GHJN82pDvuxeYiY8hR6TGJUFeyaiYz4RatvdTysyBZqDHnd0al9J666ckg.jpg",
+      "https://cdn4.telesco.pe/file/B3B2yPl8MdwG-_TXUSOJDApKdY0fL829NrfJsWHzuWapUUhgdByaQOJvkByFZQ5ufvVfNQKnR7s0giAW7XB_5vZystIOz_2_N4urKcySBL9N3NR9K_HlzgRSu-WSmMABZno1EHSrzpwrmJxLwL_5Ogtx3PGE-7oxkBXlZJBwqt-wjhZJOd3PvrTpVDR9ijA4oeW-huwhc8fmb6U0rPoaqg0x66zDWs5F-YOwC55StWMzSvYV2Ts5szLdIAP_iBk1ULg6HUjGD-_yTbdyw2uYwleYUrga6_kUxPl2Fbku01wQPHcwTEe-fICUHo3fYZepwKmdX8iaU_I0vApbfPz2DQ.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -193,7 +558,7 @@
     "id": 38527,
     "text": "В России могут появиться специальные номерные знаки для установки на тестовые автомобили\n\nПо мнению ассоциации «Российские автомобильные дилеры», это нововведение будет выгодно и государству, и особенно дилерам, которым больше не придется ставить машины на учет по традиционной схеме. К слову, специальные номера для тестовых машин есть в Германии — их разрешено использовать только сервисным и дилерским центрам.\n\n \n \n 84 views16:08",
     "photos": [
-      "https://cdn4.telesco.pe/file/EzGL_nwWVsR-ZaPBVu6kGOCpnyV_sdfTp36goy7zWRL_HQ4r8VGTYngFYqyZQ_xHD38vxESsE9aRTT2cJ3IkAXV51pEgRYGHZ88ckvT_ZnDP5-gHaSrNPSpOTH2zotGx9poAUL8b2iR5J2gWcyBtiSyPpTh05pHYW43rqkShk0kmE1wS6BcyL1v4xbxQcXT7w0_wMWjh-eSt1hmr9ydOdcVeG7g2j5Q--t9M1ivoC2LPvUAMMzG-5HEeK2dgdJTl1uRuLXxA_HTXornKz2NiFfV84mBnIYD-nv2vs9nD5b34QSgYGBWfKZ1edpwwg5PRwzG_NCH-e0RT2BwNYOPBew.jpg"
+      "https://cdn4.telesco.pe/file/HTToRxRCOgBZ8c_JIBD1_VjaZkIazlkhi_6yuv6tB7lYGAvQwIqL6HGx67uUXlN6wpTIEY_e9TYOfDwC-wUHSx2RiuocPSVGyH6lSahRMppNQxmjwvwAr_wyMA0ESYySwMUSeV_fCQQxv2WRODCdfJZnJpgtF4jWmDOoQyn0ClGWi-oYXUoSKeXnF_7LgslzJfHL6Kxw9J67JUvkl1B2wUGL2pAUStjQbRfzXvx4Yo_TpymZbEKhobzF7zdixaP5-Q-kyQ-z3bViPLaOe0711XK1mfn61wfzexmwMTUkSN2L20UC76yB1BKoyd_BrSvhPkMErmWUlp10LzL3TmodBw.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -204,9 +569,9 @@
     "id": 38528,
     "text": "BMW 635 CSi\n\n \n \n 52 views16:08",
     "photos": [
-      "https://cdn4.telesco.pe/file/Gaj5n9APWh07lOhU8IHbz09kuCkeZEm4L7J_JlAr0AzDLq2cbBly5-B3ugrzbpZeLqH9dgN7tCk_XaV2R1rNBsNXdZNa8NfFcCTXZQjMTW3EyFs2pTaSUwcs-8cXW676tzbeWQzy3ugIHbGakoorirHsDP0vVSFSs42G_PPUnU83ANSAhrguD9Cgq1sTuAg_2uYfCGZRUT8gS4UvS7av83CR-eLqzIdiTJMqK4c8LrEB_ek6jTxLij6V6WjxzVkqpW12mkHN95yDvLw5eXgwdY5SpeKmdU-cYvZk16DpXmqdvKFUS-SXMdS5sFBPgbpOA5w13P0Yu-YyGhkdOVuHvg.jpg",
-      "https://cdn4.telesco.pe/file/DuFLfn9y17NZtA0kHiyBR3sFOLQF2GpiDjtR47C_wAfGb-bB0xEDRVt3K5gIEyiZvQlWYMWHW8Sxf3XD3OUgVQMRomRyspYyGabWf1LskYKjdothPnDLoQblbkfh8FCW39-LQQCW9u0_KVbynHB9_DTcfk69GDhMtO5c6G8-zzCxlzj_lZkObX71BdADsbOzF4wfMEax6HfQaMXxN5_xUk-69V7gqbdRjLUxCIprW3sHZBAk2MipwzFJHo8QyFUYS9YGgqJBXKisx-bsjAla5NDLHwkBgRIX7h6kzSKMVkwn4EzMLgYcms9rkLJGDnAO7WEbEe5WI1Gevnhqo787-Q.jpg",
-      "https://cdn4.telesco.pe/file/NJ3ucqgtRzeJTs1vTaC0EseWd0KQ6plLVfWT_zTvEnanGhD1iq0lMX-fM4-eV5WwI7Sr7yKNIiXqSgtZvlRAQsW_YnYOEWnPclR7bC1-Iq5gqYra6f7-SGPe3hNIdmczF3fK_jsCvl6JKmtzwFsymDu0NikmKY3lBkq5txDg1fF1q7d5n94-OYYKGN0QWbO2sXSJCfCVcSUzjbpA1gGtPCi5_kEeJ6rK48lR5yEc2oieBTYWt--jheNsc2qaYr8Gsn4sCu0xu9CDXzCYe7ersLWvF5Juwltswv82vSCaiEo31-hm9tDaColrjXGb6IU90yvMqC9miIzxzSp6vE3w2A.jpg"
+      "https://cdn4.telesco.pe/file/AI8CNagIT6L11Ar5Jgmttog95TZJZ5RtvC1w8Q9Xcx5ztaEWgKNCZMSayhJRhQsuwu-tfrfIQVflnhcWAMJ3OxpDQap9PPkY93E5wdUjyDSXJYPm7d8qMzZeBgi8J8EQt16oxHams_Idn9t_o0UTLdzRVz5Ujod6dtV_opXCdVVGcO87ni8EOWlEXmmR9c5w317Uuuz3uybjVg50fjsKnQbQF-B1MWLngr1LBdVfEDIRaFuthEn38sEhcs2fhxtoskyl66I10qMxF-82PygEKuxlITLIIxWWE9LiRgYgSABgWZjVkjSYa21uC-UQSTS7WZJIIzcNmnADNkiL7lbYbw.jpg",
+      "https://cdn4.telesco.pe/file/nIuXBkML_1e6NwWzVt2_NM6RZgbbgZTC8K6iFzd6QgU73Bxcy5SzY3JHOe3GHNMD0zld42gudNAmzNMhy1Ki1uXhZDpta-giLuCnX3GnkHx1iQyuwI-JDOeaPN-dGsNoR8YHt6xFJw_i8HZzt1RNsUjoiOQU9vTSa9MsEHF0h-7edm56b5-KixYRaOUlVRCKLh1TgN7U1pwxAEf2aKQhAltVq6plqZGLr1YGhXRSdpmMD_RkA_VIZTyvRPwqP57NeTi6n6ezkDtb97LxF3LYVcgKny9pJ-4n7r1Gmek8Twat2_inVGB2wuQJred9mbuOn204xz1EV30nCiKSi5Yffw.jpg",
+      "https://cdn4.telesco.pe/file/d9Sqt6Par-oK7lb77JoOW8cHhAPrkJVw3QYwVku1aPVhmFqPyLOrhGVnrEGkua4u8_MUZzdN1hVtc62RSZKTByzYyc28N4GXvqzLvLFO7Y5OlToQJCdP9X5e_zl9GthyLojoCIfF_OVW60zwFnJG-CuMDteGXHxAiSYcmJb8nYBigYRzysF6ffkUiZeUyHk06EpiNf_98yB0U8AE9biXfv9stbv5j-eLb1Fa60sNwzUhebP2jMazrzrTisapHeN004PQy70cQc6m1rP-2lcUjsXrX_T3G-IMmi4oa6Ja6cJCN00qJA0FuMekPsh_CvmVGLckiU7lFbSk3uKoCtFkDA.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -217,8 +582,8 @@
     "id": 38531,
     "text": "Rolls Royce дом на колесах\n\n \n \n 53 views16:09\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
     "photos": [
-      "https://cdn4.telesco.pe/file/AfJnMooIxc-uePoYhjYqK0ZZRhgHoEvZGieED4oiWq2d2LgO_gMjk8UeeqGL77mRfhwwyf22-Ha8pzG3ljRSxI74H8vSKxKjRSTh-24oJHwZrLT1bBnCyNVSm2F291FgYI_31YH07nkElpxMhWq9raJgATjQsgiJw7EzNlOs2pESwGj65GiVkrf3E4FS4h0bu6fXR_HR3N2E4fC9c4qHg6HA0oWlsX-zxNQN9yxIj__8XXorsK3cx_Ju7JWhTDZi5cNMuC6EAxBh56FEjKb9t7DWS6SZZFpP9PEoHc_hymKCa8OmMeFFW5pVhJtH3XHKhQ9RIB_Z1cfF_1yTecI9qA.jpg",
-      "https://cdn4.telesco.pe/file/S4lx3ScRDBB4tT9dmSfiE4WOF1TWgvm1KxU2bfO7Nbnvl7gVTBbF4sFPtw0I2qz0S_kfkjm3Z2n0GfL4-K3jFW5xSXaUA7BBojcYHdIBqxS8_9aHh9CtN7f2iCn4OQZuOoF-2wqUQ9Twb3xCB_hH5ySVfZ16__CrUlsGBOiiHwlgLhSCSzX9f9cXEqsb89jrBmk4lh6uqULNrzhct2fcWgQ6C2BqgoOnlJilylPgVyoa1wiCgi_2EhCGiqn-lk9kQBmbxJuCctHcbq8PyNVhNupat2LoliYLjPAnkMegSE6nG9bES3uiXxsz7CW51Q31QDFYdHqkIzQnrw6W8bXUzA.jpg"
+      "https://cdn4.telesco.pe/file/WJYjYmDIioKhQGsokNt42ERQtH3iuIVRQiO4D3J94TYE8Ks-_TfNYeI9AJbBBueRZiZrg0BY_d7vHfJ1G5NTyuv1TuX-jJUpNt3HrEkU1RUviFG0G-ScQkncIM3EMYpKW2HNam17djIjYzICXjCb_QjiVKnSATNzACa13q-RkXOwS_fF5IMOS1udlNf_tvC0UjE-JCi2A2E0SFvhR_xchNw_dpVpLnZh4o0dJzp-jOzN68W94b3-N3aIzBZFW2gV4HFaZDUEPqZVNAH2tKyNe0BokAwcMpbnQZAwL7-dlNIKeun0l2yrhKh-qmEsB3B752UX6FW_42wPquhbejo7cg.jpg",
+      "https://cdn4.telesco.pe/file/JNvew2oc_Ogyh12kCKUwzYufwEjgEYEDGU9_P3f4CotEVbBQMgxYWSahLUIr92mB2LWQoMVmY_82NLZs1caa-5fSDsBfhvhoXno211WqmdsadDIZlmGGqZK9hjnLzsKGV-WIYlERNV1nT6_dIRCpfKSpPvZ5jZvzIRfc7IaRZ9mNRGJkCtmlNGulA_4zxQIRCaI_YUu0kQw7dS06IE-M2xos5GipeZRTcsN2UyYYHSJ2GAVGswseoa-UtQaQxeqtQn8IthjDS8HSmGcgl0Ac1csg9097Fv3W3-dIXwYcRp6FPFHu8JH5uxP641YeGyodCMDMa2t__TVk8L1D03ubtQ.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -229,16 +594,16 @@
     "id": 38487,
     "text": "Оригинальных запчастей на всех не хватит\nПроблема с дефицитом оригинальных запчастей для ремонта машин тех брендов, что простились с нашей страной из-за санкционного давления, усугубляется. Так, по словам нового президента Ассоциации «Российские автомобильные дилеры» (РОАД) Алексея Подщеколдина, объем складских запасов уже на 50% ниже того, что необходим для бесперебойного обслуживания автомобилей.\n\nВ рамках первой пресс-конференции, которую Алексей Подщеколдин провел в статусе президента РОАД, обсуждались многие проблемы отрасли — в том числе дефицит оригинальных деталей. Он отметил, что дилерские запасы сократились более чем в два раза, что сильно затрудняет любой ремонт, а особенно — гарантийный. Новые поставки идут, но их объемы в 10 раз ниже необходимых. Поэтому зачастую клиенты вынуждены ждать восстановления своих авто по 2—3 месяца.\n\nПо словам г-на Подщеколдина, сегодня российские дилеры делают ставку на Китай, где, по его мнению, уже научились выпускать качественные запчасти. Да, на таких деталях не будут красоваться фирменные логотипы автобрендов, но им доверять можно. Так что скоро автомобили начнут массово ремонтировать «неоригиналом». Или «оригиналом», но за большие деньги и очень долго.\n\nК слову, в этой связи новый президент РОАД считает большой ошибкой российских властей отпустить бывших партнеров, начиная с Ford и заканчивая «Тойотой», «просто так». То есть не обязав их сформировать серьезные складские запасы, обеспечив беспроблемный гарантийный ремонт для «брошенных» на произвол судьбы автовладельцев, или некие страховые фонды. Что ж, это действительно помогло бы. Жаль только, что поезда — вернее, автопроизводители — уже ушли.\n\n \n \n 220 views13:30",
     "photos": [
-      "https://cdn4.telesco.pe/file/pbrZsTDQYFC6pNnsaNTNK2V-L1nTf63T5Htn_kcDwi02jAWcLwTB6-MeBjMwHJ0HWm4yXl3sV3khIrbKHIX1iBWjDyQhflnWgSo0nh5VwnLgs_ZHGRF1yBsBrkcBHJYChpaVZ1hqZ_3NwiuWxmLX0o4AZKOZta7WAdvj7SFY93Rms1D9HR9jWFonBkocc4uWBl535hK-tTMc3aLY7573ytfeeFFR9oGktB4vYPXL3zH0VY7_sAHWExmw7p8VUurG_g6xDXaBDDaMobV5v69thfaTsYDc3ZPNgcRlFUedRdFr7Ly5r8oyfIdHI1C1ue3lMpp9kKR6nXvkbDVCDRX-Zg.jpg",
-      "https://cdn4.telesco.pe/file/C9qBc-EI4fjBQ4Dpm4SmmwwosTFFfsz334uBmwi3W9th9Fup3yvxtlmkN5Unw7tm2Yy4gzflN6Q85fE6bkhuSnKVNg74g5D-Nqy9O7ZjpXzNfKLh6nK-GKvLJq8qqP9alXWDju4N76SRvbGkLkm_YNX60PrU7ErADXwxtY5YijkKT274iiVmUtoufVGvDAxiQLOSMd7JZyU3XgKJApOV1I4aI663syx70zxmTJiXQMn5ih6Eo--4W2ob37_YewwzyYXTJ3hmoFlcUHj26g4P3zg8whP9zI9yrwFgUivcWQzQw90A8TxWtvizpPl4NujUyTX2H1z2Fy6vlbxHfkRzzQ.jpg",
-      "https://cdn4.telesco.pe/file/JdHnZAr6abCKJAKQvXQgQBnyPz0qJkjoU_MxV6ieR2pHIe7rPO2wxiVhrzWGIHbG7S2q9Qf-IDX9osQc9o9D0J8TLIpipgTVNjXdphQ83RBRLAGAh-uSlCc106Nv7jyFw2uuH7n3Mzdt1zVKeJs31Ijb3L9NRYstW0io0MAjSoVlKQjzHuddaJX3P8uG8E2ruSJKhwwjhCI3-6vRittedObzvu4c8UXFSofxN8aOuPgZhH1lVbkTZzY1DFJGFqpIq9adCA0HBXiDPPJTFgvheTARJOsWC78_bSvPSPS2bk8Vgc1VhCpMoxyEB4vvevRAhu4gbWC5EcDTz--Iuy860g.jpg",
-      "https://cdn4.telesco.pe/file/iTnnkMOwLkmxXTk5gcY_MjXVNGtcBIo3bt9bgHk0DcQAz9aJ4VsTUuUrBBE0-9-3dH88bvNaoyHV5K5mMpIxyXuZimiWyrz3exBYZw4LSwkg9xC6001du2Y5wBjtuUbjxkSLnTzMCSL4h3lGCed9h-6Z-fChseYPUugx650l7HbGFYUXkY9QWKFKwuSqb5UmRqH9EfuTDZXgdtK6A-N4HMFUoZYSPLPGGpn1bYNr4csuuli-eNL6acRJb78qy0rSZK9n1rBXX2wXQOt_epACN4nPEQGWK2r46iAmcT75RxL3vvyST1wH4xiroW22DLsBCUQYze18q_UG5VYe4XPcTA.jpg",
-      "https://cdn4.telesco.pe/file/kfaZDHlh_wNequtmPT4FH5p3GLk31DRPVpFVW45Rt6qAdn-c3pm_QDQu0BEBIFzgAVWWTVBkjAmGd867gQO_fGg9e0EDexsmHvOplKuNmwI4ugiR7fZvAzCHjrI232xM0KbmH_HV7zKM8rzIs6D6CXv0sJDuQdIPpS3wkHCPDTejnpkdjtbbBqmP538M9BeIXl_ANg_LGQpmBSxwa7lyInkRKlmW_kKmd965MXUg35umKstuwbAdAjzHIQujeSnqOpfY4Z6qzEyfhEWgJw6x4IVNmXy1npYp-ONZa7YXcXIOyZ3x7G01ink31gpHFCrulXEiv4ZtdEKzwarWeWpLuw.jpg",
-      "https://cdn4.telesco.pe/file/q0D35HHL4eX4L_Cy7rlI1Ois2QygzkHGNEQCt227ZQXLmAxHErGhFrgEtNLAI9Vxp6WWkCK8HDX7i4kBY1RmAkuAL1rGyBmOGLb8xQCKqe3JL7Ijstsz9o2vPEiFkPUDqLVbxJLjDM7BIGLkiyjsMe8hZ9JtzP0EuaVGedIz9QLZ3nloZ9y_ROtoHfUhwM9Krs3EIR87TfkGXJ5lTp8-jmjXo7bby9JjfnH1Dxl8apn8rWqF016QlE6Bx5cwbCFGXyh-_vdYt_aQfki7aL6plUZWkebPiTZSJjFKZ4e0EezczcslXkJ-3DEN4Qfef_Y_hyhgvMw3ZS6N1_fif8qHYA.jpg",
-      "https://cdn4.telesco.pe/file/G9NDB8H8Z03G9PvT6wFZB6OWERUfLOzuiJ4v4oN0UDEeHc78HiO5acVRHrjLBW7xVcHp6GKcxmQ9gRARNHp9vq9AIhbo4UUtQY5LFVPHymWGfutf5MiDG3Zdy-MBB5BbToYVDztZ0rRKjdjOrMJn0ICC86PwGoSSfa_dNKoAEY48wkh1kkZgU4S5T-ZxWzynfyIojqqUhjNFBJDIOS0FPVPsa6y27HRpWN7eh23WmGKe9Z_x7HI21h2In3i7sCbP1f6ms4LmI6qSZdJJpyX89f--m4Dr37X17Iq4y68_a2kPaWiiOO40_4ZKz18tnFXzJEmpfdrgNCQv5TmJOUV8ig.jpg",
-      "https://cdn4.telesco.pe/file/NexG9sVPjJ2u5k4yCllFS7V5X_3jPdpFmxwE9Ex2biaMRy-pUi7AFh35pjg-E1hvys8n6uxmM-fB_H8LTnanm7_59XNJ2nG0b6kzg8QXS9yuNnMAlziJtK3V7y1TggecW7fhnw1PNxPYj6j3BESlHsS42nooUO5J0n0PTwJ47hdCtLoUNEj3FALhcKE6OgBZWckGSqMUugeIjZOSQybLpP1ZSC1Vi250tXwLhc8SUvmgsw2Z3epPMy7B3tgEXbqNWphw9erb9D6s-RQJVieAMEsg-cmneWwAJJQcRryXVAkCPqMGQQNKpd1NAlYERi9vs0blvACGvjSI272c6tEzFA.jpg",
-      "https://cdn4.telesco.pe/file/q-h2TIUI_3OfP0diJNd24HLEI5D3NcWut8l3lCQ6PbjKsFFPS1xTCGYfQ8rZjvmWtDhkpnEXCz8MI758uQX88y-qu9_fGfSehbp3iyWa8ITqVbyiuDJAYuRv-VTPihb8agDo5d8_LgP0Pyk9PM73tukjj_4uD0-C-O2b5DYEaq2pjz_yOSQ7YERTjnZB9zBCpJaTquBWYI9305M0NSs05X79RsY3Uhl7lN5hoDY_gRMxeavd8PdJsG_RrIsdg7D0VbSxuQR4bDwav1jBdnjKbTHAwC8Ru3WK--Eu7lcRlNrFHioJy5bxts-shsjWosveQ2VQux1IO4hr_-U1bbLS2g.jpg",
-      "https://cdn4.telesco.pe/file/EzmxmKtZfWgY7AcgriZRCCju_6RDd4T8N7X1XZ1nnabFqTqsqdL1oeZdzPT8bQoJMkoU9joCNPkQKXjr4m3cYYtloWXDllI_M3kBmZWb_FOguyANGYM2ihO6_VKlZ3qDbpEjo4wwJR8JtauLlX9_Evpt8DTqAd7eRWfKz368VYagUy-oXq9Hv0RxXFHPKc3oFlSfPY7QyXg6mDNdvy0QsOT7v3ZvERgdgoJWaw4aDCz-3QRvqydjpVZk6EJfwYKGRm2MW7gsly_ut-PTUdyRpI0nTVpPYJijQ66RovR_-SpjQmf4a4VaLqbsz82lan3Ca8GFaz_1j0AsWjQ98FA4hQ.jpg"
+      "https://cdn4.telesco.pe/file/oUvpoqVp8S7FerVVQ4kvRW55tTq4dGhPBhj4kPnfif3TuY1Imy4T-NXaXQuUAkMWpjId3-VKkaOgOrYXiz7wfqSN8lRoE8bwJan1REqAMILmeX4YrU6QYOygvUwOGCZ8lTsE9Bi7iegsvtaGk_DhiaCdxvHSeFaaZePPV21slHmCQX0I_ihoiAzu2295Laq3Glztta_HwT1AcNIzy0EzHYjtZdy0DN2fJ3fsy79JoCbyOLWOQONwsAXkm5BgbOgx-cE3oPErm2IMbzfdePEYUt_fEVm1PBVW6ugWci4bDQ7aOuT3U68uwQldsE70d1GJX9bcCqL2ZmLscSaKNfyImw.jpg",
+      "https://cdn4.telesco.pe/file/t7NscEy15g4IEZrnu8UnmBPqrTIcKE6i6qUFdQI-JSo7_Fbh8sQJQCY9-g6wZui2XmZDj8j3JI3QjzmZcCX5HrW61FOViFFeilI43mY4MOeG7EFZXZsgk-4OCzznhPcc7RMV2bgiGRCgQNwU6gbRUyspCkQ1bXdLgofHoYIvbKD7oWn6pcslx43b2awcueLJH2H1WiIu6aAD9AMzaM8SXZP3kpiDgx-AuZl0jSVHM05OX-sVA-YL1hKAVTcXqI_eefdvbJhoVOyVecnE9kJa4sokR8cTdqTaQfLXX8ltJ9yLj0fjKPchRb3jgUPwiUtXlTG9uy3IUPvJ6u3UgFiFlQ.jpg",
+      "https://cdn4.telesco.pe/file/b0E81wAe-R4OxNlPHPE6XewtX3ck-UZ2lCmeFYFkpN0v2RXZu9bAS-TYogYxmWhFF75VXndJGlOzbq1W2POD8wNBPX90BuqLod3FZeJgjzWqzzi89LKvrEsjoqoEipTcTIEFbGW6IilcyU_SSj8mvBVHO2d__3BSdpjDmoemM_M5uvKdhhcQ7rHWBa85n19vHEpKwllpt_ckvzu9Y35tov7sVk8X6WWQ9Zu_n94NN_ItG3Eem1h0rQ2q5DhPTeDDiXvwi-vINsNIdqB4CCVziRgBPbmNqlnWSYb7DZhc0Y77jCGfMypkj8JkZsVGF5_S8NvYRm8FehEZuydlkn0eAQ.jpg",
+      "https://cdn4.telesco.pe/file/O4RCK6kacdv7gIQYT4BAilQfhDS_RbMq_9IBwCItWDHWafp5Ng30OgqkUU0SM7Kq2X7NY6sBxB77YVzhvUBwXoBkZira3bKwdD94DgqrzNhoB883YBd68wvfEKWC71XOIOeZXnft8geRn-6te3d9FoKiB6gsdEqEY6fKVKfQZPUuHKcQ_IBCNCCMNQazL1M1AA32go7P2f8NGQDZqulwNVQOGptPNK8L7tmuROy5a_sOeiEjl5l6svaf9i7uV_Irkt9tRzCVOG6TF2mbF9cTFRP-x69DR9v-RGJusFd5BlMTsLV2kHK-0xH_fjZXsIdSQq7DD06RiKw24ILhSdbQvA.jpg",
+      "https://cdn4.telesco.pe/file/heNzmwSHdfcvvwuxUe6anY3qUe_BNaVjxO7-KzQr1fpunTELATbIg8Os691-Lwxo5buYajOFyEoYhhVzL1M6aq7ToFD0bdwBNyuzrYqb05-uHeA24GwpsXkV6nVrpijAUFwNBRwEWNfcMenhmXldaXZVv2Qv1d2BM2ynZpdqbE2FB4hIHofLgwjNhwbZ27ykhMZbjineGGf1Tq9t4uUc5y7ro9_iFKC4xsZHtDOI3eXjomGq7MTm1LO_C7Psyfvqs5Ejs-gd1jskyPawxvLHGJDav5qwRm_oPQD_665_a_M5xp_g_4S_zGAbF4v30oGEt2UWrRf_LnmTTZV8sXsiDw.jpg",
+      "https://cdn4.telesco.pe/file/d_Jn4wRKKsOfrAH5X2lNcrbang07X3pjx2Azkq1nTAawSR51Dswa7vb_XFdWMSBlrpryFuA60_JnPyXLtT59ECQtDW8q_9mpwDTNj0Z-aY9MBWZLwjqXoireh0hZGeh6p2N7Tqox4iTzsXAaAuPpehOL0bCboQEmLdz3XlL_1fK1-Vr2VbzJFsHRcjYnxKi4BU2UTA3L8ks_PK3A0E5dkriu4GOIBIOh-NLgIokTVs9AaqHAWnDl-913F16mbkWpuK_8NP6lOUfsuwIEVpcAr6I-UXwJTT-FmVtM8T90eXa82Nmcry5tUrJ-qcSC1dMCIb8F3SA8C_MuX7VyBa22qQ.jpg",
+      "https://cdn4.telesco.pe/file/dMh_JOsBT0MmCsQuNJUGCAZP36rB8QZC55cEkwLxm6wVrDGYQeX_aZ-Gbw0aXylt6vAQVR6Va49k8rvMYOeTlwzGBEfiuzk8C-24Hf3u6KebTB0cA34FOT3zYaEeaNSDUMtakYON1ARhTwgePM4SgdNFQGYUvzznMVSRcrk7OxSDY2nVqbfCglKaUFofBJeCoJU4TprAG1VzHJcQjOmty0XfVh9gyzXxMi1jeob0t-8RfPWiT3R4k0y_EYvoRpwIl47kjBuOFaJsqQ7_J3mRuzhjZXfLhFtMZ0Kj-V9XGI9SiHcB6Oam_QThuoaAVxzySDXcvV3Jc8GPaay8ZcB-BQ.jpg",
+      "https://cdn4.telesco.pe/file/NTlYsgrJHrU9s4UAaYcqdoAs-7nm6_7miZ64sJQ9i2n9avxN6gq72js_y6Gp2JQylT7WPIVNzm8PVKmse2TyZhxmZZgUGhR3EOLrNgHYabKakdnG9dEAhPCAEKj8N7YOoQ7jJ5Mg4fGUkxWDHfcqG_RBjb_HU-GuP634Fjvja8cpj1ITxOj7OOPwl0hIE-Nnt-Xj38aZGZw4dSDHVQGKqFJcm4PBt9alDxtWb1MFXgNsQBmt-wn65CPzXfOb6zuh_ZYWiHuwUz26wEf___FN2mblwX911ClCIdroigx_pQd7Lwyft_C0D3UFtAXtVrAvElZS-z-_U8DxcZtTnegYmA.jpg",
+      "https://cdn4.telesco.pe/file/ZI9S-J8tUtGrXFEME40HCO2EkGMxRTuC2O12rgGZ1WZ0Hvgpz-Qi_whhLSP5yfPbFcGkM2EHsUeDDTQBmKpvgFT4Gn6VvL6sDu74GCypoMe0QqNfUy4biwbbuoz5xMFW-LlM6vE4LGuCegBnG5IcHm7BflAf3bx6JaJevkLaBQCH6tsw10nljuBc1vp8O94A-jvaUStf5MQGjTeRL6Biz4kGRy6wMFhs5nTHB-ir03LjPCCsgC1tr3lWjUemhtNWtkz92IPRfMPzQ_kU2lulszbK_1HJd-7IDdVf1DUYZ2EqN-0UamO7dsOm1WrpzuI0Xa10UUQd3NtAUHJKyveECA.jpg",
+      "https://cdn4.telesco.pe/file/okbpc0J5D48buly1Q6tisRwAzhYM3eOdYrEvsPwxPivDi7UPN6Gbw4jvZC6hXFBqDyLgTRK6kr5XVxOATwCbEqHzePf_QPsw9X9DoAbb0niobcXCOXSjps3NPuG2kF20R_jV5_yxuKo5rteoa5p4c5qp6XernuGwqccrMZ8Yq0AIgIeAuUfMyZopf6U_8TtrafRsAXcG-xRWBWQeR2xqzdJrcNJgU_4OM9NwYpCxsp0qHAHQXSGkdyfH4Ju1zKBqH5cWHCjd7Ju7qhMwVT4Uf_yp2FWS3Nb0Z1mUH6Tz8NQ7bmDYDpeJbpc4k38o5jY7RfggkJGS-sLwFfFdr4lwEw.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -249,7 +614,7 @@
     "id": 38497,
     "text": "Компания Toyota подтвердила гибридную силовую установку в пикапе Tacoma нового поколения\n\nОна называется i-Force Max, как на старшей Tundra, но может оказаться ближе к системе Hybrid Max от кросс-седана Crown. В таком случае основой станет «турбочетверка» 2.4, а не «шестерка» 3.5, да и мощность будет замена ниже: 357 лошадиных сил против 443. Какой вариант окажется правдой, узнаем в ближайшее время, ведь премьера пикапа, скорее всего, состоится очень скоро.\n\n \n \n 69 views13:31",
     "photos": [
-      "https://cdn4.telesco.pe/file/fzcv70VgzpDQs3RYSFOjVHq3CBuoXNa113-sDta8Y_r_faeZinGeq3AT43DG5P5ZTwj8KzWb46twD-MKjqQpHufPky1tPSLqfrgSV9_3tBA5rNM7Xbmvfcagj2WSd5bnek8gwAogrQybfbtFUlY-XCYKRsGFfD4V2TPHyFxQQV172LXIhHir5etW67gKWsBLpWoN7QBxHwp5rFGNgFtUyR5IbF0_CWDV9nhhwyUvZZ3vkHOcU1VyKtvmebqS6PqXhqDut7qNTC3wRkpb0eB4UHmenXsvVQnIDbRyVkpHUvjiI8jxV3xflvhl7_G8xTaXDr0Il9RAyJtBe9dar4vB4g.jpg"
+      "https://cdn4.telesco.pe/file/f4LJqxjSMwlXtw2sU8nMYXrNVKh4aOc-ammn2OBWrDKE6ARCZ_AqQSb9e1XXim667u264q5RbPknMdHGpWcBzz-Pl3YMyUUY_9ARlCm5h3sgR5uMKjSV70EqUZFPRNtxf-AY9YsE366zXBGcL9BTpDglsBBASDqNWGsmjLqCm7odvRxLtjL6zkTPvjdnwNYQ6H6nO12t5N6xuGLnqR1sPDRIICW97kih7FdUdQkKIbao8PRWC5uPISLo7uqbX4wmvffdlVD9sKh-t3qmGA_e3x-inonLlgCVvvRdcvwrKIjL7Iq4BniKb_IjtpNNlYSdtyKfvYfFjzlmL911u8wlgg.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -260,13 +625,13 @@
     "id": 38498,
     "text": "Компания Genesis показала купе-кроссовер GV80 Coupe\n\nОт обычного кроссовера GV80, концепт отличается новым кузовом с покатой крышей, измененными бамперами, новой решеткой радиатора и более узкой оптикой в виде двойных полос. \n\nВ салоне GV80 Coupe Concept установили новое рулевое колесо и четыре ковшеобразных кресла с ярко выраженной боковой поддержкой. В отделке использованы вставки из карбона, а за креслами второго ряда стоит массивная распорка, увеличивающая жесткость кузова.\n\nТехнические характеристики Genesis GV80 Coupe Concept не раскрываются, также не названа премьера серийной модели.\n\n \n \n 58 views13:32",
     "photos": [
-      "https://cdn4.telesco.pe/file/uStbEzNvse-U8KgQP6SFitAMh2cC7dXKMfPLYXPHNky9UKZLkjKE6RwiqkPN7C-cu8hXE9T69kN6V_ht--fyvEiex_UJdd-DPgDiC9mdoMQi9PfHmyjDfIjTPAs_gi1CzCDNfQPhgka8N0sxRScCIr8PzFLtezBzxgcp1eZ4lVQ-DybszoSWJHzQAHbOcKeKXL84vhmeh-tEgeygpYiyl19lHrnBzUPA-IGZwYZ-awMmg2cdZ62cHhHWcj6Pz-_gaBrLP7_KkK33TtE1UgfOEIOvgNdVTizbU3toYdz0m_J2yE3oNOCugs0jm_yJtzxyB7c62udzYkX-0odYd-sgJw.jpg",
-      "https://cdn4.telesco.pe/file/KUND9NbCkGufwr28l8Ed7_URrpoEKwU8svDB32BgRsxeCHxBcS0JwvpPrmZXQyuom9CExSI8KdlmLWTwLeUsZmWAbvl5aR8H-Yo6h4B60JukFoN-3eYQnDLJyum-jJu5YDb_rFLWUZL0ck5XxqWpSexxGsqgT477dc8wragG_J6WlOUowOCJwLFKytfvbQ6CVB7iLJwWUR7Fr2lGVWqaKRir06eejsYb6r99pzFQsk6NbsmFH3IQqT8jDJvEOoDAg7SIEP0OCUcd-kIGhp7OW6zB0frC1VhN6JLRGHgDvU4O3OwNLghVC0J402Uis3C9IOCl3UHjAqQoztgIxR77QQ.jpg",
-      "https://cdn4.telesco.pe/file/b5-Cu34m_Z5P2QQ4WfYP2y9rCIPhq9jxHNTr6mQsCzb22QsFY93A8VudwT8Ru9X_-3N0uAwkDwOEMGmLzCzk_NdsiSaRzvWTYVo8N4UgrXbnsqoBO5J5ctWU3FZSzTEkY7Tn_O5kaMCJevbOfuXlcIpFr7n9Rb3JrARA5BqwDN_JFH-VEn3G4kXOc16Twg0KAzlVWCYv3YymTfbAG-dPZR2_HYCubLr1eXe0-sJ4zaIhv8RZWQMAhHzL0RCwofIc2o0vUj--JsQBsLrIO_RfWOkkYVhXY5CbDnJ_WWPCeknahg45bBwzcaGpgabc7MweEjyvf4yd5hzsl52RUpynRQ.jpg",
-      "https://cdn4.telesco.pe/file/SlYN-tXX4AA1gvy9SHrhFrB4Gm1JDrOV76q9NJ9MJo-86okKWPY5r-93hfarZdVziKw0ij_nMaI-rcAMB1LJuSJyWHvIDIqRI4adEAoH4d4WJnopliQakRlpJP03b7iJU1HGxmzKy2h-EvGutKwWnvbvZhLrfTzwS9_4poUnWus7EEeXpGg3x5mHV9JfcvDlmge2C1-pBZh_5TmQO-7iWsz_kknRqgogUBM9vrW_AJEjrSpkDVduZAmjyzCV72s47pE9PiQ0DADNrQ_-rLya0X9Vph2iJrUWxl6uHQxKrcahu2NTAMT22xFBr4TXwRFYJGTKM5fOFST-pTCPRmH4Pw.jpg",
-      "https://cdn4.telesco.pe/file/IxMPO9_qlxiKowPso9USH_MueNzSrIWnxNfMMiC-ZdpF2oBH0Etu7l9nhuqh9GQ5U8SjKJNLXTyrzXfqXinQCq2Ki2vb-HL7st63oKqhYfukKlNihl9vY107gj-ulzIpriJQtiDh8LHRlJu2VYX8TswKYsZChQD7D8FA1ipAGTePq_xDGFjFaiUxlRCo0M2ehAU-AwybgfE0WgXddut_V7fhFaGALJWJDZWeGBTP_aP_n9h-4B0bQSCCwHz-KOpG7MUuEyhFa0gH5WRSzmz8axFGQfc6lKF8P2NjiSom7sqd7JqqrjBewjPLpQ2JOD6x8PXOZis9o-ZFzvUnms8CxQ.jpg",
-      "https://cdn4.telesco.pe/file/LYUV9sJZs9E8T8qMkOmqOKXVoAePXOm7FEDLom594N0JMTbZnC-CFU7smR4KIV3C-YffaSm04e54FMqmnDxT_iA02KagIMiXb16dLw3Rf0WahvbBj_zBnFxKaCA6SeWh-wXgqjbTAf_4StHKNb4jrWwrjzTqQNISEcvNMZhggNke6Ea_OGQjN7YDA2sfD9fTOnxigzfJVqgd2ZNx4aDOs9MW66IP2e6i0feuFKxvWNf1v_JvkBf13KPYiCYDWubuwNBZ9C8POV9_DIyaskGLylaQHNuxtjBwlVEa81gW54QpPs6LlwHn5Yw0kUdZLhgn5yN8YgVBOqo-hY2e-tWqrg.jpg",
-      "https://cdn4.telesco.pe/file/AV1XhY5ssqqVYxLoGIY4olgM7mgB4oTot8KbvOPYY737KQ1oD1fT6ZHPW4x270_0l-FUaClPtlpsRcoUv1GAZP9GeW2yHLiv_6tzCJ7xybQSfMnFL2MOgFLQoZ-dfNMbjGRWBgUwR2iP6U0Jv5ZKimf43VduH3RnX-kE6yFjW21bh3dpo5m2KV8KiEqxP5biSmou7f8SinZFmP5yP7iPrujelNTr7B-Qs7j3KQXx7lIhjTq-FqBCJQzd979S3wioRLF2frwAgCXRlgMslDS5rHcJgkOD4fxPnYaLbw7dIJxBZYF-CeSZ63hOfUVamX4NPB0nM8ttrpAFRv1XFnmu-w.jpg"
+      "https://cdn4.telesco.pe/file/glj0iXz7lm657KQDiUAa1UsCHgNxthiPkBtmVVuTAUrXO8J1KfV1PSF6zzzyAKC963m7t1bFSgL8ghOwEvu2UnSW0kAe882WRjs8WTPrDj0A5ld4NdPLJtzBpbkuJozi-xVfCrGhX8f6gwGgup8Nw8sYEkFkvfo-RDUewV8FvQI2PrMlpMLpnW0MzHBsWXxEPCw-C1oQzpLqlz7lwOsjKw5KguO_mj0vT2QlCzs9qJGvc0909dEzQctde983KMWh-mFfmo9JJJulfSHkqJbqDLw7fR7jg7kBAe8AKplzVpLb_ecUiUuuzkFcB-WkWoe_m0QOcibFVSgdbxwGgEmmDg.jpg",
+      "https://cdn4.telesco.pe/file/i7kxrU4cLemRYZe-5vPZ1SzY3pFY-Qnm6CVfZptMuZ5ZXLbdXDx0UJICZSU1msWi3sgU0hXkOtFU1tDA9lR5kz-KivT3hvSlObULaYru4deUQDe5I9g4G5eYaXJYMlxBM82rS7LSgSSc5zwqNBUPxxpSc24Or5xVcCqs-OiW4F5e0CnzHUIWLD7Zz8bQC9jCf8lO-aKSc86l3kJQH2kZuL7HlPM57ExPKrixPsUnXjEDBnX5D31CCfSvkBbobMO-FFnHNO4M1XNSMbk78xopT1FrRV-ekEMw2fLHWwjwFxQM-Xc9cARSPugzwG13ExBy3jaOI64NPO97MD-mo4wbbQ.jpg",
+      "https://cdn4.telesco.pe/file/erbXwC3c3kGaTPqOp34NKbYPjqEqoMvOVz6R8fhW87KiZNd2ihBir47y7sTKapyh5mL6HbO45FJvKDPk6x4FGOfanjuZ0GLAtJVLoYGQeWhkLP3YQN06EHTAuvpPCoPEWiNlbiSeVzDMEGPYEVHoL_oc4NPGSDW0HfxlhOAmxN0NidicL1PKrdmWZJB8-Uf1WdZYd9vf-XLZDxQWjBYoyIOltPRITHFfzat4Z1k0nqEwYbGUfI8GRZmygxCL6LTVDdicc1yytvYoOsG6lGBqDr0ZtdH0F_2DAnIvWThi-GU2R2GKT0h4lq2wkzCdyW3E6_cKroa1e_9nG_IUOwcCgg.jpg",
+      "https://cdn4.telesco.pe/file/G9mtx9v3U0vqnNSLzTg9MdM_4YIJVKycZTqdNQpRXuXCDA4K9qQDRiVkwjxh1p9mbAnnZ5XaU1kLO37EebaH80RBwdegM5O4DuejgB2FCUZBYpKuwOWb-AHYT3wC4lUtMZeNvYsXJgZaYYfEKlkKCj1EkGXTI03Owb56iZGkycYzxUvh5pblBBQNk8yNcZjNUboc-T-USse5q-3GxrIaJ4XbZ8lKeAGDqqMIloFCGgorveX4tcoLMmV1ewM-P8ZZ3owH2pwGnbiuHT2PUjTVnaUWzk6pBWN227cyuoPBb83sJe-Q0B0Rh7YolRyUqLLZNXFlI4fnHBGClXvXMgx2Jg.jpg",
+      "https://cdn4.telesco.pe/file/Zm3Ay5LGMbR4IDEsZaXLIapSpzpcRxmgAz5Z8jmpxjbV90bp87ia9VJhGwIIXniE4LouXMaHRM2scEIWu4a-3U_-A2cXzE1tfwnY8kFGVdmDPb2A_NuvycEG8-4agvBk6vuvNt4Ghx_UmmW7bAPp8-cvwknq9DQfQ60aBmONhJf1WgHlZThp4tDKrusbI_XSLH9ysD0-fTZro7slSYGZFcjSVqPX8vX0nIhKBexGrN1RPA2mdRyNJv-eu4Yvs3kp7qLRJX3JymxCF8-6TZwZjN161FaqCTXHMxiHzRw27Y1RwdVYqrybSIWLugAtixjCLDk08cdSqqPXOiBCy8W1_g.jpg",
+      "https://cdn4.telesco.pe/file/W3ix2cUEks1-WjRT8r2Vok461AqMILog6vR9USed0SJXDk9QikzD6ziOQlA3NE18odcvMsdJNvqe6WC_n70KCD5iKaRmCGwT5OJNty6Auez8x1SW2gbOaO4-Zd11QF5sE08qwdSdwH7grAdMUB6VJeEeJ-R9YOKwew-14SGsNzWoHk6Cx1mgXVHQGGjq4IV3r8qMLMd5K46oa5Wfv8aTyUq65yMgigmnmPrH0CTgn_Nobu558KN57tc0wdu2jf1Scuxytoo01yTc84sK2UhoQa1E1yxihZwEJJQSRHTTEapX6j-6wNprcD8nIIOjRBjwGjpll9xkBV6LlFlsjMI42Q.jpg",
+      "https://cdn4.telesco.pe/file/Jz3G62TYeieELi_AisQ8J460vpI50O-ZmOrMzpa1DOmicMaO6OLIQYWKsmtE7I1--6CTzHfuBM4kJ_Zku1MbEJ5pZNn2_sY4CkUN5Ub7EyZeWAfbHeWUXpyf5AJCEGK9PbR6jl4P1LtT8fNFK8g7LHsYZQdxMbLEwOQ2xQH9M8oZLmP49rmjW2_K_FEtGEfwLmfwEMGsN2VJDdomLem8RmcNRC5MAr6kKWFCe9vAI-T3SqW3-H_uj7IGgRStBRngU8nzEn6giaZRCFip1eeSYAfXRXbr4vmj2ECu2ZoBSZwRjFmDflLktMUgAlE6AZY4ZYpC5EXDYd5ygChXbEMCKw.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -277,7 +642,7 @@
     "id": 38505,
     "text": "Улучшение флагманского кроссовера GLS\n\nMercedes-Benz представил общественности обновленный GLS, его AMG-версию и Maybach. Обновления затронули решетку радиатора, которая получила четыре горизонтальных планки с гальваническим покрытием цвета Silver Shadow, а также встроенные в бампер воздухозаборники, заключенные в толстую рамку на манер GLE с черной глянцевой окантовкой.\n\nВ дисплеях мультимедийной системы MBUX разнообразили графику. Теперь доступны три разных стиля — классический, спортивный и сдержанный.\n\nСалон тоже не остался без внимания, компания предоставляет новые варианты отделки: кожаная обивка предлагается в бежевом и коричневом цветах Catalana beige и Bahia brown, доступны глянцевое коричневое липовое дерево и рояльный лак Manufaktur, ранее эксклюзивный для Mercedes‑Maybach GLS 600 4Matic. \n\nПодытоживая многие и другие нововведения, кардинальных изменений не произошло, но семейству Mercedes освежили внешность и повысили уровень комфорта!\n\n \n \n 58 views13:33",
     "photos": [
-      "https://cdn4.telesco.pe/file/k3fyI-qa5tC29YWUbCouKFweQsOIwPlqPAbQYbHscmwqmP4mejk6U2xHg4XIV9sU5NEOaJ8gCepRbEvFf6NlFWlj11srVIq4RzwHvWb1yQGJTkaQY77qN2JWT6j6wHr5v9gnFHrpfW6vOjmoFxhnuGLlwr6dtEY2_kyiQD_oECQyusju_F8ERst3YqYiH7DqF7f0WM6sBUwvcArtg0UzWyOCWqxR0zNL51bJL8Nh_fZLJAiCGFGupzKg_pd7r71_wOvfeNdZJwdCYjMcCIddVJgZbW0EyEMEo3KXKEoVLeH8X7bfb21yC1En6ZA214HJKyNS7wARqUmw2NvU9hW9EQ.jpg"
+      "https://cdn4.telesco.pe/file/gNBDaOOW3U0Pp50-ebEwgXgWV8ftZW8dfLmPmSD_CjmH8zZhRBYqtaRp6Q582QSSll90MmxELv73Xj5G4rupfmGzk_SK1nOBpKPVA3BYEy75ByNx5Lm5JU_QPvo3tBWgXmHMDkmxhaJxCnDW4SEnvUGwpmp8Kn--_tiPyzz4SfefP8g57CNFV1hFkIuyxeLzkpf6DKgzK95jeoW8rgWKIVrmpZkRK8Qg9EJlfHTrcTihBSGlWycZgCBb_De1nwjFYRqcoA0xOwGcJNsfAOWi1W9IbXL_hf6GsSO9Cz2pci12SUaJOCl2onQ4hPAjGORMna9rEkyGVQMmt665x36HRw.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -288,7 +653,7 @@
     "id": 38506,
     "text": "StartVOLT представил новые стартеры и генераторы, а также втягивающее реле для ГАЗ, Fiat, Ford, Mazda, Renault, Toyota и Volkswagen.\n\nЛинейку фирменных стартеров пополнили запчасти для Mazda 3 BL и Mazda 6 GH c 2,0-литровыми «атмосферниками» (арт. LSt 2516; 8500 рублей). Аналогичую запчасть StartVOLT предлагает владельцам Fiat Albea и Doblo первого поколения (арт. LSt 1618; 7350 рублей), первого Renault Duster с дизелем 1.5 (арт. LSt 0919; 6830 рублей), Toyota Corolla E120 и RAV4 A20 с моторами 1.8 (арт. LSt 1908; 8380 рублей).\n\nНовые генераторы StartVOLT предназначены для обслуживания вэнов Volkswagen Transporter T5 и кроссоверов Touareg первого поколения с двигателем 2.5 TDI (арт. LG 1831; 16 800 рублей), а также для Ford Focus второго поколения с 2,0-литровым мотором (арт. LG 1004; 16 850 рублей).\n\nФирменные втягивающие реле стали доступны для ГАЗель Next с двигателем Cummins ISF 2.8D (арт. VSR 0319; 1700 рублей).\n\n \n \n 59 views13:34\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
     "photos": [
-      "https://cdn4.telesco.pe/file/KSddgw0z9p4nfFHkMUb4TXYSSqC6BkUyko2NV3_XP8BPZfqni59P0LoKro-oAT6nmsIWeBRo-B0-UGNw7mwvw_tpAkW1empbfbeUtI-yydaZb2IglTWvoyq1KRnUuowj9EN1B8xX0R4P8hLd_-5QTxEek2k4zwbzkV7aOMsGbfgipVf_k1GKgGiyK1-kCPBEu3d-X2_r9r329-EwU6VhxIheYqPPg7E5rgOAdgsMSrDUxFalkISAtkuNfwsTUnAFx63he3ad7ie2lmCjqp4DlBoUoWxM3jP5scAKDIqXSF5ZYLmaP5KfhnTYD9xpVsgKtP9CcVi5VS1kIjB3ssmltw.jpg"
+      "https://cdn4.telesco.pe/file/i7rzXqNIR1Mr53ZNg_3Fljyq3aUBtQl5Ml9GC4fgHKDGBQqdrEfpXSdSKahLPECJpXlQNlwdoSG0nV3_r-A0IDvpQBJ8p8_ch9Ih2WMxNCD6goFfJJeYCIQUUNlPez9cPE8KgcSh09x80DGmJKiIde_oudFv4uD9EOJTL8zvw5qQdQAhKDTwiT0Q4WEbCwOTZv8sD4YngeNaTbBSXfh9k7x-QQjFs2yt5ScIsrPNcNmJcBTIDE5pOiYDWc5uzpdkZiiHJ1K7Ikt7jcote8te5JdEsQ2qtwbKITLmz-owamT7ElYGZmpAiQn-epaUHWOFV84K4KwJL8eF5uUC6I8g8w.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -299,7 +664,7 @@
     "id": 38467,
     "text": "В России создали платформу для изучения двигателей в виртуальной реальности.\n\nНовый российский программный комплекс позволяет исследовать двигатели с помощью систем виртуальной реальности. \n\n«Созданный программный комплекс позволяет более подробно и наглядно изучать устройство и работу двигателей на основе их точных 3D-моделей, помещенных в виртуальную реальность. Разработка предназначена для обучения не только студентов профильных специальностей, ее также можно будет использовать в рамках профориентации школьников и для повышения профессионального уровня сотрудников двигателестроительных предприятий», — сообщили создатели из Самарского университета..\n\nРазработка велась инжиниринговым центром совместно с институтом искусственного интеллекта Самарского университета и самарской компанией «АР СОФТ», в основу системы лег цифровой тренажер для инженеров. Пользоваться моделью можно с помощью 3D-очков и манипуляторов.\n\n \n \n 38 views10:45",
     "photos": [
-      "https://cdn4.telesco.pe/file/iDBktTvJPgz4rMd6mveOOz_Lsulm2xNt7--NOtP33rPT3bx5NFx3MmjU84bOfMBxrTrV2o5pzi6QwxapIrB0biQlNDA2kUJhk2H_XjNnKCilxb5zPxJLHPlFjkedXxtU1EMmAYKXRzsxhPw4TKVqFqP5mBzmIdHTyF4h6RdwyD02J3jREtn9ogsK5FS0vO5wtPMXzWW2aYNUiEbJBeW86vPFveUDDuxWKNzMmGaDV0kzFcG6aXni26K1PQHlYnOBg1SxVOEc6I2RHER59RYRTTDJD3zcoCCHN1DVuFlsXR3ynwUFr9aqMLBoNvDubV3HLS7c31CKrmiWygPbERb-bw.jpg"
+      "https://cdn4.telesco.pe/file/v9xXhAyzlekPPSaew6H9dP46ll8EC5nUTgXiIM_VweQgFe8E0SXIPxYwa3jGybomQ5F7K1Nss0kVaq-aNZ6xFy_SZ7hH6SMssxHNZi5sgpuZh0rR9UxOSzZF71zHjr5ZzM14QGCbjathWCQ728aM-o-s3gd_fFidEYKAtKlBpAfEDaTLso7QzNsWaTLcYvC4vmZX0J_RWFcICc5yMbtMbyryHl_jqFJIP1yeQLmXMnY3lNz64qZLrQMf-a_-lZ9emloBXIgJVdP514sFzpX31ia745Z4zQzsLB_QkCBdZoI6FKfqe7Cv78JZW2M0nKKVYmdlT2A-tDZk9Fb2tzBWkg.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -310,381 +675,11 @@
     "id": 38468,
     "text": "В Карелии будут перерабатывать старые грузовые шины.\n\nЗавод по переработке старых грузовых шин запустили в Карелии. Петрозаводское предприятие получило заем в размере 6 400 000 рублей.\n\nАвторезину переработают и будут производить из нее резиновую крошку и плитку. Производитель обещает, что изделия будут соответствовать ГОСТу. Резиновую плитку используют в качестве покрытия на детских и спортивных площадках.\n\n \n \n 39 views10:45",
     "photos": [
-      "https://cdn4.telesco.pe/file/gSUButg9BDfIOu8paQ0AkKriXZ2rtDynuoU7uGOhPoS8bTb-JHzk8bvR65N58EzDScrYScnF9WHRlppMh3RaZuuelqCIbPr-SkEJSyYSf6RAGPSP1cjJOjY6wixSuAjC-n0HT8Y02gqobjX3hwg1DbfOI91gvgv-tqZ-m1_y7ZqdZ59LdEsIo2uEGtG-2sCpJX-uInoBk3yl_R4sH1S0QmmEpEiAAV1FTFc29janZQbRyEL7PnXmXMwURMeDEXQynMyVnNlZ4cYGNXf558kWtbt_dvEmlzBuqXPqgUXalhW9u0iu1Y_BFQ-UjBWZUvgIg2TFu-FQfZgkQsj29FscUw.jpg"
+      "https://cdn4.telesco.pe/file/qSSlMsALZhvZWE02wC-iF3rJsKY7EJAPgobjDjjAl9cxvqLydpIWwxAwKXs7Wn7MBnHsrBoEsOzutwh-kIHL1bzZmtGbzZwFaY1okE3wVOOj9RHMExkWzdSB7CBIjebP8Y6UBP6KHnFCjzidljwcLvDseMy1sPr1YXjKd8l1IkRsEY0ZeqAuvnRsHhceLoEzFqgkkienhIFzMo9_P4E0JrXmQg48Bnf7xd1suoM2x3ngZI-Ebf7VPuavvE3U3pAJnY3wnu3iiFDS0OzDm2oR9TNZwcXewgHYoEMY4F4d_YXb6Ra7Bo0BW8OyYZ0bqoaq1-jyEZ-rH6hHIUTuTtX0-Q.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
     "date": "2023-04-04T10:45:35+00:00",
     "views": 39
-  },
-  {
-    "id": 38469,
-    "text": "Бренд Jikiu расширил линейку запчастей для российского рынка за счет новых деталей системы привода.\n\nВ марте 2023 г. на рынок вышли внешние ШРУСы задних колес (арт. JC11020) для Hyundai Santa Fe первого поколения, а также внешние ШРУСы передних колес (арт. JC12012) для Daewoo Matiz (M150).\n\n\nТакже расширилась линейка ступичных подшипников бренда: Hyundai Creta первого поколения (арт. HWB11004; передняя ось), Toyota Hilux седьмого поколения (арт. HWB21024; задняя ось), Honda HR-V (арт. HWB28001; задняя ось), а также Volkswagen Sharan первого поколения (арт. HWK51105; передняя ось).\n\n \n \n 44 views10:46",
-    "photos": [
-      "https://cdn4.telesco.pe/file/iKkCUD3xAiet5g7ZrggNE0tUvK0VAzYZJ4IUZqsDVRVpoDUjzl-8nS-qI_ZxgFqDh69KmYOtwPRMNCEssF2250e0wa8tBOoTONmo3oZGpo4vT3BU6B9vkcszgdwkZLAKg_VrDjAdgo1DkXUATblwf79DGu8JAzDNNiQ9qm-rSeaEMOfFp0wcAmKEtIeRymEXetRprPHrf8RYyiblijwPoDlDuFy0C4Gnj5MkGWIxeRkhRR3Nndxsg5JSVCzDFzW8HSgKeSXL49z5A1uZk7FBFqHY6-dd7SzMw9rzvie4Mi0omSHUNQGDp20KJLpiGqYZ6cIONtCHaQznSgJdG7V3Jg.jpg",
-      "https://cdn4.telesco.pe/file/VH8q9x0Su5uziJ0cnryWGZgICIlBGaBHqwbNWieVGnBkdc73eOgrTWjUDXaEacRkZxMM0Ss5QX6ZhVUrH1S46dSaAWYN8mPZuo5NaUgpxh08c9pEBVXK3vK4XmbNR_zVatsrr0kwvndXSbqI3GhaRiteao0idXkHZDPOzWwiYexBYtpueOCCgVMN-NPTQZeTKiFW5jeSvt67Uvw-caBoJ1o3hdTjABI-QTc26alYFDgt1zt6YXQcKI-rT-_9Qse9U4CEDFHbgpqR-XIrxswvIZ6uDyflTacVrnayhMnbfwDpgrjaG8MWjjP5mrIogTADKpjD8BlA9ZxHRw3x2SdgDA.jpg",
-      "https://cdn4.telesco.pe/file/OZEkzb2j7JRkOZcYJal1x1LNONg2O8JbzeFJMGjps60Ocj45fv02BaOSMUFjB4W1qi8w-00Pm1fvI6wtjiLFWtcJd3d3Xc_4fRr5ISAh23S--8_tIVtvtv3_QQvfic3JteGO1GwZ0NL6JHgLYpPB99Nh7tatV92BPG5_vMf08sG6A7Tn76qW4QIalyzp6p_cSWYrNdVkB8DEQ6l31v-2ZZTsWz7p9EZhwcHIs5t-mPn8obyZifNQRDMRNKmyKnp03FXtj9rkTaD4U_2FxHNU8YlPAqBTQ1acoBKzNAsNELVtiORSiOihm_TO8G2ntPNZ4pEkBAv_oMW3mbbSkZr9RQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T10:46:06+00:00",
-    "views": 44
-  },
-  {
-    "id": 38472,
-    "text": "Скоро в РФ появится мобильное приложение, определяющее неполадки в машине по звуку.\n\nВ России создадут мобильное приложение для определения поломок в автомобиле. Приложение назовут «Автошазам» — по аналогии с «Шазам» (Shazam), распознающим музыку. При помощи искусственного интеллекта приложение сможет определять возможные неполадки автомобиля по звуку. Над приложением работает компания Simble, занимающаяся IT-разработкой страховых продуктов.\n\nАлгоритмы сервиса адаптированы под характерные звуки, сигнализирующие о различных проблемах. «Автошазам» умеет различать неполадки с турбонаддувом и клапанами двигателя, приводным ремнем, системой охлаждения и вентилятором, а также кривошипно-шатунным механизмом. В Simble говорят, что приложение также сможет определять степень сложности поломки и посоветует автовладельцу обратиться в сервис, если сочтет это необходимым.\n\n \n \n 53 views10:46",
-    "photos": [
-      "https://cdn4.telesco.pe/file/QkllTb5I1uUgQvxXArJyvwZ51eaXlG3D_I_eUwFDm-0yMniDBdql4Si-TEfm4fqO56g03KfjzQFm5FPtLDjS6c-HlF3g_K4XsBEbGmQAOXY9SV0iSW05DaFE2v9QxbXo7f2UTVuge8Rw_cAcV2F9PLhryaq_i_BEst644w4BkXp29GdGMmiTL7ymbZP2qVzJXtkBxRr9thbBhdOU8p6KONZ2JMsUa_VdafefLZKa8DBkbMlvsebXMXKLo1IBXNw3MnOlq5AJFRvPGikpYrGc9UOkCmy2oE6dnXbqudevv4hRYkBrA63Cp-bgwlHNL71P6swc4_igsmQLphJ9lzV9LA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T10:46:45+00:00",
-    "views": 53
-  },
-  {
-    "id": 38473,
-    "text": "Обновлённая Kia Seltos в Казахстане: объявлены цены\n\nKia Seltos 2023 года в Казахстане предложен в двух комплектациях: Comfort и Luxe. Все версии оснащаются 2-литровым мотором мощностью 149 л.с., вариатором и передним приводом. \n\nСтоимость базовой версии (Comfort) составляет 12 млн тенге, или 2,07 млн рублей, стоимость версии Luxe — 13,59 млн тенге, или 2,35 млн рублей. \n\nВерсия Comfort, это тканевая обивка, обогрев форсунок стеклоомывателя, подогрев передних кресел, 8-дюймовая мультимедиа, пара подушек безопасности, кондиционер и камера заднего вида. \n\nИсполнение Luxe имеет климат-контроль, подогрев рулевого колеса и задних сидений, систему бесключевого доступа с кнопкой запуска двигателя, боковые подушки и шторки безопасности, круиз-контроль. \n\nSeltos для Казахстана собирают в Костанае, на заводе «Сарыаркаавтопром».\n\n \n \n 65 views10:47",
-    "photos": [
-      "https://cdn4.telesco.pe/file/fOPrj-uUQYDRp3-F_h5pe1srBQPPNXv0BXt9VkmJxiNxyCoE10cQJiRGf83nQ_fj8YN6nrz_a_IUxm2d73qifnOTmZSu-Lsj8mJsCDmn_r3T-0czSWlp_ArX-KaQMyjID1IaX2551F4zuwtkR-hxeqbgW-891-wY33eFqD6kxlFozxdrGlCZ4z3jVzMv66lMYw9aDAjjtK8n1VllhagdIh1ysxkuZ8B33yyUA0TjszGsQ_Vg44yW23ZH_fqDQFAzQTDKMUVMnA719bD0DSmeDofS_2O9xlPM8aW-WZMbtThLAKEhaOMt-x3584F_ruHIyBM4_9AiwqzcrBUbfB8sHA.jpg",
-      "https://cdn4.telesco.pe/file/GOr2R2abXqYamB358QGncuNWPgmbZhfHBQjoWDbdtXgvB6BlWr0nqWYqWVVc2dKqz7rQlKKUOqasirI4SteLUbV46SKmuapYaBleX2iEAPDs4WWTfsfbAkrKdronduSwW-TyA1zByEq-i-6fAt0FERLg7fiMn0sjs7EwkhwpVfW7xv76d77Z4FRsA7QOyzxYLFd7yhAUGtdIRW8LdDuPBilmCfJfyVIjA5nWIf92H5_S2JajrL5wSMcUzh76BAf6EYkDjfw-BsttSapq8jQm8lokAEqLw5vF6-DbeEURRQDPUo-Egrj8DbhwdXzyYTjXJDMUXV6ohumpo9BpqDUtXA.jpg",
-      "https://cdn4.telesco.pe/file/EsmBvEOVXIb0WwsM2lpAEmKw4Az9Kbr1oJcPHfnThYU_TSECv1075TTJ1hfdKXdwfvxju4UuLrYN5DvJzsn06JPD7qHRayqoVw7OiuMiXelDt4nN16uRYvaSWrwnWuyKMoTLRgm73SwFfx_NT4V060yKsvlTisZnEE02XPItysXiRnUoSDqASdaNXvANTU79lhO-hskO8qRTPFwzE791HOBMrohN25U8APPqdS5JkJSmJHO2xacbCdwvdMRLiRiD0yAwbdL1GasVwYv5iLqLLy8F8Bmx62zzaJfgCzYN1utU0bzGqlJNmGfzG-qepb0z99F2AYw1Qg_d6EMPn0D7SA.jpg",
-      "https://cdn4.telesco.pe/file/qyB8MYMkcBmv4SqtqpHfk5nOMGbXNDCAByA9N2uTXLOMSxu2IQzYYzYzQjGH4DcuiXOi3Tbk38_n6Eg-nigxlzIzd1Jthq-NvN9cC5sF9UgIHa0xdC5r0V4Su1R-Lad5eNW_eIQ3dKMnJmUoCd2iCw_8PJzOiMmb54Vv4SVoogDsqpOmrd2Eejt8wapEqF1ZR-vE9Ekwz7OxQmqarU0w6HHTSI_ppbQ4JcmDlyWxzfbOnpak8Z501obXtJebYQsYlQMu2D_AH05q6UDdhBAJ_wTQxAJQeEr_BEr678gTWydwd3epBFXSG-6q6s9lCWeWxEkoYuwFbPDQI1p82ydT7w.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T10:47:48+00:00",
-    "views": 65
-  },
-  {
-    "id": 38477,
-    "text": "https://t.me/s/sochiautoparts\n👍1\n \n \n 102 views13:28\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
-    "photos": [
-      "https://cdn4.telesco.pe/file/qZ8iJFyLUPchnMEvgWMBY8205HKsqY8585A2SIh0C5sH0-QrxrWgwqSYXpmvDUL-O0ubEelPatdoIpyE_ovX4aBOcqDhbjk1GvtyyVSCvCp_xF9O5h-cHAP6PYWfWR1Y-y5bjsq_QHGaKTPsQFA19TNixEkhxUUhTNATxg5MEw629QQ979lZt4pZF8TP-umLd-JztpUfN8opi2Ioat1E5Za29tLnJMq3fcLoXYA3NuTtENGTdzJuHcEln3f66eFwPu2jYF0sgod_QJlvrmjjSC7B0FtTQKJz4-DHlP_nuXAzpRlPC_bhzDV9CxuQYEYy8O-kVFhOnmRVWpY3RKgBPg.jpg",
-      "https://cdn4.telesco.pe/file/jeKvxahsjXK_sS2sJ_luJezB0jHtoja0V6tro96RYw3Ceyni4BDAh1syVfPONgTKTe7Je54lvAFIbrfus-rLG6--b9UZM4ctohW_j-vqPksjiTZYZ5f3lj4Ubv6BR1XcoYFpTT40OERF-ZViqUbpc2dOEjs85jsfCVZKP3Ztpc6PCp47ECzKldVQaFyNFJzadGminBdJBCCn4zsBV-TA5Ui8EeqFwG9SZulkb-X47lC7LXRfOREfuICxjryRl6qDGm0-okBjxVKr7FwhLd7bDVeb-wjJRPtgK0cfWOzmk55ErAaizA1aa6il0aQgvVYIe8-nHVoBN9jg7Ly9dr8qcA.jpg",
-      "https://cdn4.telesco.pe/file/HWLieUymPYPkU4VHIYkkCPXrA7yRQo2e39nSOrBCm6q0ISperiZof9yy7_sb4Uw8hCTsTUSVQtzIoFKvoExP2SP_RzaDjE9-mp1D3WFx2p299wHDtkFVekyRDBX4FiWIB0TH7JcCjz-S9CUgyPTUrI5Z9jSWx-ThCwRD8_ES3R63trd_HCck3hqu6Gb0IT-cOxrAEJcOyzvMGvEzwysIhViR1Z24feJ1QQ8RrjcW7iCtP8OMYCQvqlmOPkfkfY4cUnSx6Z2zSV-XgFaR6M99Fl0lxh7KIRsanTkNsPjQ6gA9YEdFfkW-QHp0htneCjrC8S7XzFDNGpX01cI6nPFB-w.jpg",
-      "https://cdn4.telesco.pe/file/AbhhZQlPe9YfrMTqYMcldO1n4DlbBdDMohDlUOQXsQR0DTpzigpAHvqKhyN65Bo_-C1EjAInXxSYKAVh_AYi7PQGNUNo_-Qk4uRAmLebO-GeexQ2T_8Hi7_H4__E4KiDpjCMHXM-LsQUdZ9A1UZW0dL9nFu1PvsfG7-WiWqZu1r7JRw1r5ogIuiC3QcFz_AcJXacIELu3PrBLtc6cL_VWKwpIaa2LxthgiEiisQyPJsTYp7-QEVVNdscXjFOSDZlZ2YDvTTthKIp5uXCbDyv8CVjYLm2sWTPeYz-kBXG9YMXOSP70AZMDMt68KCjehrqRNm9xpxsXjf8X81O7rhp1g.jpg",
-      "https://cdn4.telesco.pe/file/WVck4KZqaejgs6ExvsBRrnXmnjz5nnQU8_XFwer2ms9Kcq1Mxk3hpgcfp5o6on4G_59T2pygFAZCWTgAZgHvVOFbErpdPPP0vpY-AZL5drBsqKvxhN94LMzBeobEb7yZAw_Ix3lMLQZ9Ol0Kvj_6sg91681EGw4LgPK-N8_QIvWPQ2SMl6qPlgkz0huZZNy9-y-37krpPL0N8UuqW6xiUJRhdlPJbZnhxV9Yf4B6AxKeeGZc_0Q7htQJODKKVQ_UJS9h2oPl_-8wiG4oOuw20c91H3dvaqzGz0fQHc-sE14N-YQKd3qixUYgATDvXB2tY9W8TIgOfPHXqakhkiYD-Q.jpg",
-      "https://cdn4.telesco.pe/file/lnQTdyG8kdEKNGcXnhf4kipZal6cRbZrrHSink6V1CvaOlPFMnnlVv7FfNbwhyJJLeTxGL5uqkOE0WsqciPXmbSGTBUgd4V8DhgHycwXwKEbzyl50iu-g5otG1OM7mvk2GTyPqYtn9JoV-7NKxjT4BVlljzYokHR84fNxKuss9I7QUeV7qM9a9wPgXF2ouM1SNw7bQYAV0qLMnC0CQP-TPjTNHGw--XJ156bp3ItaJsOzsU6jpw17fbx8oGmpXvifwsdqFoWKrMr3p0pMsyqhfuaT_RBsDy6ykmIHNFod77C7rGqF2doleJmyNFPqFraezitg1FPUFvIamOs-MCJhg.jpg",
-      "https://cdn4.telesco.pe/file/XVcLjVxtT_nUD6Z8PN11X46QIamIPppHcckgOf4AEImArFN6Ph9Z88UARbsblkvWcdWQYXI86JTGI6M0R2VeRS43-LoXF0qDe0fA-e9uXm-7WlJGOYe-uSbtezhs6BysNd4ctG4A979f5k4ms0kfxKk57x-bW2touqzEh5Rst5X_9omZm-WJwNiO2Lg26PYJVSCmVHC8LEl2VGVK2_xOivxXALidSG4GdkDYcG4XUmJIt7VM8i-jhmdZHVdywlGM72dCQnVLvGLCl-x9V_3VJFOliLk2gHqa7mkJ0uEjyUHyDy7PQsjDYN4i0tFmjERAMSM5OHFC0nmoGLLCGmh1gQ.jpg",
-      "https://cdn4.telesco.pe/file/sCSEoH0eO2oDPshtkn709O2TmHg_feJdspcBd5ot62DNqac1WR_Kazb5RmEz2ZTMgYA2CqE7w5accfSTrV38RSf96Vkxg51v951EyOv5lzsg6gR2EELpUKMOnihXMJaYJIDcK20mIH797nOdyGT5nafNExEz4kxJ4QvbL075JuvCiCG--1hlFMwcqi6MPqr-nPhWnJ-_t7DzgImlS4BPf7CcRp7CPC6akE1iuxDnf59-4EqFklLXfXPWCOjElXh82MBOQBC8tPJrg254JsHY2wQHh-uXiqQ0CEtvjkMVlfW407xx6utb-tYB_8VAG6sGRYDKQ7fVg4QXs2S8Ip2Nfw.jpg",
-      "https://cdn4.telesco.pe/file/gr9EXDqPPNqyYOq_1_OYJxAVYBV1mY48KgzdxaKPOpgUs1r8OVuN5gsb6HvV_lhhhQsLi-DuTwjS-o1MUkrMBBRJrbtTEXTGAh3-EV1wYYZBTZ9KdqPIuT1adLSIHeEx6zZgLfaa5gCSz02dwe0HQFPA0XMiF_96CHI89wIFVuL4siNIb7Oi4jaqukl85L1hwQldTk-3r9q_zBs5Z0RpahvST7vzW2BeiiuENia3HGy4NauEE7QWottLrm4Uayk77P6r9X-BunCbrqxXtSCSyA5mDhwBLWCY90I8RueM6hIL4S-tWz-wwjOFHAd8w3bmIiUfVrm5jYSjJPj5vzH8Gw.jpg",
-      "https://cdn4.telesco.pe/file/XAGbzAuxoJb1U7_owdJHDQJ46gqCfZZoBqBdXD9mKVEwAnErTQKPSOArUlUrrJ1KfiScZx7xj3T2EyBubjx4Ks7hm9k9RkmyeM38FRFLzVnWhOlr7GLLCtssyTWfV434ViiotB4nx6yrZU2E1Tmh6-BqLS03Cgjg1xEPCkVu1NkDEwLykHbSvPRFwfxwKwuxJjIT4IqSmonI3jxeL2fT3th8GFT5JJPv2V9ivZJcprCe73rx9gojEOyH-6-SMLeQHPTZlz2EHGUemzJEMK5t0SqWM4EC6XVo2GoS4Z-FykVjIO-8jTxX907GVSGYONtDhyan9WUSsIm4XGW_JxapkQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T13:28:25+00:00",
-    "views": 102
-  },
-  {
-    "id": 38445,
-    "text": "«Сараи» для миллиардеров\n\nДля обывателей и просто людей «не в теме» многофункциональные «Роллсы» и «Бентли» — это моветон и недоразумение. Разрыв любых шаблонов. Земля, налетевшая на небесную ось. Не пристало ведь королевским экипажам смахивать на транспорт дачника! Приготовьтесь, ваш мир больше никогда не будет прежним: «утилитарный» эксклюзив существует более века в немыслимом разнообразии и весьма почитаем ценителями с тонким вкусом. Мы выбрали лишь некоторые наиболее интересные и характерные примеры.\n\n \n \n 48 views09:15",
-    "photos": [
-      "https://cdn4.telesco.pe/file/RvESsRQN2nQlUT72fYivyr7ELnlKr_LJCOM-9Vk0pkmY-m2ZEWwWRvmZ3NDrxHLqEbrMt62eMRosky7x5VF7bxcXRH7hQe0-OIpKGU9neadBG9GXBuQvqH0qO6epfDlF-pyCnfjzsQ-tkYsdHiOGsoioy-smxrP9LQL96FjPTx9-uz5lA7zF4-yYiQGoEcuC8pCjqySA7NcETW6m6PnA6rPszSFXaAm3k-3JzBEZ1lATE9kk2dOxD3fks2hRqckIX4C3ap7dJmY_U-qUXBuqBe79N5TnyNvMS3waqoAPmuo0Ovhpb-cckAUTrr-MFFKNN0IFyA9JEbKtO5fptTFUTg.jpg",
-      "https://cdn4.telesco.pe/file/d69Fkg15qCL-DPzBqhVfwZaGT8tWz6SOuVMM6TR9zZcVv8q5pI3bn8CQVZFUps97IWDJxg7P9kaLvTFIWOiPZST09Nz-tOun0JWC1fRuWiR-w_DG9FRvpyAIYj9EyVwbyceNDm8CZi_UO2l7FvdjQErT7Z_iX-oBnhFlseSbTjgWhHaMAHf1J8SDhdlrS-NjczfZEsAvO2jyzx6uU2dtLdXPSJI-o2XKAiBQk5CbXU3zLoHkY6QLjYJzr2aVL3pxfBve1t5RxeZVlCtmDtcLpmJC1JCjylIhFHxcLBz0FebSCF-Xo1s3u8S4MZiSDKtiKWJthlqQTq6OsDFLMBWL4Q.jpg",
-      "https://cdn4.telesco.pe/file/FjjFSDcPz5FIdYZ_--dr5fvWKSwvPYPxWIXJl5jjJG9vN2Zgw-V9Flmzgc0Tc-8CbR4eS0l87ibpuS4sUWpIRZ2S1ouURC3yXk6qxPUrXnNyaYK8d8JtfeG6Qk6cU3dJh1QYjQ9r3UlmA3Xkws0UrusHlhucUdSg47FtRqUr4xEXqGbr1VZJqqlz7bLEFeeu6eAmRhJ0_9ecRq5qdUP-vg-kTW38YHNWGmXcG0cxFLvSAXVKw-y-zjFGZTEhcusjOC1iKHg7IW5fSavkU0UeyLcTg1V5lg_6tCidCoZ5gn0b0Yj0u2uyTB0AoRSykT5qM_dyXAxNeExcz9Cjm_LYyw.jpg",
-      "https://cdn4.telesco.pe/file/GWFxQDOA4WeDBMBq4ZB7DA4G5dYn3E1PVT4ot1zxErp7QpMpcLyYwXLuVOmx-yGprt9R9C9SmyxiIFBliKPOiL1UY7KXDuMYZUATVURQSsi-zeG0FBlhlf9RgL-kS0UfaSaG5UywTQDZns87GGQYL26s4nV0dxbBusUwFmLGnw10fEQDgWIWHexQkV3L_oBm1kUBRCpDHYwU1kqiS6D11Tfl4aUq415qWDCZf-mxPC0CyRkuFpw1lUDpfNGzaKejKcm4NsiLGZWQ5NBNwqLK-9AXRZRdxZUEcOFDOil-u20c74glh0nS7b-mZ9llY7uNixi_mdLUg5zmv_3PcVj7FQ.jpg",
-      "https://cdn4.telesco.pe/file/sRon9cTyWK-R2e0Ok-fffnWIxahspg7ayFZ_F3AAUwMU07HNossiDMnqurLTADizE9whOzjc9VtPDSPOr3MSHr6YvOPeLkwSqQxSOxDKbiL3z6eBUCiZ_2P_FPilayJcl6KTuQu38EUg3ovhqtPT-Juax2gYKupgOhAs4JtlujkRR-ax_yOxFW84LO3r86TE8C2XabCJ6H5-w9LbbTultIBSz1PO3F2qTah9GyQ8QajbKLULwEAV9x9VUglYEVU-1CymsREundY6n5OaTDzSAPsVQ5UMzwTcOWWsojxKYGJzsawLsrMmmoz2Gy_Rx9dJASESsSkY55gTjJHa1xIelA.jpg",
-      "https://cdn4.telesco.pe/file/RkNkQE-zARf24N8hBzQuBwVgZ0CySBMY-XmirlQktZZ5fdu6BBvcnsWkfqAB0Y-6Yh0Pz8iW5AXiGUKvokLTNCWwG1l4axWRSjM1pjY4Joi-SxVp-dns5Nru4DDP2zsAUj2etPzwqjd-FSfxtvW5lhk88qLXUR60hJfvAMTzWX9KKoGXVBkzM8tqNyEJcTsu-9g9Z0_aLr-JsKSlvMSCWbL1tSL3vakMldfXi0wUsGYbBwrvn6QwInhRCl3t7KpMMK6BV9c5FdchoZp7vbSFRKMiiFb7B8lvLprGsfp_TtHfgQGs21foPes0CQpPj3hASkdHjXpi4cMHuBaTrAFMPA.jpg",
-      "https://cdn4.telesco.pe/file/hrUa7cOTtUWVmUyL8kDCs_EBROaueGDbM1c3VBWnwFNUm1vZv5L0pLPVpn98oE_0s7p3VAsff0qvrl_kfpzxBkfybvqoRdKk5DWL0i5d18AV4TTf5gvTyagu-D7iSVh-AyWVOHfHgNExQEF1YkrpvjPtlAkCaCmm8ROVrW3enSsVbwLUvWdLJKbXMVxVK0zmk3QMsdFDdbxAYLXwytiET-PuDXC5u91daSdKCn3QwsA0oqyaqMFgpzQAyFF5g7Z9zjXsAZ5dQNHCPHaxdUerc4IniKtEdg1Rof6OGKXZg3II9RBnXYTsqlnVP9XvIz7TkU291DxqHmRl0Tx7ywk0JQ.jpg",
-      "https://cdn4.telesco.pe/file/DnT2BYhGVN1uQIJcewlW_itQvqe67kVysfsQBQf4zOVCJUNj5vpnh423WRQC6pz7zWDvPbhkgWerdMPbbc1bKVcd3Z5psCSsLOtn8_V56KD6AOp-mD19XG-sM5UQ-cBwd0HJ2sAJLuZF1n3Up56dj_BJj7mDH17jVd2WvObk3E3Aa3F0LQSRiV3Qs-vwhn2-49O5TJrgDPC2-EEK8hLbAM8oaQR6fyFN6GdgX07i04KWgMBannUOgETHV8qQXD_ddLqfhh6y8hxxHjvV57tPruBYZof0jJCFlEg7qQHX3wKdtC9Qg2lkVQmBnj52c4RPXQ7Yromc0x1QEMhPuMDRgg.jpg",
-      "https://cdn4.telesco.pe/file/oCK9xal0lw-lz4ebKAbkg13x64yhwejOTlSY3l4G3vGIUy1WNXBZFus13O_Y5qzTkIPAY2RT-LESp9cj5e-91Nl3TN45tHLfBMlhYXe3RR1VQsew7tui_bQWwVBayLjl2PNNwoF27z3qlZXqRVtYjIYPm0ykEBir5357pc-TbqKBvlm4DUJp3OSukxQKiIcp8kPKMY7US7IO64v_3LRtMB8xDQt_mSQKzYDvxDB0Nh7sTtCkPpOWP9QZrICgdh43wqc87qJoY0kFhL7j3Mo0mpLvh9SqljAkXWKLJZbNI6mB6opSFGTsPU3MjixD3oeSjhiBdvuvVDtZqMjJEHskeQ.jpg",
-      "https://cdn4.telesco.pe/file/kBM0PP1itOzF1Q14YiWObmLWGPn-rAfBt4ydFEirxStiuJ3qID0kgC8kYJum-u9g0u-I64vyJXg1nEdosOAhMHcQuC_npk6AWM5rX98qN5LG7-WDpHaj16igGBrNm6Uu2-7bUvroUXjvvm_rqYDGjdLgslHoyS56z0gGHOhBQvebgZ-C0Baxtzj2DP8rkdpo76tJXhf3nFdBYjBuyhOyBFEluTVlIe2zEqi2nhOLDiUsZ5dqC2HTaOjNoxg3DtkVJlaUVFraMkp0_vqtTgrEetQOSGMToGeppZpggS_kN4B_5OSJNzbQ2pvZz7zjGsqfX2Ay-ognXahHzzo1d9huMA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T09:15:46+00:00",
-    "views": 48
-  },
-  {
-    "id": 38455,
-    "text": "Компания Mercedes-Benz представила обновленный GLS, его AMG-версию и Maybach\n\nАктуальный кроссовер, дебютировавший в 2019 году, пережил плановый рестайлинг вслед за GLE и GLE Coupé. Как и «младшие» модели, GLS получили точечные изменения во внешности, новые опции, варианты отделки и материалы. Гамма силовых установок тоже полностью электрифицирована за счет надстройки в виде 48-вольтового стартер-генератора.\n\n \n \n 48 views10:33",
-    "photos": [
-      "https://cdn4.telesco.pe/file/CAoa7cedHdogvS-dbYFj92g6zkIn1OIMKfXpMz2Wz4utvy2rXerZvIU1pWnk2tHHzpS88JGTkfLjDMbQs6DMAzRr34P80u9oQ_2gggeAfsJng2gDkZDzV0UYmGZYnAvy5OcXx1mdxwIm40Ax57RQiccF8R3EJ1k_19zI80epM1bncmQIC4HBgZlF4Lf_mxSZLDrzzjAdUeM0wal5_fKNP1Gy-cDY6a4UoCtdCVEIcK0wJ7tftkUKe_46a4aH3yiIGvSvgsIMEJifVT-YgYXuLuUtTEg8C8XAzeiZBKdx_vJ9PnU02nYAkyBzLnkwLB241dOG7kIcnbYOEXWDkjl98Q.jpg",
-      "https://cdn4.telesco.pe/file/FK0lP0A0bCuIYRUzkFJUTsFjS3P2H5uM8r4iLK7L1fAlzuSx2VFSvsYeUHp955HcQXT_uiLAmP4EkbLn_QCECl_zASAaFIuEnpBO0wDdiEXuXsxWiIpCqKKWop_wWwpqvlclE6VYWBnvGBxncuicL6cXkzkVinPErQ3GIZgvgcLTkmKcOTGty8ucYoP6dV_5H-HFmV-t-oqidVZpqcUI4Xu1r4jyEtQuvi27sV287F0C6npUNksRwUzo7EZl9_6FVZ8u1pRKllv-oj-Z7vySazTX8yUACpennqy--nCA0rKdtTpQzk7JLJdB5Q4YTkceM132BzhB7NzAJn7jPdJOww.jpg",
-      "https://cdn4.telesco.pe/file/tQuuWtkeyLYMcBcpBYB6Na4jCjA8hGf_-CfJhA-Lj5kqVrdupzl8nFo4kEu3jFXppCsiJU6neolpNB9o9sKxS8eTi9XagZzxopDEwSmDSsKi8w2y70mTO4MVFKz0iwAJy1Wd8wRC21nAaJMGoKEOh3SJZ7x8ATQ_AvRuBCYi0s_97aH-7in7VCpjceGX7ACJEXc4U0neiT-rwMr7sHh_hxd_w84fi7VYLEhgPuRIkg7ow2NMajeamDfniTOOplNEET0waO8OSAkgf1in7WPuLNYD0jSvcAaUlDhV0vkE5H7TZ-ShibvW_phQ9LCfmJS4wTDXdUgYKNkE20FgHyRasQ.jpg",
-      "https://cdn4.telesco.pe/file/PKg0B7sjriLTGOz00anXI_o7ViNk8jdj8wrxIDxeTnpg7hyDcumRDDRYgBGLHctm_rgjbJdEVMOxm9dJE4TjVH26znqGX9Aqdw_gkJ4q1ngMYcO-DU7SD0FX5QDxp3TA-eM8JoqdM_XQ6Ts00YYnJA_tsWszHgGKRuuxZnvTFXpxVo3eTKsNJbZJ55a4MD_-MdwPKr0NdyGuKuwkbwhyn_XebencFuvXLXYcfTOrlymMUDWaIpi3WOBHEukuMnPBu_4Mdn_-cByAhwubAo2ZJDJUw7ZBX8DIhjZm658Z6Ev7fOLmTXzvSnG32KxIFPRXRW6i6O4NFFO18I9CSMhlww.jpg",
-      "https://cdn4.telesco.pe/file/urfvOox3Cz4PIV60GVS9w8whVaheOHOqb0KTMZ2EKz51ckpJKiEBIGqTZyjqTaBJPjrkJtsuNYfrTm_qbxb8ZELvMfxw8Gpi__yj_fV8Z0445lrTPJ0zyvO2oRAnwUcyKEaMxhNxfA7XPi0y5_MPODv9lVWeCFJfG5KeUqt62OQUy_RM1DOMtNppc85rUbQeio0rRVLGvnEZudW7BMpXOjXn6MaQarflVmqDzuu6fw5lOM_73b-WNThDnO5tgHWCq-UQqKX_qyqwbMBn_9YK21_rE7s1H0123hiuy0wP5otVrAW9TAtqX-a10l_2AaiXvdC6iFTLTzhlizokrJTAzg.jpg",
-      "https://cdn4.telesco.pe/file/koJ0j0Q52pW__6dqQLyunONAoPCwzHvwGFqudCJqBNXuETqQogkyl3c5Pp5agTViq0Fy4GsWF6v2E9LQB9jTTPKSSfNTizPj6ygVC5nFwpdL9HKkfJvQaZxWNehdUEq8u185vT2k8HXmxvOhu_pdV5P0YssEVAyvvL3Zc-xMzciHG5cDDpFB5x3_zicYX2ZUldkuAdw4Pv155KueUsYaFrF0HcaPEmOYsi7Xs0Z0AabNGGZL3iha8ttAWmReXnM4UxcFnc08jB5zyW9DX2B3i66FvagaEWcwqD1l598Okb3jmy3fpW2j9Ppd-CT72ANMNoIAYjGGG8C2LBtxvF2gSA.jpg",
-      "https://cdn4.telesco.pe/file/ewzkq-guMJcAFs00zmaJkeN0CZLvY39npx3IpOK4rhesizXKOsPqy_4wosoQReQWn8IYKHqCECi0rpIiCAtZRSfn0W3u6NlhsZsHDhVaqJlPpAy--GnMlTyVRk4x7bMO9TFP0I2JCu-YF417hpK09PnVYfwjkAlB7t0S7RzeCwGoPopdb0CsMmFW0Q7h7oNqdXSlnmwhPJx6PFlYPBdXU6yChoCyLqnSTfUjtkVCvC3ELr4TQ8YQQjAQftbwMdDwqNqwmUwD45TXuNJM5asOSyUv16NQNybPCnvc4ozxJu-CpCTzmYJ-jKVXsexFhL2D-WOpNpQ3JZGn4kWfg-88Ug.jpg",
-      "https://cdn4.telesco.pe/file/dtMZOwM2lhyZHI0SkHPwwAjqJ5OZD9lkXTlHVaRcnV-f7KttxOxVEvMT7v_vKP1JV35HTkFDStrW6uE4rtpsBL6VWIRYhX2NTG99QtoGkK4D2aRpo8vNXArVH7Fyq1-B7mOYUKtxoOkauNbgtqak2bPF7wsR1mXRoejDe72lhn0Tl2XX7IDqIP8WsUwHnb4LbeMW7KigSd_IcLh7h5AxFpQn_8-_gwehnUz20q6OoXnW3GnqV3m2f-OCriUVr3TeaiVbz_-O80rVOGpeBlIkcE744r-LGu5xu7UO-TFZXyJhwFQOzY7azr8RWdu39NCoQvXBtfKh8tEcG1tBZb3SOQ.jpg",
-      "https://cdn4.telesco.pe/file/WtHAdOLDMJlRLNh4fEnp8rjkWd2SIlk28xIQZ9Xg2wKcs7yn__izEghShmK-5707UKH46quh2tvgnUapA3kOKYyaItZXXrPcoNoOi0Q6fzszZ1RHeHY2OsMvkts88Krjb3tZfFGmSnY0MBbV7QXTgvqfW6V8LgV6J56MU7PWii9YzWGf4s-JD1iiBElCTvscUYZJl7W5c4wu6qwG1P4CMSzXUMzzSVodJNXHSJCYhnsgviJ5qi1hKxUTlQGyVQMXtFM3mRLt8L50o4k7P3HoDdQEVcvkoFOK41jjNoJnutOoJiGTr4cLHqo3vLhW0XzVeviPPZCfcdly7FGE_bffyg.jpg",
-      "https://cdn4.telesco.pe/file/n7S4LnCv4d-_W071pQFMXp9Sq47tM2F7SfK6JPhIPghreeR81AWVnkkF1GD76eIsTNc5jZj7vY9xXRtX_A5XExQndjieIumhNFTJ1aRhEPX4T3BIeeGuZfuxQdVRidV_OHVArbq0w3MiDPRDhdQL4J6f8VNiCyMX7Je2-BH-6PHLHiBc-ptQac9721lXxgOatSD8POx4sLE0roPUcoVJbhU7OQHfudEc0AjLqttplK4NBEaxw6J0gGkxJlRxF7zcHBF6_WAP4GGmpoIYAZIQLSvI6LhtBmgKbT2r36eOw-Tjp2kfJ6xpY0tAeR65-5NYAbqCS5eO6tvtGkst2DrXfQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T10:33:29+00:00",
-    "views": 48
-  },
-  {
-    "id": 38465,
-    "text": "Доставка морем стандартного 40-футового контейнера из портов азиатских стран на Дальний Восток стоит, в среднем, в 4 раза дороже его морской перевозки по маршруту Шанхай-Гамбург.\n\nОб этом пишет в своей колонке на сайте информационно-аналитического агентства SeaNews директор по развитию бизнеса FM Logistic в России Алексей Мисаилов.\n\nПо словам эксперта, в настоящее время тарифы на контейнерные перевозки из стран Юго-Восточной Азии в Европу и Америку снизились по сравнению с уровнем января-марта 2022 года почти на 80%.\n\nВ качестве примера А. Мисаилов приводит расценки на отправку 40-футового контейнера из Шанхая в Гамбург: сегодня такую перевозку можно осуществить по цене от 1500 долларов.\n\nВ России сегодня другие реалии. Тарифы на данный момент находятся на уровне 6-8 тыс. долларов за контейнер. В среднем, это примерно в пять раз выше расценок, установившихся до пандемии.\n\nПри этом спрос на рынке остается высоким, предложение – ограниченным; факторов же, способствующих снижению цен, в настоящее время нет.\n\n \n \n 41 views10:34",
-    "photos": [
-      "https://cdn4.telesco.pe/file/nU3zqGr1VVjy4VyBb6KmGZ5xCi5NxXIKJsE_luuJAl1UHc3gLpeagJkYEyrK06UEsBHUSFkzH4fAlujN2qnFXJhRt5hAzZMO0o0wfdc-usIa1yFGgfXlhFj0v7A0l0zQAZlSxSFS0J5EIQUOdXwX8LLcU4AJ1it2M_Aeb3L3SzYqIL_R85C7c0SNiOk9Sdkg6B6OSRbSu_iGAa6MMHN1pGZk7N7QcPl2IXd8ATJImqgHp0fPoTqQi8rsAZxpAAhGf-nEXs3UJehFmxlxpBh1mmCGEjN7JSR4tp6MjFbyWB1VUQMPIWGi6S9jOpu1MEHPhCUOONPJaPdOcBNzVEqDmQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T10:34:32+00:00",
-    "views": 41
-  },
-  {
-    "id": 38466,
-    "text": "Великолепная модификация Mercedes-Benz и новый электрический \"Майбах\"\n\nMercedes-Benz представила тизер электроновинки на базе модифицированного EQS SUV. \n\nТочных подробностей о внешнем виде и технической начинке нового \"Майбаха\" пока неизвестно. Нет сомнений в том, что вседорожник получит собственное обозначение EQS 680 SUV и в комбинированном режиме будет потреблять 22,5—24,4 киловатт-часа на каждые 100 километров пробега. Планируется, что модель будет оснащена эксклюзивными опциями и интересным дизайном \n\nДебют нового Mercedes-Maybach EQS 680 SUV состоится на автосалоне в Шанхае 17 апреля текущего года.\n\n \n \n 38 views10:36\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
-    "photos": [
-      "https://cdn4.telesco.pe/file/NTXSC8_DFY0sOjy_zFKfCoI24natNFseLLUh9YCrHUgNSl2fprzIQa3PoGESbSpGNjiRIMe_fB3WBMCWESkddlZcUcylvjVJ6tG1QWanPAr-U1B2IKR4wMCE5juNeAlu6ucrXA-NuHUOyrti6_KHdDwRb_hmgsXXkHXSbTjbEiKpkcv0ong8jw0HwXRyAJVU7KYX5gbds81yAHsGxzjCMelvggEwaWUauZP7ti84oTm-vJsil0AlwvhXq_gUQgsoIlLXjbtKnAZr-Mukfp-A-t0bm5lCf4AUlEOl4dNx7V6u-nSwnJAhV9hZ2QdfvfrF-dZI60dEpIVBkiOyDJCfBw.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T10:36:04+00:00",
-    "views": 38
-  },
-  {
-    "id": 38419,
-    "text": "Geely показала интерьер нового кроссовера Geely Atlas\n\nGeely Atlas в Китае продается под местным названием Geely Boyue. В прошлом году был представлен кроссовер второго поколения, но первой вышла удлиненная версия Geely Boyue L. Теперь к продажам готовится обычная версия кроссовера Geely Boyue Cool, они начнутся уже в апреле.\n\nВ салоне установлена 10,25-дюймовая приборка, 13,2-дюймовая медиасистема, панорамный люк, интерьерная подсветка на 72-цвета и система распознавания лиц для запуска двигателя. \n\nПо технике заявлена только базовая версия с турбочетверкой 1.5 (181 л.с., 290 Нм), семиступенчатым преселективным «роботом» и передним приводом.\n\n \n \n 51 views15:55",
-    "photos": [
-      "https://cdn4.telesco.pe/file/bhtGv7QESI6AhN219hamUedTgSHgN1wA0FozgsoDijunhfuiaDsQS-C93AAXaHzBEsmRxvFhhbc_L3LHgN_8Q-NkdZDtVWzCIEflnjIC8sHlxzbGNrfAcXV8pCnDv-p8zjgmtnb_TPAtOyecCsYAGijSkqjZmbKYk6flLIH7pfFE31w3umZPOQeFasgLDWoN801O9yshHZnbXcUeCpk2QwEFyNoOWjsQlpvOsqzEZC7sYcEGkfBBSbSzzUAUHGnX2wY4ri3-X7xGKQqRYsVBlGqPwcyYQz_dmjohXwzxSRvsFcbSkk93UTS62JqSLBoF6upXAD7H0o2_GtGUETj4qQ.jpg",
-      "https://cdn4.telesco.pe/file/mG9iAz6MkGD9C63ci5iEeKdh2tLIug6EO_g5SkenmiXqrDN5X5fYuTtk5kIf93oPFvNRr0eV8DARpDRI9bnIkxQ3p6y1ts78LqkKQd8s_6nA6qrD7uW6LRSwT0eAktQzl0ze3Fo4gAeDMrmzajAa2p7LWfPFJausSzQRW20wPcdh1qK3npFfo2Vgf20enr88K9QCbv31UBLSp-OOh17u48yeYj9KWpv1uwV0gbX8ULea_L-K_ap6fv3H8KoS2el15LoQYmP_tOQkh61fFBA7XrRnrlpNRNGTK_4wawkN3XNclECKTS_LSetcEIP_WcKL2A3jZ3eHbNP-zkcL2t-A7w.jpg",
-      "https://cdn4.telesco.pe/file/nzjjNbRldsw1mJ1KrdGnJ1wL3mnFjJj9jFM1GvMrjmLx95QtwcuBjpjqIXCitwmiQRANwnDpS9nwai4BAm-OgnW84tnaubua5VFhkxBpD7d9nXfTSli2caKSZzUq9ftdOH5hBjE2V3biEkknAXXjBurupU3oYY3uwW0iAXO8rlReAsIqb5dirJI-D9cVfAimcOy8vOY4tRz0mriA9KeDiLNv0ahU0cP0SOzcjSFL6aFA_XBLnknAJ5B8aX5NADD65ANnDZcQbvzaqLcHt_4_zeeVZWKdRT53hkbDtakjC8gK9MsqivqMdsybv1O2pEZOMFzoXuXvMa6w0QuWFiX62A.jpg",
-      "https://cdn4.telesco.pe/file/lDfAa3sm0zJzvFbG5jdeJU6vauEm44X42gXfE5x9CNPHYr7p98U_jW8ljp5If8vIVkDKglmqgfMNoNyHPUUENxtjksgv3iFvv1Bb4XqizByABOOSJWrlzdx6f_ZYibGPU-8UpIfUFuFlqMnKqjWyhwWi17Wv7ZC607mutXSSQ_xWQUf41oubuCX7N5l3GDLCa-UjeHhrbJ_ZzD9PmR7zckou5sYQFTQDozYNngG3NrR0dyq_ZpFsDpsI3KC3M_w0zuEpVZIdLAg4t6PQgUzQf7363QmF_kn5MC4gHcoTN9obY4r8txJ8_D5HhLA7X1rMXPrROzC_WpcKdm7rmdgSWw.jpg",
-      "https://cdn4.telesco.pe/file/jdsxHkMOim7CSvDyM9KLChX-Vpf5nU9wudq7d9BTYnRU_jr8MLdc8fhEfmGhV4XEkmBD5TpM2T2VN8H-h9lz21HVgXUYWfS-QyAYMu2jQJZIkmrioBY7EAioZuU9dVK2bv1gNP98UNu55CYY-tKcR8sqPWvsStQhjwYobcFNjMUq_SYajlS5OtAswhsUtQx1DEfFmORKdRlSf195viNkpT9B1SQ8lrvjrNfOYw6vwVxK34obNoc5gUAR8zMI4Buk1-wmoS301C4gViWVzr0myiiWS8EsVO-8JWD01Aw1ktcJgo0uK33pIchbM_Kbsbid0gbnJ4P9b9jyulGWiWtxww.jpg",
-      "https://cdn4.telesco.pe/file/bhtGv7QESI6AhN219hamUedTgSHgN1wA0FozgsoDijunhfuiaDsQS-C93AAXaHzBEsmRxvFhhbc_L3LHgN_8Q-NkdZDtVWzCIEflnjIC8sHlxzbGNrfAcXV8pCnDv-p8zjgmtnb_TPAtOyecCsYAGijSkqjZmbKYk6flLIH7pfFE31w3umZPOQeFasgLDWoN801O9yshHZnbXcUeCpk2QwEFyNoOWjsQlpvOsqzEZC7sYcEGkfBBSbSzzUAUHGnX2wY4ri3-X7xGKQqRYsVBlGqPwcyYQz_dmjohXwzxSRvsFcbSkk93UTS62JqSLBoF6upXAD7H0o2_GtGUETj4qQ.jpg",
-      "https://cdn4.telesco.pe/file/mG9iAz6MkGD9C63ci5iEeKdh2tLIug6EO_g5SkenmiXqrDN5X5fYuTtk5kIf93oPFvNRr0eV8DARpDRI9bnIkxQ3p6y1ts78LqkKQd8s_6nA6qrD7uW6LRSwT0eAktQzl0ze3Fo4gAeDMrmzajAa2p7LWfPFJausSzQRW20wPcdh1qK3npFfo2Vgf20enr88K9QCbv31UBLSp-OOh17u48yeYj9KWpv1uwV0gbX8ULea_L-K_ap6fv3H8KoS2el15LoQYmP_tOQkh61fFBA7XrRnrlpNRNGTK_4wawkN3XNclECKTS_LSetcEIP_WcKL2A3jZ3eHbNP-zkcL2t-A7w.jpg",
-      "https://cdn4.telesco.pe/file/lDfAa3sm0zJzvFbG5jdeJU6vauEm44X42gXfE5x9CNPHYr7p98U_jW8ljp5If8vIVkDKglmqgfMNoNyHPUUENxtjksgv3iFvv1Bb4XqizByABOOSJWrlzdx6f_ZYibGPU-8UpIfUFuFlqMnKqjWyhwWi17Wv7ZC607mutXSSQ_xWQUf41oubuCX7N5l3GDLCa-UjeHhrbJ_ZzD9PmR7zckou5sYQFTQDozYNngG3NrR0dyq_ZpFsDpsI3KC3M_w0zuEpVZIdLAg4t6PQgUzQf7363QmF_kn5MC4gHcoTN9obY4r8txJ8_D5HhLA7X1rMXPrROzC_WpcKdm7rmdgSWw.jpg",
-      "https://cdn4.telesco.pe/file/jdsxHkMOim7CSvDyM9KLChX-Vpf5nU9wudq7d9BTYnRU_jr8MLdc8fhEfmGhV4XEkmBD5TpM2T2VN8H-h9lz21HVgXUYWfS-QyAYMu2jQJZIkmrioBY7EAioZuU9dVK2bv1gNP98UNu55CYY-tKcR8sqPWvsStQhjwYobcFNjMUq_SYajlS5OtAswhsUtQx1DEfFmORKdRlSf195viNkpT9B1SQ8lrvjrNfOYw6vwVxK34obNoc5gUAR8zMI4Buk1-wmoS301C4gViWVzr0myiiWS8EsVO-8JWD01Aw1ktcJgo0uK33pIchbM_Kbsbid0gbnJ4P9b9jyulGWiWtxww.jpg",
-      "https://cdn4.telesco.pe/file/nzjjNbRldsw1mJ1KrdGnJ1wL3mnFjJj9jFM1GvMrjmLx95QtwcuBjpjqIXCitwmiQRANwnDpS9nwai4BAm-OgnW84tnaubua5VFhkxBpD7d9nXfTSli2caKSZzUq9ftdOH5hBjE2V3biEkknAXXjBurupU3oYY3uwW0iAXO8rlReAsIqb5dirJI-D9cVfAimcOy8vOY4tRz0mriA9KeDiLNv0ahU0cP0SOzcjSFL6aFA_XBLnknAJ5B8aX5NADD65ANnDZcQbvzaqLcHt_4_zeeVZWKdRT53hkbDtakjC8gK9MsqivqMdsybv1O2pEZOMFzoXuXvMa6w0QuWFiX62A.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:55:52+00:00",
-    "views": 51
-  },
-  {
-    "id": 38429,
-    "text": "Mercedes-AMG SL 63 от Mansory — 850 л.с. и 1150 Нм\n\nНемецкое тюнинг-ателье Mansory предлагает «широкофюзеляжный обвесу» для всех вариантов нового Mercedes SL type R 232, он включает в себя увеличенный сплиттер в переднем бампере, накладки на радиаторную решётку, боковые воздухозаборники переднего бампера, новый капот с вентиляционными отверстиями, расширители колёсных арок и порогов.\n\nТакже стоят воздуховоды в передних крыльях, развитый спойлер на крышке багажника и более агрессивный задний бампер с новым выхлопом. Завершают образ фирменные колёсные диски Mansory. Размерность шин — 275/35 R 21 спереди и 335/25 R 22 сзади.\n\nСалон получил полностью новую обивку: руль обтянут замшей, стоят новые алюминиевые педали и многочисленные вставки из карбона. В двери интегрированы лампы-проекторы с эмблемой Mansory. Багажник полностью обшит стёганой кожей. \n\n4,0-литровый бензиновый битурбомотором V8 благодаря более производительным турбокомпрессорам и новой программе управления в версии P720 выдаёт 720 л.с. и 1000 Нм, в версии P850 — 850 л.с. и 1150 Нм. Вместо 585 сил и 800 Нм, он работает в паре с 9-ступенчатым «автоматом» AMG Speedshift.\n\n \n \n 51 views15:56",
-    "photos": [
-      "https://cdn4.telesco.pe/file/sR-sJ6cIYZlOHnlAYOI4ORyRSQGLQyYqnwuMgtHr7aQegy7uR2zS1NslljS7Rybs5PZd0iWUUDkg0WPtJWai6jZ_otNoi0lo0FBHZujMR8BlpQs9F3IoXclx-k8SJjJPi4CI-p3CHwRKFN533JFpalTxn2rsC8o22YJ6201ioKZ-N47K2hgv9OGVBt1eDtKsFImo0KLxee-b5JPTUbySZo3SDw9cO7esTdjzIhYYh0_d3THtfe5XIvDlRRCD792Jt2M2tU_WS23CVGswGvx-j4Kkz8HAu3c9yDYyvaotZsMQ7SA_2ES_NeHQnucgbJgbZG8s-IZlmKxTKsL4fV1fHA.jpg",
-      "https://cdn4.telesco.pe/file/nbo3rWs-TYh1qPkaUWimRyeDJUmckkRgJaUvzjTh28GGlXoYdveZD_ink1fvfIBcVWavsrq1nKdLmKJWnrv3xQLA5DumlUWT2fv6IPWTpydAe8eiP85PoIbhCicynB-LeNUTXxxz7ed2Cu05S0BjCo-jXVbPduN6im4k5dn62YE-nPTEVwDjrw1u6wAuj7Om7FLqtDuIhRHOLHPsXpWsaZXxRgOgYDnWhW9HbvaLhoJen9_DM9_Q9k0ZFaDgPR5tu09dbacPQTujoTymbppp-Aeeyzc94EvzIUcqKKzh5zUuVNwqifrTe6Vmi1L9cAuLZ-g04IvXeDtKx4jopLuaSg.jpg",
-      "https://cdn4.telesco.pe/file/T2RYzHdj54cQwBjTVHIqcby46wxNeUpb1BJAdaluf20Ho_BSmwkpLdOPzknZO1Asao49XFYKRDnU6EuikdaxBaxku2Q_fnsNLUOAf-lcxyqbSzuw4OpVlpkLdcvb-N4aFYxfE0vJIU9bUGZjqgWae5AeaHLz3LEIgOoNK72cQYbzE_mTh-HDNDAvYwtVKAnKS7YqjnxG3BJ_LwwHSM-Qrd5FpTPvwphyZrNz8KGPrmZ05Ubu2InJG1DqKVb3at3pXjw5EBjD8lBlmXH-80UdppYJVpH_O8Ou13OHanv-DZgvV9Zpprh_pNASGT95usdNAF7UVWXXMySfwVUW_qMgoQ.jpg",
-      "https://cdn4.telesco.pe/file/O03-4lIGREG0d35HNR6bP9aZ077nwhBUfuCbEg1DiD_-odYLBkQhbOg3O5iilvkAJSmAG6G0fzm3WVrSSiEYz2lwwmOrQg0UKcrfHpmvCUwB4HdlLMRvNHlyA7VTPMBTvmgvlUI0WTZO5X_K6dmmoDzUhq6MboK8MHzB7XPVl9Uk4lPynoNVBJnH4bNOnli36NPnVjhReRf2ceqI2uSIrTpMNMy-OfybrIfumPGmMenoXO6ZLwi7-eN0j2hL4niX_AvkvRG_dYTHhION-_8DnUBEXsBcwptN1PsPyxMiQawazmmlvt11WNKoRByuEz3b4mF2XlqUb5ESaKzedk2iDQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:56:27+00:00",
-    "views": 51
-  },
-  {
-    "id": 38433,
-    "text": "Футуристичный внедорожник от KG Mobility (бывший SsangYong)\n\nF100 — это крупный внедорожник выполненный в типичном для SsangYong стиле (теперь компания называется KG Mobility). Передняя часть представляет собой световое табло с крупными пикселями, из которых можно складывать узоры и рисунки.\n\nОднако пока, это полноразмерный макет. Для него разрабатывается новая платформа с возможность использования любого типа привода (передний, задний, полный) и электромоторы суммарной мощностью до 517 л.с. (380 кВт). \n\nВнедорожники с такой техникой поступят в серийное производство только в 2026 году.\n\n \n \n 59 views15:57",
-    "photos": [
-      "https://cdn4.telesco.pe/file/sjVZsZXTdTeDsd29VQUl3FpowUCXCvrfPlG4ozvqOfDBlK4tu-oHNQju5nb8cNgWiBWA3NVuZRJ7YRYs--3w0s3JAbFK5w0Un8Ow1IeDcqku1adg5dw7Znj_8XA08MDLtT6ficZPUXYlST3FX-0_TJ7bgXPF18Nh3LRopT2qFXq4U_XAdo-n-o-Uw23IUX1c-ISg5WBnvdRdI231QsX0BrbBwN_flWDTjJcRcZHM0A4-v_9VweWe9Bje1lu2Q-Ldw5mzU24Mp_7UxUxQG1uf8CsN040kUab2hpLb-Uci5JZhOSUAnQlm4ElVIyNgXBylIIi3wGntVYFjw4jQvD6xvg.jpg",
-      "https://cdn4.telesco.pe/file/U57dO6a5mRxLp7TcxwpceIIY2XbddRL1Xjh_uNvKCBBPKhHOHI92WD1YxpLhDSaWTzK4hAVvj_YD5E6eO6z13Qhx3fDRNoEKQNHT7pvvaLdy59YalfPZ799oqkn-H0f7F0rxn8FJ42msl5KuUH8gUbs-pBjVQnwnz3dB6lNZh1KL22T_rHGDzJf1GlAp3hHeUSLUXxA_kPiC67sinSezEeHBzKZdQaMcnPJ3_ybvcmzUcnHKeiicITnCRMAZoY1MTlipvnRS-sBAYuUCi_6hWNzAM39JHcB8PxAZij8_cr21C8RsI8tPHxMXRte29PaiDHCsod4dr-KSoYH2RMqHKg.jpg",
-      "https://cdn4.telesco.pe/file/KM5q1sDddme9mduZq5OTk952S4I-PbM6bdiWAWFnzFDVj5xURXA2mfTYPLXeXfAerYiROOlUhn0QQzgRWvuShleOZFKyvM2C4YlI9JUKnkV1XMFHiWROwBgrWakErF0zW3jWhcSlYNB9e0ZzgYXD-tDRQLcFKYr8He1rZHIHnZEPONUqnBB5NKFHieEYJid_71lJNR9KRE-1zG4Z9Rvwp0uA1Us9fJKMAYjjM3NZ3kI-Sb79wI9NSpuslwmQJY5FOnWTB01MAgcHzDHLsUTEGvCoS-6Jdkk2bkFpjOKJ_BifwccYIhWPjhTmboaSP5DrTW1SheeYSFBsWC4Yws-R9g.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:57:45+00:00",
-    "views": 59
-  },
-  {
-    "id": 38436,
-    "text": "Mercedes-Benz GLC Coupe нового поколения🔥\n\n \n \n 61 views16:02",
-    "photos": [],
-    "videos": [
-      "https://cdn4.telesco.pe/file/05ac1e7768.mp4?token=fnTY3318tCddYSLHAGb-gFGQ7Gki4TNTcnX43-8jmJAeFsPxPith_yiDNl5kU-xsunMqwlWFN_MCtBIAyOdzouInBBDFbAnWQOLKQ_UxhStdMxsrd88utffbBy8QSXgjbp_wTDyhcUGhwlX8oVLKP1toRz1Uy_LDquG5W4Ipov7nKnytrwnNJnZonmQ3eQ8xzz-QTrsE02okRSV-Rrwp0olHBh34qMvnz691C3BOHIRCsf_XmmTqL05y0QhmtNFXneTrt6QL2r4sfvUFnzHPLwzjdGmRUikd3P1aAPjAWA9_mrjZgFk8sRpo2oy0VBpDdNYk3oTZUm0zeCNKVx2UG1VqGUow7xXjMHcH5pvEUxMqtetvwrPU17AVEZQl5S8H196FvEleP4dKmIT0b4QE6jLqzW5sO4-VxVrxekeOWFd1lEyBii76pZg71oLnYRelMzrp9B-syCjFP7iJE5NNuR5FMDVhIAbh593hlmBnkHQ-ZNFWiRofQ2xh-nA5WldIc8D8o-QVfQb26LbTBl5h4E1Bg_1H62SYtA2RDUjqiCiGmQ6G2eZuHL4d8FM3SRBwZyZZ_cfKXtNpb1HbMWVbyLu_dhKmJAQrBB6RAH68vJw7bzJxlUOy7UZiUwqggO0VytSmM4JKEQYrCmrGcdBRjfs7pPUsbQ4Kx2IrlNpcINo"
-    ],
-    "video_thumbnails": [],
-    "date": "2023-04-03T16:02:08+00:00",
-    "views": 61
-  },
-  {
-    "id": 38437,
-    "text": "Эпичная дорожная разборка в Нижнем Новгороде\n\n \n \n 60 views21:09",
-    "photos": [],
-    "videos": [
-      "https://cdn4.telesco.pe/file/773dd4d176.mp4?token=oAJO8KmYmUFoyz2LJqwAx8dP_dDSaRy8jxRTRbcy35ueSbg07pVbiBHimXsOyACnlMjKUQO08Hb32KuY6UB-WQnUSxXDQZKOwWCiHyFQnNSw5QJkJNXKy7qged5Mi_DYG6NQ-cF7FRQJjdgYzWza2eksegnWceOtMWbbATvi0T9iBq9XnBHHV7h0TpvVLAQbLjVoghxT5UDALPZBpfswNrInKjRz6pf1T-XHOq0gfs-CNVJW06eDqEgCcchkQLL1cQrp44N-Gi3mJD5buYDp-t1C8CgyrVDtuJQr6MBpUcvMQ_GRBR8fnbHLn36ECPY66gOtE5V_NmtG16LAkcCP_Q"
-    ],
-    "video_thumbnails": [],
-    "date": "2023-04-03T21:09:09+00:00",
-    "views": 60
-  },
-  {
-    "id": 38438,
-    "text": "В российских автосалонах продают компактные кроссоверы Suzuki S-Presso за 1,3 миллиона рублей\n\nПо данным издания «Газета.Ru», праворульные автомобили 2022 года без пробега привезли по схеме параллельного импорта дилеры из Ростовской области. Все модели оборудованы литровым мотором и механической трансмиссией. Ознакомиться с доступными предложениями можно на популярных классифайдах.\n\n \n \n 56 views09:14",
-    "photos": [
-      "https://cdn4.telesco.pe/file/ajNxytK7Zs8iFmIVUg4Z1aXa_kbBiJh3WQ2rkQZmNhw4WMz8kx7YTI-eANbRHNDYPh6R-xJhRVucMpl_Jc-1qp5-vhMYEu_9lxjOMUKirk4NF1zdWAY3JuSKyywjWcxRp4BUT9QfiENp6QGQU-T7B1Qyk5LEY0LQO27_DiDBHNvjUamh3edMKOlEULHkCXDWdbO_GiaFGyx3w_oBYkZ-jOgk29OmNT1ab998EdBk24liCNvV8S29nIzReSX_7UQrT-e4k5VnGJu2xjz5nOoH7Ujz6npayHxO9UnTR1-GFWzsDAXfx8SR4mWGBiXe9zPODdr1YXIsBpKSENXeOtqqag.jpg",
-      "https://cdn4.telesco.pe/file/YU1kjBBaLdfVTKR3fbGkkuoYoh4RCzG3WlW42vboEDbmgEsp0wyp3IACx-qUymiDMm6yEX96RNg-oUTkcbIQ6S2zvMutq02GoF9Q3rAn2C6vLLSZDBfyLmjZbctbGaruTyTj5_gG2KfSNF59hu30bb4mFMP8h13OrbIqSvGuDLu1--I6ua0GFJD2DiADk39EjHEyAELNBcThfjEXWvig6UlqhOJXNl-nW2ZRTP0EaEeZC9Z7lClnRbhZWv_E_ws__QhiUhMDWON7zJCnFvvpHhSnxkQiX95k2B4LRka7-X-UIe7bnUJ9fR47XDa64KFeG8Vzd1j7M5VffcDPdfhNnw.jpg",
-      "https://cdn4.telesco.pe/file/LlSaS97VBsaWvAhD4T1JorEANBf5JMnTQDxqqSXoQag5Mi5sgZO4yBR7jWvSufSvUPiEWaxai2t4roWDjdLG2j7Dhqet1rwCXOoKW1qiRjJoinUAmDS3vFO7NYFEwGCAHsQpiLpU61JiV9f64f78I4pdywSMbWVQGUP1iwhx2dKkBJ8n9NihWrrguPaPKLQrGn_ktXQ9gMsjFc5PbB1Vm22bJwa7h7VxwwgdWBAZqUHUorwR4ywNV1WK7w-zK1PvSEC_byIWGlvucor_DEa0C2RrT3M3AwG9-BWgw-_rJz7Lm-fWzFE8oawfyWWItqC6oQCxMi6EhEgKdzMGu7vMog.jpg",
-      "https://cdn4.telesco.pe/file/ob6fNqEsOkYRTZlWKFuWo3e6uJvTYKx705tNoZZoNUEzzffzzjBzh29ZeXmV1xtLIucDxnf1u_5rwygDC6_nRzmJxZYHz8ACE73ookiq_YoUBFtZgGn5qyAUoc30C8jnhUdTVmrMiHxR4unmu_JeddWCyV_iZ2k2i2PnK0SmiIu0-juPSK6yBKJl46KfaAwfB9jPngm_z3G6hTlN7GB1q5ggUZ94sPF2RNHuKFApDqqxu7kETxHbjV_oowFaLHVnQ9jyF1flci5Zu0ZsuGIW7fXj524lLplVrcpgDHO5PXSeMHvtfA5rYQVyP6iwuPwlnOf5JUoKTp5XFPt3hOm85Q.jpg",
-      "https://cdn4.telesco.pe/file/SAj4I5MTprr_CDKOhezwGnzLKNc09zXEtJadO5aVE0_wKyPiwnkyJFdMBqlsTqd3i_WvxGg3Vx0E0RYXhcCq0_rkA5wKTFyJpqXPmkbJUkZKfJJaeQyXdkbto2MDI4H_Rs7ZFHRshtXwh6pkYW8GwBF34tbwWwo1izaP8vTemXQlwOf3fHNM7gC2Ri-qSSrasBhXllfLfGzKP2rYVt9JaD3WbKnQxVdq2pCnMapJphAgYsNPCKLfcrEFcENFxu9L6BnbhnIw1WFmyZ02EEgmyhVQQYBbOYJGpCWP04gs60BGdkdXxfVM4HBwQXCnxNs2P6DZiiFxegdIKzLVbKjZXQ.jpg",
-      "https://cdn4.telesco.pe/file/PlbJCg50Ob5pIgSRNE-iX61TErmtE3sgdH5SHOx7ZezO54f9yoNfAeLU7nM9Bno1I-0CHqItnyRiwCaP3QoYMswgAsQ3O-YIlMJfniVKxgmKpbH2-pCw1VNay9bpINbbYUJA0KLuw7yVgGnuUls6FawajGk_7OjTkF-DQSXLZ_DZuXx9UoQEinGwxLNaAyyR8yRDOXn2Xgh7Jl620mlmet9clH7UcrPMxOB78Ry_fahTu4H8_BnrpxjNoWMOaK6_kf1XkbGAv3sWaldR42_SvvM2bUEOEh2UwwJo8rzU4MQ3nO5qJRY1zkw8VKmNxKVnJA67xSR1T8fWn_yMJB67tQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T09:14:40+00:00",
-    "views": 56
-  },
-  {
-    "id": 38444,
-    "text": "Затраты россиян на услуги такси выросли на 20% за минувший год\n\nСпециалисты инвестиционной транспортной компании «ГТК-Холдинг» провели исследование, в ходе которого проанализировали поездки жителей с начала марта 2022 года по 1 марта 2023 года. По данным аналитиков, за этот срок граждане стали расходовать в среднем 14 400 рублей. За аналогичный период прошлого года траты россиян составляли 12 000 рублей.\n\n \n \n 43 views09:14\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
-    "photos": [
-      "https://cdn4.telesco.pe/file/FKuvzF7jv6t_VGbRflRcKmRd-xSZMpBDpuUk6gpS9gu697HfuedllyLtU2ezUPDeBU99OqXlTOQgIsww2KWhYZRFftwD39L4NWVLKQxoa4o6QNuRxdJHNca8AryjwMp95S_ilvMuKOogairhMf6eKuUPRof6k8BJGH8vr8M5iIHcNiEgIJUm15su8POfZoY-Qq3EB7qKcv5MJsWmqz1MHc1pPhCuB-gLFhMZWBxDkKKEhm7rlbZMHY58dRApTguAhq9r52ClfBLDBuqHoKWeJUBViNbPDRVSesj7NGx_uTMrMlCBP8QVnoPg2mGcKOL-F_cnbuCw-RtfT1m8-DNHlg.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-04T09:14:59+00:00",
-    "views": 43
-  },
-  {
-    "id": 38394,
-    "text": "Уникальное внедорожное купе Bentley продали на аукционе в Дубае\n\nНа торгах Collecting Cars сменил владельца глубоко модернизированный Bentley Continental GT Speed, адаптированный для быстрой езды по просёлочным дорогам. Отличия от исходника сводятся к увеличению клиренса, установке уродливых расширителей колёсных арок, добавлению силового каркаса безопасности и кастомного крепления для запасного колеса. За шоу-кар выручили 44 250 долларов (эквивалент 3,4 миллиона рублей).\n\n \n \n 35 views15:49",
-    "photos": [
-      "https://cdn4.telesco.pe/file/tx83O6hJueVXYHwUJZajNzfdvJ6ORRMbMvyMKbsd9jK0fNRh8EVUZBB7jsGrq0TromCWW_Ew26UyYy_Vop7Pj660uQugvNhmwTp0JfeXz9e-f0lY6gxc3yZfAi4H4KP7rZSnKfuV_9j3-024gObOAY7FTg8iBJPUsbnEKLNAjJMBoGPq2cJHiYiYaAYHt00wmrl4RvVuGlel3u_Iui7erAgkxCXl7dBFyu-mEByIvdyYpdDONQRVhxMobN5rmn8CqnOfiIdKMPcTjzScGGz6KLIWwPVQrKVDImEmB4JHy-m_xw5YzfYZXbntVgoCacl32M5W_2DQdA7Cr0CreUM52Q.jpg",
-      "https://cdn4.telesco.pe/file/HMNivqc0JkniXgCpgOrGOGPBhOpzpn3tuwN1Ra0xXGEhtjn83LmP7KXdhRL89-DHilwaIgDn8bS89_ntnc9ViCobhqG54b6QzQi6PQPfdGLFjl0PrKyyNWkCdukkmkrYer2N5_PxiN_BjXKxkmLDdilTUTRbl8j94-6WuqDhgGlnoa42UbMTASBDo4Z_BVjHfH0KVk1bKd45Id98rwTy57XTA5Xs8xDg16W1YxAAQX-L8CDUnZSth47Xkw2kCCHE4XeFobYmhBUuHMTeG33z66hobYPqFvJibt2detxeUvL4k9lcS0JW6oN0IHqhi2U1PY5wBBjEHc1OFY71qbdKQA.jpg",
-      "https://cdn4.telesco.pe/file/q-86ozxAyCpnAKQkqGbavKtqWB8B5Jr6WdUwehiKngNtWMwZkIVB2sksC_QxRdGCeQ2phFn0JmWtyvvL6JnXw0ys0Ta1E8m2FfKCNeW0xkk0affrClArUdYQg2d0Wqj5VCvZiuj8EQXyEGfWEXSpPFiIWgepB3VVSii5PBxTY59NGXOofO44IJcuIyeCIw3FrRx3jXWABS1E8huGm9YdtBmIkLHRFAMqctPC1Nh6bgiwjyzEvMSwKdbMy5YKL6BmiAJeA_hDqbfX14YHhKao0vluQbfi3532V2PuTthQYntwJOiHi-mQ2PNp5MY-hUziR2LM6NVM4vxZZmOn2c2sIg.jpg",
-      "https://cdn4.telesco.pe/file/AUNj-SKeTD8Tn_bTdzn7Psxe5XUWZ4JeTRFfrvrOWBmftW6P8uQIm50wflnQ6st1yaG3D6pQCF0QvSWFx7JJWEGkPcQhb3CO05lforQGHLYBIlZ9VAta2Aea57pAACHWMkNQSBRMrV2Ei37izc5YFxJ0GNeRynhfnX5ElvFprChTX-gmlAPg9LNecD0jQQvBC944WtoOqVY4FFiBsAhzD1OsV60td59wy4FWVnjdqTWTmmdwRi3nf8-y92iXCy2umcgOflqKvHnYTWdmag0ycqlBIyyJ_j46Ye7V6PwoLl8x6VTaJf_hh4mkwty78l-hIPHXKi7eoseuxv8_8_pTTQ.jpg",
-      "https://cdn4.telesco.pe/file/tA0jupYbLrKu4mO-2vu16eOxzxhoVJNTSIuKpuKsfFyEzk65wBgmhzfRP3tLjiJHtEHjbNgSY_a_FLwV8jNqvtRkLjrf0Fevh42PnulwREUVeBXkalJaqyWucpC3mclRjXq3yv7km6ozVGDwmm6IMAE5BE_wX4TVMasD693IRvrwAfznzOiVaFieAh0iPtNgKcaUyDPogNfibRrl64eIaoBg3CC_GrbsA_U1jyxTsDu1CCuDkKSHwQB4Kv8vBI3a1zuLujEGFGwFlNsCbN2EgeDIlaU1yZ0VhihbO7BoE9jQjQO0ixY89_nfgXaEp0Or5xqOomjU0_s1uBn4Vh45lQ.jpg",
-      "https://cdn4.telesco.pe/file/KzAAOm7qEwoonBfDYBcCTNxGl4Icm9GgXjt__44pa4qY99bn0W517c7GX3KqLC0ZRMtGmzblQWj0ghAi1q0Jx5n5mQgJmm0vVbAvksFz3ZbWtBYmRZRaph3Jb7Kr3Xq2mbR2XglkqBtkUkI0TIjflAP2JDXo7lgNthkhI19l_7wADSeOsDEI_xcgEbutvfqJ15-w6wU3vny6OL51P4JIlJuQBl5YI9HME2l8F4UGgSq1Uqt10FOwsb1TUnI4Wl9NTTGdkseyCNKDW8VlHIq5oMKEv7Wj1irmpp59yertV5_UAmOxWiOZCb0vaLVvi3i6kTI4JOf_djqOqn1kG8BWAQ.jpg",
-      "https://cdn4.telesco.pe/file/g69L0NdHLTktIQb2PTa957gMwU2tID_BAiZ4TIlpkTELQdnurXbXbAvcJFfStP_DpaUnCebB076U5XnGe3wGM1aGf8fl5bo81kwKVyARxAGm7qxBuwgvX8snih3Ty6UP7eNDIXXgp7vS1oveIlLjUlouM57QHdPYaY5u3smi0Vd2mbxgh_C3Nqso6essZSQ9d19mUv4PUiaUSihXejzisvL_BQKnga0RjM1NkdksF2bQ6N-9F7qYJEtIoFIc4SQUJmrvcC5IKUwpHs3EDl0DxMEjbU_6P6hLU0MEq3_QSfsF5HRCft2-VC4FAr54SqxXZZGU9aC7oFTYOjVXePW6SQ.jpg",
-      "https://cdn4.telesco.pe/file/naJPBvgcRNYDSiiIqTN8wn4VzSyjB6QA642DhdjbptrscqTiaF6mlRrfVlbgnMbZOsxAga954yCTfRLSn3T0i9Qi5ZYPsMhOBCnjGUdbvL6df6qexNRNTjimeXuej8kFEW3Z8NLl4B4NgGNYIWNnqJMgd1k4MyuJLG7VLwB-cqKF7phsAjf4cqHhU5ea2yjSPblRMQFTBNUkMY_yUPQhPvwD5i8ysP4em0FKSzxCjPaiRTjHNWwTxcRqUP5GZGRS-ivo8LeU_3nksQhA-d2XS9QAR_t-l5mBuv1EnNgPHXhB2N3P2j-PYrHg3bq7aEkD8AEnYrM4iarkIrHJIfrq8A.jpg",
-      "https://cdn4.telesco.pe/file/jhzCi0Xt0Mup0dCprcjRgz3fe0w0jOQvK1_rzz-udmH_f1qWqgt0vuDyngRz-yXc7ynGHNByzU2ZI2wr8AnCzlOWp48jCxI30LdKiRp6w2e1o4bwALhtPKUo4pMtyfWSUA40AANnE3jK2mZwMLlMM3Fhmw38wruc1bFBKmLiKAPBqYIQfkKnAZ_LN1GXnbp4jpP7yZ51BrSaCazgESBcpyadp6HLpYvdO-Ax8RPox2AEdOS8ESdEqigLkXneLkktN7gVpzQVL7JjeUu-eQ0DyiG5Ccusqb7vylSUquT7m3iz9tKM2tigUZuEIcBJbSHyu5OZN0sLgVebz_qSnOATlA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:49:55+00:00",
-    "views": 35
-  },
-  {
-    "id": 38403,
-    "text": "Great Wall изменил внешность кроссовера с неблагозвучным именем Mocha\n\nКитайский концерн поделился официальными фотографиями обновлённого вседорожника Wey с заряжаемой гибридной силовой установкой DHT PHEV. Поменялись оптика, крышка багажника, радиаторная решётка, колёсные диски; в салоне изменился механизм управления ездовыми режимами, добавился новый руль. Анонсированы две версии с разной степенью автономности.\n\n \n \n 44 views15:49",
-    "photos": [
-      "https://cdn4.telesco.pe/file/Oe5cyW6Zk6lXkpnfEAw2Y04P3IqtqgNpy_881N5mJ1LFFKz5URP5Wrbr7bxgEa7J3njA0cOyzOaZ5D7r4L73-HHWz11NDts4WmxwChVJEV2ga8TqRD9AopyGUse1eyJZzwHocskzeLbUs0sOsRYeOzkSbMJGH2bqzfKqGLr1KFSsyk3OXAAy7MLMs3hoHXIwxETC-GQ9iZm_PVz0u3_veFQ_wct1sZOVx_PDHjNEUz_ElxWQ_qU23QRnjoF5nVEwITvvqawd9vudQkwNu5bgudDdJtxnmCdQilTo3QpVMNLytmlpoZz3n9TKkYt5PQxRWPm8wFaMkFeSfHBtYqNwhA.jpg",
-      "https://cdn4.telesco.pe/file/OHeGLoLk78PTHkiMnapI2ubpylRdmCiD0SU20TLQUSplF22tr4ZxUOuWCOfjRLUzo3-Ihq6DU0me8H3eEQsruiE-GX5SaLdmzy6joBr13GHwkkGY03DUIn6grqgXom1RTXCnh_a6Y7RfxczK5BkboS4fpgRSaE-mK_UsYbmU6uYxKSFsrJPpW0ZsYfjNjS2YOqYsOGpYx821XG0Z2EXOBjJO-S85XSeyDVRakD3NrQfiskILF82kD_OKlB5BuLEnYAhrBD2p9InP5e0pEsEFEm5ivklPrUuVKcGoR7-dlwBZGCvlVY2spbIbdI7Wkp7c6Psm1P6rI5iGLzkoRJE46g.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:49:57+00:00",
-    "views": 44
-  },
-  {
-    "id": 38405,
-    "text": "В США пустили с молотка утилитарный пикап Mercedes-Benz G-Class\n\nНа аукционе Mecum сменил владельца 30-летний армейский «Гелендеваген» в кузове W461. Речь идёт об отреставрированном автомобиле, однако мастера постарались соответствовать оригиналу: из элементов «тюнинга» в G-Class только простенькая медиасистема с сенсорным экраном. Цена лота не уточняется, однако обычно подобные экземпляры стоят порядка 50 тысяч долларов.\n\n \n \n 48 views15:50",
-    "photos": [
-      "https://cdn4.telesco.pe/file/u5rKHGUlRnXcmOS88ulTGZYPZwc5H_DWgEqM5VDL_8f58DeUmfbaUI3zEA5__Bu8mQAGas_43Y5g0xHl-6SwgndhbZJSpK5vEasXpU8YX71KCn2YqQhcf_AZoEjoYhB54IO8J7wpXG-OFYTfc8MwAoM8i2YhZhBOn7VSHQ_bbpMZ6DbhWVcXgua6bn3RHwhSO_s6Zcd8cAOLO-gSJF5fWMl6ANejfznbvKrMfzPssWkOmim-opGD5HuVxyN5nvNVPWv5u4wY-sDIWWiIIrE2T1pvNcpxBeSjrNcuwMXThhL4CkwNbhtMQZAwukxe8zor1L6EDQ82fhEG7AhiaEXozQ.jpg",
-      "https://cdn4.telesco.pe/file/FhEEVQXj85G7WSx65Utowi7pkuE17DyCtISk0a-9BctVwrrpmJ5AV2YGyOjD_WrM_8Yvv0EboPakgzEVKqrBWm88wYyYtv_9YIJIIZwV6ZKvvCYdu_FB5DldmxnA-9_-plY654l7ymQHgw8AofAFReIKPynqSuN3R_qBrhCk0St9iGV3TCgz1d-TIir6gbZMMGTZOLKQLxO5GQAY62TlDijlYyszUqDJZ6K42ph-TEz7rEMMboUekRSJpQ-sQ8JsnvOad4vwVWJAnDL1t-ucd2aBIOD31kkJ3-YIwyem3vlOh0i1rptSTyGWCcRRCGQJogZsSAOXbYwntMxAjvF0kA.jpg",
-      "https://cdn4.telesco.pe/file/IDYvnn7rc1AyEoL-HarOdl8j0MkUnVSSZ_fqczMyPzbkpO6mqp4FS2Fgcx6Vy_iK3e1FxudsHYKJ6xjTQsiBGR4a1kq3HfStZU4kcID_HV3_e6VJKsy8BmfBhQx2nNgNV6MLyUyOei7uEspwsC-FHRnEklsspjAmQYzQn9iZynk8hzmWpQwzVn-2h0qO-LBG3RQjMv2BwR3P1HAa0C1WfTakmsoefTudKFuyvNm-OvKJnGYxdoBpVwf4CxQ-rwXvRkmsMkKXUn6-GXtPhKDAzDShbU4wuLWzEihOzJC9Yws1aOMrT06TID1WsMUTG3xnKlyKzpN0_dNZE1PHkPZ-Qg.jpg",
-      "https://cdn4.telesco.pe/file/gWX6t_-FzjJ2Nkzw11pb-3w7-Cp67sJRxJIEOc3mqkPH4U5CE8syvEhGNGU9uEMPbvr8IrSs8bIyORmPg4JlYC9KBoBeAuP0Ax_eHLmXsSb-PwFLHW0eqjhGqIEksIOMP3MZxiz7jS8gTZT9OVZiSid-hv5uSfcIzhHBvLSi8UFjj68BjdDp2Zfp6-J_vP-csjyHEg6Fk4EaBLB_-zOXLWLbprL7y0fq-PtaEl3306-VYpf9ZYLQSk4Ju6zXevrzCOX-0yR2YtJaD_mCCZ0ClMXha7hKQCC0W1hWryJY7a8vfa-K8HE1F0sRE8OGIqFM4ErguLIndfHhgGRcdIC57Q.jpg",
-      "https://cdn4.telesco.pe/file/EIu3l0zHC-xOKwdHBBdW95nlgfErO-UJ5rBp5JGEkqLdYPTgX0jMHIOkn1RXdV8pKN9D3n5C_03czYAdrvPlzgB9dLH8GlvERPQKjfhuZqIUvD0CmVnEnRt68rkMUSL_OhiBrvwtUwgFzpqzhIEBRzwzFA7i_oQp5HDSDfROfH1vAeahqfftLmY74BGJLV8UuzGOasT1pM4ELMr45zI--dDRUGMml0VSUDgO38fvX0UQdJukJXfoywdIi6iIUQwqUkmDiNpTvVi9GR6YAOIsLgM-JFvgoO7C-jL-MPnPf7rfyVGmXODsj5GXLh6ngVKEEYsJB5-5jqwfz7XCC7J-ng.jpg",
-      "https://cdn4.telesco.pe/file/plB3N7KC5zWdirKihU0Y5_j0oatsCfO0hpLfzkcIf1XiOl8GbeS3U7aIxIFC57-l8di5JiJi1e5e2XLNY90WbJ6R8Z6E-loNhWG4MB2w8YqNbU_UrLGGnFcHC4A2EyLkAI-lNVWUF6d66xyFyfYbqow3JkkjRReNlATUbqTkpCct5akEWQ93rPsKukZke9CUprsrTkzh9t5tixIEi1dU9tPNrwEJz9b-ErqF4Gs8SEW-4qA-agZaPnP9JDdjcZ5HQODPof5yHpEdimiLxHbiwpXsKYjgnxWMLEwVmiqgdwbhoI1wBBgB55Y3DuLI_uzNoJCsiAquBau9thF-nQBTuw.jpg",
-      "https://cdn4.telesco.pe/file/EEyvmmtRkPrJLmZFxk3pCnsSKJ_7QmjdPycVotdl36YMb5V5-0k-ALWLgwgztR6IXMQ2ViPwysIy8cC8XmVKhORTkOxxJDHQEu-Udo_-mjqC8WfseHM2Y0VduWWIcV5kKOCQV3MeiukFQE9IidxQxnpETtb-G6qAjZMLuklk4TrS78y_nAlnr3uuTTTkQ48B91WvfMUGnPrDbAA47edqjr7LBNg7A_j3wV-s0LiQLQ4LcV9FlZlaBvShI6DB1Fg24FRf80cXICfZ-g7igEQTRh3fAcgz-qoYOJ4Rk6XGGtm32uwZN7DmzSEB_0pz_z9u-CCMcO_UNp3vqUqAIaPdLw.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:50:51+00:00",
-    "views": 48
-  },
-  {
-    "id": 38412,
-    "text": "Компания Volkswagen попрощается с топливным Golf\n\nСкорую отставку культовой модели анонсировал генеральный директор Volkswagen Томас Шефер в интервью немецкому изданию Automobilwoche. В рамках переключения на электрокары Volkswagen будет отказываться от моделей с двигателями внутреннего сгорания, и под нож ляжет в том числе Golf — модель следующего, девятого поколения не появится. Имя, однако, планируют сохранить — но выпустят под ним уже совсем другой автомобиль.\n\n \n \n 46 views15:51",
-    "photos": [
-      "https://cdn4.telesco.pe/file/vvdu6zpXnZqH6Yk0vdQSoVQb3ADjOvckeG6J72gEX3NJlbGE8F1qRkiqVZ6tQ3GEuoyW-8SSUVSMId1wQERP9Vg81mCE-u2oWkrSzLEuImTYqZ5o1i1jFFw-5pgdy6heLBOp8bCfO6yEPNmrcW0-k4Cn7oO676_B-MPRD01BF72_Ie0a5tHLr52kXH478g0DqegTITszX1s3cqcYHpy_p_pZUPcjmlUgYv2MEdFFhGbCByrtbHnMbIyCGmIXrDkqtKevbev0voHuc52h8CkveK-kJPlyg52KAniy8O3V9QyDerP5sPXoyStSu0qrijiII8iQwQ5EsTLF_F3ajwoy3A.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:51:29+00:00",
-    "views": 46
-  },
-  {
-    "id": 38413,
-    "text": "Раскрыта техника нового Renault 5 \n\nСубкомпактный электрический хэтчбек Renault 5 построенный на платформе CMF-B EV, дебютирует в следующем году.\n\nПлатформа на 70% унифицированная с существующей архитектурой CMF-B (Clio, Captur), но у «пятерки» независимая задняя подвеска McPherson вместо полузависимой «балки». \n\nRenault 5 получит 400-вольтовую электросистему, а тяговый аккумулятор будет состоять из четырех блоков, что позволит снизить итоговую массу батареи на 15 кг. \n\nРасположенный спереди синхронный электродвигатель с электромагнитным возбуждением, примерно на 20 кг легче, чем электромотор Renault Zoe.\n\n \n \n 47 views15:53\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
-    "photos": [
-      "https://cdn4.telesco.pe/file/UB2J0U_DaKZKg7nDvXzGJuGqo3hl44h9j1j9tUfzSUWKRxoSKUbl2Jvp4pCqaiA8zgKZpANzePu23qlfBFV2ashXTYw7u7tlZNkOUBwpPYpcqmSqQJ8JthjAnMEjv05r3LTFEe7o4cmVpIDMgPdauHpzAhq_sGZRdeiPRRXU4YcCBN9Ws9gLIwTANfZ0HaZjYXIr_FReJmpsdZES1bPVYj0gqTVVUTWa3rZIJYer60gVC5j8KtEkJ_a7e--GzOKIgT0fGHFjtA09NKjUYuxbg2pXh9SuEDxQJiBTJCV1nQjHduLGBGDRQbAMqTt31zZvfxAWJa_ItBtdrKJTZQ12SA.jpg",
-      "https://cdn4.telesco.pe/file/AqnmP37OHLDtKzHdnQdcCF2alXUt5V5wY8WpZJ7VT42tXu8USK-CEE6P_sdxQK8RWr1DqbutYS_SKZlF9_UZKCyHu67UG5yUyzqyMDErn20-2g3tMOXVebflrDQEOUhfCabwhDk8DwxRz_f5ubmPi9c3nHsURan9UZcNUdYfnUb3d_yzVpIW_VELAKTuhpt-pogsnzE7YNCPEXkjwtA477HvaXb9qb--7YDXE5Im7geP3dro7MSIETdgkMZll10AUT4ojbeXVm-IMjJo-abeE7YtEq_5zCsy9Wxo-fVW1uApY3eK8cy89hh3uJYmCUlB5SBvRQI7QbyfJXY6DcQuAg.jpg",
-      "https://cdn4.telesco.pe/file/EymA_siCISNw5Bf9x7wJFD15mjUB2YnKVoa1aQW2CgU-gTr_ss7yDN_s4Q3ZqzS5-TxDWkhIQTAH9-zfM8BByKAxh1oi8akQClP6vQqpMM_KV7DpXy8pKuZsIZ4wu9S5jljXZoZOA6JTIDj0FoGRIPkQUqvaybRddm2e7Ilzf5ufboX13QlW_e5PvXMdJx4E9TAHBJ8sRr1hoGdpeMcYzE-xoGl5KERoEgNr45ps26C235wjG4eghk1IlVZC9SncAblBbMnj9nBX_V0fSd8iQ75Ic8md6AG7vKHAOUxl61DqfM7Jb5D-dHc1z7ETBjKS04qxyFUiTc2ZGdB2Qnisww.jpg",
-      "https://cdn4.telesco.pe/file/c7cxP8PxOdHdlSPLr0YHfGCsGMrEMPrwb3Kh-vo5yZESTLSPAt7CjJhw3CIt6Df-v612WtghYgreRDbYoqyGbqvBG9Awl8V0PWQU8IrHNFecIv1Sp11GOiOy306UL8xOd56rpHnr3Ar-QnOpbR9gukzlii8uoMCpcccHakpXwcLKk9U6vU70C4f2CAv023Rt6_LXAMQSAGendqnWDQ28ge3NE3_vIgdY6IZvSlcdIJZvylQZwPMtXw3V62Rc1UYb_sGCkJghml9on50GABHyCtWCtaq0SULffjHe6QeLISslRldhbiZOwbSnBxGKXpdE6YmsLmj2ze0Xf2WuIf1mtA.jpg",
-      "https://cdn4.telesco.pe/file/uGGCXxN9gFZIfcZWg0gF5AoAJ9RvRxk0JEfPO3WjRdwuNQsV9dfpdd96paSLFgb7PjFdMwGO6akeRSN7MU8C_pD9Y8StEBdlgJvDSYY117sMww77lFmAR493HeqFD9YVAxSmhZSomPjJ3W6CSySqQu2r8Bpjw7rA-jzaPe6ComEZhS72pvVCdX3qhPhfxFoqlvquUyvp6J8crm2difJ09inLK1z4xEVzUHgClv3oOy5xomUY0u1GYIVln6ImIOaUV_JZUTgvdLYkZY5cJsuGiSoe0vStq8b_3RDnzsQoRHa35d1t9Rt6vPT_jS4RLelVOV53bQW3SupJ6rdnDKjS4w.jpg",
-      "https://cdn4.telesco.pe/file/SXwe0fKavd4PzyFaLSP9SUxJRuY674OMm9CHREL1omVaOQfFMgE7L1vrcLDi9jLqYKKJ0yJ1QBcvyyXQIiKL7NT6fiPPgFSFhcyFnR3zvKfijVvhgpWAHDEGnbbeXJg8JOhmRKp1doigrljg_Ws8w2-t2StYN1_IO0LozAElM3NZs8RpHUr06tIJoL8QR-hVLc36YQ4zbD_wi9Zi6lCuz1r_5FHJo7qlNAidw7IArolpMLpZAdw76VBYPJNXrmNbabG8cmGwyPbAHHBPqj1kld7q1iwt-XwmFxO7Hp4zScz0joWcjpkGWDf4UEqvlxXljW3XHOCoJDEFNaOyEcxhXg.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:53:33+00:00",
-    "views": 47
-  },
-  {
-    "id": 38369,
-    "text": "BMW ALPINA E31\n\n \n \n 62 views13:11",
-    "photos": [
-      "https://cdn4.telesco.pe/file/fsDRioN6Rp10ZDWwA_I7W8uvSkFHiRVOsn_UxIQTdfHAbK70dGf8uqEj9jaxsYflM6n6btt1vXRJVd0-AyHYWoNT8Bh-CYEuD-t3kG6wnvWZahIcX86ZBr_CuGJYAhHvYAnfp9yVC2S-KX4QLoVI4D7GUbwgl58l6mhSUlMwgHdeB2FyICf9TdngEsbjB2pnxC5LQTqNt2UHGn0eP_pTOXi8GWNVCfdyexxWfovhNkj1KQFWzkjJFJHcKRSFxxNYbLMwLT2X7WCAS4LR6TUEukTrfIVqCf2GV4TzdlORMZZPwfwCPeB4pvjKu9h2gDW676X4n-LLicWE1TjkdHxzLA.jpg",
-      "https://cdn4.telesco.pe/file/U2x4OhY6Hnt6QklDhLJbl3-2ZcEsyZPWkfKHPbvpoOht-gtpAQVtA97SIbdr92nqIga2Ullp23J2lrl2EIUKuxjP1DoTHOJC-RcfQOjMwqtcHv6nY5dSAuI3jjPfAC9_g5pwqBCYoruVJMMizaIv9jXXduPFWAugTo5tTLFZ5gaInyMxZiR7ZhkH6sFqQiDgCUsmXEcaGqv2MCRiRBeHsftnOWPlhtp0oKuZchCeXW1iaVGaxDczTYa4U-A2ALJXs5C0iK2tZAAm95nzAzA1oTsEfjM95TwWAvQmVxWU08SIU4MrQQK_bwNX1VHGdWZJH6tyuQe1OPa_MERQ1Ibv2w.jpg",
-      "https://cdn4.telesco.pe/file/ijhFqQP0O6jRhs-SjPTOt-IRg4cQ70O7GiSzNi5WjEbZlY5SQAKcTW1KshDxb-RcnwhFFw21_zJH4MGdSfmzJWXjHTtHROexR3NIuZpbB_xO38BB4K2h9a0-CVYN0wXcyj2HanVH6JvTtznBKC-7w-xuE1Z5rsffwS6DKpxQt-3-vRd31N5O5T4CUrjhtdqCEWJYeqUwhyvUT3TQGNuAzCOarLnXHgB4uj2PI4QZgowQwB-zWvd_DNecjk7m5skas7EFaQBogqgiShNrjIoR71rQH89zJVzIBG7mwGtQA-CmVBZ2REcPbMyVSpGSoErKnXMjnF7SRGwq2W74o83geA.jpg",
-      "https://cdn4.telesco.pe/file/p2F3VqzgeZQlt3PaOoAex4cdfuoNZj2d6Cp1ir4a_j0AN86nYW5yH5zluQ1QrZbxfhqSJNlWQtGUkadhZrDu8LupFQ-dLhvuS461gAf3v2FmC5sx3P0HHTHzmY1_6A4alDUVy0J0waHyofow6vVbvTooYsQDHrB8Ech0hKHi0F6WY_nnDx0r0TUFdhPW00FdObP9tPRkhAZ9kgagr36B_iyRKvIMKSym4vKX9D-ZsEkVdVl9kRRxcXnijvWktWG2_y3Y_iIcjEyXdGmnnqIo5YNlPWYWht6aBKTe2V1Ub-_bK3mSFEFpalTN87m3VQqhcHvf7UjjRFgc3LMQeIExEA.jpg",
-      "https://cdn4.telesco.pe/file/ASGHxLVRmSd2DYRc_p_wJ4DuWAbXunim2G6RLUcy_bvU62mruQfbQ-pu48tgwxqmGS-dOPkxwRONwwA7s4vuFaeUUrFOW-cd5gthzr3wC_FeLMxRya6LzkB9J8jhsau71Y3s7dKNGuUcDGooZf7U--rBWxmw9UxQPVo8mUSgOyRY3WT_sUEZ8O97O365prIG8Ek1Gqqq2iH8yRdTDwwmdCaaxsTI3QHm2r5J5uOHpZ7Tx9Q06-CA_t49xAnrStJtK8ttE2rMpjyXBW7ZhIOyY7bChdI5Ps5AHTZLAGP65oNXcCWrhiqNfm0pSWPOXp6Q7nA5nz8_tsnsGhyuM9cYMg.jpg",
-      "https://cdn4.telesco.pe/file/NX1Mnihud0ZIpzkHjHCzhWnPnOeCho_ap0KMpStFhLDU0axF-DaU2Wo6BjKqpaMKz9p7Maif0caAc9VITv6xf5B-zBdigjtd4wTyDFx6tAF0wkzWy_yiQkc64EItrzETB-ScjoaZEfkL_zejqMqNMorqsBQ9rIVQISPvH5Zc3oQG-g9CjJZdEry8OBH4g2dklTr2nRl04Jme_mA_IZ9iinGzEuEulzLS3XgsQdtjH-q8DSBzB3hZ2fwA8SPLp7IFWo7PNdJxgZx48xdV82pBm8ZPcfqeA9YZicyxpYcOJiyrXArAZZ76_9QHSM9Ea7bNwMqFCKQAjmoaaRALSBLBUA.jpg",
-      "https://cdn4.telesco.pe/file/jCwu66SiXBGBXjDNzU1vl7C_t7o2V5zK8xZ1TAQLokFHhfMTrxUzOfn9qKzs3oi_rpZknMdWljA2WMjB9EMwK972SjPtHVNUrmLaiKJY9QCsE0S2nNM3QWDEKMgTJXlKWww10iCSQyoqmYPECjoCHwK2pId2y7tQxTr1JV5GDoeJZ-ps-y0ziBmFAhOC_2jK2LNGyB5K6UNOYRAi4U9ECB7HlmpdpPj2w-zAjCO0fa-onPQPB5QgE0hnZqhtP9aZJqCNubSFF4NpJoZ5AUG6vsH3uJJn3R3vcwxBvt74d17uJOgRAFoiqFZ-O6CkOWROjqkKYh7h3w4ON9CTZNoUFg.jpg",
-      "https://cdn4.telesco.pe/file/JUBx_1HuEho93fcJ6W5n-dwYhKSX4vIf12DCN5vvJV8yaROc2ReIqxfqFVjhJZ1_GEc34Lfn5UusoWbF8qcDLzpZTCcenIWWoaYGQvJ8fZFF3lerpEImQqrRaj4anH4zjGoF4KUHgGanWM5ynPFKo6tXGyNY9jov9TzmHWcBA0DY5jOhw_Fq_D4PZrpnun03umoGlckv5L6HHuMi1bjEcej-SRwiGXqwqJEudA06cd6nG_WYOAg0Xfl9hjKVzy5fzWgdd1BKbN3LDHSj1wG7lPWF3ANoGlCifiJE4z7ekCmXm4C5lEELU5kvmyMWJnwLDWs_E5j7D13WxyDg5_KLKA.jpg",
-      "https://cdn4.telesco.pe/file/a9j5bFL8b2gxb9466GiczpQjCEmvv8FYQWgK8ZmneVMuNHqwGR7FigOqtVuXynrv2SodWcYPi5UBIh4w6AQc33Wzg6dAxmX5zq7L2JGKzYaiCgSJ75hBPqHAIPir9LQvtqfSTw8rNCTWqmQ2kWYDm8DjnEd67fdK2shc-KfPKz_lh-bZnO8rgFWS5ehWIh39hohRQc-o1LBdrfwGI18gFzcuMgDFzQpUmJ_lxpdSNK5gcrwy-hnrLgUV07p7KoWU9VasoMUpM8tr3A3RZdNgpQIRiDhJg0kGAJYz5jjNm36tcS-G0tZpzK_HjrlKeQ5YwVtmuKpAvxFjC3OxBWkwag.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T13:11:39+00:00",
-    "views": 62
-  },
-  {
-    "id": 38378,
-    "text": "Continental вместе с HERE Technologies ограничат скорость Iveco умной телематикой\n\nВ июле 2022 года власти ЕС приняли новый закон о необходимости оснащать грузовики электронной системой ограничения скорости ISA (Intelligent Speed Assistance). \n\nПоэтому во все грузовики и малотоннажники Iveco с нынешнего года будет «зашита» новая версия системы обмена данными Continenal eHorizon со встроенными картами HERE Technologies. Американо-голландская компания занимается разработкой картографического контента, а ее сервисы, как уточняют представители Continenal, будут использоваться не только для принудительного ограничения скорости на базе данных спутниковой навигации.\n\nНапример, в картах HERE Technologies учтены перепады высот и крутизна поворотов, что позволит электронике снижать скорость заранее, а затем разгонять машину до установленного ограничителя на прямиках. Карты можно обновлять как через облачные сервисы Iveco, так и подключив USB-носитель с новой версией файла в автосервисе.\n\n \n \n 54 views15:42",
-    "photos": [
-      "https://cdn4.telesco.pe/file/TSEoU80Y-AyLJrUZ2Zu-K89PzrKuNx5R-4lQKjLSAPd3-Aa2zuOO_LJva-C-1KVfyul9rRdgxKoNfs0jSW1ndvi-F4lIESDJIRBb9EHjh8r6c74tNFKPYeDeZAcwJPBTeQGYO1FGRrg4__Q9SUgNhuetm0iqF1YcoEJtXTbsBRipHwdVlEdDB5RDmQcDSZi-z2P064fYTR9Xo32Q4UrZ1-qsYu84foePfQ2SPi8nSEmOFuPSnPsA_Yfwdr4jotYVAoQHZpa-SnPN-wnMxjB5kTyhVs1dpSgkzXmeVjWtH8pAXyataxPyiStjvrPRmNHPmOyN4IkYFpJRpYctguqazA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:42:37+00:00",
-    "views": 54
-  },
-  {
-    "id": 38379,
-    "text": "В Denso рассказали о полупроводниках для электромобиля Lexus RZ \n\nФирменную технологию карбид-кремниевых полупроводников Denso называет «Revosic». Полупроводники для Lexus RZ разрабатывались совместно с инженерами Toyota, добавляют представители компании. В структуре полупроводников используется карбид-кремниевая эпитаксиальная пластина, разработанная Организацией развития новой энергии и промышленных технологий (NEDO).\n\nЗаявлено, что в сравнении с кремниевыми аналогами карбид-кремниевые полупроводники позволяют сократить потери мощности и число дефектов кристаллической решетки более чем в два раза, что в конечном счете позволяет увеличить запас хода электромобиля на одной зарядке.\n\nДебютная версия RZ450e оснащается литий-ионной батареей емкостью 71,4 кВт·ч, которая обеспечивает запас хода в 440 км в цикле WLTP. При этом более демократичные Toyota bZ4X и Subaru Solterra с таким же аккумулятором могут проехать больше 500 км из-за сниженной отдачи электромоторов.\n\n \n \n 47 views15:43",
-    "photos": [
-      "https://cdn4.telesco.pe/file/TMkNqP28H9773fUwGU9hBufbrkPk-LqKi422NUd5TxcIZ1O4s87Fycs9XMoNqGy2stNX0z8vlLxTQmOFXfyEeWVBYcgvey9S-VjBcixOTssxu6d0jRNiFsUOdydqNOfYRnAPy7ONgn9oej39AOtZVfKlbBuHbkCbwBGsFli7U7tUOc87SAYnfLY28L7YJIpPwOTohizIRXIPD1fBZeyME5_3Eh35ewUakX1oX0DD30XigAFlZCZjhhVf8YZJ1jIrTu9XbAapaMG456wmU802-tyqa6G8Jj5vpiU8uTr9SBhJZbML1QZoWnipFTw7qzvIFFVXHlGk0Q3LVcc29hQ5aA.jpg",
-      "https://cdn4.telesco.pe/file/Tgamudf3GONmorvjpXaTFBq5OVW2S8qbq7jUlmYDoI7LVNIqrntn2vtJYVE54R3IRcnG9hyGKk2_g3GALxiBAj1SklFSy7MXhBJbmMIvEbdxI_RLETEGLn8W2h_nDYSeRVoq2f43g6CeHd6M6ItEIEZmH09Bx-HJRylpZGVd2oCCLuWZdsKEGfD9cdmkNXpXznMjqsNp-oVVGmd-2MFQW_2xdC_Wk6Sd2KOwUqcc4p-YKirFIT_MRIuABPQir6ZKsbQof7xScUto6aHj16MfESBK7uOKqgUxzzq6Lo_2tJRfD2PZ0dTJbwsJ-KIH-P7a56bY-AmSjJQSvuzmWq06nw.jpg",
-      "https://cdn4.telesco.pe/file/hxIv8ATVWXFRfjWMPwtS4Ba_ubl5nl3r0ruf3WvA7q1ZHRCs6F1yRBfJStUSbNN4NmcW3OJ5vAjQdC5GBSXVRFk6eMZOld5C57ARoN69NBrGwyOmhnHJxPWkZxQEr_vO-i-Uj_QeJxLedYDoNDpypt1ZTHFshsU_iuXbanwjzOpcKUdCdrOw5XmqCNqPqAbMo7D2fAtOwAmXnFwVS88QaKQGdDnG_qaasIOVnyd0A7x7WsBf-Dm6SE1_Jov_e9lTwdH3hTondFi6FV68MfmapnGT_DjFT-r5yMKKKfbhtzfxf8qEMrQi-zp9Cdnnn8HIB-cNKJp9wrw_iRxPPnU4QQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:43:22+00:00",
-    "views": 47
-  },
-  {
-    "id": 38382,
-    "text": "Компания Mercedes-Benz представила первый снимок обновлённого кроссовера GLS\n\nФирма завершает череду планового обновления своих кроссоверов — последней из премьер должен стать флагманский GLS, который является самой роскошной моделью марки, не считая представителей люксового суббренда Maybach. За пару дней до официальной презентация рестайлингового автомобиля компания показала первый тизер новинки, дающий представление о масштабе изменений машины. работать над ним в Mercedes-Benz будут по тому же рецепту, по которому ранее был проведён рестайлинг Mercedes-Benz GLE и GLE Coupe.\n\n \n \n 42 views15:45",
-    "photos": [
-      "https://cdn4.telesco.pe/file/S5FylUCyLh4fqD4rrhqKoFwl_T5wme77vWhdbs8GuuDWWuDszD-CFOLewOHOUrn3GsG3aMlWf7q09-M7GnzZHJgrlXy_ZVGErbhAD87QiM-raFCrwuku0ViLy-OiieiZZ0BOaHe3fdIaf4N7AFvrd24bhRP7rjdbfqTEF5QPLpr7-YWwhKKEMSbumc2i0rv3DkJRCZIzDP8rEUbhgqR5hOFEeRpuFrAmPaX3kzxyMznPrJE46L9noVyu6G5b1X9c-AeaVF9dGuOjAGo1xwqftlki6HGhE47RhVqGT2v6xUvbndt204cwfDQqXSWEhefAQgOpMBSh8Wh78wh3jc6mJA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:45:22+00:00",
-    "views": 42
-  },
-  {
-    "id": 38383,
-    "text": "Создатель McLaren F1 Гордон Мюррей лично протестировал свой новый суперкар\n\nВ 2020 году компания Gordon Murray Automotive (GMA), принадлежащая главному конструктору McLaren F1 Гордону Мюррею, представила купе T.50, а в 2023 году идеологический преемник McLaren F1 пошёл в производство. Но перед тем, как началась сборка первого клиентского экземпляра GMA T.50, основатель компании лично протестировал прототип и утвердил спецификации серийного автомобиля. Всего будет сделано 100 экземпляров карбонового GMA.50.\n\n \n \n 41 views15:45",
-    "photos": [
-      "https://cdn4.telesco.pe/file/pUXQFe0flFaUQxMdOySRzAY8UHr5cS0Zq0lWdNnM99BZolX9VtvDO_99RQ4NsFOvc67l3smlRshNLSRSGDchhEjCtn4gVDSdWuGTdtQvDoxWjO27BfqPl2THp9X5eADpcW6EtfZVMykInLRdptYFouMr7tvCSwfUbXU4eIbf_G3ppYI97F1jXlutJ1yfjqPz9It0gK37LBhF8r3jgN9yFKrbx6NgWhhHSsqHDHh0luTwWW_6Erm2cRfpSyYNRCrvW5tCZJqVG6MMEGu3GJeiuCLNUBaDd3pFMjagETFv5iWQi67AOHec5DqiOkNRLGwV0oxLK2oz5_lnMg6ShzBf0w.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:45:52+00:00",
-    "views": 41
-  },
-  {
-    "id": 38384,
-    "text": "Ателье Manhart прокачало BMW X5 с дизельным мотором до 465 лошадиных сил\n\nКомпания, которая сделала себе имя на создании мощных автомобилей на базе различных моделей немецких автопроизводителей, представила свой новый проект. На сей раз в качестве базовой модели тюнеры взяли кроссовер BMW X5 поколения G05, причём не с бензиновым, а с дизельным двигателем. В итоге получился очень мощный автомобиль с впечатляющим крутящим моментом, который может потягаться и с иными чистокровными спорткарами. В новом проекте ателье отказалось от привычной схемы переименования автомобиля.\n\n \n \n 40 views15:46",
-    "photos": [
-      "https://cdn4.telesco.pe/file/ONDvKIsucgK4aoZObgMWGXTIr2QoTqqg4X9OuW-UdruPehMDq4cnEHciU1CHSahX0JlpfegHk7mR5zxVg5m52PzPNbV2AstGXWDkWYsLVdV3stm62jiljuy4nng5w6n2-S8zE11wzsweJZFRNzAAJYOQg_OHxDnn9wWazh8j00R6_qXn9NWkXGIlHVHmnTS80QCecylcC1t_yt2JkOxKBYxFZ4DQIxXL9nVPZrGxvjJAQi4-TsPBNDVkjFXnA2MzcrU7MZt0VGdSLcSIr7UbYYMZNkABPnYg1Dh1qOl7IdXr2QessxTgoaAc3qY0xvihWdNxzzCQL8o6h0Va9WEl8Q.jpg",
-      "https://cdn4.telesco.pe/file/g6EVdLmtoPUiBlV3q62P5C6AWPgowOJIeOjh7Hwgah3HnAzakUCEN_Ki_nOUs4TzghQGPnqOuPjifFDzlDMr6vc71bcFYEE77e4mG2wDFASgTtxXsSL8HcT7wQT5DAXDtN26D2p7hVx5MzyO08i38LN87wAzmxj5t5gY5XHQPfG0-L286ADYM285t3oK4OWgmxrC0uaP9jSCCKq7ySv_dMn5eRNS2tFtVfpG45YoILpPd5NDgyEBulLTy9mFfvvp2BgaFi19_aalYorwYs2MYvAMa3ZoG9kXFEN8yPXUcpCsTUmAOexZGGQquKAX2P6YiaVeZBir29q8mxJS_e8ajg.jpg",
-      "https://cdn4.telesco.pe/file/v4IiCr0iEAtjOd5mSsb_MQdGpl9G5DsVirv5FNethRtd1EzeI1hngHDG45Hlno7e59ooYdxygyLcl5ZzNDdKPDsplx8PZ70YPqYBxBouySSsiZUpMtJvS9NzgHiq83djesTvW9GycxfiQiYKzEGnfSmelSviTC0WHeEg5MY2vAAc1e3uVs7jzYTt8W1T8DPvYMr0myb7Qjyac6AB2_3q0qEJpVglqS4OwvQqZkz0WZkr_NmXUfVug0Dgfh609ZnNSZkRabm6B06IRMTagdR9AKAeqp1TN4HZN7amhfIRMXM1ILycGq6X2a1gC0U0w-a0hub1CW7MTROE_s03DNtExw.jpg",
-      "https://cdn4.telesco.pe/file/rMPv-5nBrG_nVeSFfBI3rlmbTjdWGCA2bqbk2HOn0lbtr7BebNKUD4VXaiHgekF8i2Pk1OuTicPuFE9r6oFQ1fO-EjbNAxmZsKw7qvMR2J7cXS4EKjxBja2S3QEruLaU_7JxRHjxycgZELUkP6V0uscs7Q9TXYwSJgRsEBMicf55tQ9q-ewTOXR-FI64ZgaLYVD1PC2zA6TbMcRXGxuNchNJouiWM_ocA4S8iUGfnv2U6q99WpeHylP8p27VgFQTbLzfaAWJRy3lkvwBwnIfoJkAfLKwb633vnRtwqmkaNRRlCtgc0AxLXycUhLSerutJ-6MxBVliS2YV8RVd1TNIA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2023-04-03T15:46:32+00:00",
-    "views": 40
   }
 ]

@@ -1,9 +1,344 @@
 [
   {
+    "id": 72782,
+    "text": "Geely проверила батарею на прочность танком\n\nGeely испытала батарею Aegis Gold, устанавливаемую на электрокроссоверы Galaxy E5 (в России — Geely EX5), экстремальным способом: на неё заехал 36-тонный танк ZTZ-59D. \n\nКак утверждает компания, аккумулятор остался цел, а давление превысило сертификационные нормы КНР в 1,8 раза.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 55 views15:15",
+    "photos": [
+      "https://cdn4.telesco.pe/file/FU30GhCRd6zjL3xFMQlv0dt2z3hvKOCsX83IKjo8HQFtXFZQVPsqGvr5mi76ppl1ZXUCJNuO_fFb-3HlqB4pHAVoMauDeiZVDRZ6fsS07jKJHRpZ4pIlzLYTb7eH3xeybDPSVXvMcX-dj2Xl2FA6BKtfMbWTlIykjG9yJqEJUZpVVAJeIppRbAlLrDxQO_yxUg0fK1y0L-_G-OI0sLCZowybm41toU42nWCnfk6B5I3OJvxWOt7gJmCZP4OS3iThsW3cl0RaxJJAwhiaIQjGE_njW-YiMh4JWCQB3aLbx9CUuAD2qDl_3LbVgax9n1vLpXnUyf2R6I6qxLjfRJUONg.jpg",
+      "https://cdn4.telesco.pe/file/Ui-pjJwZL5AnTsMi1L4qVXOrG23qqQ7hIci1H0iWXSUIoZ71a7RImg3rdpS7tOXIEezGgbisTnXUiXnpod4DEzSKLCIOmWkKd2BaQZviwst64gnav1IokMxO41xv-sbdp2xP9KXW-k3pXAKG9FsGfcKQhsEG8x-RennqGoJUoT8wHtcI9E0E4fXJkgH0SxY8YcByG_37tvmxDW7929LEiJzxgZlKkGuHy8QjAWtL_xyeCa-_gqBtnLE_AdIwfkzyK6p5DfdXdfn4jDgtW68r5pV7osy3xUoQzWJ3MG5nX3Hd-GpGqD4AUatyxI-GSsXCeNdEgwIpGezlLEkK0DmB2g.jpg",
+      "https://cdn4.telesco.pe/file/EFf4sPWvf1WkxWQFfyoKC-RFq_YyzZenvhdk7tCNDRP8KsJfNw1HydK7YanYm6CYAqT8ZpbINVC27BMRoUfYigcquER_Xp_lvj0jMeZvpxDuymNHRZk0JP3eK2XukFerd7JE0AssIzoH41BGmMWtTRT1eSSBD3ZSu2qto7fgOBU0wVKO1HNb7BCrddADjOvZS1ngDMeY2D0rzFkkFcnBT2tW-58OK9SRL_varyacaL0l0KOxgVExDOP8nQRL8PDtMUCe0nX_heH8Fx6Uh_4rRSQb9biHfa4sZ-1LFerAWV7KY0Bjg5VRukjnGrGRutLPCpM-LxAsh0Gf-pVpv2DmlA.jpg",
+      "https://cdn4.telesco.pe/file/sXSsz_xH1t2LuZe178ZbNsB0dALDDrdVbw4s0XAyKT3bOHy--_mwLP015lyZNBPDxdjsUwerdsvsN4VQXu2ER08MMZnYRJLemnfPR80tinxOZId8VsLQY1OkCbvcQEm8M5J07VnZnD8qda9Y2u-0LbSv4eL6lea4ypKMCmyoWO-OSKay9Ak1uxtPe7JpBDNFcHsGOm09-on5nY1OhRLZaxGPnQNgw5WvWWCSVCy53qFxvmYQN5-W749OH2PCFyEJBOrXDltS4ld2fQg8SV-HlwWpdT8Ri_vMGQYACSJGsI0I6qH00S6vofqOxtH4O0X4EgXqM1_4rq6VV1vVKHuOMQ.jpg",
+      "https://cdn4.telesco.pe/file/aouEHfUra9kzhfS8kDruRquFCH08AzKRNDAS3BflvHsVAHdGBWkwL21qZ6uvta1kFf84KZYHBjGWNIem-j7ZMViGULubISLsb_OOsxUyflZo5hA6zzJBw4hQzcPFjpxRapMMTBuPEjbGSGhSAMN7yCxGSz55DhyG1bF_owKrgBmDfm6PBMSGP40SS99W-GSQYmZO7PDYHal4O_ESOgcMS60qNJMDY-1JSSVeb1HlyuZ1PnA19I5Yk6--jYd8jJ5JcgbebdpldpzePfQVsukmWN1Tqd016TUYjiS2rS_fDMnVd3wlCfQETDDFeSRlM5x6-0Uk9TcCw0HuNOtV3DXvGA.jpg",
+      "https://cdn4.telesco.pe/file/FVPNQI3kb_iYfuAfhsbZXYFQqzdlG2MxtXZ0cC3hKgdour3rnv6I09Wv7HA0pzhrHfmTzKGFMpdWTFoblX1XCWY_XVRWSeBMH5OPQCSQ3vAWMCzckc_1rOam3ps2QiRN7kdLixI8Q7cYks4P-TejGJNejOdnPuJNFYlJ3fjDpnNFDYbzjhloJwblcMs_rxCYZwmgbmeN4UcIsSVpxqIilcKXEHjwbJGh1e9B4r_41DNB2yjgukOqVoBxH7bOjARbXWsPFJVHKZGVBC6GQ0AWb8e6ZN8bMiWBrhzdGUxOpssRCvCRq1J979MfkJ0lA8NN2VMY3cXG5y_2Yj5vzhukOA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-30T15:15:17+00:00",
+    "views": 55
+  },
+  {
+    "id": 72788,
+    "text": "Toyota нацелилась на рост доли подключаемых гибридов в США\n\nПо данным CNBC, Toyota намерена увеличить долю PHEV-моделей на американском рынке с текущих 2,4% до 20% к 2030 году. Об этом заявил глава североамериканского офиса компании Дэвид Крайст. \n\nВ числе возможных кандидатов на новую установку — кроссовер Toyota Grand Highlander. Сейчас подключаемые гибриды есть у Toyota Prius, RAV4, а также Lexus RX, NX и TX.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 58 views15:15",
+    "photos": [
+      "https://cdn4.telesco.pe/file/bGTCe7A6o_lVq43knV3vwYmMvI5JMEEntnzYcvc6M-14-XKTrR9TCsHvaG4f56TUZOem_-3z0mz1VU5785goZhHbqeWb68wBo3af1GurjcLVs0qjfpngJWjI37jLanP8R3pU3mKhl0eRIcCqoclwb3P4-jRdOb5tuRXQyElH_oQwRr6xn9ZmYj5ra6Cf4OeMTVJCh7DLon23DmPZtaZdpd9gKuPKM82jV1WAootoda9-bAECfDkdFvHBS9Bq_8CV1Pe81EbX-f9jAC8gVZjt38dCDtdxKWiGB0ISMYpyugAEpf0Kci5QgwsCO7vnSga_oeDHuMmIu0BO0tEgkpbAyQ.jpg",
+      "https://cdn4.telesco.pe/file/o26QVhBHlqNUK0XTFxSkQ_acb2M8-kNIQWa4mnXZycBN70IRpThVueBlk3-aXIjy4C3Oik3Z7EHBLrg2tw9fHeqwajSYdsetffgTMOkR3h4rCgjycg3t-eFjlOeon0VkVmTkElxVIhoGvYBZjoPo2xXC3kpJFFQ2Fvzceq6dN5UakT5WT13INRLNA7xgST95ULL1r-jbjBw0zJDNU9TyY7LQvV-ot6-OgHxCD1wJEuGelfOijncTeY3bNfJaYuumnF5BRHT46m42pnousE5PfWEjgd7WfnD16_ocAycWgoxjALaNz1g1JQGMvoz0jZMn8sW-j0KnSHvCI4XC8e1k7w.jpg",
+      "https://cdn4.telesco.pe/file/rZzSTwS6kBZQJU4KNR3mSrPJvTWm7cE3jkHTsx9waaZdXV29RQNeyQJK55SMmSq05Hx9gafgCVJWjlD4wCYUiMdpe4v1u3NrPLp2oCfVSCSGoKYz0L5SII1-hmYR3D7VtcbwpkV7OtvTlCyzOhC10l4l5RMcMtwurg7gfTAXdKocIxq877PdjPCjTB0bzOMJUsLZVvo6MT8-cGdE1vNFpjIrjzkebg_YLnWHKSZTFweCBbkqT-RvzyyXt8epMKLwvwoEsGz-9fWdjxahoxnOkTo5Iu8DPBg4xfqC3abUuG4MNeFP3HNZh8EWSYZ7OdkCxKRZuABbUPvTNKqUnNiaLA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-30T15:15:45+00:00",
+    "views": 58
+  },
+  {
+    "id": 72791,
+    "text": "Porsche готовит гиперкар на базе ле-мановского болида\n\nPorsche анонсировала выпуск уникального гиперкара под названием 963 RSP — это будет единственный экземпляр, вдохновлённый гоночным болидом для «24 часов Ле-Мана».\n\nВ основе — гибридная установка с 4,6-литровым V8 мощностью около 680 л.с., использованная в гоночной модели 963. \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 57 views15:16",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/f5facd9ec0.mp4?token=mbxqWd3-lvWooR8HHJHpOGGaqqoelCN0y-FPEA2kwbF7xzxG7E_F4USF1FmXXFTyOaXt0AfTjHC95OFAZ3PemUC1UXhlYtMcgtaG8-We1dmAZFxqwGT4UBnpn0TVWOHYphTdNy25PDHb8-yjLLN1PW3QMQzwaTDFfz53k6w0YR1H2Mgk5bjrheMivTCK5kO_FGd98t7F7HEl_gyPIjZ5t4h2o7s9frz6yeHPCFAZSGqkIcDCxdnywlMMzxwLLBPc7ZTcbTaSt2DkV6Htst5v9Oj9A0IMyn4hJsSpnf8_yg2p0EJyDQv8NaaTS4yYueuJJlRYUyvex36rzShLRSNcAQ"
+    ],
+    "video_thumbnails": [],
+    "date": "2025-05-30T15:16:28+00:00",
+    "views": 57
+  },
+  {
+    "id": 72792,
+    "text": "CATL представила сверхплотные и «вечные» аккумуляторы нового поколения\n\nКомпания CATL анонсировала литиевые аккумуляторы с рекордной плотностью — 500 Вт·ч/кг. Они выдерживают 483 цикла заряда-разряда без потери характеристик. \n\nЭто заметно больше, чем у разрабатываемых твердотельных батарей Stellantis и Factorial (375 Вт·ч/кг). О сроках запуска в серию пока не сообщается.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 66 views15:17\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/ifwlV6wcVGuz7q2bxYOdsXJiUWBcdZVBvVFfzOygUdyvLcCJYciHyeabKgJ0uQH3DG7JuJynSLXrLFCrrTYIyNxDVPJG8M8ja9g8MAnkUAzOJGCGSh3GpgBF6eVk-c9xVusFkGXh7nrNCXz5zebLjvwKKF_XSxtiUrP0BBTG4L1qEae8mZSEOQeq_UPBSrQAXYUyh3GRWOfsl9GiGPdXrlPBr-ucp51Yc5lD1YyWgQ--vfVlEWG2QfCMLxU99wBuV40GH9Sh8apvYsghrEteHk29wrw7PKGauCfbc7BnNZJi8JqLB6PrsY1cMI-wn9oTZa8QAup16JCLP4nmWeW4YA.jpg",
+      "https://cdn4.telesco.pe/file/ec5-fWkPXjJlwFWHXoLV9ff2zkTIQwlVPJnDFs2viy2rohZMrabCEns33G-XSolhhQGD6iT3otMxOvUDgxV1j4LUE9iEGF1yeswelArd0I8nBlc5CALBAbb1aLYeu6NrCMVkSCOsWJqyty7eNMba92gX2wCDOd_rkmPlLQraZWIvPH935NMTexn6SXNpp1BBxQCeyRYfhNnEQ9glWXI959TIW_1IYoA_Jet4Bev4xYIOIkQK_A5mSxfW5-pYxpq7NFJgjoHSyCHg2bdpVORgS1dlNaG8qwQ_okeGqO0R0E7Ik9vdOaPKXFMpftGVHOEwicPd2TjDMR7mQrVf8ZID6Q.jpg",
+      "https://cdn4.telesco.pe/file/HWTm60gJZL2xPRmtbJRHXkVAwjDofYSY1TMC_d5yl2FCNl6jMKud2u4QxsFhp4BwVJgGaWlp4hLKNh-ba1qScXG8ym1-St-bbSGcZinBAXa4jvOs4OkJZHw_c-LHZtP_oMMofY2eLxIz-_oU4SNWcug-8AG39DWqmxZtsNICv-vCEgjlEoyE5GEcoMo-dwyrQSvqTg3tR4SOdawwQjqZnoDh2NKNDrRsBTIpOsSs-vF9Tcw1vGE0qWskV3WnDNXddCRBTM1j1eF4bRBPzUX2Iu9izUyXmQ_Zs3ub4bAVUsgQsA1bl5JtW0nkGcAsTOu_ui_PSXQdpbr6Uulw0vMxCg.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-30T15:17:01+00:00",
+    "views": 66
+  },
+  {
+    "id": 72753,
+    "text": "Porsche 944\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n❤‍🔥1\n \n \n 51 views15:12",
+    "photos": [
+      "https://cdn4.telesco.pe/file/EocBdp47WWrGupBGru71-NBiW7AsVWEHcDrucWI_hW3SiabpQ8I9kuL3CRXk_bxRc99UTzM2N7ZdALXNOnIKbA9GTT7fRdOUItSOXlIYdqBePAlEeHpf76Gp0P5uvgU9qNDNPTSGn_EdlVYUbk9L62WTmtY9XeKwQoTfTMDqbgx0nY8Hk43T0LN7KA8dzHTqcE6f0nqK3QX94UztWb5yvHUI_tHxtCET6-ZnRXtATvCe5175LDgyGtsI__fkYqU-GqpmBMmPSDEHvJNKMwrVxt5sRLAlDka3l8ewjbn-kRW1A65uV6UMy_L7uElFsUPhwSQc7aqoLaI8FcKnKUqo5w.jpg",
+      "https://cdn4.telesco.pe/file/EwBJTRJKGhOh22zdMlFa5DQ-Lnrsu4kHg82k6ZEHhT3DQTEOhlVIsaVbS7UZbgLwIQ3MLCQziSXT1B_yhJhz_DMZtYmFmEfGZoR11zBFcUQ3KkIY07HXTJWR7-2sMU7tH8oBVYKVTWOTWGJ4ixo8M7GXkjqnm3iVMGRah-83PkzbvXARrdngYUGXugolsRpXfhkogr3pSN8RJjfpbXtU45XjbqvPLTV0Phdzs7rOPre_bQHfySzBqnpqmmSzYvLJuibd3_f-4TPOci64R7wHNM2ec7H5Bbj5tlYqRPz3IRKzU0Opb0aOA3BSOH2nViTSibQYub0r7Szl4rzY0hNKOQ.jpg",
+      "https://cdn4.telesco.pe/file/VUlYnwhFWyJtMQ3r4HnNSYxv1WESQ8G4Gis4rOEjJLCW5Xtjk2F1fU_UtPs6mggqw7vsxM6szTQ5cCKyj7X9IzfgP6FXBA75BHZkIayUhOfTN1ls57x4AcN4upmkYaV6_Lpv9i2oxGCrBy-CDfqXR25iqN1KrNmGJfCPY9jcR9rWFlQ00MCquZpdIO_VLkqlWQt9HVdVlXW-AjAFOYypxfnzf75Q7dSF6Y6R3kGN9OsdmG3xOrlfagDuzIMxQ05iJk-qryiet2MFPmlR89eNzl7OGUoYU0fUrs70HGHc4flI7tVnhOcnhvqELH5hag90vuabl5LyqEQK2WbnRhhVpw.jpg",
+      "https://cdn4.telesco.pe/file/YhQU1LKw6_oQaCIPEmcfJSoRnUprejeqgtoeuVj_l46eYF0Ms_ZXn9OxChpCHdpM21QmEn7YmWrqEFCq8GS73W8XrR38HiP5JnD1s8GgkW6LvjEw6UJgaeTH1aV_PeeBF7-3ME45n_9ybn2X4x0tdkP-sd0T4Q_t6hChqbwcFNnTr3bRgmeJliFUpey9c5Wl0w4Xe4oygih75-l_V-lYn1hmqYgvyMKLVcOUHW7MX1wjUazRdRqX0iY_hfdt82G5SZbnA313xstTLOzrrIIGOFp63-nUSjjFV11A5-QDT6LnwP58DDiuoU6F0nyRjoDaDGCRsq0fhiLwNK1Xp_gCMA.jpg",
+      "https://cdn4.telesco.pe/file/kHz_wj_ldO_8gbOtJ8YwcKC0s-ylqSIoZg7s1QmTcQoot0YNtpA2DYmOpoJ8WQQ8yoogW_U9Kcg-cVo1fG2kXy6SlchqgNTM00jfuMZC_dCdLA4InZw0dZVuBB-wX_2t7RqldOfp3kyBgxahCs1GCKYv-5dOng5VbaLPqjNMvvQWHYv6CU_0SOYyu1K23uo_dxlJen3ht56O62vb-a1zzxy-7aD44akYNp-sbLQFRp1nwG3Rb_9RV6Cf7-2_PNGOfsXiL0xpSStoa7-1EWJmf9Qi-A1kohDZ2DYcreZhohVCuYWHnY3N6ir2tAo2JV6ilhv24Wqxut_sYvb25qb55w.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T15:12:47+00:00",
+    "views": 51
+  },
+  {
+    "id": 72758,
+    "text": "UNIO представила новые водяные насосы\n\nКомпания UNIO расширила фирменный ассортимент за счёт новых водяных насосов для легковых и лёгких коммерческих автомобилей.\n\nВсего в каталоге появилось 23 новые позиции, сообщает пресс-служба компании.\n\nИзделия адресованы владельцам Mercedes-Benz, Audi, Volkswagen, BMW, Skoda, Ford, Alfa Romeo, Chevrolet, Fiat, Opel, Hyundai, Kia, Daewoo, Dacia, Lada, Nissan, Renault, Volvo, Mazda, Seat, Mitsubishi, Proton, Mini, Peugeot, Toyota, Hummer, Isuzu, Saab и Citroen.\n\nАртикулы водяных насосов – WAP-10001, WAP-10002, WAP-10004, WAP-10005, WAP-10006, WAP-10008, WAP-10009, WAP-10012, WAP-10015, WAP-10016, WAP-10017, WAP-10019, WAP-10020, WAP-10023, WAP-10025, WAP-10031, WAP-10034, WAP-10037, WAP-10038, WAP-10049, WAP-10055, WAP-10061 и WAP-10092.\n\nДетали изготовлены из чугуна, алюминиевых сплавов и пластика; корпуса и крыльчатки производятся с применением технологии точного литья, отмечают в UNIO.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 56 views15:15",
+    "photos": [
+      "https://cdn4.telesco.pe/file/e8HzzLiwOgIqG1XuKCyvQ72Rq3WwIYUPrNflNoQP04QbCsKshNYdzeP1fdFxC8xIqYXf3VIlK8kfuR1y7Iyn237Pz6i-iAlRnxqHHrRppVXeQKpRYTMISvlrBj3bebmiVssOvNM6ohbOlFHtqQHq_1RLpQsrWVfadRvlWbNG6bdF-reKK-HGCRuGz3zm8vN787MpS8PpOnbTx015OzFBfsJn5pfWEgP2fgmUpNENLCGiuB3VoU2XccWnZtvzqKaHc8cJXZvl4Meek-SKuNsJIMPx3xv8YqBEDrueghrwjqNMwtvrijRspQeA6oKQoOdFzGZryEx-kz50nv0sIdbI-w.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T15:15:11+00:00",
+    "views": 56
+  },
+  {
+    "id": 72759,
+    "text": "Febest расширил ассортимент датчиков положения кузова\n\nБренд Febest объявил о расширении фирменного ассортимента датчиков положения кузова до 100 SKU.\n\nНовый датчик с артикулом 23603-003 выпущен для Volkswagen Passat, Skoda Superb и Karoq, Seat Ateca.\n\nДля Skoda Octavia, Volkswagen Passat, Golf, Jetta и Touran предназначено изделие с номером 23603-024, сообщает пресс-служба бренда.\n\nСреди других новинок – задний датчик положения кузова в сборе с тягой для Range Rover Sport 2010-2013 модельного года (арт. 29603-007), а также датчик для Range Rover Sport 2005-2009 года выпуска (арт. 29603-012).\n\nГарантия на перечисленные детали составляет 2 года или 60 тыс. км пробега в зависимости от того, что наступит ранее.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 70 views15:15",
+    "photos": [
+      "https://cdn4.telesco.pe/file/v75Ky3fMPy1gY_GvcvRf1HqhtdaMOP-KlehSiwRWQMx3DL1xYnzBmS9pHZRymMhodHd3y9GUtuKAonZ3oaFDtNBelMsv0Fscf_G5zF7LjLdt9oeGHO1ueHnGV8pbCw81lcJDQYLfsNyyu0o0699HjOTMSF4QhAfe4U84apE1Y_LJrazxd8kKA-UGTNT8Vjft_7v1D-_CIxlNnJ6f50_cPWUylxcrqWoGlWmHaa6k_9bq9gRVs_N-ZXSadi2Mng13OEVMOH_QCT2cPEu1ZSi6d798AuKTkbkF-qelZIMIssPPGL7XeZKfMa9joW-c9FRUyhcuFIMhOb6heFsnSpfIgg.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T15:15:47+00:00",
+    "views": 70
+  },
+  {
+    "id": 72760,
+    "text": "BMW i4 получил 601-сильную версию M60 xDrive\n\nМощность увеличена с 544 до 601 л.с., а разгон до 100 км/ч сократился с 3,9 до 3,7 секунды. \n\nТакже модернизированы заднеприводные версии i4 eDrive35 и eDrive40 — снизилось энергопотребление на 4,5%, а запас хода увеличился на 22 км.\n\nВ Германии новинка уже доступна для заказа по цене от 72 900 евро.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 64 views10:07",
+    "photos": [
+      "https://cdn4.telesco.pe/file/QVp9SCJf0UHhwV_Ay6zTm9IzKV9eju-5_0__DERt0wwMcgnP0R_mWtktSFjU7vHUkNJpSDqewY-fonc-tP3FjFMeqjckQhczcE4BtLEEI1XhSjmXXSlVAxFJnG0Sn9IQKzHr5OhY72g2pLmykbTfbjTJ_d7ZZ3s7eJ3B81BVip7-Bhdxk-yApP4kTlCGiZLBIDB5jZ4X72tfOJ-un-tgYU5vMSFbt1XBGtqfxanHbEUBrqoIOGCSvYmI_WuYVLcmFttirhFRQMkQuDN0cmRfSx28Stz_bkl4Ewb3iQiXmfid6crzA4xMJ_I0gqfSUagHO11l2jzBfxt8T0ucwLvCcQ.jpg",
+      "https://cdn4.telesco.pe/file/IAIWp5yY385XbsVydY4CkSJDxKsQl69CH54Kdy-58FXaCXvL1PCRe3q1mvtFekYAwbnTg8H_gL7eRn3om9eowh6T9QXK-11wohwRQZ1poPv5OqB5uhBfylry-LoXCqsgs3fFuHa1cAxB3EDuPFaHqBx2g3Si7MEbR8H0IPfvjuNlHzfBpXvsn6tEuhdWaBsqO_FunVszT2TQ5T0av9qpMyBhn-ZB0iFluqzmXWJADalaoEChsNeL5gjaNruqpts_JHpdAU-aWJqBPVreDsfa5Oue9FkO7K3FK3S_fbQLp3Q0rir7u68EwUS8BUY93JsF_udB2XbqdYUq69TA1_p-Ew.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-29T10:07:27+00:00",
+    "views": 64
+  },
+  {
+    "id": 72762,
+    "text": "General Motors вложит почти 900 млн долларов в новые V8\n\nGM направит $888 млн на разработку и запуск производства двигателей V8 шестого поколения. Выпуск новинок стартует в 2027 году на заводе в Буффало (штат Нью-Йорк). \n\nВласти штата поддержат проект налоговыми вычетами на сумму $16,96 млн.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 64 views10:07",
+    "photos": [
+      "https://cdn4.telesco.pe/file/Ad5K0JyodG8T-AELxYA3hxqs46qsX28Sd1LJtE7OqxqRJ_jlNVQ5wFkLNl_7Gr_LpeIxymgZssBKL6g3S6k2RwR3UL7RwbL86xOoI3wkZLWeFTflT8hzVkRyGBJDwjRfm9rp9609u8hvaRNEPEo2P0Zfpmi9GH0o3vCkDrOt-61yRm0XK9jP8ssx2iAT_RG1lwabPYeTbrj_GNBtuoyFQVquVGt3wYazYmcziW34zOIpc8HxXenol6PnyNatzjqqfDnfrnew3Y4wBch-vK3OpbfVKtXa0oDqGkK5Cgw72MF7wM-WoA9I3_4cZbjC_xwp5tkKEjhptQOhUo08vH9UqQ.jpg",
+      "https://cdn4.telesco.pe/file/kUq_2Vk29ojS1qRDswgDdDUxWlyxAwz3JXmoosjBwUQO-2_urghVpz4CaPmLUxF7yDsag7qA-sN_GN6FkK_zkS7vZtw_XjgFU9yMKPyCvrTPLx6dxnDSbJpKfE9fq3Xn5ItOQYo5pVhDDjyZRkRKx7pVkqrluSsLOH0k6TtOwohYG8usVMqfDGoCM2QTSDFvPkA70qJCQ_HV-GFB6s_7ELnAQS1dAl1DDDD4lu-f5iDLNUS3WP6cGLbRuaKAtaAbujWS_Ot6U76PMXa22ZSEMhST-JYOCrBS3uA5Ag_91WoCFTEw69q9T4MwH2TJRu2fyFzAw9ehcqXjwST2LaaHDw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-29T10:07:52+00:00",
+    "views": 64
+  },
+  {
+    "id": 72764,
+    "text": "Li Auto удваивает планы по открытию дилеров в России \n\nКомпания Sinomach пересмотрела планы по развитию сети Li Auto в России: теперь к концу 2024 года откроется 60 дилерских центров вместо ранее заявленных 40.\n\nВ 2025 году через официальные салоны планируется реализовать 12 тысяч автомобилей, пик продаж ожидается в четвёртом квартале — после получения Одобрения типа транспортного средства (ОТТС) для гибридов. До этого времени автомобили будут продаваться по единичным сертификатам.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 65 views10:08",
+    "photos": [
+      "https://cdn4.telesco.pe/file/qe7x158AB6AZdNhZF_fe6NUrtzH2I3tCNO3tGoW8fPUNipI0WtqgPL2CeEfxILZMM6hxuofV5Z_X8FRGXSqxrtbP9N8dkOnAKWVNkFAqPqWf1zQFj3FCLeLPlcFs5y5FgbSGplY7OE7VJ0AEMf7PmGs4ttqCnF9AsisPIrGuuaROTSJe1JcT1dNxyTIh-d8DB5ncX1m3U5rqxJakTXsh-_XKnIzTiPf-e7mnaD0Hhc5zgdC9OdRprEeZiDn6R-J_wlFzF8KBUXiS7qvgShSuEm93T0Xun96RDehWMiTY85xGuQ0P6kwkH-DodCMfcjhLp1wVfiDSn1Z6fswfg-WwCA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-29T10:08:17+00:00",
+    "views": 65
+  },
+  {
+    "id": 72765,
+    "text": "BMW переведёт все модели на дизайн Neue Klasse\n\nШеф-дизайнер BMW Адриан ван Хойдонк подтвердил, что фирменный стиль электромобилей Neue Klasse станет основой для всего модельного ряда марки. \n\nПервыми в новом дизайне появятся рестайлинговые BMW 2 и 7 Series, а также кроссоверы X2 и X7. Полная смена фирменного облика растянется на два-три года.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 67 views10:08",
+    "photos": [
+      "https://cdn4.telesco.pe/file/SzZmi5Ys3Qn_leXBvHHj-ovDrdPEl15MomP29MPvPquACBIoN5T9WegoA9UTqYmmgS0J_2XyTse9nXHlbRxI8RIi7cRV2jmubIVhvc8WQUq5MrZ1Xbm-aUgwEQgS3qKJrT_9g0wm7Q2Ca1b7eLX9LFO45ueH9uhotckmPZN_ikUp0bNLDKTD7I9K4TIF2jSjtjbPcrVrxA9o4CcEb2Ux5cr8PYDS1Qo_5ZJlx8mLMRN-1GZR6WXxq-pGzB4q5UyIA41cZpmfly4hlLINRMVT2T7yFXPsFXTltMaYlLiaWs4frIoLydMjR_g7D18JShXQ6BPcgvihyTRvZFGjWCueww.jpg",
+      "https://cdn4.telesco.pe/file/KIDJC-wqg7_8d5watuOwvGfFcJAZqbFTNR2Th5PcLFQs5v8csgXDluq74efLNs-fl5z2jeAgs6sfVZ6T8pYupKJo-ozLHSU3L5IfKWbRIXJBOT45X44t46Yj7S9k2VbX3vkvyDazC9VkZdgbiQgmsXTGicclY2w17VDvz2oumOFU0fBN0Ybr4rCEQ7FoyAX73Z01B-sN_6nMMLJXOOCKjElHYgGGJI-kZv7u87VAklezmYKEJXSH0TKZiIRvsbjhy1Jq9g3RA47uk7XTk-aScP5gCZGsEQihbARAWZwckphzUz8GYCLdgYF8OEBCXpO_MtwS1k92yyanagbmuOITXg.jpg",
+      "https://cdn4.telesco.pe/file/eqeQpagMbK92aR-i6XsC8yrusZybKEkksiZeC-wtJmdSFHjxxUtDdms5j5oM4bBow5sDUkvgTqA5PgN6uc_x20fXp9XDJ9eHvZyYg45aQMXakp1oSgRidzMS4OyzQ9-cE3ei1fBt_DIkgOizUu4Qo2bOyNML-KLa34s6SZfo5tMI9IQH1OwHxYKcRlju-nOmHzNqIsk76ZAnr_Sv5i3VKTPKoHQzf54oPQu0p2J4u7Z4iCVAhMdwJQwFaFjSOuC8-cgYIbQooiGm4iva_IPw99mNLfKIPZN88McaljVM4kG5twINlmSKlbtWQ_8tIO3cnOzH4n7b5_4ui4fdx1WDDQ.jpg",
+      "https://cdn4.telesco.pe/file/mi2WI1ygx5UkT5rjMvqiCT3eFE6UbJC9PZrQgJASQd_PzqTVI8fhaQbibQl0zUuBwz1h5VyPWCd6m-hfDS-NGDk3ProhJgkGboS0R_kuM7Q6qc01VG7kBxlUkS1hSFIPI5qBCtBo3DgKUnN1Zy7O7f2a0awoUUgdWxzuSIqlfolo2dEpTGu51nnIyTa1i4-_-sJPXZIDXMQ-3RmxikYrbifrjc_6XkS6o2mRdX8_eldR0SeJpMF1ILhjcft3v1SaNC3aT3EpWLtAtnkPfmIv2OOX5hicwerxl8eHEe-Aoigmifb7-GOKCwbAAaDccLTApOVNRnX1PoQ553rn0_by3w.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-29T10:08:48+00:00",
+    "views": 67
+  },
+  {
+    "id": 72769,
+    "text": "Представлен первый электрокроссовер от Alpine \n\nAlpine представила серийную версию своего первого электрокроссовера A390. Модель дебютировала в Дьеппе и поступит в продажу до конца года. \n\nПостроенный на платформе AmpR Medium, A390 доступен в версиях GT (400 л.с., 555 км хода) и GTS (470 л.с., 520 км). Разгон до 100 км/ч — от 3,9 секунды.\n\nОбе версии оснащены тремя электромоторами, задним активным приводом и батареей ёмкостью 89 кВт·ч. \n\nГабаритная длина — 4615 мм, ширина — 1885 мм, высота — 1532 мм, колёсная база — 2708 мм. Клиренс — 152 мм, масса — от 2121 кг.\n\nИнтерьер позаимствован у Renault, но отличается премиальной отделкой и аудиосистемой Devialet.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 70 views10:09\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [
+      "https://cdn4.telesco.pe/file/AG24nNBTpx4_L74spnp5CqzEuVhovkwYKN4xVv2THWohENW5UfsFGjlsxJF8_yh33-dINPijjtJymWx6AD8uV3dUCNjGfMfpBgQfAG0qOj_JPmPXYBQ40SdgYyQYufyXkGQY7MEer0ENGueOfSQi361vzlMAQonSTkEoaj9DKPNPwOwzJ-rY5Y96cWL4QImGzlHHz0dmvr-SBu3WHnyAqdUjWnAL2AmvQAVit0X4J9mpKOehe7tN4g5bJVSPB9fqValDblVgO4UCX1YpoLVCU8s6DVTMQvpvDW5Jj2zp8PAh0XS_8xRANfgNM2ij3IKrb0hc-q3WuqDp0i5rUp7KSw.jpg",
+      "https://cdn4.telesco.pe/file/Xkezu1xMQ8QLZA3qwoQtd9tGdmsYDOneyU5iAXTB9cVfLIannOoT7HWVDyYbEBaxYek5UbvD_1roM_nRODtH4s176B2w4u_uS0uvNyFsTmkOueCnfl3BIVeF55MEeoA_ak-jftwwNRQjncm7HsYRxo8fLGYC0huPRwSNWAZAY_17RS-Qpv01wGVrNiOhz1NW0Gd-k_YCFb_T-NtVTXEQb08ZbgHSyKcdL1TNev2Hm0ktuH--k_NPlPe-4lhw6Qaqzoic-AoKjeVCsQ2DD6OJz9gqFpcC20wu4acRxaK3HBdc-FtyypwnkshONviQierGAfqcBvc_L63DVQsGDoN4pw.jpg",
+      "https://cdn4.telesco.pe/file/YijAz2NiQu2iflXk2f-cbdJlz7pI14hWeBnQxZhNiZqW-diO7Be0Vv_qopBIRoLBQ-dC9SBKx8OLTePesXkZDNmYPQumoikwSkAVJ9-F7pjnF3AdzhaW-O4MThvXVEydHoQ-HWh17xdqmwvEtPrRVXQjxUAJ8heAuSYOdsbn_VEc0GyZ2OZwC72OK7Ghk2CTDv5Hii-P4f1qY45MM1wNaGNDZcHo3BsAFeLcsKOeam7hk_iLJxY0bkS1ghBdoQzZ59piAMelk_OmeRTuBZ1RzkXowms2UF3Yc7lwO0HECL5F02md68PCCKiLbi7vLcgoNmH6VTWjLZG1KwFJhwoAow.jpg",
+      "https://cdn4.telesco.pe/file/qCpLPFpCfChGAb0Y2WorQbY-hKrY6ZIqVx0zBMp3SSLseSi8orv-RXI3NP7FnQkNP_--iAlPpH6rZrt9erxevZsrgQc1A6g3mI9zuLiMwXgHIUzyeyRZ4_eMktj1rz8gkJtRZmC9mm3-k1iMYCbaANyI6nAbFscE0t2zSsWqRpQg0BacbROfdrwl-8xYU3UEnzOIQWnSKuiNHCuo5IIC5PJmYuGpZJ2WK97EVEMBoeiuW2vL4oCDN00S-kfFQ_e8FzpiYgxTajbIsnG2UqTWqFeCUSjwb_v3Hj-ngOI0Bex16n5TW5EZeuQreVZ5is4Fefb1j2leAUIQfHkTHnyoFw.jpg",
+      "https://cdn4.telesco.pe/file/Cd3TXALvjXVkLHbpazfRmjJKvPG_RhN_CRrWlX_XaAQ3IYFzYsrdX__hjtY7NPZcyYhDd2ABYstu-DDKZS8iqzC7ZXYStcZPu0qWMG16TgPRuDuHVJqkbeqPD7-LbTLI9f7g9OdDR7-ZwfaDGhXZl04p7gXUTbJn2tUE14zmCFKqYyY07Izv_x_s_V-A-g2_ey3Al-tI226OD0Xq12hq3pbATu4YKlk4ECAu45wI6vkiVaJFr6m2SBdzQ-HzirB5wrlTQW7-dwj9gI8uu14R7DxPElfkcd5Sr8JcShDrSrdz2Chc22zqdondVIZVqp6g8607H9cRNO9AzQ1Rxz0fdw.jpg",
+      "https://cdn4.telesco.pe/file/bPdOnkXQJOjLQ7P9t04N7YOt2TdvTU8hyMvZevBXOxJ8Vw0Kd-FFBSkMrTy8Yh3nmI2aiFhUHbABi6ABEzNA5jhi7N-RuAjCR1y_TseT-SqlYXKtq8LphDy5vlgxQnTvFVbc0CgVIaP11UrQd2qxtBXwbveeIeGQXpmkR8bEpREt2rSZJi3DKiHzPTvH6o2jVmoFk_abolmLiqQLx6SeYUQaSxcMiFQpQF5s_YWPGNNZVN1vmraK8geZFt5GA9YQLCRqQMAydkQ8kaL8rcoxsJchEk1a1SzQqqlr8cU_NJYtPG6Hc82ZAoKtqncXg3T9qlosVLmAuGyrSYcW18opNg.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-29T10:09:23+00:00",
+    "views": 70
+  },
+  {
+    "id": 72731,
+    "text": "Самая быстрая BMW M2 в истории — версия CS разгоняется до 302 км/ч\n\nBMW представила купе M2 CS. Мотор 3.0 с двумя турбинами форсирован до 530 л.с. и 650 Нм. Механическая коробка недоступна — только 8-ступенчатый «автомат» и задний привод.\n\nРазгон до 100 км/ч — 3,8 секунды, максималка — 302 км/ч. M2 CS получил перенастроенную подвеску (клиренс снижен на 8 мм), другие калибровки рулевого управления и ESP, а также кованые диски: 19 дюймов спереди и 20 сзади.\n\nСерийный выпуск будет ограниченным, продажи стартуют в конце лета. В Германии новинка стоит от 115 000 евро.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n👍1\n \n \n 533 views15:07",
+    "photos": [
+      "https://cdn4.telesco.pe/file/KIYXaPAqOUOskKQePGmqNqPLFMhFKI2v8l_K5AEVo1254gimqz_pdncXAxwZOABidbCHoHZs1LU9M54ZIFtbKYiBmFRaX3rugqkKLEEzed46FNBvwHP9ndFwpclm22BsgEDvhl_twA0i1A5ap9KejEuh9iPnff1v_hFjhnekHp6Wd7HDteVz0gEEOPWmnyw-lbhQ0lKqr8Gj94No4SFuwoRHwDco1TvxOkKLI5HuWoDLGDwWKOC8Mp29sbQ6EY3wTPm6wRZLNMxCWx7o-IIhzjV8WYzGvAKhx3jmTpDzdIlJKia7t1E3yWfI17dq-9AP87nYRoVv3ET46HTUMcMXWw.jpg",
+      "https://cdn4.telesco.pe/file/IYd6UItoi1COM3LTdvXfwCPu3TRNyLklo3v-2L_OdV6YM7kRDUbDxm8sOJF7yiqJmgeYqnPXOKKI4akjburDLE-vupLBQQw3BJPnTxh7XCxMTo8loDTb2Cqe08jOfVuToJrfBgJEjnpjrXL8UXvI9eyDHj7p4S8_vJd2aKrZcKFs1h9gsXCWCl40vfzGhTiOC8g_BB0AGZ2hs-YKl6CdZGlLZENs9gPlOfNcAitpwlVOAaf2t5CQCx2vrf361ejbStIa8kuAIrjPjGL1ZEeylxanlEqoRfv-3Lmctjm5aXFMlhWCBSq6OfwBuokdQFpIxsV64ySafk_n9yJ1s-MJRA.jpg",
+      "https://cdn4.telesco.pe/file/G39uQ5l8rxjt8odR-Bmr4wa8ANM26R5FPVnG-YVC9MyK2IZXdtFqg42mPCFThZ4rPPPqo5ochq0k59yKJLuYTyrm9Spj-tGX7ijvvI0TcJmSE-mkEeTMyLFG-bz-95umDm_vGL7PCqJsZsTVs9C4cVAlvvYIPCWrJ7j1YPUC0cdxUprKErqZoY1FEMdBznG7AE8uoqdl_W8-f2JHDXDIfmT9trxTmqWtB3jeCXV0iO9zuaqFV2GwlHtltnLcWadA_obutYGoxF4GQGv7GkSfRoHjPINdNCK4Zqmg0_9o45SDvbDXiuimWJffUvaYZ8PZGgBqV1YDrkNhFmAWoi9csg.jpg",
+      "https://cdn4.telesco.pe/file/e3caswRLe6IZY075Iulgycl7-AQC5pum6BEECAchrE4TgOCS6lwGw2juNccaH18vWVXXvlANNe4iXfnxX7Ub6nJ9hdoJo2xqKewKtu4U6QZ7H7lW5M4jMbraTL5--ZKG0Woh_vaJYax0Q7YDIPdMfIyeP1IVXnXbPU2tv62DJ2YSXUZtCJWCPGTg6hr9_ZmN6wGO4BKCHh6H1o-TLL439QKhkYEThDmU5YoQnmerSmCNiOqSGvtd-hKWqDd93OLsGfdAL8sOp6LvG2fhoO-bWCiJnpZkZRS-5lF2fKHdxSUI9L2PDmh6FAk4B5oNX2Z6hw04Mle5uJC8C_j02v06eQ.jpg",
+      "https://cdn4.telesco.pe/file/hB2KeR_59elQlhDDH6nKYP_ZLuCLxoOnJYCJArQDog_AQdYc9Z8y7RSq-fqcXyNwLH1Bk6ou8Z_bQFDz1Jy-KI3VLSaFAXb1Qo_29K-ZzJwH3izs6sNqPkwVkgta0Arf5DRwJZiSDcuIF8ZNb-LIBKcUSagmHRs2QlmD2pS_YstcNa5F4P6vKuiqi_8QxLYhso7R84C7vY5rWDAJOMj7af4oXFiSZQxzU3SPEu7srjbwesUZBWyHwBuGyUnAtmB1DqQeto-PfrEmvO-LQj9B-849CPw1TC13k77eXz6lwPwSPtqlm4HxnRA2qg-9FjHC9qF5ywIFNgQqcRORKwLqBQ.jpg",
+      "https://cdn4.telesco.pe/file/PuO8UQsdHTyR3Lqfk-dk60Z7xA8kRGwNoagJ9sqs_1lD21YSmaWGoIyCWx5HooIbPaFyxwXdqLZYnld-Uj6r0-btVnK9aZMVGjIXU_wX81egSfAlRLRSYMNx7iEUAspr1sxrNvNF2NiUr7NbmugZf-QDneZsyyB7m8si0R2vhjI6THAbkFE1tautPLY6inEgT6iAf99OffOhtd5IMvXp7gQMdIReVjs1UFqzBmPuyYTQa5n6bK__J04GvK1gG313UaEXIGDyLMFFJVBErMwVV7P89Re9Wyan3XeYeB9Zx5ug1_cFX-cB6ZKWZVXQ8XH_IkrYc7LBbP-t6B9t6ylEhA.jpg",
+      "https://cdn4.telesco.pe/file/MiHrEl_BrFhOGAffvPx0At0xj4URSYkg1eTV4nFmjn8Se5xfAuJPTia0Jtii7TPOV4MU2I6wsDVY063RSEwkLu-GRDcwJ23ziSPtWvv6eDbNrE_8iMs5elm-1P72arIj7kuDA2JnlsdJLmSDjvyKu9vrPK8T6W-DW0b7NH2Dxsq2hFQhxbJTidJ-j700GFSFlHaLCQEBVUzjn553KgxnG1oCYNlYH4a-QHkIW3XyHwv5RjZATgo90y-Mf1_N6cChZM-iQFvR_00LEdFORXlUsohMIuWJloj7coNQZz1mqOwoVgNLtSo2qDS8Lc0WcskN2ujcd_HSlPpVKwrxsJZVow.jpg",
+      "https://cdn4.telesco.pe/file/KqXA-PdMVBhCJQ09erfroappRJNGLtjgg0XpcMAXg5zqX5DjQ7TSkMkXJan-I-dqOGliiYeEkj8sS9mjQK1d8v_XE1ze7f9yazamx3y0gk--Qymvu_WGUW1SciH2RfgsM_Eg65NbCFl0tbD4HLpxsr4Zo8Rn7w5tfY_6LZAYXmJ4lIsVmG9hWKdfFvY8OgjmMy6ieQ6z9QfQlMVAG_py0-ZAw8F4pqv6tI8qEPVDrLFZBJGOoHd4vryLDVqB3dTnNLxW1ryKD58o6T4u_ZqFeUps6mayvYldZ2DvaBghP_s5Zd24b-8WgOUkjDEpw9oGnneoQhhCGbjf-OJXO8pzXg.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T15:07:40+00:00",
+    "views": 533
+  },
+  {
+    "id": 72739,
+    "text": "Land Rover модернизировал Defender и добавил внедорожный круиз-контроль\n\nLand Rover представил обновлённый Defender, цены в Великобритании стартуют от 57 135 фунтов (около 6,14 млн рублей).\n\nМодель получила новую светотехнику, чёрную решётку радиатора, переработанные декоративные вставки и оригинальные 22-дюймовые диски.\n\n В салоне теперь установлен увеличенный дисплей медиасистемы — 13,1 дюйма вместо прежних 11,4.\n\nПоявилась камера контроля усталости водителя, а в список опций впервые включён адаптивный внедорожный круиз-контроль — система регулирует скорость в условиях бездорожья.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 50 views15:08",
+    "photos": [
+      "https://cdn4.telesco.pe/file/mjScUq5T3r8rwR1vYsaSNM6v8Mc1kGnol1W6Eke17puT4lml7TgOmWUW7BV0vrsWoNyxfrnXDFaPVxuiAHGhLZyalO2oVyLFhc2VeNo4NnfvX8gjWK2p0HOsbZfNljCbCKq81gpWUc4JxUF_zlEwizLtsRDiOcHs4CoVdIXrttHl7RL4h4RTRtEY0M5jdfQDxKPpaFAmQYfxz9kXul4PyzGu_P5s3G7SAGDVxMR0Z-IWmEnFqsl_AEOc4rYpeOgj6LmMW5l9sVB22E3Mm9tbkcqte2xxRvEhhIPyTY0aewSa6gf452xxTvXmZk32fBhsNfaFz9PpeF8lcYjKHJ-SSQ.jpg",
+      "https://cdn4.telesco.pe/file/gtne8cbm_X4aDqTgf1hwXwcz9VOa2MAJcqBoFCN1X3IX4kEIMc3chk6kJXkfQCdgmybxTSnnmadi3SPYYQdxYc8qLlLfN97rXMs0dZIhZykCjnbErqRt4LdKHiQxjWR04BtClGunp9s7xjgJuVoBdyixbhb0NFdf3A15Zn6gfi_OGfXTcDlcV82Zwxn_L1ECNm9EUclz4woqdG8w8mCVVKMdYKoOjlmgurreTLkAkdC2LIqJPZvNTBLFn7nRutO_0x_GEzvdVWWGBpFupNDxmmNrIDaMdKZC47AOhZJjHCRZwDK_vPucRhO2F9FwuVwFv3sjGTDbAfgT70mr7UcddQ.jpg",
+      "https://cdn4.telesco.pe/file/KIKAvuFoEbZq_Q29rBZEYpgsgDWRdM67TG5AAdOrMEaaK1DJipMrigT2aROlVlTkXAHDRtAZPtkVp8H2VCtJYQJ0bxJ2HoMN3sY5YzxgmIe1oms0e9Ry79C3BcCzLfPb9Bqdy7o1XJi7O0c3Yq4Y3ODW6xParbtMe1k4xVEMgftjBNhZCjuFz7vYRai-FTAHUh36Bllpb1fykNtLVg16qGo6yQbKxGjT6VzzcDwto1Ba81gh13nTESGtoxaK2Y1M36yxkH2ucRRCy5z1WX2nw6CPI91709T_aXf05KXsFGsvlQDVALDFe4FuE9-0pk1JbUDsA5zXvVs_Ff22H59v2Q.jpg",
+      "https://cdn4.telesco.pe/file/Pc6XB5zaCSZzqhozKXxWrNvI9rtwrQ0KLrKOwtzfjQ7LWhM1Ad648K7l0E-zU62-Smoo_BZXXfVGqKnNrCTFj0yq9O1bCz2ACB-P51P-FvXd74RA2MBFvTTRqLSDwmusEmwHKaPKcJWnlibevjTm-AmuL2bwKcLRVzNfsk2l0Fe3FBh7rLtXo0o44Ab-jREnDpK4dWMScq8WE7IugELDMHLYUU1HW5KEWekpqtrsjXtpKzBC3LsV3h8IAx3uEGgogNhJYqo9dU0tOuu1wXe59qt-GoqfvLbs2Zg5mH_SVv2qPMdLiEW6u45eWzUIs-53NDfsoTK9IE8k5m5QezHDcg.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T15:08:28+00:00",
+    "views": 50
+  },
+  {
+    "id": 72743,
+    "text": "Toyota представила GR Supra Lightweight Evo\n\nПод капотом — тот же мотор 3,0-литровый мотор от BMW, но подвеску доработали, а внешний вид стал агрессивнее: карбоновый спойлер, чёрные 19-дюймовые диски и салон со вставками из алькантары. \n\nЦенник €79 тысяч или около ₽7 миллионов.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n😁1\n \n \n 59 views15:09",
+    "photos": [
+      "https://cdn4.telesco.pe/file/WeDdNfVTyPtktWY3yIHFrEmsfHDqMua0DbSue2wSBjNyCehZXIlDmQpDHvySACCw5mR-xJU5mG1ZQh4TpJfmTA1_G0fyu8fdT7p6OdjzE6Ua0FhMsC0sXscsnms8B1IURXL1Nj0Jsq3No38HUVfazCIbx4hvbl54MUr1SWCR1V3H94cv1dbJbtcyiHE-WR9o1YiSvnurcgvlj8CpyYkBxZLcLbgHwifRm3LfAqToVe9RiAvvQmyH86DjHkjLZ6kH2MrnYUko2P0Eix1b7oKVZxeqvNl3CYmpXgSIknAG5F3Jj57ztwxQFLlkGfXSTHDJAQJ2Pk4WVTVFA83WFG1DPw.jpg",
+      "https://cdn4.telesco.pe/file/YcghUCSL0O8qpQTVheP2OA3Bp28B6g0vt78NYK6wmVV0yV_vo-GYmFuIm1U7wqD054E_aVDhxOaILECEnJ8v4DXq2vtEZMDhmwDfE1s-SDCGZvzToLjxANu5ZAITGD7qdRY62WY0eGLJeSdJjy4em7hyFHcoaCVrs7m3mEkKo2ldgNnVQykRPZoAf65btmjd9QAezapW4h3bZv6i7D03tf6vDmn6r6A51zLRZHC56omOr7XhdokunOsmb9Jonw2dNmCkIjnJQtjbtIbsbJAYMWjeKkLWj_I1FaEmCnrsHy7sCtZ4CeMRWEhym9iijY-BM--smOALgxsmr87pJixlXw.jpg",
+      "https://cdn4.telesco.pe/file/gDiGP8xVGaV8oNCXgHeisMfTiyyy6GRnRj_ZV-eUGoffTkSQHr55f7M-hNlerWvAzkcNIWdkMaOsQKxJt49vZl9Hgw9jWd47nTbXWCZP40kHOSgjWlWf6PpvEsu98oWOYXxKcydQVXrDOFF98vlkB5mcUZghP6gbmwJkUzkHbwsiIsjjr60DPkTuwNUZnq6oHW880a4iKL3YULRVJt2XpV7g18cTvfKyQ-IkRm_dkr8Mr1WLOmbdJJLeYrBO6xK_UsKxFHb8JYTIVCN-vvOv3_pCdDTMk2xBGWCJ0kWUVqe4DxDJv0KgErGCd6nDUFF4ui0OfYn2xMO4WPvfWCugmg.jpg",
+      "https://cdn4.telesco.pe/file/FbDIs8Py--DVPwtEuRD9I00V0az-ORpogsDJBVTOb7CxbpFC2bZ_UvFEimevdxaPrXMu9XpseEnZfIEnMWU8ws7rBKROkDE2mg0ucKg7e3Ed5eFJ9xAUSMe_4Jb77JnWZdzYzCi5usb2SLpHQ4M-7_rqb2uIW4gwotwDF3wmGPBxOAr-OJlcd4AybZ4cL_tR5rp_fnqV1N1_uJvttt1Cspj-MZsCbagVANYe_8g6gcmKpHIJczZDpwsT5yLHgmV4vTC8UpdU8i0DZ6wuVPCwmcgTB-EFEq3tZRhHeC9KU2hJE52dXmLZZ8wi5MFCq1CSVYeOtSCGel0pRsq19CEROA.jpg",
+      "https://cdn4.telesco.pe/file/s1NFWV4Kuk56saLX2oWE2cZRYaLW06aEZ-HAgy7Isri26nltwVAK6h4kuX5a8NLEK7JbK6Or1XWXcMUouSptLedGx5IlSW9M5oyjmJz7GfB1Kmm7FoEdldIvUxpdui5tgwMg4T3xNUKIrasAMtveToC1BIXbtT3ENNEYIPpb7rLbXd4YH6r_Pzzzc75H_fx3pLTtTOrqKWI7cJnbrKYfOtl2lvhCP7Zm053AATaqLhCsrAAoYkl_i4kkMkYhDUyle0f6Q9t--sqWRt4k_E4p4H2EqbthP3yS4y41ebddRcogweAyhCA2YVKjlt2G-A8uoGvbBcC86EhlJZ6mve0LDQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T15:09:46+00:00",
+    "views": 59
+  },
+  {
+    "id": 72748,
+    "text": "Легче, чем Fiat Panda. Быстрее, чем 911 GT3 RS. \n\nPraga Bohema - это легальное дорожное оружие, рожденное из гоночных мечтаний и аэрокосмической точности. Его модернизированный двигатель Nissan GT-R V6 развивает 700 л.с., а усовершенствованная аэродинамика отражает давнее наследие Праги в области авиастроения. \n\nЭто не просто гиперкар - это чешский шедевр.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 55 views15:10",
+    "photos": [
+      "https://cdn4.telesco.pe/file/OdH2NLcqsMfGebn8soGsWKFLeGjNRtmgglxPBTtkSLsGi6WnGC-NR_o5P6_hpyjfljlXrQOgeSGi94GhpNWL-8Wn6sVwoAx84iuVDqCHEwB99nBFZ5gjiwPv2L8qCt5ni_wyZgpWi3GsbPMg8c8NYQuvi-1ts5IP0HTDRlf9X6KQ9xLWBakRj9Swrv3caNrLLKC5fDPdZ4-iCC0DweoBFpw_UFFNU8Tqy-mk9acW5aNcWg6WH7gx1oo6yEs-aa8ksc8J33EQNYaS9YctvpMdJ9hOaVVzweVlTAQR1iH2PR2iz2txAldLgGf9T_Fn4zkyMcVi4OayIa5SxqNU6XBUXQ.jpg",
+      "https://cdn4.telesco.pe/file/KBgKs0FGCcPDGCXs-YxVgHNTDsHKeKUZ41RE6O8GRpMLlc9_q0XIVDxOCcarSt8s4iov-n5VsjuQWCG_H4Xn0vNyz1Edmr_dXPknaodJmXHCoGo7mBvlvfjQNsLK_japLgtzNVR88n1KsfaNqcp61BvPxDVNkl8Y4asVKhkZTspRFQlakfcUjg1f-V54eiCOxb-4Y57kH5rwrDAglj75YjDbdxdcccdN0BWXztz-OjHV9zth8D6uRM2j1KN-x_cQky4nn_5PY8d9BtSEjingVufCHL70ynuO6nnP38eJIDWMNO26gc_j1hlZeuT5iSZhLaP6ikV3bjfHWTUxg4g7iQ.jpg",
+      "https://cdn4.telesco.pe/file/S2MRvUPJq3GjKyG5L_Dvu2RS7FnU8WwNbdai3gX4Wkbb7hlBwIb9-mYy2R7q9XeNVz_VyDtPftULxe3-wPCOSGUFCdtZ4_N1JY-KGiOkJE62d7FqhnocM6GxAxG0d9_FcJnwe_2uzCj7Dyi5xeUcohSE6X3co6DCnCzofk1Bm1p2YLNFPziF6KenzqQBtR1rzqxJYk9D9cIWn2Vg4fUZaTjm0nw_Ls1wjg6I4d-ZdkC5QtbwPxzF_NyeKxDTij4MuAwBG7ZMFksN7ryQFjOUkfBzcdjfW1sVcK4FzRPw9Kgeoy3VvLEPu9B0lzae_u6zEIAuo8UKJoWv60DcOd9Ccg.jpg",
+      "https://cdn4.telesco.pe/file/tLDecXp3xEonEEVZwE5h5hlRP8yJ5CWJa-0vlOgpGXK1Vk0huiHUA0qEhjtELonzPJSDPg6_R7rEdAHSxhavlb0QeQc5xOwIxqIMpNh2PoCzz-eBXfZu6NYfIHlQAhek4RJed5ZXJviprep-NUWwYHMLY0uTfb_fGGedTxkzziDYQjPy0C_w8i1EapCOo6lCwHSoRBxs75sitHiuizVnCDIzpyRW-up9SeoGGteDKO-18y5DgrhP53ymGui4a0_Ms-UerRPeRfoKm_TtSDq_0Ps5cTByUOPexhgGkZ7-mlKe2zCdhosAEhjVtuln3jUeWC20WbEoG6B72XXdZo2DWw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T15:10:17+00:00",
+    "views": 55
+  },
+  {
+    "id": 72752,
+    "text": "RS mode на Audi RS6\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 54 views15:12\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
+    "photos": [],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T15:12:21+00:00",
+    "views": 54
+  },
+  {
+    "id": 72710,
+    "text": "Китайский минпром раскрыл характеристики Volvo XC70 \n\nVolvo сертифицирует в Китае новый кроссовер XC70 — первую модель марки на платформе SMA. Автомобиль будет доступен только в виде подзаряжаемого гибрида. \n\nРазмеры кроссовера: 4815×1890×1650 мм, колесная база — 2895 мм.\n\nВ базе — 1,5-литровый мотор мощностью 163 л.с. и литий-железо-фосфатная батарея CATL на 21,2 кВт·ч, обеспечивающая до 100 км хода на электричестве. \n\nДорогие версии получат более ёмкий блок (39,6 кВт·ч) с дальностью до 180 км без запуска ДВС. Расход топлива при разряженной батарее — от 5,85 до 6,55 л на 100 км в зависимости от конфигурации.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 70 views21:31",
+    "photos": [
+      "https://cdn4.telesco.pe/file/JwT4b-Bnn8xKdMx3Ju0daqVoLv9Zwv04iw-WNIfuW3oGnT-sMw5dvl-bF0NvelCDpylSOyDK3ODLj3DCneLZ-QJ8a6U2CitbK334X4irdiP0YV6ILoQ65pfvsVmd86jJuMYlx9wB6BrbKxPg_mNdSL97RCvUQgq5LugZxf0VpbExM7vl0Z-rCzg8_hJJktUQm7xVyVP7Nb_kQHO5VNNb-cn-iy4xMIOgN_6SVeqSrs9quLssle_ekD7ksIjHD2at-vMxHi5QtCsuYcb_6Mei79MNlxEJfr4zvwGxHZtCcGO_0XzcjVqWAr8tTges5yJCrxM59OpdRtkGmICE_8ICAg.jpg",
+      "https://cdn4.telesco.pe/file/d8F9Rv9cLgtPmHCcmQcwK_YhGcUKyvxwkUJbJk_DrvDPhY2TxL3nUCt4Bv4z-hirmI8DchsxURQSoRdZ-tIMbAsvClKnS0UTouamuSjEkoySjFwte2e2c2kmGztflYh1G0jitQzcQqZD9pUTnGgGa8DK66QFGQLY_ChuD5z_sFNKBGYI_cm6FcaJM5N5RsH9gMXWW9MhoZQ9dE8HZF0aCL5yINzXMF4FNn71PIYipJRuusoQ3SyZ7djp_GxXzHgICr2FtHHkzS0I4Yqy7hYvqde2RzMe4abEXqSr1xTxQydJisJ4cCu1YQZmW02LFCK1PNvuPd9aKgQrMLz1TbiPtA.jpg",
+      "https://cdn4.telesco.pe/file/e-9caCgQ_bA2xkThUL9Ba9BtXvZwzN-Ip9JTQh_S8sNZOBtqC07WohR_rzxNxe5lZ9ApeXgLNcOafjnGuOvY3IluvV1FQsVJA6zPIN329bBYX3ruu45ME0F8kcFr9f5Gjnccf5kCenGAvyeQHEYckzkEUCc4030-aud-ZXeOHYBxeOJgoblZ_RXYEB6qpKc74NIxXSmZdxIMZSPILwiel3zIq-RCGglhvmtbP5aX_8hx0XZ8IpVk75v5gx9NVj8XYCWEyt0_WPEiNOZqRzxzJuO4RWpF07SqO-7D1Ixw_LdY42HuIDY50Wt43lWF1-UvGZEASjYYCcS0uwOIlAmDIQ.jpg",
+      "https://cdn4.telesco.pe/file/ksjE2MKuRnbT4ZqGgdeq4EpKr2-IDXfuP3_jIE2fOEGj45NpNFCeSFVDZyYg6xNP6DlRV3wSajUxE2iQUpcgtnf5NY-IYk2HaS9CiQ3SnTMpx0OqqhAn87WXdIrY9CdkIUMoA07h0HEqvtLnuXR2ykk9B0nXzF1TCyFzs5DPI9d0bT-BosSLBcpVmTto7rr66a_2z6ssbqD46TaFZ8G4GOwXaHVUmbLPfcvj5H-7DN17AES-CVnHSrpoM3qHUGmIFDWTKXgvK7I0Uf1c50hoEPHf3QgELtYYqVdcNbxK0OhzNkOD6yLpDJONl0ql5_U2Ztb3TbXkknNza1UXArDXSw.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-26T21:31:30+00:00",
+    "views": 70
+  },
+  {
+    "id": 72714,
+    "text": "В Японии дебютировала обновлённая Toyota Corolla Cross\n\nПосле Европы и США обновлённый кроссовер Toyota Corolla Cross представлен на домашнем рынке в Японии.\n\n Главное новшество — спортивная версия GR Sport, ранее недоступная в стране. Она получила гибридную установку с 2,0-литровым атмосферником и полным приводом E-Four с двумя электродвигателями (суммарно 199 л.с.).\n\nОт обычных версий GR Sport отличается заниженной на 10 мм подвеской, усиленными тормозами и дополнительными усилителями жёсткости на днище. \n\nЦены в Японии стартуют от $19 400, за GR Sport просят от $27 300.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 75 views21:32",
+    "photos": [
+      "https://cdn4.telesco.pe/file/JfMO2exmGz_bh1EiuwtqO78pkIRFnFyvIhtMcz8B_qGw7G1WU1XN-8NCb_oArVFyw7FFhGb-9sMo16LhYdAyv751GsTz-W9J_l_nGlGIczh6ioyJmPimvbAgNcfT1dwJm1KT-TIzTVyZFfiD62-kriuTD5H5OcHJfUBlBVjr10acNZwggEZ3FX3D0jnQ5KLg2jGxFwpt6QKLXmcuzQfuDqSunqEFEOORiJpoALzRNSJ8kv9upfRg5JjhUFe5mF_4qN2o5fBtGEGabR1G8BDLOIbb21oO2TvvSAeL4rVhPF3W-lEN8MSnTjfv_aGWcwa9K2YdVoJUtjWSJ43zRUGcNA.jpg",
+      "https://cdn4.telesco.pe/file/dg0U-Ds26S1RN4ckV9LiDjgLjDGmKsHaPmQ38cnEBaH2S6C6Ufy_2BNZYepzw3YEfti_zwM_j0VTCdIKq5M4bJDLVa9fdAaI4mM2tbMmwe_kMeHbzLrzyLMQgXMrZaXZ-y9v-i2RKHQuTR2aom-WILZeb8GJzJzaxxblfIRwrI01gsCJ0cJRI0cAigMM9diXBrLWnT19xLBIE9EHzVv4iHJtmmX4hVLyIxyy9KjEGFq4sy_Ex7N7ZRltPl0bZVvcEfjP1RgRSISpjJxEEOu2W_UZyqrj_3Q3yWMz_z8zrCvfMmvgRFF-2gHNxrb6hx0qP9Hiy9vTe7Vmy-n8QSc8eA.jpg",
+      "https://cdn4.telesco.pe/file/uInQB7nRHEPeXp_ZLHprESYyFnUUrexHARhWeNP2nXn_Nb_wBAwlCymXWgUhqktxyxKRZNnmaSCtZ28XknrMBf2iob2yPWKSsDiMvCigQvkLINN40cp8aeuvI7hjRR0id0JkVoLFQ9AzfCgDJCnHshGCL7s74UEW0UG-oCBlF8JqUA5fRkia8LSsuHTI4lP8gdUoXArG_m8fbbSVuJCDVZ_H3btyp5BYAJx6_DMifYk63PJKpjvowvyuxc1V39U7pz2qRvXYudstDy20bLrmY0ELEGf3rr8XY6y88itNmG22UihIqOW0NIgoekZNyXcon2JpLw3nArYwbdIKVYITyQ.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-26T21:32:04+00:00",
+    "views": 75
+  },
+  {
+    "id": 72717,
+    "text": "Электрокары и гибриды в России обложат транспортным налогом\n\nМинпромторг РФ готовит методику расчёта мощности электромобилей и гибридов — это необходимо для корректного начисления транспортного налога. \n\nСейчас в большинстве регионов, включая Москву, владельцы электрокаров (BEV) освобождены от налога, однако ситуация может измениться.\n\nДля определения максимальной мощности гибридных силовых установок необходима разработка специальной процедуры испытаний транспортного средства, которая позволит в стандартизованных условиях определять требуемый показатель с достаточной степенью точности\n— указано в документации министерства.\n\nНовая методика ляжет в основу национального стандарта и станет базой для налогообложения экологичного транспорта.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 85 views21:32",
+    "photos": [
+      "https://cdn4.telesco.pe/file/nj-Nci50deTAWXLiLSiMt3DrXhNIBHZZa_Gxl-anaBIIv2J2foZSj2tBqkJqb3sFDzh1pRBv9AguuhfUdr2YbQaXSkc3fiuauu5WoYu65HUydQCQd_vmxAeeVlSVcXFEvFlrpZvd6241OrSH-IzgB0CByQWu6a9xfChd4KEhR0W1ilz1I8mhv99efr2uFTnVLd3r4QRdFUZKs7-ogGFw49BcDXHPgKXdLTMqtMoj2Z9bSKPMsa0mnJo4K9Ko4pTm8sXrIHplikuhhsdfieSglJQWH-s_U2Wx5nhZXI8TZ6vS_ZAe8pDEI0KgTl1x8yHD_mmLdgKOKFoqC-1ngQc4ZA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-26T21:32:32+00:00",
+    "views": 85
+  },
+  {
+    "id": 72718,
+    "text": "Качество\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 76 views11:23",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/55791484a7.mp4?token=CX1lupkmxQyoUDssM67Ep1BMfU3ixxivhReUooYMwOaPnHvPNZulV6brUuVrZI7E9wmASBD3wqBkwqBzM3OayRBRNcEuIhw7JRubxbc0L3EZGpTRWls9dJsbvwSdA6CJ20Dxw_IB1s1m7KJaoy-ghKKwQqnW3p-FHbz7xibdvl8gBWCIL-r7ZaPNhws0_N54v4qM1ohtiaQfEuDq_PEmdQoHDoZ3zmOhcgbFyXtltEWqt3HM4ECu6TiOOQWJuheaDxtH9q0Qhc379cJpxvIaNMahdLfLR1tlr6u7nF7aUWmQ0sHwq4lSv3be5QSSTDINh21dEM2-IzFz1FWvtMJUFA",
+      "https://cdn4.telesco.pe/file/55791484a7.mp4?token=CX1lupkmxQyoUDssM67Ep1BMfU3ixxivhReUooYMwOaPnHvPNZulV6brUuVrZI7E9wmASBD3wqBkwqBzM3OayRBRNcEuIhw7JRubxbc0L3EZGpTRWls9dJsbvwSdA6CJ20Dxw_IB1s1m7KJaoy-ghKKwQqnW3p-FHbz7xibdvl8gBWCIL-r7ZaPNhws0_N54v4qM1ohtiaQfEuDq_PEmdQoHDoZ3zmOhcgbFyXtltEWqt3HM4ECu6TiOOQWJuheaDxtH9q0Qhc379cJpxvIaNMahdLfLR1tlr6u7nF7aUWmQ0sHwq4lSv3be5QSSTDINh21dEM2-IzFz1FWvtMJUFA"
+    ],
+    "video_thumbnails": [],
+    "date": "2025-05-27T11:23:32+00:00",
+    "views": 76
+  },
+  {
+    "id": 72719,
+    "text": "BMW \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 90 views11:23",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/55a86cdd71.mp4?token=Xi60gsvCraRWhUBrJSlmA1RvHfDj-uD0NpbsfUYREixPtr8uiJh9STY3GRuozo5roaDJOaV54SlRE8do8YfZUQ4JzujNSmyPWbq_tpoRdPHDowkS0tE_8c0YP-ZVEYzBifg4k4wvSOpFhDtTYZ8rCXNC96FIHZ6xdnH7rvaZ7qQPcHq9Jr2rjcMrZlXVE8CMQH54X-w3QiCzq7yXMVGQeh3-se1DZn5vUZm-KFT7YzqUQG02_g5DtS6Uu0ghq0qB_pgiwIQR2RF4UKE-Iqm-MpSPKu8Bcs_ldIUtwpEkbDVz18NnrjAKfz8MeTR7XU3xJ1gxindqs-bxLmqiCMC4fw",
+      "https://cdn4.telesco.pe/file/55a86cdd71.mp4?token=Xi60gsvCraRWhUBrJSlmA1RvHfDj-uD0NpbsfUYREixPtr8uiJh9STY3GRuozo5roaDJOaV54SlRE8do8YfZUQ4JzujNSmyPWbq_tpoRdPHDowkS0tE_8c0YP-ZVEYzBifg4k4wvSOpFhDtTYZ8rCXNC96FIHZ6xdnH7rvaZ7qQPcHq9Jr2rjcMrZlXVE8CMQH54X-w3QiCzq7yXMVGQeh3-se1DZn5vUZm-KFT7YzqUQG02_g5DtS6Uu0ghq0qB_pgiwIQR2RF4UKE-Iqm-MpSPKu8Bcs_ldIUtwpEkbDVz18NnrjAKfz8MeTR7XU3xJ1gxindqs-bxLmqiCMC4fw"
+    ],
+    "video_thumbnails": [],
+    "date": "2025-05-27T11:23:48+00:00",
+    "views": 90
+  },
+  {
+    "id": 72720,
+    "text": "BMW M Power\n\nhttps://t.me/bmw_mpower_club\n\n#bmw #mpower #bmwmpower #bmwworld #bmwmpowerclub #бмв #bimmer #bmwclub #bmwm #bmwlife #bmwmperfomance #bmw_mpower_club #bmwmotorsport #m5 #bmwm5\n\nСотрудничество предложения @BMW_mpowerr_bot\n🔥1\n \n \n 82 views11:27",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/9c86025365.mp4?token=YN7EhL9n_8TicraZlmlL5OlO6RGUIdJhs2IoZKW9ZricHElYuygMTn00zgzkW17ryFGEbsfK2HJr1Q-fwuxQQ_AhAAcal4t52CL89JYpooPD8sFqHV4xFHQPOtxMrPAQE9dgntoCmJ2w_P3h0zeIwIoNrfA_HmmlaGGNXeU4U2x0CGYRYK77U6kSGWetunQobNvEOSd3APjmoc7Iyr1Z-MSqDoAc2DDXN1ZSPfeN6IwPWUrsY2yMeJJrKLnYrXMuh2yyCEWHxb3JG7IigfISRhTZCWG1ydc_Y868HWEBMuDxUCVICAySahlnrB8GrqBKeO3dTaL5jk-0BJPtYmH3pA",
+      "https://cdn4.telesco.pe/file/9c86025365.mp4?token=YN7EhL9n_8TicraZlmlL5OlO6RGUIdJhs2IoZKW9ZricHElYuygMTn00zgzkW17ryFGEbsfK2HJr1Q-fwuxQQ_AhAAcal4t52CL89JYpooPD8sFqHV4xFHQPOtxMrPAQE9dgntoCmJ2w_P3h0zeIwIoNrfA_HmmlaGGNXeU4U2x0CGYRYK77U6kSGWetunQobNvEOSd3APjmoc7Iyr1Z-MSqDoAc2DDXN1ZSPfeN6IwPWUrsY2yMeJJrKLnYrXMuh2yyCEWHxb3JG7IigfISRhTZCWG1ydc_Y868HWEBMuDxUCVICAySahlnrB8GrqBKeO3dTaL5jk-0BJPtYmH3pA"
+    ],
+    "video_thumbnails": [],
+    "date": "2025-05-27T11:27:31+00:00",
+    "views": 82
+  },
+  {
+    "id": 72721,
+    "text": "Хоба \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 66 views12:08",
+    "photos": [],
+    "videos": [
+      "https://cdn4.telesco.pe/file/5b5183e030.mp4?token=bB8MicyLBeRwGz-mg7Iz1PZfW0Q3S0hHBzADrDp-nRGhf_nE6uhvmefcD9VWy7SA1PBuuqi3JTEC-s345_xwi0Ux03Q-sN-YUT1mWWCc_pkLBvjD-HWQfztaln-oTZ-krkD9UGq_ErrMmLoXieFuJ0X8gJOsDBvWz2Yrdp8fSdDytZR0lSPYYVICjaNUDrApkAVfY9IxAq_TrqbfXNXrwn5xejD4ZEZB2n8-zlLHvW2V0c8JgK86jUgQmm5HQDv1Ig9iVa2N7eGnfKSdIQo7HiLq9DzsohtGxJ9YmX8FMbmZ8VhQ7O66W7NHkQMwqdm_cMEbu-P9L5qJD73eAFqAig",
+      "https://cdn4.telesco.pe/file/5b5183e030.mp4?token=bB8MicyLBeRwGz-mg7Iz1PZfW0Q3S0hHBzADrDp-nRGhf_nE6uhvmefcD9VWy7SA1PBuuqi3JTEC-s345_xwi0Ux03Q-sN-YUT1mWWCc_pkLBvjD-HWQfztaln-oTZ-krkD9UGq_ErrMmLoXieFuJ0X8gJOsDBvWz2Yrdp8fSdDytZR0lSPYYVICjaNUDrApkAVfY9IxAq_TrqbfXNXrwn5xejD4ZEZB2n8-zlLHvW2V0c8JgK86jUgQmm5HQDv1Ig9iVa2N7eGnfKSdIQo7HiLq9DzsohtGxJ9YmX8FMbmZ8VhQ7O66W7NHkQMwqdm_cMEbu-P9L5qJD73eAFqAig"
+    ],
+    "video_thumbnails": [],
+    "date": "2025-05-28T12:08:00+00:00",
+    "views": 66
+  },
+  {
+    "id": 72722,
+    "text": "Lada Aura в Петербурге купили всего 10 раз за 4 месяца, даже рекордные скидки свыше миллиона рублей не спасли продажи. Для сравнения: Toyota Camry, несмотря на цену вдвое выше и отсутствие официальных поставок, за тот же период продали 23 раза. \n\n@nemediatema\n\n \n \n 53 views13:14",
+    "photos": [
+      "https://cdn4.telesco.pe/file/kPpRHQ6_wDdMgqtucKBMFbmHSBRYRh48if_NyLzW2lrqIvPRH4V896ql5c8KSkVJPevCQEuh6ruEaHD9esz_s7e84xS1Z40CimlmqELNfjea6AHyT0MThIiRPbvpB49zoLKuZkqG_h459Z-_FnOxKzSINwk9t5e0idi64hmXR2o-qF5WwB11sc9GI5UZWPC0XwMCm11OCvY9FDU_u2D-RLOcZ2bvGw8QpD10-BLkqMFDrcHrNWXlJuKFzJBaMSIie9xmiNDpwRTepcZZONlaYwER1id6UCZPLojAb0TwezfPacNpqDQ_2Z17fxYQbQ4Z8RvR2g4qvTrxCqvVC0XQEA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T13:14:45+00:00",
+    "views": 53
+  },
+  {
+    "id": 72723,
+    "text": "Tank 700 предложили с гибридом и без карбонового набора\n\nНа российском рынке дебютировала новая версия внедорожника Tank 700 — Hi-Performance. Она получила гибридную установку от топовой комплектации Edition One, но без агрессивного карбонового обвеса.\n\nПод капотом — бензиновый V6 3.0 и электромотор, встроенный в коробку передач. Совокупная отдача — 517 л.с. и 800 Нм. \n\nЦена — 11,6 млн рублей, что на 900 тысяч дешевле флагманского Edition One, оценивающегося в 12,5 млн рублей.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 48 views13:15",
+    "photos": [
+      "https://cdn4.telesco.pe/file/fs-XtWxEG5TOdFIbSNBy-Y8ch2g5BXENbI2-yGXhIANMaWXiRf6cQ622qH1LFwXVVLo6_7X--i6aXL-XK74mFJ4VcKsfyF715DzX37zLdW1xn7JnYS8Quh_loFVEFWmKI9je5T-uSTMeqH7YsJlS0vRAwZj6aMG1vlxJxwyEXtCptc4gWnB9i4gckHFR8Ov95NaO3l25u62NN5alfcosFghsVasyv60Hw77j9ZNxTDw4idBPbhkzTYeOmJRV90gpHTnY47N2d1mRQaQ3B5WiRLUvL90BR5rMvyeQmKA5UuCRWV6EwSyi0RybbttN-fct1pT70527EhSJBty57KH0cQ.jpg",
+      "https://cdn4.telesco.pe/file/u_hN6ra65R6ZeLQcvF4iG2VpBGBsJl_aM6RsBut2G_7xUaF0N1d1Yng3uOuwO9pbRZS_-n8IDUIE5ZIfAa1cRsrh6FbWZSnZPvwbzsgx2oOT-08_nqXBMgoARsfZeJcRKCdInn4hikUz1TxHJ7U0T5OlWrW60RkOXR5NW_yOyZ9skbnLghVP3U8BVckwa8eu-ojOHbYOs7Hy4YuJRoCuq9phbkf0jRDkX2rhaJypxxC1TpjTovtdrO4qpKHO2PbToNu1nF75raY-4N0JO0yg5HUpclojMHNYQO31ZFtyWbiNkQrrFGTD93ZGbqLZToEQLIbR6-_jXWvrkE_X3N7pgA.jpg",
+      "https://cdn4.telesco.pe/file/Nms8BrfMf0ITdv9zSs1NGq2CdM8aWUrmgOF7_jV-29P2ZEfChGpElTqqjokjdeXJpbDbP9-sosTOWJ6jTXy5qm3EvmOyeaBuvrKWo9hGt9A86iFt8xJgO4Zm2xOjJeHiUlLxUsz_R-hHCbH5UG-3ncL8Th_cA2H1ilCmhKp3yGZ3Z3emHW01iGyawpEAMm4Um9sONgCDUwRez9WHQBvg-y5ym7lJy2FW4-JNkQ111oF-xSzZBJyFCcJTZMoreIstaEgKq6ZCCnJiruOPK9mNyjrq4cSprXxciqzVOz4fxl8OTNuuu0uuYwPvFhLqVmIFARNCeZs4LWS1bvNO01tbKA.jpg"
+    ],
+    "videos": [],
+    "video_thumbnails": [],
+    "date": "2025-05-28T13:15:05+00:00",
+    "views": 48
+  },
+  {
     "id": 72726,
     "text": "Peugeot возрождает линейку GTi с электрического E-208\n\nPeugeot представит первый электрический хот-хэтч E-208 GTi 13 июня — премьеру приурочили к старту 24-часовой гонки в Ле-Мане. Это первая модель в новой «горячей» линейке GTi, которая теперь будет полностью электрической.\n\nОжидается, что новинка технически сблизится с Abarth 600e и Alfa Romeo Junior Veloce, разделяя с ними платформу и ключевые компоненты.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 50 views13:15",
     "photos": [
-      "https://cdn4.telesco.pe/file/ppi2w2jXntflgVrDibVES0YQZj-NryQhHLNLam2gAC3UvrU_fdTzVfc7086ApdaYYLUeYZm2qcaOwXmTSFZo-J7NHcyB-yZliVd44qlg-gAmK3pxiTnIuXOBNSUukq1a10aJIoNFDr5sref1GVCBnUrhF_F3dSgk_GkIyTPFTIhKw1ygk7-hLjrYJBey7e74ha9Sxrsv2NxgexiUdgnF20xHVEzARx8L1ETr1Z1mXKi_8C0atubOQybcKe7zqt_SVhMLTIaOTq2vQYRBT1abYDzkX_wGrxRhbgjR7YqIiBEjlKGDlHKoFSKZI9TpWDXMPCcvvOKmxWQHydyoUAME4w.jpg"
+      "https://cdn4.telesco.pe/file/WfaS_LiPnurQUVm65HIc2GEM5BsdIaF8fs-7A5ah729A-PSSD8Ll-R5To7LtWZdfMOz99aZbHLlc_Ds4O32Qxgf8vH_Nl-xelDd7ghVPQZDx5teGVAZ_0SZ_Gp5HURWetO_88-CHx2tLsYYPLlAxpb3GEs7gZForVJe6fBrrqS4X7kaUdG9W5SKwdrudnZGTb1n4VBUCX5coOiBS9RqNLukNspX2h1Eh5Db3rBjyrjuqIu2pctsNjBfQY3Q2RN3SXXAGgEB4bdwy5_xDF402nPj4Xl7ywrb9Xwbopt5Ju1HAbaP-vfDXguRr2Y26MeHrRLmqCFoPvxvoz91INhIctQ.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -15,7 +350,7 @@
     "text": "Новая Bentley Bentayga станет рекордно быстрой и научится дрифтовать\n\nBentley опубликовала видео-тизер новой версии Bentayga, которая станет самой быстрой в истории модели. Новинка получит бензиновый V8 с турбонаддувом. \n\nКроссовер также обзаведётся спортивным режимом ездовой электроники и перенастроенной системой стабилизации, благодаря чему, на Bentayga можно будет дрифтовать.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 50 views13:16",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/ee65b6100f.mp4?token=I1gR8DZ_It_ZVN6JObETkt2ZKvtQaY-J7MpGJWFozruIrG3-H_sm5UKCWrW8Dw4AhGvVgy9i_FQzCRUXnyaMO3edNu8cuZfIXJS6aQSpNnUOo2ISKTjBfvktx2ic_6Nzv4Ly66cs0KmEfJiJ-PbqiBYmzUybVc8bKZEa2zcfX92E6mycI1IqiJJwj3jhNOX1oju4M65LqwCRHp2AdusyWeS7vDphQjWwIFsQJ6WOVvt3Ig8BwYZXftvOeCskYnWh5HbFuYpqG7NIXxQwqD7cvp2pixSYLxxjHh_SrglgIgJxysihaBQnzpnx4JfObMwsBVuQ5G_fIp-D4UR6n8kT8Q"
+      "https://cdn4.telesco.pe/file/ee65b6100f.mp4?token=P7-dWw_6BRpy9U0aFbTES3h0Tn3uza__dzP9mmgTcwji1DZthop0gzPNxTKj6YKiqtnoqFguZg4H1vhnGhRWxcOnAWBAH7upGBGDm4iv9FVdRMTgoXeL2YD5qorEn_q6P0Jq1NC-xdO9gBHT0UjQiuB5SGR_oHhz79i96wrLBTj1q6iKoBwpI-mjx1uFRq0abrvpdJ11tvS4JL_qA4i-U8gzLcAAyFWypssxccsYvA34--Of6ZqYl-byYNMKyVFttH-Nqa5nK7hFt3PAFiVpHaKEVj-FsX0wpvR1y1q5YVjh0bAktoS9wt_fRTh9aVihQQiqGCh8s_Wt_O6FQC7iKw"
     ],
     "video_thumbnails": [],
     "date": "2025-05-28T13:16:24+00:00",
@@ -25,8 +360,8 @@
     "id": 72728,
     "text": "Новые фото предсерийного российского электромобиля «Атом» \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 57 views13:17",
     "photos": [
-      "https://cdn4.telesco.pe/file/S33y4mevsaOprrsnIeZ4VMzmdJZ72WHl7hGuz-MRxUCnH1Sjuran4AX0ckCuRuuUMCmjka08vNPBirsFTjH5CQBV_Ky8rvFLqOlfYapddFlqF1P7RSXThS4ZNF_xjizOBYHVNXd8xh2-pkzDkALpSe0a0DFSr4dRuucpi2gWRJkqJDYWqmO3kfGzuLX-79t_veo1iXt7orqPmPpi_cM-Pmm-ow7BP1HOLlhjOpoiw6tcmUcXyAaImLPx2jFZfcr47vr8si-3xuQXtHVZ7SslRGtzZ-wAdXGwSz6V_s-AnIdeZtrbV2ujZM0OiaBAxjd_gRG0Ao5tL7Wu1Mv935j3mg.jpg",
-      "https://cdn4.telesco.pe/file/vWX9_jdks1NSyJWia_rZRTDVdCOtFu4LjW681nch-KZSvCyFWgirejY1CHgeHpvVOwz9pwsb9f8u86vxVnRjekqkv36AgwmB_-ae-ISnxaT5wxa-nUm0gAwT-OE8-p9GSCFwQNqKK1CR8vg3LuvPLYVrdtCX2cD5NQQg1jY11cLxJf2F8GlXtuxmWCLa6oF7bgR77-3nISksMMQehXUkgvVZ-As32Q6rwEs9QJ3uqB2gFuwaR1gKllO3-i-9Zeur4fr_15cq1knBhh0ns429tBiM-ETYWAKV9zKJdk3ChNwBk1XgvB5Z8_13o0bLMCTLu1Kvvi3sEAK05FPTyqMSmw.jpg"
+      "https://cdn4.telesco.pe/file/c6OyXCsjLg-fFFZ-MzIkrx1olQVhISbQSIq7Qr5RXT4zxI5--y8D-N80CrCMrconJ6Wmajr0IvUbyFz8HUDRyfuc_Z3kBV3977lHMJFQeHVxh2ARSQG7tCFYCNLc1zhRkuIOKlHYgD5hheL08IsCJ7jotI1eaFpapibieM4m2Gi93WqC7ViCRKlM-yeXPmGAPpfsW5OW28VcFVdxuDQPFvv3Ubxx0sPhsCbI8CjNsUG6lTnEbZeetXolYxoddG7inCTnfnGqQwOlM3XiZdYW1ku_cjKFWsG-earUnRmb1JXjwrtB0SXXkS8KK5T5HzmFOLM-kdm6WGoon0k67oP1tA.jpg",
+      "https://cdn4.telesco.pe/file/NrRxoNwkuH2NuPN2YhFHJj9WfDyvmHJoagk1fbGRh1HoAZTJNLkY6zQ8UpRw1WgHIs41CGEPLuzUAXKkMiU5NxN3h4ViqzzFHbdZWexSYeTdhRwZkBmFgyseusJP2it9XH1mNDNGhCBxcPKBGvsIcbJaUDgzbiqOOERP4E_QvRyrgWO2pDkH98ElMakbORJLrMhQA4eiUBJa5LUDaJuqWnraauk1EXTNVuNnKidIvNAwsVDJoXrZaMuxuT-XjcAue0WHsbaFtcn8kLtBwakSfBiznqB-rabEBGgYafKTJko3W6uVLQNdyDz2q_J1lf1fCUYh9oTBoFnOeBU2U4ccXw.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -37,7 +372,7 @@
     "id": 72730,
     "text": "Audi опубликовала первый тизер нового Q3\n\nПремьера кроссовера состоится летом. В гамме сохранятся бензиновые, дизельные и гибридные версии, а также два варианта кузова — стандартный и Sportback.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 63 views13:17\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
     "photos": [
-      "https://cdn4.telesco.pe/file/ChCLB7ogRrPvJRTOuzIjP473OIEhEsN4wdJmHKWFVWKbH8rNCU7Gu_HbijFDiUKVzB1X4PyfWwLwosQVr0pCSNWA9eBZ9azLdGWgG0pXn4zbBtnqNSt9798SIGYsWNb1TmKvugGPHX5UMFPAeKVMx_bMTnHnZW19g6bDxNydOgRhOJ5ka9vba9U9Y65OQZC2zUHW6H6dzx1DxkkPNwjlwt5-lq0v5Iypi0mvKsR3gyXm1C0VG46NOlaLnrn9RHXDCN9MimPHZ8fNEKtV_ryeTL9I4uQ_qHUuCz9zu1ghkkngPFxJn4wkf4HkjDLwdL0QDiWoK_hBAQNkpvtiJFOg7Q.jpg"
+      "https://cdn4.telesco.pe/file/J5acUP3Lzzx5VV88D78OXE96UbCnxYSJIM9OXR2rU4GInW-FOyHJ_ew_ItBIu23okmqkjm72JDrmKymfXsO1AtEwBGHjEOpp5rGG7Wd1OOTMD5rnRZxdOpxqnxV2t6ZL0_oDxGdzJkML_tHPd-DmNDrE8neWcJnI2P7So6AcQyGn_DWK9MYlLkjt83uky443CAXxYD1dV-2PrhU9qIgbzIWFb3AOgCNE7bqTTqDf69B06troRs0DvghQ47IbiZEHxHN9sqAF5Q0Ou9v42WblrxxBMZR3xT-UAng9xK-isu4jzRt_Loy-faIo3AYkA0BD9X4a05mAyVXuYzpc1a6HNA.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -49,8 +384,8 @@
     "text": "Хоба \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 68 views21:24",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/016184ea19.mp4?token=BaTm1GS3na43uorDI1NB279oAsb8ecU6FuCG6WcJa75fQJqf7abzR6pTHsvzaHiF0iAh00R5wpb4aZiGCT7KSwNH8HieO7IGBlb3rVXNfij-xoz-TWakkqRjeW6oH390IKBtkRBJtBVcDQdTFH4f67wdTwd05wBmg3GFIpHUlLwTBFCom1IRswfNAD2PckCt3cFIrg1cR_nskDq5baii_8A6c2Gp-xZyPj5UkJypKQYJOzAGrP7jEEk2YkW_0GDU9EB6MHcy9ZM-BucM80b2-Yk_Km_mVerWrSVX8HH3gpdRfp8z8cYVIq3-nuFdpJZadL-ltX19DjFYO1TSP1QG1A",
-      "https://cdn4.telesco.pe/file/016184ea19.mp4?token=BaTm1GS3na43uorDI1NB279oAsb8ecU6FuCG6WcJa75fQJqf7abzR6pTHsvzaHiF0iAh00R5wpb4aZiGCT7KSwNH8HieO7IGBlb3rVXNfij-xoz-TWakkqRjeW6oH390IKBtkRBJtBVcDQdTFH4f67wdTwd05wBmg3GFIpHUlLwTBFCom1IRswfNAD2PckCt3cFIrg1cR_nskDq5baii_8A6c2Gp-xZyPj5UkJypKQYJOzAGrP7jEEk2YkW_0GDU9EB6MHcy9ZM-BucM80b2-Yk_Km_mVerWrSVX8HH3gpdRfp8z8cYVIq3-nuFdpJZadL-ltX19DjFYO1TSP1QG1A"
+      "https://cdn4.telesco.pe/file/016184ea19.mp4?token=eSuPx295Qv2Y3y2MCCM8OQ8vu1_RxDu1J4lCwUbDAnC-JKvUIyZyhd8pWASjEfuIFg5L_nBebm0D7uCNzNYVGWzbyxb_h1YljtiG5FDce3Pc5flH63Yk6vC3v5Y5RYLQ5KvxWIlh3za9B4V4YV2uCGkWdDoK9orkU7VRayIKuNoC-sez1x_-cajZJhugEttRjAeOIQEnR8dnVQEub4tbt2LuBxQ9NLVMj1UADExKoI4cSPap2IozNPQCFllVN7SeLk16nTHsITynGrINWrstqk7d83_xwfrYvXUWK-R-CEBqMRbD1DicmtsSgx2RfRwvygilfA0T3zMRCY2XkzObEA",
+      "https://cdn4.telesco.pe/file/016184ea19.mp4?token=eSuPx295Qv2Y3y2MCCM8OQ8vu1_RxDu1J4lCwUbDAnC-JKvUIyZyhd8pWASjEfuIFg5L_nBebm0D7uCNzNYVGWzbyxb_h1YljtiG5FDce3Pc5flH63Yk6vC3v5Y5RYLQ5KvxWIlh3za9B4V4YV2uCGkWdDoK9orkU7VRayIKuNoC-sez1x_-cajZJhugEttRjAeOIQEnR8dnVQEub4tbt2LuBxQ9NLVMj1UADExKoI4cSPap2IozNPQCFllVN7SeLk16nTHsITynGrINWrstqk7d83_xwfrYvXUWK-R-CEBqMRbD1DicmtsSgx2RfRwvygilfA0T3zMRCY2XkzObEA"
     ],
     "video_thumbnails": [],
     "date": "2025-05-26T21:24:39+00:00",
@@ -61,8 +396,8 @@
     "text": "BMW CONCEPT SPEEDTOP\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 452 views21:25",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/1b9f1a49a9.mp4?token=Nff-y_UUdT04vah8O8oMIMxFdvMmuqDFKh9_BylUuIBNgiMtVmWat3h5D9xrdDac4imNhG65KcO62jSZjY8LmcHMXMNcJyuJCLICpkd0TPputh7cKuyhd1wZ1qNoFBwJfw4mRFG0f3LQDqQ6YnC7on-lDAM-MdHiHs-GkKy-nuPpYsPyzEwsFL3Psow4FYHcfiyFemyi6_uOzlwUi87q3SwsC9FBCeXCUYaEtBLWwqBjzA7mSqFddb14myGYChrFWxTF_Vw3WhjzXULBo4m-m-BNPNXfJZTI8-n03mE1a859cO28ql7h-whP_-AKOYScYZv8zvHI8XV4FLSNjdZ_4A",
-      "https://cdn4.telesco.pe/file/1b9f1a49a9.mp4?token=Nff-y_UUdT04vah8O8oMIMxFdvMmuqDFKh9_BylUuIBNgiMtVmWat3h5D9xrdDac4imNhG65KcO62jSZjY8LmcHMXMNcJyuJCLICpkd0TPputh7cKuyhd1wZ1qNoFBwJfw4mRFG0f3LQDqQ6YnC7on-lDAM-MdHiHs-GkKy-nuPpYsPyzEwsFL3Psow4FYHcfiyFemyi6_uOzlwUi87q3SwsC9FBCeXCUYaEtBLWwqBjzA7mSqFddb14myGYChrFWxTF_Vw3WhjzXULBo4m-m-BNPNXfJZTI8-n03mE1a859cO28ql7h-whP_-AKOYScYZv8zvHI8XV4FLSNjdZ_4A"
+      "https://cdn4.telesco.pe/file/1b9f1a49a9.mp4?token=bDIR6QACn7UhRmb3H26P8ltq8j21c6zwV2wSmgacjDzocNodMhr3PGfCH-x387Hh2NspF3jWCXhl0nrpndeDhU_U-5umQecmzbIQkK4dAxfFE_o6W91rBRTsNgXsAbn-srFdpWD4WyOcozlFn4pzCKU7xCLnS96rHnn0cBvcwnue1XMv8JhP7Y4jF6Heb9XmUhcNLJ332CWAFmr_uWkVLwXBrQMj_D5MvtfHzwLOH9o68oB_4NPoW-G564gRaAOWo7ex907Nz7zMrkk8SRbU7vJ7unJbB_RkQ2wlwzoqyrXKY_Lcej6l0-v--PGmjMcRxbYw_5wxxrI8rZHghEDmRA",
+      "https://cdn4.telesco.pe/file/1b9f1a49a9.mp4?token=bDIR6QACn7UhRmb3H26P8ltq8j21c6zwV2wSmgacjDzocNodMhr3PGfCH-x387Hh2NspF3jWCXhl0nrpndeDhU_U-5umQecmzbIQkK4dAxfFE_o6W91rBRTsNgXsAbn-srFdpWD4WyOcozlFn4pzCKU7xCLnS96rHnn0cBvcwnue1XMv8JhP7Y4jF6Heb9XmUhcNLJ332CWAFmr_uWkVLwXBrQMj_D5MvtfHzwLOH9o68oB_4NPoW-G564gRaAOWo7ex907Nz7zMrkk8SRbU7vJ7unJbB_RkQ2wlwzoqyrXKY_Lcej6l0-v--PGmjMcRxbYw_5wxxrI8rZHghEDmRA"
     ],
     "video_thumbnails": [],
     "date": "2025-05-26T21:25:24+00:00",
@@ -73,8 +408,8 @@
     "text": "В центре Москвы нашли паркоместо за 37 млн рублей — его продают по цене Lamborghini с бонусом в виде личной кладовки для хранения.\n\nНа Патриках — цены достигают ₽17 миллионов за место, а в «Москва-Сити» — ₽15 миллионов, зато с лифтом и зарядкой для электромобиля.\n\nКогда только выплатил кредит за тачку, и появляется новый квест.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 63 views21:27",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/eafb330b40.mp4?token=fgy9F17dxSRiQRl5X1NMHu-jCbvltaY5Zj_O6PJ63Q4GxX5Gr6rvMceWQ0kYYX4D34ULs-qcdYMPCRzUG7p9L3d0Wui_L2Puq-6-V1WxqB5LjiKw6j055W72dzxl60oOlBjDDoIDBwdp9oOtFnRzQSEn_FVkiORZGlQKCriWwFxCsl7I-dv4xdVfVUj9vOStn21t6edU5JIV6jRegcb64UG4_nohUNhlpt7VWuKTk7JbAaPKXds1XBUTPrJnaKhkFnu06uomnzfTydmaLXb8gqxB300HyhQVJuMmRqae4TEJ8pcPeHnP6kdNsaTWt2aaUOuzC0NvtDpcm9Q9ZU4ho4ekgnxsnyVYsgUA_lgcNAZ2M6n35ljmuJxRjmqJSjI64PARUksaw2qvkrrkf-r0K3yi8S-RkUg00DerAbx44Mb602GK1wMbfTShyLrWbfl_HYPpGspyfe46iep7WR7fW5u0RrHYpEWtGUsg5sjl8Zst8WnrXKETH64Xv3GbmjkPfoShe-VT09vAKkfO4LrqdThPYqeWIOSXoMUo5ULytfVZiPUagF6zsdDgV25ZAuai7_yXwGq8nykheA6N_740vU8nrOMXdq6HhaDJvI1N8sgl2A1Sip-viin1n8hXZK0EC_4b79xGYtPCAPXrpgaTLzITZYbXiOGh3tDmvm-Hu34",
-      "https://cdn4.telesco.pe/file/eafb330b40.mp4?token=fgy9F17dxSRiQRl5X1NMHu-jCbvltaY5Zj_O6PJ63Q4GxX5Gr6rvMceWQ0kYYX4D34ULs-qcdYMPCRzUG7p9L3d0Wui_L2Puq-6-V1WxqB5LjiKw6j055W72dzxl60oOlBjDDoIDBwdp9oOtFnRzQSEn_FVkiORZGlQKCriWwFxCsl7I-dv4xdVfVUj9vOStn21t6edU5JIV6jRegcb64UG4_nohUNhlpt7VWuKTk7JbAaPKXds1XBUTPrJnaKhkFnu06uomnzfTydmaLXb8gqxB300HyhQVJuMmRqae4TEJ8pcPeHnP6kdNsaTWt2aaUOuzC0NvtDpcm9Q9ZU4ho4ekgnxsnyVYsgUA_lgcNAZ2M6n35ljmuJxRjmqJSjI64PARUksaw2qvkrrkf-r0K3yi8S-RkUg00DerAbx44Mb602GK1wMbfTShyLrWbfl_HYPpGspyfe46iep7WR7fW5u0RrHYpEWtGUsg5sjl8Zst8WnrXKETH64Xv3GbmjkPfoShe-VT09vAKkfO4LrqdThPYqeWIOSXoMUo5ULytfVZiPUagF6zsdDgV25ZAuai7_yXwGq8nykheA6N_740vU8nrOMXdq6HhaDJvI1N8sgl2A1Sip-viin1n8hXZK0EC_4b79xGYtPCAPXrpgaTLzITZYbXiOGh3tDmvm-Hu34"
+      "https://cdn4.telesco.pe/file/eafb330b40.mp4?token=DQc3ZFQJEZFTv_ep5jNuR5_2rAXz3M9k8eubr0Y5oIRTh0QxRCi_tN5u9HHy6WV5Iq-d3hXLOOp6WhojjhMIb2KXZ2borAYW5fSN1P4ZCFes8cALAkAuIVRt0qCUMfLqiIfNaXeCbwfjVkVUcj4WSWCeKQIDTaaVnM_U7UQVI8JkcaqTRpoa30h1kGhL344cLQ7xtwrywYQVUR0C1VCpC0pWqFMkbAIiHFv3w2Z1tuqHQbrZfJ-Jixsa8fc680Eb-Qgw_uwj5TsJqaoOWkhlYjyE7uAbyqYmxPkJ3MvTNlSOf6_8Ftn_Q-DX5m8k-rdMJKbObPdbpntLG2um4WQCiluqJnbWtAz4KWsDeJDQSgojlie8i9VdzS9O1fkt7FhYU_pEi2rRW2A0xoFSqQtU3t74fTyq7X-D2TnO4I2sWNe0YVOFs9AusWELfM8fi20vFlVG9QH3e6o5H-Sn5qju60ifJy7fDRJf3WcrutZQz5Ol7k0JqLkjneyN0AZzdbxTPvhUCBslq-j8phwV_OSa6lK3DPDIck0jtnYjEDOYqi_g5M8P32XqJi_Bk-VDTNk_GyTAuqkmtoVQkskjP_GZAVTD-dtawzxhYCCYb-oUTp9m6-R6irUfJcV-mi2zezMLTd6OY_GlB0fXiP4IMWDMvjay5_dO4byjzS7klBtKpkw",
+      "https://cdn4.telesco.pe/file/eafb330b40.mp4?token=DQc3ZFQJEZFTv_ep5jNuR5_2rAXz3M9k8eubr0Y5oIRTh0QxRCi_tN5u9HHy6WV5Iq-d3hXLOOp6WhojjhMIb2KXZ2borAYW5fSN1P4ZCFes8cALAkAuIVRt0qCUMfLqiIfNaXeCbwfjVkVUcj4WSWCeKQIDTaaVnM_U7UQVI8JkcaqTRpoa30h1kGhL344cLQ7xtwrywYQVUR0C1VCpC0pWqFMkbAIiHFv3w2Z1tuqHQbrZfJ-Jixsa8fc680Eb-Qgw_uwj5TsJqaoOWkhlYjyE7uAbyqYmxPkJ3MvTNlSOf6_8Ftn_Q-DX5m8k-rdMJKbObPdbpntLG2um4WQCiluqJnbWtAz4KWsDeJDQSgojlie8i9VdzS9O1fkt7FhYU_pEi2rRW2A0xoFSqQtU3t74fTyq7X-D2TnO4I2sWNe0YVOFs9AusWELfM8fi20vFlVG9QH3e6o5H-Sn5qju60ifJy7fDRJf3WcrutZQz5Ol7k0JqLkjneyN0AZzdbxTPvhUCBslq-j8phwV_OSa6lK3DPDIck0jtnYjEDOYqi_g5M8P32XqJi_Bk-VDTNk_GyTAuqkmtoVQkskjP_GZAVTD-dtawzxhYCCYb-oUTp9m6-R6irUfJcV-mi2zezMLTd6OY_GlB0fXiP4IMWDMvjay5_dO4byjzS7klBtKpkw"
     ],
     "video_thumbnails": [],
     "date": "2025-05-26T21:27:13+00:00",
@@ -84,7 +419,7 @@
     "id": 72693,
     "text": "Собянин подписал закон о штрафе в размере 5 тыс. рублей для таксистов, не прошедших аттестацию на знание столицы и правил оказания первой помощи.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 60 views21:27",
     "photos": [
-      "https://cdn4.telesco.pe/file/ZDUoCCG8SeOC7Bwdd36nCZvj-N3Bati5BSK0y2YetcqSgQNVh93OM3Va9UQbYWlBw-Vm_iSTpVktjWQa830rl-vj521uFveHpeweslhLnm9tYKh6MTRSAPJqLBao3nHGd8nOGoSN5809oQl4uzyz23d623c8WOZRyo-fsVEoK8qzxClTllpIXOYmpSPS6kJ9mItRHch3AsQFoqoRxP2WZ9XA_42ELA8VOD0nRpmp5H_7pRZmq9ua11bixwRYtuN2jCKGw8HSO4jvqPU-HcCfR53M5xS12bZ8AidALYzrNtJ3xtUpdGSYUJZb8ENysN85eOPZJ1Y29U8BXUNqLgeFwQ.jpg"
+      "https://cdn4.telesco.pe/file/QOB7blg-wkyQ9xXYlYkRf8Do6u4m8HFi-RYfYQZ9Pku01dmz9gTUa9NOntWotRRYjN2z6DtGu24pR3LI682v3LhcamzKN60hI7wgoVi9gIHwhxDP1cAQNfLDjjCETZBqTE1pnuU-ukCoQu-zmZLqW2auKaJ3ga9XUmF7y72jpKNMTHP4s8O_r64bYp9j6YlcGM-O0a6DVy5G4GIKPN7z8D2sbbgRti8hrvN8YnYuKEDix6-w4jN47ZqA9jmB7FgG7UhgtZEkAv82p_2ZItVcAAc0vnBYSx7Gbw-MO01YRntfiNXCYyAyzF3h_SczkVL4hstqz35lZ1O4cE5dIyctPA.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -95,12 +430,12 @@
     "id": 72694,
     "text": "Прощание с Alpina и рождение нового бренда — Bovensiepen Zagato \n\nС 1 января 2026 года Alpina официально перейдёт под контроль BMW. Компания, принадлежащая братьям Андреасу и Флориану Бовензипенам, сменила название на Bovensiepen Automobile и сосредоточится на производстве эксклюзивных моделей.\n\nПервенцем новой эпохи стал Bovensiepen Zagato, дебютировавший на конкурсе элегантности Villa d'Este. Новинка основана на кабриолете BMW 4 серии.\n\nКупе кардинально переработано ателье Zagato: углепластиковый кузов, оригинальная решётка, новые панели и внушительные габариты — 4943 мм в длину.\n\nИнтерьер почти не изменился, но получил фирменные элементы вроде козырька над приборкой и кожи Lavalina. \n\nПод капотом — 3,0-литровая рядная «турбошестёрка» мощностью 611 л.с. и 700 Нм, разгон до 100 км/ч — 3,3 секунды.\n\nПроизводство наладят на фабрике в Бухлоэ. Каждый экземпляр займёт более 250 часов ручной сборки и получит 400 уникальных деталей. \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 63 views21:29",
     "photos": [
-      "https://cdn4.telesco.pe/file/bOSEowidG1FSoaIDvWM6HteB75wQ2XVio43zHCgb7WCoHx1lmfrw4caTtWYL66I54ieRiset8yIzT7C-P8yzGC5ITpyqIHXshFta1UdW7VMQTx72iWFhuY50VL5fzE-F79Jeln5FcQj0bwaFkyARDWlHPLTAAQMcKbSWKGm6Yr4_bKZIn_hKC6RNWmjA4h6tRvZBWGQEz684dMlwO_ZBHcZo7P8OoePhgr6gA2AkllYPjihx-tozOlpUsLwxIECA9zCx6HsXb2pt5BiIwg2MVcdkaC_K044VOPa2vMcOdJbSFXFRecWPDU9WYt5EcM3MMurtjgJScuAlmMfzqHpwlQ.jpg",
-      "https://cdn4.telesco.pe/file/usTGib9yxaSp2vsRVACXJVoPeUxt-JNC4iftrYDGIC0hdrEXQEtdpWwsV9MCED457w_CJfheDv8WEQ0LGMewiCDOZ8LRlAtiZcTAqFLA_EfPoyoH3rZOKJAm7CLpwrx2AaqUms8pEyfxjlwKJhh9FKu2nDzGDiK7vuGvg43QFoWY5u6oUfl2we8MCnOq9bMQ9lbWK6T3lR3IaegucBjB2FabrPhXFMaLIcaX4q-NFaf2JsMJ4zUIacgHh5aJg7hMUs9LMW03Fs95dRNViSnU3-3I10SNSReHTCUOW-IZp6N1gMs1iZ5bVOa4BJ7cy9QQ5bkuXJ3MTOD6NKHatPt5mw.jpg",
-      "https://cdn4.telesco.pe/file/uUz3mft5krI0RCBVQYCrFS8mn188gxYdP7McHBgNiOE8kMRaGDp_Zt4QUu_PpWldGd4yGFPs12AoQ9KcAlUwTxEkzo-vuM_ykRwWyswLiYi0AncCFGf8vBLLcvWSf84eQB9C5stA2kRTHKxIeiXDctV7dsmHtk9380AtQgMPu8mqwZfNEhSmaAsoHkgC84ZSL4PLWKqS7pOccH16FT-vzgheDRRwMta_0ScwodyAQGKEXAqEp_7iQWFfDsndsTjCfH2LKAVU9mlohqMQY55q6xb-c7LJMKPiFT3Yooap8TbMXrdtN3n0xcErzYseiOoDxO9zgGKU6MymDPApa55GJQ.jpg",
-      "https://cdn4.telesco.pe/file/LG79uXw0ZttzpCR7QLlN4u34FsRinjeYSFfxNcfG_gM5aYTdYdiwYg-Xj1hT9dB229pUb8RJiaoLxzIgQmWtik_pzTSDu5nidGjBjwkJ67jpWzvRb4rSITfbO0nlOHaEkpNoAI6E5XR6Bgb3Yf6o7qQdPjwIwZ3ezoOiopP2G5ES55V1-CjE9K4lRECgJ1xZNKJ4vdGLoJ-MMnehNduGcmJUHzQJiK0lIKfBrTq_G3iTAX257sMwNxpWfGmfClB2xhp0vFB3tgPtiUHhcy_VjdmPKN8AUTRKApQpY_lDKa27KbsfR-jYnrZrzmOzvDG3qH3P31MkNoV5wFPMWkyJHw.jpg",
-      "https://cdn4.telesco.pe/file/o-04thclLRRQcqWqzBa-Q8hoiqgcTK8ZZkB3Bw-UctFL60R9xitLXJ0XjKFuRADU4iklJPy5Kg2VG-yIgDBAowsieU1bvEJxvh-bTouJ9qf9Au2N4KjsugIobENJvFqfPSoHsc8YIiWTskHzLxifm1_cxtfCF4mjJIh8QrnMHGCzTqJtO14wIZGVGFjJ4Co4k69rT7iq5CAUKU2lIk1QJ06I6PV65da4zcdfvScN90uDna-UuIUn3Bkqbjmr1xiY6eJBJqPo2_Do73x3igF3DQ3aGnWFAC2fjfJr2OOOvw-ISP9DEfRpLii506PGrgGJdT7OZtNRLrmarPJreITaLQ.jpg",
-      "https://cdn4.telesco.pe/file/XKwLs69bEBxWk3ctACbgMWsnQqVS39fHbdTW58Wq6RlvsReFoiBTJW7-TDGXK52mlNko9_0Ren3b26MPYJ3BSM6Swqfb3NqLhaC0BxEwythzHpO44elEkFiJAGLQy1G1NpfqcKZ_jgb8627VJKs2YbNFdLV0y9ofU5Sko-qRvtP57sChV7kusk6p3SMiEO36-2dybszoRv1PYCBOEk6hFtHnrjVqISdG9rjEXgP4rAlYzGB8a4nVUNJlZGpbAyvyNZ0tWXDw-OKpHXOrVy3o9TlIAFQK2Ws9cd1BZGR4PZeh-2aw6XCtrG_KeQzKUtZOHN8z-fPYxkzFPgv16pe-0Q.jpg"
+      "https://cdn4.telesco.pe/file/pDEPQFpsHq6YgBzOy7i1qbM_Vie7UQwL--kFqW-okfjmLYRkchc4KfmIYEhIFTU2Obr54RAZ29DfIyKWLVw1e6iPdhjxE3Aqv0gLKTrS8Awr6h5GxgFji9lDgPlp65-QDoJwKTugIyXlSUUmwQ0oPWrPbIw-4sVuEqF335vqgO0XOew2gbssCHVLumJDijm_aVNaKD5vRQCYgSMrRh-5JnDmXmZ-RRnQRBNpButxUly_ZZ1uqWvfwqi9efWa86bJuDqODoAF2CT86fcD_PN_faL94NHbqKSGn5-GuYcaVsRuSk9w22ssa7P2Nhg3vv7Kx1nrzhvAM3-CRADLQxcFOg.jpg",
+      "https://cdn4.telesco.pe/file/jTmOfNKfYUCfHOzkJa1eFabygeUKQVmcl6XnTLxSN3k4mJaIsPWC_5jzg9PbL4ld27b2gWEI4wERz4iUyaLDlAmL6-RsZFC-mgiHQhHCxiX1rg447AGiZx3Ot5fgVLMR6o4rAWiTlTt-NDn1zU53wn-RDctgSNo5bwbozQJOF5L1Wr92hQVaUzWQynZTZ0ZAHSyck_Dp1f8wYLLjBDRV0uyD2GbruMOMRybfbay8idb3keoLTAUP0N0X5qonLVe6Wv6o0CSae0tLN6scr9p6HTlYv_uqwuDngTBRQLbtzQJgTzwbPZ-SLcoiC9yMuffHFmjQct3lAxju4ucSfWwlkg.jpg",
+      "https://cdn4.telesco.pe/file/krLypkGIlowzCJ67VzVzC-ABalL0wK6H8eH9t-yteJiDAZZop3AmuuURUuxwxFJj11_YVRXhXcHiHPIYkPyW85yCIa4SZ23uz3batGOL5zgqfK4UNV1raerdVRDnieS1pZPGuHxRZRat9heb-LGxNZTOXQj8Om9MMfKC0J7b8_z-sSNVWgL9twX79LDrsHjT-hovhfTSW3qDOfWZ8JNrYG9o14ikwDLIMhAs4DczhgpBzIE746edaSsag52uZ7G9NBdiPhbNCHUPxz94q7gvcDdeCClBYe0J79oXNH72v4G8htKYuMlbWy7Kw-HxRAw1Egi9-jW9DW9yaypIGiJzoA.jpg",
+      "https://cdn4.telesco.pe/file/f2iPWTMG1iLBxNuPkWx9wuwEQaTs0xQtI4Ez16LJYDATFP56TwapzrflagWmgF5EAd66nRLYpESBWv90hfrV7nL3lxXvW_BFv26YmBV2B6uVZ_pRSx8Th8AZ43Ez5jfXuxMBIy1IRLV9XB5UfHPGDlFx-v4LhKQMIkSjvJmAYqV5HJpzRPr2G6FjR3YxhyotoNZhpCrSt5VlYKZaASeT5UmKA9xX913or63P4S9RVBdQi3It9HaQLOZusQzNtqt8MqKOyx_bkfwVypL8GbeqHfyPuTRV3m5p-N0g1D-MEiJPWpnuUJ6YMEWJa7FDbP3s8py_MJIrCM4bRh5uXh8D9w.jpg",
+      "https://cdn4.telesco.pe/file/MV583sMdDnHeD6ZrfcXnCxQ9inIF0HfVwKvph5bm2Ezkz0I2FhzwREtuJxNIdMItSUDS-sIEWHYzIsDZPY_sP098uF_9RJM4uCasfNz69hYpGbOuyorZhJO5Fv6HPvZtGOi4Q5iCnVH7mny9LoG7X3jT6vR2VdOOCO4Su2FtjZcHBmKZLdG9VIn1K9prdShkGNAQtfdV27QS940dOaGlqbz-ZDU5lOA_Y_H2PHvRVuvur90aj3cBZU-1zWnZTkbMF-KK_FNIb8fSUN-6dVm-Nta1MLSqv-ANqskf_C3buAIISxx-6oMNOzIRqYzp0kArvh4UHUIBIJe8leGFcCdiJA.jpg",
+      "https://cdn4.telesco.pe/file/LyjxVn_XrmlMkU0ihwr5yhxaiUJ4rx-_n47ORGY8_NlQFIw8t3xFh0kCeK3ESAJ7d1I3RIhvIu5kIhNYin6mXf9InQXEOIeRC2AHSo3EohyYAFmJLdapGs8jEn1McpRIv6cxn5rcDZJkMthWPiyjQiBZ4t93irgZYCDSk_zRzfexVfcXhhYHneLcaX0Qz_pN96svmLQHd5eqnr96kuFIwTGetSg9uYPn8puLm5yl_hOm5dHpKkOZkXWASVDOJ1C-xmpTDKsGS7zJlRzUm38orx7RzMAib2wxRyust6Q5gbY3xgGWzFdJFC3zpDXvchWSNkQZdd1vN4l97FdAlUNhSw.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -111,10 +446,10 @@
     "id": 72700,
     "text": "Audi раскрыла характеристики электромобиля E5 Sportback \n\nAudi E5 Sportback — это первая модель бренда, которая выйдет без фирменных четырёх колец. Электроуниверсал разработан совместно с китайской SAIC и поступит в продажу в июле.\n\nДлина модели составляет 4881 мм, колесная база — 2950 мм. В салоне установлен дисплей на всю переднюю панель, а камеры вместо зеркал дополняются дополнительными мониторами.\n\nE5 Sportback предложат в версиях на 299, 408, 525 и 787 л.с., последняя из которых разгоняется до 100 км/ч за 3,4 секунды. \n\nБатарея ёмкостью 100 кВт∙ч обеспечивает до 770 км хода, а быстрая зарядка позволяет за 10 минут пополнить запас на 370 км.\n\nЭлектромоторы и батареи китайского производства, а выпуск электромобилей налажен на китайском заводе SAIC-Volkswagen. \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 62 views21:29",
     "photos": [
-      "https://cdn4.telesco.pe/file/KerAgvzC-kb85IbnteLyUpCJnuy9T0wb_pIzZpBTw0bMYOdjkiCdIijksqH907AEZ_4ZkfTnnYRgTfR6zyBLqroa1LeJE8VF74ab9KK08E5JvYY3yM4cUrMUobKVvkD7qDRkbDwF7nQXwUcdHBdj1rzsrYO44sP2TjfAeez4cDJ4nnGEczO2eo-TfiEk3LVlrAqsrQOWEzNk8hKcWVV2Xgo5xvFn0eT6A_2DCuahsfQrD4SWT2LVmB1ELsyqAEYXuPJM82VrgFuS_gtDp6lTQLNWO2CkxM40ThEiJmsC45R5640NcNxuvQ83azX-79lYzP70dkhxPuRlhpGM3w4Jvg.jpg",
-      "https://cdn4.telesco.pe/file/E695PJsFxLJRPzu0fy4o9EyfXsZ0IeiJfTHOFnvtSzf_apwew8SnFjlnuLvFvZJ4Bml3XWmxbzsdkS7Lb3CTsMOxyWVY8fXHARXoBSTazN72frvxsZZR1iIFuLXLgpJYRPyCb3iMeklPhSAu9cxCXlH_v1sVjFWEEBu9YgeWE5p5VKxx0M7EHGLMfV7qSHlW1DsInSfOZuP6DEgNJzoWvPvZjnDmaGHcMUaAAOa-FxM5LuMecSCDN_ojSiDdcHlIeH05WCa-3ykxPJJTBFUfiKHzKq7tmjA1rqvNQc5JwPlSAISTZzZt2_aKsTZzAzMIe2fT1f9pkwlQYR_KW-rdYg.jpg",
-      "https://cdn4.telesco.pe/file/JPmV7PYSk78kSh7rlS_dWjbgmo_pd2Cw6KMsvyiBtASWLGWLCd59PXGfZWmRI-xSHsOt9BeVcUIcM5vJ4CGuy6HixrQIhar6Y_gLQFbuJzgItwqph62lAnbrebEFhdQUnw8CiIFQLR0dIgaR4Zv1Yu81YRFeVxGKoDhBTsbE4Y25dmDel7ttaVjvtsvtiEMtTtZfk05SW_BYRp5MFeWqPn2cMmq0TQ_1nnpGjio8oIth-X-k_rxu5sYM4drJ259ME7YA5betMrQ91t3Mlfd-Df8Bw-5mhHLAb0apuVJaV42b3-EVSW4jzzKcCWJVm7RRrwcguISVAf1AUdyTmGgqWA.jpg",
-      "https://cdn4.telesco.pe/file/CFsA5kD3MNXG8sFBTNdY4_0wIXyLMr42qLnRr-Oz7rPktO2HaXhq-i14sWMgXw4DZEI9r7m26OQNq9Ye7744D9XY7CPOb6vjT8T-5D92JE8nyw2-31xTGdcIDuNHeadsoZgY3EP59wPoNWbaw-imj92sZxWOF_BU8FSE6bUyuIKaHshgp_u-lKig6Dm4w0mAsolVAxdJ1KhJIPw2OSMZy4AVnQnTNCn1rg1SSlxJBL1HocvOmC_SqZ3cFxefDKuc0XTgn70TbCKEhZqt5YfwU_oWsb_tcYnR17u-q_CdO-m8vfVRSZMHZd0Adf5v3dQV5HxB71NGukJVpaQ_yc0yBQ.jpg"
+      "https://cdn4.telesco.pe/file/NVP6HwOsHbNN_sml_ABhXnAyCMJ40SShV3YCPmKlHzXHlKC6AwDqYvK-j4lJAWuhAW3TKcY-MqfbfEcL2ZXtrfiXB48lmeUX-yDOhQHq4N68Ol12U6H1Fq6T6clF04Ys5oujPa49AJdBkyJQXjJhi369D03RAVFF3qAe4nF_TriFXnHP-6n0ZYSZHyPSyb-JZUdNNWqQjlC_8hfkB7qvfJ4u7EMDKp7kWVFIYsGT1fRUeoyAX2UKcJ1EXDQOZVG6q97H0NI1qauih_qJyKMov6tI3jzgBU3c17dihb9EwFke4MIXnSdYRGgysxGArwOfvZ6LGhfliLae6F2M4a_tTQ.jpg",
+      "https://cdn4.telesco.pe/file/OShC-YRxJN6UIGEy_zd4n1DJ6g_WCIQdRZFjXC9ZuLBH8kUrotpaKOxk3HpKqa4jtEwzLrpYLpuLTi9HkdVd93-asFaL9YjOT3Fnyrp4ANkmR5YpGln6clFSe3YMUyVp2qwcMuJopKyr3GpQ_JraMRVAyCG8rwpWxcCFD9ICr9MA3AIFJbBRYogsA9jTKzv7PxXkmeDlb_8HqlRRTeoJPL8m0UfIKcyNC4Ev75dfP5SUxfQENlt2kCo3oBzbZQEPkVN0DwmcXRAu30e_K5COq997hh4JxKWOFai0ZQ-XkbKReg-7eUT0YoGWcT2zrrSnXXhYs8ny3Q5P8BtjnjFDew.jpg",
+      "https://cdn4.telesco.pe/file/mWbZwGQtytkO4ESOZmBLA0VhQx_I0rZRS86Qw_Xvs7UhGSazgqIzKo7J24g83a0zJ97mGFKSDYwEvJLGH6aqe1C1jOffBPHzNrbAzBJkiAlynibb15mgKTtnXrwBV0HduQUOO9wAHNAP5u2PFTQxefVOeS2Bf4dxHuVZ7Mty93h3Wz-xCpVx_FwmhrhuWmNs7DkCar4YH9LFsMoIHjcG18BCIxfs-5VpiHS8qLGyIJ2WKgv4DmWuoQChLagzVWEuoHDgpagfqiUz3ikhZRYSFvsHWlAU00Anr1Lti0Ox6s4hfW-ya3UBarLQS5S24I_NVKeKEBk_WwG788KgYGAwmA.jpg",
+      "https://cdn4.telesco.pe/file/SUtuweaTtYxPCTHp88r0Yo3PmvnNshP5kj4bvoyuaEHt56OUF3wA3t2_UNIiqFI-HiYs9nGeRZ6Fb6amV5uG3rkQ3NQpn9hdQzWHtIq6cMSC-WjdBJwGzhDOgtuRreWgxejcSxHKJVqh3ERyfNRGSa2yTjlmNCV-qzK6J5Uy2o4tBxKyMArUjGH_FKCq6cCrfm5sNpFsoRLKmXS3R2DnQn1KGYThixnuGQbvxLsLXIibRQCrI8eaqCQdH2oFDF-_COEjGxwB5GtSdAXYtChAIfEp5xypofd7UkBEKEDbvhaKS-oO_NCLfLusRbpxEWPPmdOutxK_2XtX2Bgm0H764g.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -125,12 +460,12 @@
     "id": 72704,
     "text": "BMW представила стильный спорткар Speedtop в кузове шутинг-брейк\n\nНа конкурсе элегантности Villa d’Este в Италии BMW представила уникальный спорткар Speedtop — редкий для современных авто шутинг-брейк на базе 8-Series.\n\nМодель получила оригинальный кузов с элегантными формами, скрытыми дверными ручками и безрамочными стеклами. \n\nСалон оформлен по формуле 2+2, с отделкой из натуральной кожи в оттенках Sundown Maroon и Moonstone White. Передняя панель — от 8-Series, в комплекте — фирменные дорожные сумки Schedoni.\n\nПод капотом — V8 4,4 литра мощностью 617 л.с. от M8 Competition. Всего будет выпущено 70 экземпляров.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 522 views21:30\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
     "photos": [
-      "https://cdn4.telesco.pe/file/lMCvqrWwJYKtY0ZORdZpMZCYEscoVthWlFl3IFYLBD7mGMumcqlaAVauWvpMlyLAWe7SnmESJxbfc4DQiT45sY7BXzD_o7kpeYBpPL7rqK_rOK_jxe6vkYmwm6rAeKN_K8riMeN1CHH_HOkI508VFe3VLQxGKOAh72XTvgSwAUJiLm7aWnUIQr63dLkIQ84GQoK_Lubv6yQn4mW3OMVoLi4W3QueG720naVT9ZRWJYs-KJETrlKZX5Hso6d6TbT6_xwWWDMp-T5GZAlmSiH5qWvxwdYXcBmCk9Pd7gSsitK0Zn2qqag9mOv7ipuSpJUbmYoLbA1UPwosXDEvveIkBg.jpg",
-      "https://cdn4.telesco.pe/file/tSVCo-dNjoDN3OMSV6rUHQN3xaBlaeIuTRvjPS9lPvP82tFHICniZCLiUR7c8DUt1tsSlV-E3mAPa8mWfyHEad-eS54TiGT5y94IX-lDZnFB-hYKXvCmsaTn2v4eivw_x_oKLU4iqs5SSxo_aHMikftn9ZB-Th4amwNy9CY6X1Br47uUGOOR_f_MIBGfdjZojmDr8Vfbl5W-gep5Qo4NdueHPPpK2xLG_Axa8vlzgcrznE0kgMyZfffpU6TSHACOq-9Iv4tej4B4MBT9tLYDvsSctpzLP8SjW4v4vDKijAO6Z2d0DTWLj-Knp10eNISn24rwITWRQP55FxT0RHZJRg.jpg",
-      "https://cdn4.telesco.pe/file/A1E9YlPM3W9o6zAUNm9RVIkOWg96_AJDfcEzv4ah8Lo9JrgKloLWhzXKYR6Wz66jJsEOo-rl92WcjPsx8y7uUHJov1wbVkwo7kOV1cfbBT8-AhcX-zz00tWUMgnSh5Ma1uQAy6mGrlTVqVBy6C-3HbCkzLk1FwyxwUKX2KW7QALXGEydiTs_NYi6mzpyJvv-IvulYbUXcHvgJPOiwt_BW37YSMgYh_8rRS_O1rXQnwRKewfved7b7Q3b4RmZMNUdD1H_dm_SYmJerMXyrUsAK5ZXfAZPhnHTTV1XFQWIS69RaNEo7s80SOdQL1Fw8kMEOUpuI25iPBjoD-U3aqPvYg.jpg",
-      "https://cdn4.telesco.pe/file/NRzgZEtu3fp8VMzprD6BREIUL7GNtaF2lBKvhFF8ZLTpYZ4-ElG7hMzxlD3tjxYnUv0ATF9DikWJHvUpOHcGN7xkqtqbh0M1Nu2qTU42s4SX4GrpUJWwMoAMKlzKlyEXPEuayHKtyef0tIcY5lyKkJAvdxwkPROZARoDa00Je82FkbkrWEXTNCIOUYMe3rMrbYiO1nSFe6hNYgkT1A6YqAhiodUiZZkmrkhHLuZzGRKnYC28rTi_yGxJBzCD9r6nWdLIW-MZPOKB6OhqKf9xFXkgOZbYGobQtBzLy4JosyRWLbAZUBlmAzNZm_S-HiRlAzwV-RjR2oHzSjuEOXrNfA.jpg",
-      "https://cdn4.telesco.pe/file/Xwgcigvoq8VE3Ho9N1hLbwoiKK2jLeW6EW2Xfr07DDp4W3wqLY9plbpXhR1iPakoiY0aJLhK5pMw3lwrMsDjMnU8euX9HAO-XvMsSVQnM2uyDTXuszyb4qtVYNXT2lpkvG0zfRwMYpJZ06hY9veVY4ymZws8L99FxwhkACLq2GtHiEeLXeZqkwBhqG_qYpYm6s59NEwEAb0ZoeANJrmCi5XAEO-8iQ4UW2CS65Nm8-dSwAFeye3N8zXfGdq2F2lMXqBKwetof2Y-nSDcUy_z-aeSSPL5n2s6yhTchmJTr-4dzpq9RMeCtg3xi_vHzbOoNEPFqZi1TTz7TWiXHoBeSw.jpg",
-      "https://cdn4.telesco.pe/file/DNXpAjyVAqAF9_2r8VTYySyY_m2a8qpu2gJXRBfom1JDqT0Pob7Ve9ZOfoXL1tmYvl3NtRlrcQ2VLHYo_a5AmjtJcaJ1_kquruIfT8DMngrLUhxyW__tzOUfBEdpKmf_ek3V-TezHxy2Yamsr8jZp4g7MpB4WLO7wkDrwtaMAgM4FUYwEbkmodZ8W5n1zXnCftn0-CZ75EN-D2QHMyHs-mOEZvJl-JsI_06pZnCfU5KQXGK3k1XrXyvxhx4scmYOwX73gLUaOoKjSrRlCs77ISJvOv7l2sNdX-fEwUdWJStOs_lnmmlbnXlkSFofStJQEVXoPZeODK2gou0GXTqr_Q.jpg"
+      "https://cdn4.telesco.pe/file/Ee4P-2NjrWSt1-F_DmtvUjRR-Vf5Jf5XB5RWMSdid7U_NTkMrzbhh4bzD7bJdhio599C0qFYcZt42305-JpBgf4zgiVWGKLczQhSEMaAkEN6PAML1y5OWX-C3IXmHTVoQBUfjIUd18KQPqb_WAapamtdoGAW5-FoPcYBvZ-1WXrTAgtu3T_lGS3p7RiVsLrZuTyGg_7Hutogpqi1IwayrDs7v-1gWAA_XMIxIOxCG3jIQmfgIdyy8olRpaP23tQMGB0HX1OoB6mfZP_2FHUEqtVHY1nnm2dmhZynOnaPCNQFh6k8UySW5SMErI3vYKSiVLCnKvSxahuN_PJJDP6IwQ.jpg",
+      "https://cdn4.telesco.pe/file/do9x7RA71CHhm_4ViQyQo1kFIS_DdokLFgo6zSGRivQMUCImJgDZJOCnQOZ0O5Dq-BbpMoEwg8E5e6vPDs6957G_HlB1r54db3PMCIKdLNNuIYaTv-ialodoUqtUFrprR-h6zbqkHdMQ8mC8vC9eqfGaFdQD56J8OLEURLtCzTSTZv_3-yr47CB-50Lg3BHaBxrX0HChvQ0cjCRmBtG_fY9OumMrX0zIM5zPokeIXWR6gFloyw4rceiit0Tr5rUUWsUTz6XhlMXQOLIGhVB8mQtNd1nMDoGb0zbv2ERZr3nQ8g81kTzx-S0hjm6LVxpaK7DuoUyru0R33AfEm6kUng.jpg",
+      "https://cdn4.telesco.pe/file/tlPEeuP_VRVSTpM8Z3orsaLtTzBVac8aU8tFLFqznP6SbO7pOiooMa7etOK4Vbb_lUNthX__EBxBV5hreg52Nav9iWbN6EliAm1STCQC6qhdMCoNq15wJCdb7Y8eD34QZc4Fw_RBYVkpKHQ3_tOp6qLbkhjsa0eCtaiyYwIJC8cl4tHPq2m3srU4ieI8unji5omYYUoRVKMdz96N-brE3R5RXqICJPybh_YDk9Ulk3eJp8BlMU-frKX4iqKKxG-v6uCThXxcvwluVraR473PF6D7MfzfSHINaVxIvKQWihc7kSLTLTbfxi__H-OtN9LHreLR_3RZTJPJDewRRBypMg.jpg",
+      "https://cdn4.telesco.pe/file/az56w1d7pNqF9l6VDVCIQ6izrKy0zlMzBV50v_JoxsXAOgrjj3Z_k2MHeP884JdhHumjqe9gHG7vde4zWWv3Zie7N411EwLLzbqizEYnMu3Ngyv6gGRG6HSlO3YR6fxjEvHEhpHiHBgC8saBi19VR2rvNttqSGQxYShjXiv0tgYupLK9P96GZVcbvtM-8rl4nyiYfW1DDGVFRtAakUOg85ZK7G0SUq6_kvPO_dqJ_BaZlDoJH6yybRe1ccCVmKRvBTxJ9cDnL5wbWqdVW2JiPuh_TqRDStOVB5yr1ryZdP_UBoI1mFBQW2fppzSuUZPYfboeftW_S6_yukOIomlfMA.jpg",
+      "https://cdn4.telesco.pe/file/FGzSTPJaeGA8c2CFmCiZzjJVgQFmmuyia19ZOccWBomfbkKurxJTJ756dCkuJ9L_ACwd52Guzt3K8qMgvKyVG-2c1aZc903TdagTPMpfBci7XiAQSctTmVHMnF7UmGLBMmCuxm0gptgEUsX5IvIitqs6CXKUc-GVxhoot9WRgunFi2ooxQ4XRA6SHeyNlD-H6D1wwU8Ykx9ZQmJljMsldFbI_hiv0CdaUiNu9ph2k1Sbz6PHN5qqD_eFb3c2Cjd49hiOGxrIvAoSZraEktFxz3KorOsy5pCHZ9ziN3Z6kc4VM3tPTIUx5ySgNaMKg8RA7tn6FdgXzSoVtUzqdYTLPA.jpg",
+      "https://cdn4.telesco.pe/file/tUmIW0jBnTN4uHbGCfOHSAAp8R3tqpzugxQtY6pQqa4XlrFZj5VKHX1onwKiMlgIwhOb-cJ_B89v5grQMcsxVnSwDawSu17P7eueThSUF8BuoEvLdFKsxnX2vue1XdwaOtVnnAdO78wRqd3zZbfLZPBDEts5P_zlCFttTDzbx7M_fqJbQO3RIKeSO-2ENQoAk1EYw7SAIp4iQQJRBFhGk5yuNT2L5KKgGyh9NcLGxWmBkY25HHAr4Rbx_ms8r73pgbJnQRQKBx4ZVkvF_sEBeUHnvSLPoj_wTlq6k4t686xeNjmOrQ4eebeJ9SJWm2yl672aeEDlWparEnztMrujtw.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -141,9 +476,9 @@
     "id": 72670,
     "text": "Итальянцы показали суперкар-кроссовер мощностью 2128 л.с.\n\nИтальянская Giamaro Automobili представила уникальный суперкар Albor, сочетающий внедорожный потенциал с экстремальной мощностью — 2128 л.с. при 9000 об/мин и 2000 Нм. Это делает модель самым мощным серийным автомобилем в мире.\n\nAlbor построен на карбоновом монококе, оснащён 7,0-литровым V12 с четырьмя турбинами, разработанным Лорисом Бикоччи — автором двигателя Bugatti EB110. При необходимости мощность можно снизить до 394, 789 или 1648 л.с.\n\nСнаружи — клиновидный силуэт суперкара, высокий дорожный просвет, массивный обвес и агрессивная аэродинамика. Варианты трансмиссии — 7-ступенчатая «механика» или «робот».\n\nПроизводство стартует в 2027 году, план — 30 машин в год.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 60 views06:15",
     "photos": [
-      "https://cdn4.telesco.pe/file/bWGz0XJx4yTBswxvISbF0_xjlBcMgAva9m9p5X6AX2rnU8OAf4nRg8xb0gqKl9fwTlE1IG0MQkVkymHqgMolcGdce-UMZcJZmMX9TU85VLIlk8KvKVebSmbOe3eGB_2gagh8zjyPOIFJa1k0IRVyuvFF-YlnLdZOwt32rqYuU0Z1wbi8MW5H5HtJUA--rImY3sa_lXP_qsYsnWVaqGxZDaxeCTFquNcR_tedwomQH7zOR9yaX4IPdO8CSIym1Yv-g19G3Y8svM4_O9n7DnbdyoAxIplGLLm2MyMLVcD2nyY_dB4w0F98EBxXs13jOCKu8XUO2im8V-e6qEBAwdHa4w.jpg",
-      "https://cdn4.telesco.pe/file/PozKdlx1wNrv-LCTf0OsNRmesh5aExsH8T_ziVOnso5qJ09VO7Wu_Bn2Q8Cy01u_04dt8AObK2H1klIKt-XowJl0t2pbE64wSm4dGL9g6rOKOeO_b-KLdrQjIoDuZDmFgQGqCf-hvjmIs6jvm81Whkc2yDGZqHqj0_lT7cuQimIQS24pAsoD-5Ky6TJdMhuRDFsH54mhJcZJ3BUjOfcDN4i0KVS1orcGXjtI0a2jna-asJlB5cq91JZ5F_bteQcz-oMfO62sjqZcI9n6cQ1F6GkEF892U5Ck5bYVG9noSK12ZO4FlLQ9lmlu6PWWTX0WbTfGGhgJl_MhfrFQGexdSw.jpg",
-      "https://cdn4.telesco.pe/file/Np4yDf2ZgvI2tSNefJDOD3_-7bXF3B9F9G66Haa_0AC7EdXJi9F4N1JYXiFTt_cMl9TV1zeTL14jIR5soq6p7TSjLRyl4EEyf99MtpqI4Bgm9AAyeIoSR2uXIZHYFp8JoOTdmwCAKLBdmvXTdQi5HP9AxT_sgOAvLp6NWAdIDq-4A5RC1Rwqt3mcxYzHGv_qaYgU2V9ig6MQ2Bon_IxYLD0Cb3-z2FbdiCMcvw2m4LQre8Tx11kORWx5fHRwpuvAfUNK0K8Oh9QdX3pdWy7mhxspTLDjqeDFdne4fciK835gE18PXtomEHy1Y6HiMs25IHgf8bTZi0zIyTwXsAQcnQ.jpg"
+      "https://cdn4.telesco.pe/file/lopfzeLhET1yiZun7RVjCy22ZJOkRx3mBYnNPZU6Sz3tMyrPURkvjmtAQzrCYvHX91Nz-K1dGik_qOE7baly8eml0jGM9mN5-VfDKezy4BaEE1RS7RYIojYtsLf-CWunKcq0z1DVd2TAAm5NZteNUOqmd8xomC3hL_5dUrl9gnaWOXvOsupAs_O4jX6fnnTi-PidKL5_OOS8_pToi_5UuyLG4Cim4OvarCjHiAMY2XadrH9Vo-4u0fAIcxy24q6MMbcLWZOHxM8KhhAd20rGXmBKf7NltWQEY8gB9wk_GSiO1pfLKMGP7QZwwA5Ti-O3xJqOy1oAehHWNsqip9Kilg.jpg",
+      "https://cdn4.telesco.pe/file/R8oWw1zvaLZuijKuqr-z6YNzTTnTq_9IOpAk-PHW4ehYZwVUULCF5f27LqUalLgpdFQoHMewZEj3kVpG4_97i_BTzMsV4PrRT5ZYDTF7hTJc7mPsosGyk5a_FvRzDw0iuE_iq2ljpMxt6dO56wLHmwIYfsyQ0JQ34jVfAyKmaqVbU4352QFMlymcKWE7zVmu8OvjPwwFOH8D1wFu57adTZxr7kWCktg9pbab9FZ81Yl3gcGRP1TnQ1iNPbOLevHKYtZFAL0Xqt_VZT6sJdZXCWQicXWc2MYOeM4kA-hqLAGztlAAQpAEsMLQKKUYEEBMqw6gP18c8RiAy-4TPaJw6A.jpg",
+      "https://cdn4.telesco.pe/file/f1oyxAjXtSHJarpsIGG5L3i7GEOwR694lN7HrKle16LrWJRctS9tqCG1ODcfNVRSdIsY_BZTOqn-vym7n2EZ5p97zDKhqgdP6Fc-0r-wkQ2jIUwE3oZv8yTahJYAnxceW1biCzQLQjKwUR_RC7AVj0WI4qIbDqPUqCLdvTpjZcw6WzEe1nAHlsMYJd3n_4VqYM0jOXToZwKitNOsm0NXdUMuIlzXik7THakZCAJ9RWvvUPtnaXPo7U3zncPjYx1xpBSIAIzn8KtJpU2_wAMvmpMB_In4Dg4rzaVAawNg5Avo3m3dQxKndcWBhKTbE-Mx-I8oq4AjiWCp11T8LnZaLA.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -154,12 +489,12 @@
     "id": 72673,
     "text": "Флагманский Geely Galaxy M9 представили в Милане\n\nGeely официально показала гибридный кроссовер Galaxy M9 на мероприятии в Милане. Флагман марки получил 6-местный салон, адаптивную пневмоподвеску и подруливающие задние колёса. \n\nКроссовер будет оснащён гибридной системой NordThor с ДВС на 1,5 или 2,0 литра, работающим в паре с электромоторами. \n\nВ интерьере — три ряда кресел и широкий дисплей, занимающий почти всю переднюю панель.\n\nОжидаемая цена на внутреннем рынке — от 200 до 300 тысяч юаней (примерно 2,2–3,3 млн рублей). Продажи в Китае начнутся в 2025 году. \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 58 views06:16",
     "photos": [
-      "https://cdn4.telesco.pe/file/DlTofM1mNpleknZvXbws-Lv8Ba2sSUnllyrVJjhlWV3khK9-6UdUcmI-DKAo4nNUr7OKxID-tjJLlADoATr0_EQDviR4kE-LTCryb84JenYUNhdkUZD3eNDJnvOfos0qp-Pu4o0uhyno-XLp2sDTfuf6us-hReSNZQaDC76Kc5UpnnavazdyudjImlXjDGlS6lVRozmZXrHkcdsT6QvpaxnQZZA_Nqj7I6dqf9x0wa49V2Ffu6tU8GXC2jdCK75CZVSy2z193chykTgZXQavUistrbHZoXpmmLcxEVy8J3iRtOh2CN4j3M8AvKDrmU2SzlAYUEOnPEvXyqVlOSPT7g.jpg",
-      "https://cdn4.telesco.pe/file/VuA7EsiifjaP9fykYe3iFRGt6TvJet5XaJbcGtjeCaT6g5N_P7B2r-QTXZNQeGJayBBQJaFlaT4KzY1RnnsoDqmZe_eS3F-m6yOFnDS-9NE5sd6SyLtjf5_fmUMAKCxKpKGMZuxvLCztvRifBQDtupVZbqK8JZQvu2LTbVDR3A5bClUpiwrghebBNuHg5B22ACgOv9sqFrjRrfeP6NWdl-VXOdt0NMQc5wUmYyqFoAR9s2fNjjc9yZhZFsR8kYDAukMcaDzxIWYPDfwWS4YzosfAlZXdwdcrNCiI9Bqzaj0TMfzLtv0rzNf0iRUkTidM6d5Q3VhpNHSy466Ajr94Cg.jpg",
-      "https://cdn4.telesco.pe/file/frv8-6OH5xnwGl041sUSYlrPzQAmdPn4srjvJgwj7obQy9vvoY-psgRrbmoFeuN6MDM3QJxC_uzO40nF9kWAL6xKSWLm3aFSAcYbfCMijdahwDDhvGGE_U8rMUPUrDbuPX9xkm-BivOcyssulInWmjriafVNchT8EPQf4jUFCNzSgULCXdumcVGZzef4SGAi3VyPZSZtsc2KIdSKrMPjaQBy4JRjk9jJhiQXfnv_t3nS6eti4KyGQ48zo6AJPiqAxILRHlLhALYRBoYaLVFLbgt-f-06xnl77rMzjpNT1hhftsMG1wlxtS6w0GbhMIlKfqnBc1syUVXFBmdMbNepFg.jpg",
-      "https://cdn4.telesco.pe/file/rCwiRLKo-T_SrCxEIVf1zZ2nABXFatrme7utnBfMESeK3akrGSHYNOlKlqJTNgdyE_j-Cu59OLXFVNP1bzTTag28-pcZFwGKCJCsGZEVe17YLps9VPH0pRVvaeYV5jsdBYXXQm7sdNmRiIQiC09VVe8tq3y6iYbH2_yRKs3lny-NA7C4SiMf61sgzwk1xFasDJZXMSVmpyksgTw6AY_eBAke9tbkWJ3ZnHacf-rgM_7OVDq-DwDuAWE5KHIDdb5s1jcH2przawH8iGz8KLYISuvVzi0svL7DQrTZbJUDJDJKTsVrIXGMkajIih720zLl7aHfnuSG8kTht_pd5iH5tw.jpg",
-      "https://cdn4.telesco.pe/file/ptmRzbeJv0YqNaheLVd4qtHn9ZBrEAa81IXJrySJ862XICS6fx_JFAXWe0THruRf-J929jM_4XgtAvTdXUegSa6AMqwcPM1CT7Vv7dUoC7WVJOilZuAENQBLT-cRLFKq0iAKchz1t3RkTJiRQQTmkBIliM800RWXraVSMSO1tZkMuYk0H2iHs6gEYem-wBHXKfnSsWDxcNnJtk1aPRrUsvPaeat1Wzb5ggYHSlsdKIcu7sA74hVqFWL42VxgX0pIFmU639DIeIN6UiSUFw7DOoZdj0LS5Poj-HLfla4n2ITIIz-2JvBK-Cc12Mga7JKsCUBPuiW90hBJLBRXcHirBA.jpg",
-      "https://cdn4.telesco.pe/file/rNPnTODemZm8m3wlDiKWdeKhP-CMGM5hAZOFLQ3xuf1IPqJLFstZ_mjgYPI00tyhHiS2re-dP9HwmtNdid2NjTj8L0CSsnXdruluLYkug4p3pz_qUNSC0lxeZmcBeoHNa6OLJB4Kw4juQw5jqzh3T1X6lN-gPpSS6NRkme1dyzx6o4yRO2p7_vksZMV_eX8Z2JYdD9Cyye8bwqmhKkNyqKbUS5YMPzOJKnCiHuOUl7c23A6AGpv9W0xOGdNMhS45pV3KtEZAxWMx30v4NXPM9yeUS8n7P9q5ldD6ICxbnIZsGpNUnLM5P5v5gHUOGdnck7mjkr_hitQjKaWdYMjI_A.jpg"
+      "https://cdn4.telesco.pe/file/T3oak3Uk3GPiM5I_d64D6ImJvi7j-EP17Rt5la4IkAEgfimzeYvR9QIc20GOd1VJEv8xcHED36SB9n5JW3dIGULVNtDexOP71vIS7C1mVT5KKB5BhkndODe5ofFQvbE71xkTTfwoyWXl-rGMqR-FKdjD4FZdkI1LMt8JI0YOmzSnkY3fODDEiKww5c-qbeqLThGymh-x9cQ7dTijz9TlysMqjgJKR3cMwQcxx26OCCxIKrHvI6jQZhKLQPLO5GM401qp0BcTQrhwzhOjyle_EEzHKapV0J6W8JLL35NqX7ks7hEMX00LC1cx3Xi9pvwsjZ_e7IkACR1tCzu89_ro3A.jpg",
+      "https://cdn4.telesco.pe/file/D0-ItpatB1aZufEZCgq9AZnQnEOMmujPpEwpsnzgNDam3pb-OqlroKvoKLuDzUUflC2GHO1ylA55xtjKwY4b0NwFurr-RoEmHcyh5nnAyXW9ITycgsMA9Nvb8G6R2j48HgVD-Z31nEmB5OF0JigLSzN1NxZiRd7Y84KVN_iZxUXf_CyXHtsGsHhSkn7ZRSZKHGNkopa90DnW68Ne7IrPz3VFUwmlC-0vM4hxlRidCKOchWjswD4sxmnt0LmMXABzaXr_ZAovhoNeH4f1x1Zaj_6vk8gC_pfLb-vvWoskPAH6EQ7GMv_qwJZSypZG3uJoO7NfjPHElYZ13CN7RSUzEw.jpg",
+      "https://cdn4.telesco.pe/file/keqHuOm5HowqQt5DyhiuiktYSZ0m2ZPIprS1ec-5Fb9WnnNSz6GWHUO3o1HWH4vdi-1GnrVMJy7pasq0IvCb3XC4rOvemdz6Kq7emuTgnyn-rDRkWPwRpi_lLs0ZN89ocPflsXikfglspHUbjQtaeVk4evjCHFrbwCuPYabaNBwxAU0gV4GVRQubffM7pD8YdpePqWZ0gl9fSQiR9b7lOQnq0x5mShZTrgyQoU3UQgYgarB3dn8LddLR77eHMmmMToQvySPH_hUnrlzVHZHq5a0S7fKNcI7RDoW2ZNOsgc4AJa_rTM7nGFx3Gtss5TZjtII8bKnOxDcMUYyGgCBY_A.jpg",
+      "https://cdn4.telesco.pe/file/PrOcEuTb1Z7wbFrfNq3YFEhMlSAlBP2uRMFxB52ik_VZoOXNMvOe8IiuVpd1ZWpbLF6-aA6v8bohiJaw4fp5eJ3J9_h8OufwY3uAbyjvfR6zpAnUdNQj8VVoX0TqXYsAxtmFF7R-1efcBjYYFmkRz1MGsJ7POSXEOHpr7SrZgsmXOcu8NIt5mhzlXfk5AQPMIHZqRPBMfE3ADx7UgKUAeNJ9nLa0SGNE9dAgtxxM15wMZ5A18bLfPjh0nNppWw3PoIQB7UN0jqSYN85h28AQt0FAFP3EY02eFuHD3gpSKr1ykK7oqSQpqOUfk5M7EYZVrHwJIOADrlT6UjSIa6nIKw.jpg",
+      "https://cdn4.telesco.pe/file/hdzxfxIjkYqUv9jOXIivHr07gD-7m7HQ08q5fHPt0mMb0YBb4G1Erg4rFsFME8kspj7my3hVTTkzxG8OzvQOCNVYEKGrTSK3g5Hd6F7DjwLgjyR_nsuuI7V6t2DnkGpwLlkKQPFPdTg4OlCATzhdpxIjHgY9J-H-leui7GhyHymZe7AgKWQRQW1vOs-EbiQ35ipvkhv7DGBIOHy_afzaa2v5RmHw5tjVVr7z0zURmPiHCNGvrMMkWBLUJMPleHNB7Oyyg-FM5Kf_yawIPrRhtGl6uXNWantMQeVlStFEpvIP23tmJo2prnnb3rDWFepIQoVL0NzrbpaVexoZCz55zg.jpg",
+      "https://cdn4.telesco.pe/file/Vikk2J4L_pwo_U2meHdGZ0rGoCN8-FHtSYA5cqE1R02sge3-XHaG-4p_2K90vGnj7HUzz0NYnPOt9fl5VFEQ6W03mC0X5o6vUrRLuRnF0rMFyEzHQff_7DwkDXlwfcFzg_BMbzUHlnQONynDm8s4zhL6i8Xa5rYyVMktPqpPENOtzcun80gCgMz78HDMNTgCHD54vlT_7OqtmdrZnRldnFRkHXrCSmnftBW7ZKGVWlWtFQswbt-gasKRhO8EtXEBvCB8SSCvJvTQKpqLE70HWMKiGOZWMFvKYkZxEIAuApR0NK3j6bMuyZuiJbwHfu85ZQbPYJ_lR5246F6iYWXzkw.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -170,7 +505,7 @@
     "id": 72679,
     "text": "Porsche завершает выпуск спорткаров 718 с ДВС\n\nPorsche готовится свернуть производство моделей 718 Boxster и 718 Cayman. Выпуск среднемоторных спорткаров завершится в ближайшие месяцы, а продажи прекратятся до конца 2025 года.\n\nУход семейства с европейского рынка произошёл ещё в прошлом году — из-за несоответствия новым требованиям кибербезопасности. С тех пор автомобили выпускались исключительно на экспорт.\n\nИм на смену готовится новое поколение Porsche 718 — уже полностью электрическое. В компании обещают, что это будет «по-настоящему азартная» машина.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n👍1\n \n \n 63 views06:16",
     "photos": [
-      "https://cdn4.telesco.pe/file/YuvoawtReBXkJjomrFDbpWGIAR4iVt4WhJnxZMaAKHnXnqYO51jt3uEnNWuIBtspKBww7mxJuKR1d2Q_v5C0pcQQfniVP0TLA4u7YC4_OtGFySn5gTrTjamB6Nfse5IAgXD5CpiyuaAmL4KH-y_glP4wWmmh0pxP-XYmpE9dI2XV_yKMpANtF5V5PCjvc0hMYigwB4QfXbWvlqgHqiukX5Uk-mVMp_9XKuzAHTCqu6eJysE8Gyl2SWNpXSnKSfrml__flei1u79td_LKpSs763k0Eu8ccQNf1WNvcj1YheQSJMfVym1oiUgVi4FNjNvP2GJP6-LN9EjBquk7wVLi5Q.jpg"
+      "https://cdn4.telesco.pe/file/t7Eq9lm2dSFumvV7qZwoEDNpdWU0g2cxy0oFB9Sdl-ETGU7CA_zMpQtvlEqt0mdJkhFTs8uT9RKXXDkbIXX-os53iBSuKzjHX-gQWzvj3WVpB59kPsQulix-lL4g08ldfDgpXk5aqcfaGt-wZ705dn424sJqSWYMfpShC8_15dK1_VWACvWRZjHOqEReqJH9-YttLDI3oxdBtYj2E4w6YfE8Oe5PoQTRF8nwH1hQQMxVqi5E4OTcqCPqsLlAv3nuFB43r_OKWFnlgGlRmZNnWFdDnf4bmNmvTOdbylMRnhzwgXt19MHZFd4cC2mFrHzRHxDsflmLaFq4uj3vXXJQbQ.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -181,7 +516,7 @@
     "id": 72680,
     "text": "BYD обошла Tesla по продажам в Европе впервые в истории\n\nВ апреле 2025 года китайская компания BYD впервые опередила Tesla на европейском рынке электромобилей — разрыв составил всего 66 машин. \n\nПродажи Tesla в ЕС рухнули на 49% (7165 автомобилей), у BYD зафиксирован рост на 169% — продано 7231 электромобиль.\n\nУспех китайских брендов в Европе объясняется смещением акцента на гибридные модели, не подпадающие под новые пошлины. \n\nСогласно данным JATO Dynamics, поставки китайских PHEV выросли на 546% за год: с 1493 до 9649 штук. Теперь каждый десятый зарегистрированный в ЕС гибрид — китайского происхождения.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 78 views06:17",
     "photos": [
-      "https://cdn4.telesco.pe/file/ShQ1CsldvoLrh7wnrr6Vf80BubHKVZZYoFrM3HjqKWJYi4MW0A_0WOtQoMezaCUhf0Kaqb1tDMyFveiAJQO3t2GnCY48toz5kgXylAREojqJ0n9lXy4dnNs1v38HaA929CO6lvAjJmvgDAV--zFkKBrvAcAwf3MnNjp5cFBkEMHgfSHFZc3v80tzXgUklDWrQEU7HM3P_5b0nvnQD8lCJ9si0-0Tyf9WNm8opm3wuVpwMz1pdM3mmqrtyuXsrpyPJgjEu8Jt-PRWSToGTCIMohpgAB27CrMKI6joCBdnGpAritcVVhpO2eHp5Sd3oE9jhxBdrB8n8v71nwKBv1LndA.jpg"
+      "https://cdn4.telesco.pe/file/srifPKV92-rAhxAvAsrVCG7KUf_4-nruJBpt7oubzgBCX9reHlebCscql_bTz9bmzgQDuSXT2Rr1WYr-UyKCIDP-jTEFp9S88rQnGtrXMhQnS1tYhYX9cPBrIvlmPLx6dIx1klqVtfrhgN_y0a5H6kQDyVU1Qm3IMyKoVJ3reTpOgjFsWBt1_5JeGD47YXXEZcA8HputOIAhtx5wmpCk1iJ7987scas14oDy1lvrBW2yxhTLXWe1tF1AQr23ahZ96g5umgnIthR0qmNU9HIsUDfwAdH3-4j1_9H1M8J_lVBkvfQa-wlMPmkVcdH6XPuy9qZOaK-mQn3RpYBEgVGJrg.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -193,7 +528,7 @@
     "text": "Тесты 1000 сильной ракеты\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 70 viewsedited 06:41",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/f6475e44db.mp4?token=SrhtHUUwt3YauQC4jF0pNziFszEgDLnQYJbWBzG4wI-9DKGBBvaXMXLABVOGOdlOEQYw2ygje_I1eKZmK2tK101H1bJepU_r0herMy74tAF5HpuChlMYpOZQ7w5_nLNDM2Tk1bKUMY64vjdFNXnKEEplT_ibcMHcppmoaFQoQx0QVOjqQ4tQYmMNpH79e1MA804poYmwdFq0OyytQ8VGRH4maRdGlcnu2GMS1iZoNv6G4BaJ4YrUTmAr1yU-QTM8boKZjr7ATG_5806D69YdCQCOcw0HwynlTdoPkavoUUJuZBauoyKx1oCwf8YVi4ARigPT9Uwy4Nf_YhQ4uC6-Vg"
+      "https://cdn4.telesco.pe/file/f6475e44db.mp4?token=TY1VBVv4ivZeRpC_mLXkKF2kEI1d9Ke99CuJWtMFprCYA8RvOe9tLc9imA7zgNsmyrA1U9XTbm0sRKgnAs2xs938ZHNdabfsfi7MNNZNpz57lT91FMkcqxnMaYBZG6EJVwl-QLdVU_k_8QR8Y57M9zxD2pJS2anpTNX8iqwUc20qeXCsdGq-fDFC95tQONdbQGNwwhRHSL2ox3dsCgyJxy65SU2oo6Lthk1qrt52bRowxPsNYmXKz7Qt2YUY-ZYI0GNREr67cZxqLrtrQq25VeCDY-gmm6Ph4kBlCJUCI4URJR_Qn6Oa7sl17Hgl_-DO_cCzjthH-uhArhCBRjOozg"
     ],
     "video_thumbnails": [],
     "date": "2025-05-25T06:41:43+00:00",
@@ -203,7 +538,7 @@
     "id": 72682,
     "text": "Lotus Emira может получить V8 от AMG вместо двигателя Toyota\n\nПричина изменений — грядущие эконормы Euro 7, которым нынешний 3,5-литровый V6 от Toyota не соответствует.\n\nОсновным кандидатом на замену стал 4,0-литровый битурбомотор AMG.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 76 views06:42",
     "photos": [
-      "https://cdn4.telesco.pe/file/Bik4xCSPGminPA83Im5dwlxg20nspUnMingbHq6M7ks_IxaWtN0n0qOXHhFa8D6fH9tsAQTcKI_l9-LIkobhY2m-MVbMPYWehP050vYH19aALINZmQq2L9Cr9v_DV75ql2U9am1MbeWW9z30_iWezH4kVw2iXzvijl0U9YhO1tmE4WgGCy143-TcU7EXuJnI8_rda5dxYU_MApAlDSw1g0i0DcI-2ymc400aEqmvqO4MuSrcLrvkqtfDSrJ1JAGbPPznkF3zPa3X6X8E5OzG0QdQLCQYOmVmCOdZfaAQkIJr13tRkyuEBAYvOw6d6n2X1J0xT5sQnVKgmDFyaiDrog.jpg"
+      "https://cdn4.telesco.pe/file/cMVo-Se8Fdq0NY4k5fbjS4kmrnzA8f7HYbPnRBx9ydB4hs09n16yQ65FrsHz6TI8DUXk9E1YRtCSPpC3c4ovA0BBe5cMx3Expjm15KmTPu_2ct7BgO4jOcN9YNVvyT49fLAk2EYgWu_9cPFqegNNGiLlpsGRLW1OTiqfpHwR-_C8CZcj7AVgJSLEnanREBuUKuKsO0FSlIT06kj_aN_z1GaIJmRWrg9Eyzwn-RYJO66lVMGHO9wxXtEXgmhgO9jG-M4AtIA9hyk4MllOncG9wVzEqkT8YuQdp_osj28KjC8SjfwNqOmd7afxei9lOAnya0p6YV94-7xxP2XBuqlV9g.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -215,8 +550,8 @@
     "text": "Мировая премьера Bovensiepen Zagato\n\nНазвание происходит от имени основателя компании Alpina (в 1965 году) Буркарда Бовензипена, который скончался в 2023 году.\n\nРядный шестицилиндровый двигатель объемом 3,0 литра развивает мощность 449 кВт (611 л. с.) и максимальный крутящий момент 700 Нм, что позволяет Bovensiepen Zagato разгоняться от 0 до 100 км/ч за 3,3 секунды и развивать максимальную скорость свыше 300 км/ч.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 67 views05:10",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/84c9abadaa.mp4?token=EF_ywMbOI2MGbsy3nIXrmyfnpFaaL79XlLVWgFklX58542GwyVpTiJwO00mbnC7BtfXxf8FH8hAeDdah1wxRnwYPbhNxtEGhPCCcqxn0lcdnVFcrlujRq_Ft11HTSbc_Y4U521VKCAuks8U64IAB97HDFnlJNfanXllGGGq8PYtVlodwcnOdMGuCKzoE4hW0qvxcGLtMQYlXyJbqSZ8j6DmbqZVtLuqou-oC4m6W9IOifSinkitQA_iKa-mEDviBa4WrOPH5jhW9WUOCildSch00gS4R2YzewNuBvQ5vUQyXFQ1K6GOT6z0TuJtIHF2cxAJD1kzBGykwKdgFMb2AsQ",
-      "https://cdn4.telesco.pe/file/84c9abadaa.mp4?token=EF_ywMbOI2MGbsy3nIXrmyfnpFaaL79XlLVWgFklX58542GwyVpTiJwO00mbnC7BtfXxf8FH8hAeDdah1wxRnwYPbhNxtEGhPCCcqxn0lcdnVFcrlujRq_Ft11HTSbc_Y4U521VKCAuks8U64IAB97HDFnlJNfanXllGGGq8PYtVlodwcnOdMGuCKzoE4hW0qvxcGLtMQYlXyJbqSZ8j6DmbqZVtLuqou-oC4m6W9IOifSinkitQA_iKa-mEDviBa4WrOPH5jhW9WUOCildSch00gS4R2YzewNuBvQ5vUQyXFQ1K6GOT6z0TuJtIHF2cxAJD1kzBGykwKdgFMb2AsQ"
+      "https://cdn4.telesco.pe/file/84c9abadaa.mp4?token=sJ1KTzWDij9xOs_AaIDGK5ba0xv_ZPCVgHQPMy8h2GCq7llNg3QW_YkvDBGixcJ8ucFtVsb6Gzc96-V-QzJsYyEVzZEsJbWbbHIvwgO6HO4Lu1nyWdkaH6g9BDXhmwawoi9jKD_WoUugV4ZV_uSBZExdEe-VtyY3ddVi_pYvGdNwsDRZ0GJam82tzFB0sGWmhjLefgOSzy2ZrfcI3AMEJDR2wt_onDXYYhd5CqIZh_UNXcZsWrrRogxV5ISiU_aQtRKzlIQYIoNFYUExTvNCqNYxGXDpHfx-E06YdBACZVwlLMuW1X6UU0D2187WtEPkhWuB_sTfHokSm5OYW6MPZQ",
+      "https://cdn4.telesco.pe/file/84c9abadaa.mp4?token=sJ1KTzWDij9xOs_AaIDGK5ba0xv_ZPCVgHQPMy8h2GCq7llNg3QW_YkvDBGixcJ8ucFtVsb6Gzc96-V-QzJsYyEVzZEsJbWbbHIvwgO6HO4Lu1nyWdkaH6g9BDXhmwawoi9jKD_WoUugV4ZV_uSBZExdEe-VtyY3ddVi_pYvGdNwsDRZ0GJam82tzFB0sGWmhjLefgOSzy2ZrfcI3AMEJDR2wt_onDXYYhd5CqIZh_UNXcZsWrrRogxV5ISiU_aQtRKzlIQYIoNFYUExTvNCqNYxGXDpHfx-E06YdBACZVwlLMuW1X6UU0D2187WtEPkhWuB_sTfHokSm5OYW6MPZQ"
     ],
     "video_thumbnails": [],
     "date": "2025-05-26T05:10:23+00:00",
@@ -227,8 +562,8 @@
     "text": "1350-сильный LMR RAM TRX против Lamborghini Tecnica\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 66 views05:11",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/8a59e816ec.mp4?token=Qxfv8oOrpYYpT3WQQv3lN2Ku6zteDNbUhx40oGK3R8rfDS02tHnCGWBSmabGWv2qD-CGucnek2cNdKL0DsGPtEYdjHcMt-Ih-IEAtzzXi9b5GIz133Mk2pg7bS9tfQpftxWEvVVVSn_-_g-JUjwOPmp3hySp1_cZwxIHqAGQ4Fcm92uQ3oypZeI1pkg7l1BwiGwv7TkPLvQ2UH3K5OXcC812wTXdw5qkZKQ8c6_UAraQhSORyTOZGrdx6gLVOtOO33xhMzNJ0xeP1D4hj6TsA2_Dxiu16vvVEXylmJjeGGdpNIYzNc7HI8MevleeAgV-7o0u_Dia6MaZVy3UYwl7jw",
-      "https://cdn4.telesco.pe/file/8a59e816ec.mp4?token=Qxfv8oOrpYYpT3WQQv3lN2Ku6zteDNbUhx40oGK3R8rfDS02tHnCGWBSmabGWv2qD-CGucnek2cNdKL0DsGPtEYdjHcMt-Ih-IEAtzzXi9b5GIz133Mk2pg7bS9tfQpftxWEvVVVSn_-_g-JUjwOPmp3hySp1_cZwxIHqAGQ4Fcm92uQ3oypZeI1pkg7l1BwiGwv7TkPLvQ2UH3K5OXcC812wTXdw5qkZKQ8c6_UAraQhSORyTOZGrdx6gLVOtOO33xhMzNJ0xeP1D4hj6TsA2_Dxiu16vvVEXylmJjeGGdpNIYzNc7HI8MevleeAgV-7o0u_Dia6MaZVy3UYwl7jw"
+      "https://cdn4.telesco.pe/file/8a59e816ec.mp4?token=eg9CH64OHrjmvH6M5shhZgGFZKb3cALFJYwlO3XdL0FJhRE3QuwnscqlQPejsP-ke68cRY_lTGMixyoTAEWi7kqnkIP3rokhQGO3H7ezhjXHjnOH3f4nbNxh7lI-Xst-yXZlXH8gdGiLC_RoR_GHO0SAT7xY90GN9gknsINtub-dM3adYw9b07Qgd8ppAqp5QgLb6Tp1avrvw1qygQUv55EX6y4mZvxUKAnoU4M4alcd7qtN7M4xBwwqodDOWBlgA_wGGDJYCNIdIBXBY07zhpZ4_vuLZ_ConWgjrIXmvX7RkWhwM-12A7u4fJ88O_bHAVEiao74-cuJDtJhqQd8jA",
+      "https://cdn4.telesco.pe/file/8a59e816ec.mp4?token=eg9CH64OHrjmvH6M5shhZgGFZKb3cALFJYwlO3XdL0FJhRE3QuwnscqlQPejsP-ke68cRY_lTGMixyoTAEWi7kqnkIP3rokhQGO3H7ezhjXHjnOH3f4nbNxh7lI-Xst-yXZlXH8gdGiLC_RoR_GHO0SAT7xY90GN9gknsINtub-dM3adYw9b07Qgd8ppAqp5QgLb6Tp1avrvw1qygQUv55EX6y4mZvxUKAnoU4M4alcd7qtN7M4xBwwqodDOWBlgA_wGGDJYCNIdIBXBY07zhpZ4_vuLZ_ConWgjrIXmvX7RkWhwM-12A7u4fJ88O_bHAVEiao74-cuJDtJhqQd8jA"
     ],
     "video_thumbnails": [],
     "date": "2025-05-26T05:11:31+00:00",
@@ -239,8 +574,8 @@
     "text": "Офис на колесах по-китайски \n\nRed Flag Guoyue\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 81 views05:13",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/bdf61fb0f7.mp4?token=qNRqpkXMyvJYF5euht_ux5HhDVhesK2U-0JF1_fOF4fQnYOEY43m99q2_DEm9Vf7l9szAkr_5mmfcTOEIqfxfG-kB8QcUJQEwSPkgtdZYMRXyuXmbuDiEzPiP9iIG5xhae0MWosX-9rx3TUBrb_Fj9eC4QJQcnrHKG8lSgNt7PYzNkQ2YDaKpcXAc4rUygV0Wz0rbEEYcx-0lDKX_R4PUQdN0SQxeeHleGVtW36DkKGphfTDtPBYf1UcLUfHMfosg0uA8SHyUrf1TtAkrZA9jzFagxmaui5hQztA4d9MAvvPTaeQl9pCSseTHHZ4UxlRd9O8PfpO81W8pRC5OC9nXA",
-      "https://cdn4.telesco.pe/file/bdf61fb0f7.mp4?token=qNRqpkXMyvJYF5euht_ux5HhDVhesK2U-0JF1_fOF4fQnYOEY43m99q2_DEm9Vf7l9szAkr_5mmfcTOEIqfxfG-kB8QcUJQEwSPkgtdZYMRXyuXmbuDiEzPiP9iIG5xhae0MWosX-9rx3TUBrb_Fj9eC4QJQcnrHKG8lSgNt7PYzNkQ2YDaKpcXAc4rUygV0Wz0rbEEYcx-0lDKX_R4PUQdN0SQxeeHleGVtW36DkKGphfTDtPBYf1UcLUfHMfosg0uA8SHyUrf1TtAkrZA9jzFagxmaui5hQztA4d9MAvvPTaeQl9pCSseTHHZ4UxlRd9O8PfpO81W8pRC5OC9nXA"
+      "https://cdn4.telesco.pe/file/bdf61fb0f7.mp4?token=OXpUe0bh9ncNz20wzizKcwQI89wt3nA6fggqxxeMp1R5T_PUbK7uikeN6bsH4-EvMq2AiPRyXK45yVU4cafk64jEVM5XbqyAn6JY5zhahHER3E9mJrWwpv3rOH83E6POhNeLRekGXhyMtV1BBAB46yq3yubK6pJooKJn-jrAyqj2Iepykv4Wqc_D_awbB9D_JPGWxQGfQcMQd91BIbaW6pIxzl9_-GihfCXlwQafCDW37gd2nhg711pqP5myWj4ZJJxXEt5DGRcjrTzXUET52CUEc3qnTeUGRlvkPb1DvhIAfL2jcabrk3tOPESymJPFJxLWoIhL1zOXVcb_LB1nqQ",
+      "https://cdn4.telesco.pe/file/bdf61fb0f7.mp4?token=OXpUe0bh9ncNz20wzizKcwQI89wt3nA6fggqxxeMp1R5T_PUbK7uikeN6bsH4-EvMq2AiPRyXK45yVU4cafk64jEVM5XbqyAn6JY5zhahHER3E9mJrWwpv3rOH83E6POhNeLRekGXhyMtV1BBAB46yq3yubK6pJooKJn-jrAyqj2Iepykv4Wqc_D_awbB9D_JPGWxQGfQcMQd91BIbaW6pIxzl9_-GihfCXlwQafCDW37gd2nhg711pqP5myWj4ZJJxXEt5DGRcjrTzXUET52CUEc3qnTeUGRlvkPb1DvhIAfL2jcabrk3tOPESymJPFJxLWoIhL1zOXVcb_LB1nqQ"
     ],
     "video_thumbnails": [],
     "date": "2025-05-26T05:13:03+00:00",
@@ -250,9 +585,9 @@
     "id": 72686,
     "text": "BMW анонсировала новую M2 CS — «заряженное» купе получило спойлер в виде утиного хвоста.\n\nПод капотом, по слухам, окажется 3-литровая «шестёрка» на 525 сил — мощность даже больше, чем у M4 Competition. Привод по-прежнему только задний.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 569 views05:14",
     "photos": [
-      "https://cdn4.telesco.pe/file/DwT1Aj3Ku4TCay0PxMbqEf0uO7FlaqwgLfxvgBE619ySd5rt2T8CwYcSQRs3xfcJNb2qZTluhlBN0pWnj_XvIYp8-YT-6tHt2r569_HvvEnvmGVxflPU_K8cQmaB0eW7TV5ULp0X8xuWDQuHSe1TGNLiTKXHOR4sw7BV45RKtXF3hg_1KnOj4wQCoizBkpmRYytKTLCIw-_yfkWEWiwCZL6kdVbF48RHD87T08McVfBGkv4kWKb6QFPzpsk9Yn4xGeVR29OHDUiXsFwZi6bUN05eYrPTY0_-A2OakH0otqxwILWg8bvZz0wrg8XJKPrBXt3zm18jAFNoCYHRhwg8zA.jpg",
-      "https://cdn4.telesco.pe/file/v7YhgHpAifJCbeUNyLuzBfuPGKN_y8xWRRVhQVUp3KmOgKDKdbVrDiSV3fPFFWP9-p6A_j85HEI5_dKqAHpJz-x0jcJqBh9NzHAYwHGd_76O9-uWK2SU3b1xICSB8JrWKfpcOHORrRJDu7wNawJIV2rhfJJCewORrl3H_HtbdkVH5pzSs12qFO_wqT1k_G8oHXbh29mwFvL7dY8Hcic--AkK7dJ2upHa4ABI6p5exvEkC8-vUZUCpgSgwI9-99kZ7hBPoOTatEW6COWuogIRqo38aQu3fIdovi4MqPlo-DflGEHrS4s4uxCJRNQ0NAiWv7IiXNCLoB_XffoLYLE-oQ.jpg",
-      "https://cdn4.telesco.pe/file/YTZCNW0poOoU2VMvfVRdK-vBDY8shdat0IPWM4FEZc05EzLFSsr_VChtniBlP33aUe9IOZJ3_aahgHZNHrMpv4PyA6ZRBTKerHLVw8l3ZYbUowhS0-2144-AIE2UsGvO4U8lVxGKzJ_hA-MJOIMxjYo_qS3VyMb-do6GOYLIBvuJtTCT60nyPQ6qrlOvdhIZ4bZTKgpV2ws7g4dlaF2g3XVOu4rzRkSvDhJLXMwbZJ3fl94hq4GmzZzpZV3RhPkaNlU50BH0348g9pPy94E2TPZVviwoDMC59Re6XG7U5bS5atUGzgtUXXOnLm9aZY4QAIy5pap4KokeTPKXp3c2XQ.jpg"
+      "https://cdn4.telesco.pe/file/WQTdJEwTE4dbyR8iybODq3h6tXS4gePknN-LXsqVKHH435fg9hLtvheRidjjvPNx04tV_Gor9sft2mPHpv8Hx0P33k-usUBNj1_ThkinDUJ8tVA9uUvdzD4L7p72Ux5wdowXPVgp9vN5o4mJ8R615F_yEw1vh_2bpkEOccbvPTpnQcvbr-1Yb_NR_0Ka3hYBQR7fjGqOF1S82Bf8gLHfIOX0mrqUrFrYMvTAaPshmBgwbsOiSkMJJOC8twI4iLc1zNqir7LjwWn-We0mXurQvCw8S5DsO98tfBOh7TPXnYKM9zt6pK0VZAiysg-PyntBkf6UErnuw8J6dqFHs_5jEw.jpg",
+      "https://cdn4.telesco.pe/file/W6dPEZZlGfTOYAbtxsNN5k89FIwfHvlvPQ1T7y0n7hWTXELrsS6o2UClwVnWt3ByxJJujRNtfCc2Buya2jOmlqA94iTQ_Qjq4AK3z6iffz9PT8wGZNo4nT8mos9EdsSF38vCBYQzUIP1MnNcaS9_QTVFXUoPjmlmBSHdhCRKqzD5bAIEv40R0O4ApcsuMhADqHu2c9D78NWLluNorSD6fli_PURzQcwNcYv3a_o5GaVL2mxYASB20PpJz7ZHSnJhuMV41f9Aq5PURhZbbFoyM_jjwMxI3Ha1pSwzTmjrMdCtlW9i55OX9cZfyVgw_pO8hI7gVKk-YE5oYeQ8Gc7x0g.jpg",
+      "https://cdn4.telesco.pe/file/sM-4EOPPUJJ4jq7pkakffBDtCiuSDpdDgLjY5jqYuO3qMzNwVs3SCCw1iYc0dtWrMVJB2MOtPzxdsiQpEj0DWVpaTdOReDm5Idd6dERhTyHtRJj-8QGvNxZjtN_jebl8umH3HDPpJlx49pWvg-X9O1hcQLFzfdyakmdelLfedw616-jfkqC__CyRIWD1XBk1bImVZLWFN5uY0npnYOXi0wkRtIeN3EDOIcgz0oUzz7yhXbzBZYBq9Kj-YaxAk9gmvv1cEE1GBhfmp6S-88gie-dvYyaW25eSdxHh6JcDIrjZDj0ttPaNIqiRcLwqJIIWjj_n08Y7SM2J53iohnJvfA.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -264,7 +599,7 @@
     "text": "В воскресенье (25 мая) во время гонок на четверть мили в аэропорту Кросно (Подкарпатское воеводство) водитель BMW не справился с управлением и врезался в толпу людей. \n\nПо предварительным данным, пострадали 15 человек. Четверо из них были классифицированы медиками как «красные» (немедленная медицинская помощь, угроза жизни), 11 — как желтые (срочная медицинская помощь).\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 70 views21:23\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
     "photos": [],
     "videos": [
-      "https://cdn4.telesco.pe/file/c4947dc940.mp4?token=uYyLF2611b4FJ7MIqBAN0d3zgNmZYmPn2e4Z5WaQ3TD8NPL3avgB2z-2Dg-ojeCD6Ops1cFCZca9xAMGZTxDTrj0UD1lLhFUEolLPxGCFW_adSgK9AUuxaDTbXVHhLgEzt0BVTJLZxg5O8srT1X7XNGWqmXOhq0Oq3Be8wyptmC7hOE9loUVXs2vHKCvo4OLjE9CrAGC2dBnpm6jL4fEKDn67dFbc30zwlFlVOoI_RuSmIHpnkB9KRMC94C_Hrj9P40UCqQzVW35XDeHghzMX_UaFSyGkSv3vdgVkUztWo6rk5PyWPKS4UubS8atLdrK5ab1D_gibJwCYZ3CvOhCjg"
+      "https://cdn4.telesco.pe/file/c4947dc940.mp4?token=H2H2D-dChSr3tHV7v28dTIExg936N2225HN6TJ3ayQJoh1DO9ljjlzImDo9akzqDo1c-BFdYXDDXMzquv1IH7qUTowyyG28_eA-EWxwuErRObN2lhrMPQdreKxdbYlf9ezxZhMnikZMKvdPh7eIN8F1kEWT_pxSLL7rSfk_szDlUXPSJG7YXRo1HXMePhK9Rp8TQrHqq40-u8ZWExq06TvvTMczHjS80yMFNlctolX6zR8PKo9h3H6Kc2XvGbUSmIQXokIjy5siUSXZuua5T9e2hFdgUs2m_1quGKgiNHfN3cM5rX4xkel5pca_1vx_YxQkIIVHPF7_FWskV2P2mDA"
     ],
     "video_thumbnails": [],
     "date": "2025-05-26T21:23:28+00:00",
@@ -274,13 +609,13 @@
     "id": 72648,
     "text": "Mercedes benz g class (w464) Brabus 900 rocket edition 1 of 25\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 51 views10:31",
     "photos": [
-      "https://cdn4.telesco.pe/file/kdfqmfqbGegCgae1svaxKIBwR3PgopCGALxlijYNvQGew9coc5_2SjKWpHc0_dhLWkgN8PGfgD6K6tDYuesRJ-yqvMB-j0dHsViZlzPTrJJO6AFd_UYZanEZBCzKU-XkpfJMCfDyWQWN4hQcEaljTytV2FS1J8CQ5TiQYf9xdVWcfuRSYwNjGFr8fEUEmhXtzKLPO3DiO34lPVTfzGoUQAH1SQYnIu48GfzBC-kelz3apDf6W5QHwijlAc1dfiOFQW3qkBrAyLBqY0LuuJnd2vZb-0HKAWN5URh5s0a-yEOvpR2ynvy4vHyDwoECRWNfmYa-zfpkyrYWcrWQQvXnGw.jpg",
-      "https://cdn4.telesco.pe/file/L_4dO84YRpTFziXHa1ccXzTTUzW3kawUWjpnnqHoXSxCuS5leRBxvMp1svy5ZKG7e8z36lTw8founq2CcLb1Abf6VYdZiIIuolf4seYQ9z_2eFYz46-GSnagFQTKOqfpjlDgQ_msdF4rmubR74Dnq0UcKIvxtqGonq_SmanOL8rcEDuCbRcDD3vtMIn3Y5EQfyeih-4YVIXEAX15AY7L0UnHG70OqSD6IHkKDTxbPYK2cWcnMnUMpRyKGYWnSjbjhVm_PnSO937dOhr1vrWJsVSE5ERkj-V5dsUJlg0hqRwrEaAA-IeioZIA_2bUQPA_XxXudv0xa4APQfHTSBEIPA.jpg",
-      "https://cdn4.telesco.pe/file/HTAHt16l_d-RQIxadbzyjmFBqzs-m6AXO4el_oAjL1h1--LT7vRxUOnha4uTns96Dj04rm5Ia2N2jqbVyaO2u-RC0MDnd46l7iJWGh066B91Ct06SR7cx6S77wNnbWA1ymtJFQw5nqtieIGqLRYwAeDown_1-LqCNOiR3PHFsb9pjl8rhjFQxNAhwohVtiK9GkRdCy3bwPC61x_uNxdXB4oEPLVTICFgVilppb0nKWPU3wIpvToz501DmqxWtuyTbr2j3o-OHx7jf_VYWuJCjdRl4WksLudffTdRo6ZF-YcMfJNJR4CMBVGSxtRtytSKbAmr7PFmroqn_h2ZS1W1FA.jpg",
-      "https://cdn4.telesco.pe/file/m-Q4mZZ8b-lBZ6mW_FyPqefz3aHnfwEn9aRdWv_QP1AmTSllOBuEP0toIxjRgTr3VAFCZhHf2zE0pIi-ojBu7oyGiPBRz07wz3sKdqQJeeIZN3L2h5M-J8Tcbf1hqvlAMxCPXir3PsLx-vl6LWEbZ1tkVfSmC740bex0RqOrMhjlwA-eH7DCOzmLBLRtjjqmjhJkRUGSDUd7FQaorI2rISthQKwz-WpZMfZAR19N_2ZGQwu2PpPzFJqzNUUCO7sAZSmzw_oKiuXdd0KS7siVQ_B23qZc_t3NpYSR9h8mBs1OdAoWIYpeSn6k_BD3NIymhJd9zDsSwnlE5LSnRgmk5Q.jpg",
-      "https://cdn4.telesco.pe/file/NfyTLmG913y9z4caPPgbVHGfz8pGWZ3kfD-dID0B05sux9elNxoW6dN6JramwnnrDg0JC4Azv0t2BtTs-yU24z1UbYsTzWwtxeCW0t8ySR-fROINIvhFkDc2wGjnljkUXTlpWeYvhs7nyLIFda2ghqAurNLcGqsPzFw78CL3O9czpnuMLy0vW1bFQ-X0NatILdj_6RYfbA9IRTnFm1jTcdefGVpI9JmYnRE4MR5_7q1bYNJsQGGr5c_Jk68g5KaFJtZFMk9lKUn9N1RQCPOqocZFXeoaso2mcvW6iotqc5FnTvcCf03xb-7xno7dJKCAS5xEo15zuTlyTjQpEjty9w.jpg",
-      "https://cdn4.telesco.pe/file/RXGYQECsE2jzUTcTCNsUc4pWdjPy_SeGF-gDYZe8P416FHoAkQ4nVECr6dzC85Xvkrj2I784KHoJMMNa98LsIy7fr5c3WCnQQJB0uT1EmWk56Oev6ahP-2a1TRwioWh6-38KWCaeYrrO46sK06qlljvx9fIr9tmVgt84Z9DnHvXftPwGnyRMv76q6bA3JO0RrySXrxM4EbveOne_8D6s96904zLeGqRaIgMbC5YnuwJ4nVJNDQh8DQEz6UFj6_r6K2g3u8yPkTupiF8NKdPkCV9Z0rEO8nOmGyAxYwSExYdtmlPsW0evUYdWv-O84GnbaH4_rMcUPmfG0SoFF0NCHg.jpg",
-      "https://cdn4.telesco.pe/file/SSKWm8ejFYuQKDM2pcPZfPFTTl2_FS0JAHH_wED22phtfnTXO9uAHs40-ZYUl_ztCFs46JjzbqrztmkVAeccNbyuv4wEUQ0IemFN_pkEguWW3DZlp5ptiAu_eSMiapKElqRY3QcFI-mpvdOjTH1ilIA0PKrNK6_OtmN_H9o7YGdw1JWRCjC4lUHn19co8FUou1YFUAgSFqQEuP7H9GFXdISQte-AwjJkgMptzz4LNX4agNWqvzFQdW9xCRpYhD3RXUSKsEPPtWM2NJkMkoDrNeH0XZ2tBJDeWVb_mQ7kQ7bmFSum9ISbm8jnzAR-h3bfN9fuKriJI-eTxQKt5kbwKQ.jpg"
+      "https://cdn4.telesco.pe/file/lr-w2kaRUCvB5N_ZI1m_WTqhWDnk8I-xMS_xf0LiTSlrcAnvUMytZhDLDuGCgpFjTQWCWAcAfI688-GnDJJolWvRrBU57269zUgZbfKuUvZft1lS_vlrZsf0WHf0NQbu3xA_3iD0ltHswkG4EKeqq6dP3OeA1gpAI8qxpESkUnBD5H4PQBIcqmKKbBvr2CsTiAusxyhdFxMX6HPeE74NYZElK6ZB_J8qBPPz9iLOYBUuMfcxcdjMdUJyHUb-jI1FRBTcVS-yjlaNqlS9VD5H3CYnsAcQZVc2mO5XSfP-X3b_Bu71pekEiewTaXCBEL50334gBrDzBx1YVDDGIarXzw.jpg",
+      "https://cdn4.telesco.pe/file/XZmUjvde9EDqTuhPpRYA0P0UaB4nmpzm-2T6PuOK3nyfy0_Ah_sGTntkI2SECopbLw-mqYz5WajEQQMKe90adZZXpCbsJD-W-P1u5gqriCxGf5vSuV0J0CMvvtKiRuyFaf5_W8Huw4Ow6HZAzCjH-w-yNRjEpBEKuuB3zxAVWY2VAWjgotX3_NgZYRqocPt4sirU3Ep7c275sLMXR5Tklxl0Po3Br3el9eA8cOYtkGboMoGi9Ws288VrDhjVn1bbPibtV-hH2oCY-Pdrg4biCtS0IrbM6D2DNo1eFuDFXcU7UpVpzTc_LQZimCtIqk3BiuzIxiM7cSAW2eGWryjJSw.jpg",
+      "https://cdn4.telesco.pe/file/FO-c2zpjpRR8dXGJdPY0jEL1QFREi23KT0Go_JHPN4s05gjZWHy2_sBAE9VSE285z7I6-KVQXhevtAk4VX-1W4A7-U5joyr-qPEUdF0JPLwBHKscLh0oCUNMPUqQgnLK0_ba9jE2SCqabk8hj8cIeRUH2sejVyUdxtHOV-s9G9p_kzXKuDl39TjA0V4mqg_CTI3PPWxecvSjApmYfI5LHN-oU53n4h3WtTVEZEDnLz3NNO1xtYIA30HMM4SanuQKiH9VKQ60WQdlXOoKYFNvyYhmZvcpIuXidGPdHW6QPtmBNTvvjT1d6igoHjcdmdlULyFMoxgDIlGr7O0DKL1v_Q.jpg",
+      "https://cdn4.telesco.pe/file/MGT4IBbPux6ila8vke3NRRXGGMBU77JmjLVJ0IGLKNr5B25k_pI5O7IPq_LZT75vYzTqHu2PlcoQ9yzLgGpEEJ6adOilTdGolqvMBygbuNhqdaiQyUhLS5P2cp-EuzdlnjHiHWAriwv-uKGFNkSKELcBqNGfcBpF3zN0By4AiXU0WgtydLunAP3AxcJNCD8plEWFiNlIDqahDaD5k1v6Entb70eeBvLuw-FpCg0pnzebIdaZg2dfyxYy3FpAe8_iWOIN-T0liu7KAIbDR4Q255RAUPZDyQH1JqsbvclM9co-TgLpuGmll_0ZGvY63tUKn5fVIja3gtyZvs5-94DqZA.jpg",
+      "https://cdn4.telesco.pe/file/unMU2g9loSgkkzfTSER4izn6csGUxow0OlIJoT2Uqgc96uEPyMaGsgfKTumf4DZ2I5OO2dgUrxz-7y8iU2pKPWz78So5_2mbwnpmTHRy8pUFzKPPAZdN_kHIYAsWXwh_WcNsXU9-uBRTWqH5Qm3jTsDKO-g41OGnIYSF1Y7bi5xmgMPJIYg3kDWeMR2D88NjO_hrMDkKwUpuEfNv03JsXXjZNhZOf7eH8Eh9IEcl_N9EiyJT5110aMalqNbzKlArdHy2sQbcCrWRpk0GyD9MTIHMLA69Tz2IsaCGVRUuyMd4DSd3ukgIfW146YBQEPrFrbMDCAu6AK0h7M39jtYM3w.jpg",
+      "https://cdn4.telesco.pe/file/JC4TxO9yVtS_qqB3Z5z912eS0zcdLqTYALnlixfbMDXWgfHHAqV4hKe_45Jjvj3Nyk0nXO9a9b9y6GMP_tY-3sIGguAPYyQhU_6ll-nrclPVK8yxkzn3XwDW4uEiLoGg5iV0zi2DocuwBTa7tJzDHWJcVp8Gm95RhUpDNCNvhSjF7H3zvJMFsh__IXTnwDmSNP9pxxHX6CMRxTf93XH22b89D0wcoXLON5GF4NcjWjo_TyYeTEcU6FspO6soE7lmfXGYX0jTLN0gvT09Gy23_r50J70SjoFZLGGMYnogUJKTKLWSRgtNgIKI-C9YJ_FqOdPLoD9LCT5AvuYtTNu6RQ.jpg",
+      "https://cdn4.telesco.pe/file/SKjR1Fxy5jeS5yZivsmR4FfRsKItHFc_kW7MxP1tgV8-ihmlzglY0jbGyJWYCiPVNIC2LGcaZ0HbXjnOB5Kh53acGEMmWGSsLCe5EL-QHoBrUkGT25GrLoR1fATRcFH4C_UecRNr7H98qrb_AKyD8rVvzOCxFd-jyQ7Czeln4LgJ8MwVzO7okDHVXEH9mE2WglLEcGuxbxBpI60giTWbNNxpJpmsCibHAeuqX9YR9NPcDqqfZPVFfA2Wd5epxozl9AczNnpRVITWBBUFbk1atcUS71x82roSRat7j6AiECGMSIPB8NptX4aw8VKu9H0QA0XiPocbJoocrE14UP7qyA.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
@@ -291,346 +626,11 @@
     "id": 72655,
     "text": "Zekkert выпустил более 200 новых запчастей\n\nБренд Zekkert объявил о расширении фирменного ассортимента деталей подвески и рулевого управления, а также датчиков, фильтров и резинотехнических изделий.\n\nВ каталоге доступны в общей сложности 223 новые позиции.\n\nСреди них — 81 элемент подвески, 58 датчиков, 32 фильтра и 52 резинотехнических изделия, сообщает пресс-служба бренда.\n\nНовые детали подвески адресованы владельцам BMW 5 от 2011 модельного года, Opel Astra K от 2015 м.г., Infiniti M от 2010 м.г., Toyota LC Prado 150 от 2009 м.г., Honda Crossroad от 2007 м.г. и Chery Tiggo 7 Pro от 2020 м.г.\n\nБолее 50 датчиков выпущены для BMW 7 (от 1994 м.г.), Ford KA (от 1996 м.г.) и StreetKa (от 2003 м.г.), Opel Astra F (от 1991 м.г.), Peugeot 206 (от 1998 м.г.), Honda Accord VII (от 2003 м.г.) и Kia Sportage III (от 2010 м.г.).\n\nТридцать два новых фильтра предназначены для Zeekr 001, Exeed VX и Tank 300, а также Mazda 2 III , Kia Stinger \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 56 views10:38",
     "photos": [
-      "https://cdn4.telesco.pe/file/tnW0XOOSKQMpvPTMGk5K7LVPmIVhreuATqMwhORXjrnxbv4qlPKwb4fvhfSVoirxbEx6WnnPr6hm7W8l8lUFkJ7gJxK7rWKGluKTQ414qmG8sWjYrIWCa3GlzwpOq7dXHujl57hpkKQRmzmJuoqVkfcbgDCopiuGFOnHrVk_dRFXyVEuxMbL7l-O4FiBlp2fJ-bh4Pa1EWHoMmh_y4VhbdKIJZIIBXp263YSu1eOt13RDOeYI3h1LR3yhKtNZZcuJN2qibKIFw5bWGYR3yfp6Q6hhhY8U1PxbuR7Xm0c_UkawKTZ57xwZEQApGyGb_Zkdbl5tF1TGhksn1ddv4vIxA.jpg"
+      "https://cdn4.telesco.pe/file/jA_oISX9iVdRoijA5DqmRdw5yGB1hmsZrtiRgvt6VTn330IZMyVpc8-jpITXnLAZJkIljN4kwhZT7L9UADuNjybH-7KNkzmE5hoOnqorgNgbLNyncU06pyiS-au5VcFUpSBpoaLFjcGrgoUk4Sm0L8sAFCHOA2uBhWJ2F9EkxTvwnPVV1GkNOygWDffRdXGoAoLuIb5Nmv8L7cqTZp-st42haaitb7u-Jmf5M8-JVL-k7lFk3sva7qJzeRTnXSg37w-02ECNs7Lj7uR3X9_ZloU6etLS5YBC31hkQIPN9gbPMV_tycfgJH4Tz7esriCkouAFZpEcLdXRtVCP265i0A.jpg"
     ],
     "videos": [],
     "video_thumbnails": [],
     "date": "2025-05-23T10:38:21+00:00",
     "views": 56
-  },
-  {
-    "id": 72656,
-    "text": "LUZAR выпустил новые прокладки ГБЦ\n\nБренд LUZAR объявил о расширении фирменного ассортимента прокладок головки блока цилиндров (ГБЦ).\n\nНовые изделия с покрытием из фторкаучука (FKM) уже доступны для заказа, сообщает пресс-служба бренда.\n\nСреди преимуществ FKM-покрытия представители бренда отмечают термостойкость до 250 °C и выше, химическую стойкость, долговечность и износостойкость.\n\n«FKM снижает риск прилипания прокладки к металлическим поверхностям, облегчая разборку и техническое обслуживание двигателя», — добавляют в LUZAR.\n\nВ настоящее время представлены 33 артикула; подготовлены к производству ещё 60 SKU. До конца года ассортимент расширится до 180 SKU.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 58 views10:39",
-    "photos": [
-      "https://cdn4.telesco.pe/file/QVJw7ynbodCbzWpifkzBRmm3YMyNmpEdHFAiANLDRiqprsA8DUInp_LjrFpZryoXI3wJCJ8GIUUB50BYLx2xs4xlyj1pxPVQm_vDnJtjkuS5vxm9gb3iE8R_toig52_Adlsr2VEmR7DX5pOGYczzkIffXIZZ2R3R7mBWEj6RRARFyZdjqqey8VFzsDM13Q7gb20dHjC3hly7Xtl3PkYtPYbkqOwRzPNfBPKGWi3otM-fSee__1yCTRmKyBpJEWBkUE2zHL7qG2VqXzrMwEUYoWeQsFqlnYVQ1tgjhxKX0V9AYq4OsYcQrJM6nhHUpSrTzoUTpzk8DADi_Z05x84bXg.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:39:16+00:00",
-    "views": 58
-  },
-  {
-    "id": 72657,
-    "text": "BMW M Power\n\nhttps://t.me/bmw_mpower_club\n\n#bmw #mpower #bmwmpower #bmwworld #bmwmpowerclub #бмв #bimmer #bmwclub #bmwm #bmwlife #bmwmperfomance #bmw_mpower_club #bmwmotorsport #m5 #bmwm5\n\nСотрудничество предложения @BMW_mpowerr_bot\n\n \n \n 56 views11:39",
-    "photos": [],
-    "videos": [
-      "https://cdn4.telesco.pe/file/83833081f1.mp4?token=dIYAJ8DifWiE6MVhRzK_WDW6ydiIrO1YDsG44Sx3S6KKmk8S6TF5fA6UBYZCUM_VrDnE6_xWgEZNPztuAOyKHoOhEV3eCZm3hKz6p5HwYugks8nGer7n9Y0Fi-kxWbTeOgzH_v7g9cVikT9QvTLlTpWZNNQaRfNIf00iTHV37BuJ6wmZ3_qKSfznUpaM8ATwrpJUMzhpIWl2W4CM-JnEJZk-tPNL4pKdY67JBZqOzYG8Z3FQMhgE7Lw8y_iZPOuUGz28N_4c03DgJ74e4G7fRPJq94QAF124Vk1EGXi9OGB7Awz-VqKGJsfmk-FpgaAPdLuDo2wMxN2TLEr1vCh1HQ",
-      "https://cdn4.telesco.pe/file/83833081f1.mp4?token=dIYAJ8DifWiE6MVhRzK_WDW6ydiIrO1YDsG44Sx3S6KKmk8S6TF5fA6UBYZCUM_VrDnE6_xWgEZNPztuAOyKHoOhEV3eCZm3hKz6p5HwYugks8nGer7n9Y0Fi-kxWbTeOgzH_v7g9cVikT9QvTLlTpWZNNQaRfNIf00iTHV37BuJ6wmZ3_qKSfznUpaM8ATwrpJUMzhpIWl2W4CM-JnEJZk-tPNL4pKdY67JBZqOzYG8Z3FQMhgE7Lw8y_iZPOuUGz28N_4c03DgJ74e4G7fRPJq94QAF124Vk1EGXi9OGB7Awz-VqKGJsfmk-FpgaAPdLuDo2wMxN2TLEr1vCh1HQ"
-    ],
-    "video_thumbnails": [],
-    "date": "2025-05-23T11:39:38+00:00",
-    "views": 56
-  },
-  {
-    "id": 72658,
-    "text": "Mercedes benz amg gt 63 s Brabus 800\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 83 views19:31",
-    "photos": [
-      "https://cdn4.telesco.pe/file/rpXMmR9orjNwdWz7GTwmE9J6_8-W89Nr8bK8QNLvqme3RG6L9pPL1GOSrQol0cQC4MdHxLXwu869rpw8RSP94D84R_EEnVRcFxiyjfbOG8UJGqPsF2lcCTiGkzFZcThImmi-PQMaYGCJ0HExsfcqEF1KC84JI4xpj9zepmoDLYzoqNWEaElkwmEr6fRSHFbG0OwrJFfbcpNiWY4r4OuPQVgkDpWFtQAoToAxpMI46bxQNVHYycT5JDIdauOfEbwAaLa5OXVP_kJqllDRzUIVoHQPnSXo4JqLw6JL-8gsWpJilQ2xPkqrLco5rypxd_BjCtlxoCnSuilc4P8EQp77cA.jpg",
-      "https://cdn4.telesco.pe/file/uHyEHsAs6JAsQqQ8m_vBleWymrjswq2SQCWsm8I_ViGmTo4VuhXNQ6Nux8O-9sip9mAUxjjxHa3oj76N4SZXuYux4nVmag45GiZzZ5LvNG09hGPboNV-TFP6VSt3vcsPRG-MdTc7mUFfVWMkKnxwXnSyIfx6TF06z9m449-C9BCWSANLAQJejMbIh-5SguBciaG2S3Sw8bFbjiEoKMmu3ZDOAOiEAktD7gc-zOz0S2xZk9I3jpDZo24tV3NHJ6X0q3O4KJkMT9AFbyCtL1o17Dp7bFFjMkuDYLKYzVjCK-UsX5ddA0R2Da3iOoLuY_oGkyXyYSB49C9xDYfHUev53Q.jpg",
-      "https://cdn4.telesco.pe/file/JppFOwb3zvQUfXVtElQMINsB3B-VRXdLGcFBFFQPQlox6ijBaC5fYpfePPMnkl0uswkd8CwO8jRCKD7c8iH_yIGwvp2FPyB_yBCrCS-OiYVZY1nd84zbYalcYYf9Yv60G7cIwwGMs37wMzGpV13JdWrp5y4VpyDVn-HymnQ6MTdJQX-gCOW_Pvhj8B-8dKLJAhW3kGU3J6rKPZEl48dp-f1KykMLpijvgvg9H3ltBOtw_Nty2Xc4uo_u6z5hT6VfsUcxsG0MElwgNDIJhUioikGS1j5atk2iIgfX18w5hCpLVP5SyGjGyruXPrABuC_XBD9YxraA85fWvdsuBQEqHg.jpg",
-      "https://cdn4.telesco.pe/file/KhfnGOkkQM7ecxh-PwXsidm53shkFPL63LqAJ811ztxchCREBT8xbFjCIQ_AFQhaaC5M9SAv5d-DSU1H9IJ3Tq--viMJ7j0pqfXm0cqloJN0L5pw7AXVNdV-ZRh4dO-dPt3a_Y0Ut2_eTBmeMfUwX73KNdqFqXbwP6VUa9HptP9-A2kDK7m0AJBuCavSnkPZ6wvodr5K2b-loPA0mv7XH_EdPh18feJlY8DaF680BUf1V5dScr51dykBdG4FAdK8RBlYiwBKQl73BFfzX5zJTYHeeteJK7y77lnaMgnvtr99yCTvhIlYgDubV6Ev9ISwJmcj1oXkjt-ZztcWANJwow.jpg",
-      "https://cdn4.telesco.pe/file/ff09vntnM8nFDHKeH_nwV2YlhlRy1hUzQBgoHGpABSnTkE65LVjGj9BDJ85lX18SMRbcL_llD815vFnMVIlDLcdF35JGM9PNnsxVFcD08msubiwGp7yKpuRnS2hQe-qbqpmnlveRy8Z_OzX7Zo-TSTudYcj72OTAGuVOCuESDT6GDcLcBe-tvsy_pjZcLDsdAkRynCIlSOblonm-iMg7P9eXyeg0FiPDERlhvuN4bl_0DjyawofpISBMscslCE2KLNmfKj-LLVjkBQQl1jvXhleg2zWTW7s8EbsRXKxtTr2wpiASsejyVPWJ9lV4R7qKniLIVzcSbD9KFA8UTbcljA.jpg",
-      "https://cdn4.telesco.pe/file/lfMqlYz-rG1K8c7KJVqnOu1xwmyPEgIBJ_X-X_hUpnIYHXOaMmt1fYMU-NxwT7pWbv0m3qNZ81jy75spBCgxxCjvVsK0nhDd19ezFklLGuiQv2aTwTCaeH2CfuOUx8ure_dmQFG0K0u97allBHO-Joa_0UaE1QN1jTfORKnRZtXivCvQaKphtrA_cKdVubV7CDU_WPonpZkzOUEVgOFYMkKSqTtl-D-iV4_ey8Qw66whQAnhfg4attWRgoS6H2g_4IVmY1LPRmroiULn3QSbjx6n4xnU-gkuL_Z6U2n9e2ZlueefyQ-rMHlm-U2oF_qW6U3AZM0DRFN2QU5zNS9fbQ.jpg",
-      "https://cdn4.telesco.pe/file/MoKip6e_l0oGnzYDmUENNkIgi_myYb-R8hc4Udspdfx9UDvaoo6-ayXTP4qD9dHGqpzzxBzgjTcuA0qW1vMeQK-RgNYNNI4U8rIWmQ6YEJUYlMQCbZOc4tk5qx6cEaKqfOq86WmraYDFBw3E126XrVZL7Mgpqq9d7Xx795m9xuVi_O2vN6rPtH_pAodHrUV_UQxBgVSwlamZxJ51nhqmmI99DknGhVp58hTQBZb7rTXYS15_3X8BptMzwq2jr38mCNOG3OBCageV5qDRpD7gq-qmxsk7zIC78lsZWUrdQmRJrMdDZMmVm3w8w7XB2-vo6rA6U68EjZ8qtXsfSxC1Gw.jpg",
-      "https://cdn4.telesco.pe/file/pJO56E3CRowuo4qpTuEF-_zuCXJn2K6GG6zDpztEN_Nthk9rMpoiBZDiKTaN8dYteRbO-mKxPLd944cK5iF4dagJZTvEWlRgRmppGOZZea2MrIW0PgzXRosdIwvS4NFMtjZYJEnysK13rtCm19HOZ384EKIoSqSz95bM7QLwo_Xo9WWmWPh3IlWgeg3jcR9RiaMd96UPqH_Tva4WSdSoBcI8Cta2nDA4aR8SvR0hxgFFZGeYHdz4j0sJ4zNo7VxgIcyfBlNOyaJNnVtJOGHq7BTN8pQT8CoyhH-FEpaySUxXMy28bTLZEE-jN3pbTuMYXDiNxJOWPTIO5oW9F7ZKmw.jpg",
-      "https://cdn4.telesco.pe/file/TGHLMdJi5Isy2hEWD5STe9Wgi6ljT5cBTZu6MtZVH5cmgdK2hv8BTtLWqFihJuf1seG9rKfPvbsws6yZ9MVpSr6uKZLa14_C8U1ZKj4IZjv71v62mKslRWzww_IAtx_PfBtNhW1Qnq42UO9AEHdG4X3n6V6w1jmkqxhk5zijzsJtJShYb7McSOKt4w1pnyg7ym0L7apW3fortVXsH2-ey_Be85ml89K6fUlxjME2GsAKDuBv6weXy_a0yiAqh2d255QsquHffupIVdyd37UKMj_MpEcE9ayLt4g3m3BIBLugPzuFk28qFpv4XXMWnGLOLK4BFj85peCj8hSwEghb7A.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T19:31:21+00:00",
-    "views": 83
-  },
-  {
-    "id": 72667,
-    "text": "Women ☕️\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 74 views06:11",
-    "photos": [],
-    "videos": [
-      "https://cdn4.telesco.pe/file/23bfed7ab7.mp4?token=oScsIy0jNA8bvGzAaHOmRdg94HzvNgmP7b-SLLAYC7bBBdIMm1uo_bRWqNpsdibeKsOZkIhVwqk6ayQ5bh4HkAVtX7G2ocxAJmT_BCi8FiOvtNEh835f8DwZmC46g4uoLRwV-HOH-QiA9M8t8Sg3vFGuI9jM8yMQRIkUT3G63nH4Ifv9OCVVOhxf9j9X7loqAnEkK-pwzmCj6dciUtm_WYzY9_jwdlal9nNsJ4eF41wfeUsyPwTnUq5nXeWOP1PFHfvgI_hb3YcL0nICe9DqhfoRlMw6016IYWKZg1WRg8cyEfruO_mMqXqjxcRB_7hf0IEh-Ecfqya5OuQIYodYGg",
-      "https://cdn4.telesco.pe/file/23bfed7ab7.mp4?token=oScsIy0jNA8bvGzAaHOmRdg94HzvNgmP7b-SLLAYC7bBBdIMm1uo_bRWqNpsdibeKsOZkIhVwqk6ayQ5bh4HkAVtX7G2ocxAJmT_BCi8FiOvtNEh835f8DwZmC46g4uoLRwV-HOH-QiA9M8t8Sg3vFGuI9jM8yMQRIkUT3G63nH4Ifv9OCVVOhxf9j9X7loqAnEkK-pwzmCj6dciUtm_WYzY9_jwdlal9nNsJ4eF41wfeUsyPwTnUq5nXeWOP1PFHfvgI_hb3YcL0nICe9DqhfoRlMw6016IYWKZg1WRg8cyEfruO_mMqXqjxcRB_7hf0IEh-Ecfqya5OuQIYodYGg"
-    ],
-    "video_thumbnails": [],
-    "date": "2025-05-24T06:11:36+00:00",
-    "views": 74
-  },
-  {
-    "id": 72668,
-    "text": "Tank 500\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 73 views06:13",
-    "photos": [],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-24T06:13:27+00:00",
-    "views": 73
-  },
-  {
-    "id": 72669,
-    "text": "Серьезный пассажир 😎\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 65 views06:14\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
-    "photos": [],
-    "videos": [
-      "https://cdn4.telesco.pe/file/792d87e7b4.mp4?token=uIMAfWc5VCGGHS2rKf5yoEFgGtASRGxvd2sAsmOqvrtEKI6Qciz836C3Y8ipwm7qsJ1c5gh5jDxbj9RVGtZBmOiANv6XCoIxAFO1-1tkvWZAs0tQERC-iRfdLO1UteP0TIhXR9YbtXHlyuuh1tykJPM0_iQ3AkCgknnohJIgwg-5kIam3zV_J3pc1yjtSswqHNqwF9hh2xfToAxKl6eJcU6cguRIRLHVXIJBqC2UlVL16ZbrkMIDIY8UNefKS3QniMyZR4pcGkaw41F0DHiapWcFwwJkmmDkqJ2vt6i9lhf4S5Ipu-iHQQiGfxUpPVXQJasLuaD8L7uNLWFf6TaUpw",
-      "https://cdn4.telesco.pe/file/792d87e7b4.mp4?token=uIMAfWc5VCGGHS2rKf5yoEFgGtASRGxvd2sAsmOqvrtEKI6Qciz836C3Y8ipwm7qsJ1c5gh5jDxbj9RVGtZBmOiANv6XCoIxAFO1-1tkvWZAs0tQERC-iRfdLO1UteP0TIhXR9YbtXHlyuuh1tykJPM0_iQ3AkCgknnohJIgwg-5kIam3zV_J3pc1yjtSswqHNqwF9hh2xfToAxKl6eJcU6cguRIRLHVXIJBqC2UlVL16ZbrkMIDIY8UNefKS3QniMyZR4pcGkaw41F0DHiapWcFwwJkmmDkqJ2vt6i9lhf4S5Ipu-iHQQiGfxUpPVXQJasLuaD8L7uNLWFf6TaUpw"
-    ],
-    "video_thumbnails": [],
-    "date": "2025-05-24T06:14:14+00:00",
-    "views": 65
-  },
-  {
-    "id": 72628,
-    "text": "2024 Rimac Nevera 15th Anniversary Edition\n\nКласс: hypercar \nТип кузова: 2-door coupe \nДвигатель: 4 электромотора \nМощность: 1914 л.с. \nКрутящий момент: 2340 Н·м \nПривод: полный \nКомпоновка: передне-заднемоторная \nМасса: 2300 кг \nМакс. скорость: 412 км/ч \n0-100 км/ч: 1.8 с \nЗапас хода: 489 км \nВремя заряда: быстрая зарядка - 19 мин (0%-80%) \nСтрана марки: Хорватия \nСтрана модели: Хорватия \nСборка: Хорватия \nЦена: €2 350 000 в Хорватии за автомобиль 2024 модельного года\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 42 views10:21",
-    "photos": [
-      "https://cdn4.telesco.pe/file/MZs_ckoOseCF9XZ0lgsLGTn0eQ2Hm_NGpwvBrue4gElqUzZDY6llohdKyNo7JmO61qG-cpjfn7JBrsDjh7N5QKN6LRgoZ4hHt2GNdKBqLnIo7U4HU6lLVngq6OpTw2YyGpiawMRFFd1dNbBrWabbd2FdRPeVj2jfEH84OO-dTw4pmLVPv1RRVuQ54kdparGknEDPzAZ7He5sfVLgh2JehzbASQ5wShF2hjm7JsO7RuwQRkAhTjrqqlZONjXDTxhmWxOrG8G1mq5iZ5vFCWUKabOZAVlHnLOHDg13hkguWZglhUXACnf6rHhFET6QqkSpNp57NjwnnuLWbBzd8JzVAg.jpg",
-      "https://cdn4.telesco.pe/file/gagmHCnhnzy4rYJIJCkVCqlK0yqksjy7Ibntoc5s2_QDbhSGBCgI2xoI0w--GHdvafKfD2inYIHiGTzmje6uG4KcqlSFBh0gi77EUB91h7de9QqwZt9049X4wuDQGRqMNtWT_VMxKqM-KIBkosrGiMPLv_KBNEgmCTKnkjpFUkyUbqL7W_akJLIATzDaNBgKPjhBUI13UK2UE8cbw-H_NnyxOJTs70L4VHKQVvs7Kt1Sh1iY-F1taM1U225zdMi11_corxDl5Ui5YQTEpE5396Z0O1uc4zP-98J65NOs5owCCt1vOdRwn87Jdg1bFVa3yhjVu6R4gYVYp5NhF0F9yQ.jpg",
-      "https://cdn4.telesco.pe/file/EMQ9skS_AUaaG6LMdsvTUH93f8I1ZJvASkzazxPvcZEMhF0fpd6Q0Pv5G6wBqH9peYsfNOXX_28FUypDBSX234h28oCak0XJ-fa_bIQdaVZ9chRA_Jws_FheczE84rrUirUGwKHQmBDqW3OGBa8GVSgzLvRJWGd_2Om-WVGwbVGBehzRqKsZ3oJM-n5Yjv2QKxb93LbyVIF-t2RaJTjzE4r1BkZdIhqo97xUhY5Vv79yUS-t2hq3wHyUm9gXGQyYrKkKN-knECm_SEFRNANuET99UaQtiH8mHOlhfRfhgsNPMvLHn_wiRbvzNH38IjZHZLcpwx0hvOtYWbrETZo7OA.jpg",
-      "https://cdn4.telesco.pe/file/QW2j5MQ0cHxRjs46mWHOSPRtM2JBzDXwFxLNvkxitIqsQB9s1YdFDlfoF0-_v0qk8YfVl1OWBlJ01G3L5ijGq0-rkIcfC_o84pzO38asVBPw8Y8Ffv9kY-Br1CO5P9TrMWM8m6n4qwoDyIle47wsYAixiBYtq1xcj-E79nETyRR_y47c1Cq4h2f2gm1R6EigqDRsi8pcDqry8HaoUm2VtNKyaYiYjmrzLOpHEbdk6NnlEW-ZnAsRqVqfo7bjujwM3t2Sfl-hD1FI9IIn34jtBEkrPvdrYahQOMqHZfrp_XT7CiiS9nNnnRqwo2clBV0bYInGtqI_d_qQIfJY_v7tHQ.jpg",
-      "https://cdn4.telesco.pe/file/mNK2ROszT-0CIh0uXEl6Y0ygvqgxhhVr3ktg5ejXlblojDmUNAMVc8f4wKNS8q4iwuWyTxCmQCE12B6moUBNEAhAmAcqYHq-2wslDH2y132wdggx_yLa62qW8cxvRxldSZt_hhC01eFWjllt6mbFitNbdpByarmNfd2AHGZjlp4R76uXdUgQzMXS9Pk5ikKi5mPg6DLXuJ64fyIfPC0lDwBkXuHhsmWYy2UtuizC1WHzxnWINMh7sdyTkk3T4LC6CfuDvUQ_Kx-4p2cPXEhyOBLdJLUSr7ydxIGpJLyu04kgN4XM-4-K4y79fmAMnpHtA-G-yb2HYPwdYhPTS_v_fw.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:21:55+00:00",
-    "views": 42
-  },
-  {
-    "id": 72633,
-    "text": "Эффектное выступление Монстр-трака\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 41 views10:22",
-    "photos": [],
-    "videos": [
-      "https://cdn4.telesco.pe/file/b4715efa1f.mp4?token=qMJ08dUSRdkA8eLEhxe_lhQed5GH8dA7PjWd_RJ_1D6ZqX8-Q7CGkLsaXls8-3KTRbISNLSJ3on-h8H6RKa_4QKbiaQSqboyfDWM04brNSo9JmODq-dDKef3WR3W2LmmPt1_JG6T_F3Rvy1-dbSrJW241rPhFlaOETSl7T9AxGIFJvruviPNZ6nQLT76yaRo3Dj25SRYPIwfD9pdZGEEQ6M8DEt4bCDb1qn4xcUbJ8frIgiRp1Tij3tEqfEI50pqUshbzrfYC280pjLEs3_uSwcU3E1SB_kRaLp9153so9MXTDeCLN89CQ5nFH2okPH9H9TrRGEL7o9fY0V3aYNcPg",
-      "https://cdn4.telesco.pe/file/b4715efa1f.mp4?token=qMJ08dUSRdkA8eLEhxe_lhQed5GH8dA7PjWd_RJ_1D6ZqX8-Q7CGkLsaXls8-3KTRbISNLSJ3on-h8H6RKa_4QKbiaQSqboyfDWM04brNSo9JmODq-dDKef3WR3W2LmmPt1_JG6T_F3Rvy1-dbSrJW241rPhFlaOETSl7T9AxGIFJvruviPNZ6nQLT76yaRo3Dj25SRYPIwfD9pdZGEEQ6M8DEt4bCDb1qn4xcUbJ8frIgiRp1Tij3tEqfEI50pqUshbzrfYC280pjLEs3_uSwcU3E1SB_kRaLp9153so9MXTDeCLN89CQ5nFH2okPH9H9TrRGEL7o9fY0V3aYNcPg"
-    ],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:22:38+00:00",
-    "views": 41
-  },
-  {
-    "id": 72634,
-    "text": "Коротко о прелестях BMW I7\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 49 views10:23",
-    "photos": [],
-    "videos": [
-      "https://cdn4.telesco.pe/file/6e47c8f6dd.mp4?token=TEHPtfH24lo3RZyATJo8W8QhBw7k7eU8XXZiBYHExzY4dtQei-FlBWYzrmshw89as9vMpFxGchtu1qcu0JkNgNh0gaYqZroaxTrC2AJ5InGg4Yhf8PTXvsqdurUA8nmUjlNOBYJXzeF0Q0Do_u76REPeXR8OrKgAZqHIKlOWCUWu9FaYutINeaFLc4hY4PUTzRLadbkn8u_UnJjibFBnkUGK-IZNUu2ompMtU13er0N_YL90rrzXCanPt4FdKo71FPGGf25XVdnN8mgeCxSmCqpYhL_om7P2wXAHgMacWP6rTxABbiv1HZFpvW8UB8aXiARXlaWDJjsmRQnvHz1kHw",
-      "https://cdn4.telesco.pe/file/6e47c8f6dd.mp4?token=TEHPtfH24lo3RZyATJo8W8QhBw7k7eU8XXZiBYHExzY4dtQei-FlBWYzrmshw89as9vMpFxGchtu1qcu0JkNgNh0gaYqZroaxTrC2AJ5InGg4Yhf8PTXvsqdurUA8nmUjlNOBYJXzeF0Q0Do_u76REPeXR8OrKgAZqHIKlOWCUWu9FaYutINeaFLc4hY4PUTzRLadbkn8u_UnJjibFBnkUGK-IZNUu2ompMtU13er0N_YL90rrzXCanPt4FdKo71FPGGf25XVdnN8mgeCxSmCqpYhL_om7P2wXAHgMacWP6rTxABbiv1HZFpvW8UB8aXiARXlaWDJjsmRQnvHz1kHw"
-    ],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:23:11+00:00",
-    "views": 49
-  },
-  {
-    "id": 72635,
-    "text": "Xiaomi представила YU7 — первый КРОССОВЕР бренда и третий электрокар в линейке.\n\nВ базе — 320 л.с., задний привод и батарея с запасом хода аж на 835 км. В топовой комплектации 690 л.с., полный привод и запас хода до 760 км, а ещё проекционный дисплей на всё лобовое стекло.\n\nЦены пока не объявили, но по слухам — от 2,7 млн рублей.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 49 views10:24",
-    "photos": [
-      "https://cdn4.telesco.pe/file/lMnmG6OOF8ry9fnEg_BVl34klq5QzjhpeMFDTTptftMbAPKMPW_L6Z44NdCoUPetQUFwQX9xHF-8-fPv_G_06FwGAhqQ14hKVBCD5x6AAwG-rn6Vo8U41ByjGDYRmJljR4W6qeMxnIHeWpgrSO2zdH9ijbsFLIzoU133HIY7xnJRbLIwIo3CzaMXx9UX76xvzBVEGoqWM_GMFFiXcO9rTdQ79fE6btLq4gIiWsHXhU4wcaoIwBwJlo8dMRq3zS-X_ztp37QLI-xIKgCksaBpxWzcESPZQs9_ZTS8PJo4UT8Y_y3PDM5jynqkbgNal32jM-Au9q1hpXyvR_Ty9F_A4Q.jpg",
-      "https://cdn4.telesco.pe/file/VY4LU-thb_UGquAQZYzR-sSBzoi2JWJbrAF0c-DLtmkDnOHHGm71zhbr5L8iZKsoR79Jb4v4H_fSWZ4MQHvMULaA5-_x33EOdYnTFYcdoHXOoZ2Wzue5Hv0vXPhuBmfIjcpPiLuccf-0D0m0YVDMVHQq1Emh26sXhI1qDIGo_Lt7wHukUE7PM7ST1DaW_sIqlkntgR_rn-SEWOSCmE8VgercZcNTTSZB6odjBiRzJJPzQk6E-uxtbWVbg6NMr5MNUf1GY9vBHlQspGPxc_xFxeLllgnUS59mRcycPdRliHjj3TI2KXLACyJD0ZVdhmwy5PUwRC35pWkiGfKNsF1W6Q.jpg",
-      "https://cdn4.telesco.pe/file/Rns6PDhfYpuoqIuyAbTTfPArPLCiKYcapxIOrIVWT546oWzpI-b61lWDayAv5MQsyB93Abkcqro6CO745QLp-QcCQOuEOQFoYjn1QnXC1RODBoGXYSPPxGQ4f57hpW4Ejy6IIk5qzzfRLAriPiQBGtmO6WNQhR_iGZUpM3i5KxYvq9r8EUsZD18IS4_LawL-p3FWoRatZic8GL7CqbXDm3i3GPdOq_WFH4p0gJe4jFpBck7gVD6EXPYvwFyEcVPbOFpmjtvAyY6INNbGNAKK0qesVotov8zXKOe-o7JF1Toen6vhOxt9YZDnnXnRKC0JDo5_5Ofr9MkvlviT9Ub8RQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:24:05+00:00",
-    "views": 49
-  },
-  {
-    "id": 72639,
-    "text": "В России стартовали продажи доработанного внедорожника RAM 1500 AT37 от Arctic Trucks с 540-сильным мотором.\n\nЭтот зверь теперь не просто пикап, а серьёзная оффроуд-машина с клиренсом почти 30 см и 37-дюймовыми (!) шинами.\n\nПод капотом — новый 3,0-литровый Hurricane на 540 сил. Все доработки сертифицированы и внесены в ПТС. Стоимость тачки — от ₽11,9 миллионов.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 44 views10:24",
-    "photos": [
-      "https://cdn4.telesco.pe/file/REI6tymqSznRFM6EJfUkZt_5hcUavasTQblnP6jO2B1Fp01eJe8DU_Ep2Q4O_bzeHYA7cBUGG9ePL0eEjstlemnAG-tRtC_BQTnzbvj9AdT2_3g9yihMm1xnKiroB5oehV-G1Wb_IKpkWlQgLIbHYgNQ5G6x3SFAQQXIJoL7zbCdCmmNg-ebJzk0-z-QdINCGOcUSqFtiP5sveg7OxCwpf57wCjoOJSpOUInvdrmzg85vm1ljU9YEGaeKjaSlTNEsnge7QKouODfID7hV2rFUsHOucJjMsl88GCa5o0oT0uYAM1GzQ5vuDMHznde3JGuK26DRx8VGBePFUBssGqOfg.jpg",
-      "https://cdn4.telesco.pe/file/anEO4wE0Lni06Af8-i1JPlmGV_rXCySewYCkHPcXXFEg5idiE2d9-O8MwgHxFuoJJwh57LlJd2V2BUhZAApOIIjFEA4sCVja16-HFmrNE7yuuTYGURGc2VD4C7Ouu-WD7nZzCTZfWBGTnGFQZ5Dq7FiQT8dTAoe2kNZ9KE3t2D3r9NjF2QevcVISYRA1uDnNauQcjYNHMsrUu74ZmySPWs53yzi5gm4oObm-HyTG-WJcHBNwyKsWlYE61C2WTdWVnAocMAMf5z1QCaCfPGLS0J5Xf9YrEjFqrpqIo7VyHi4S59c3liMG_ojQbQb-8EASzl5oMVAzbRBvY6q292Y_Xg.jpg",
-      "https://cdn4.telesco.pe/file/XLBdvL9s-eYSTPTdqjDHK66GeEmLZ3G2PNqPiOHTo0E29KBgDCX-T8qA3bLoklyaFYAtZAlEy0ciQ3tFGKbEK6rmxxvljaWXRUaKhUt5t671S4MWli-x2_gyVndjXoknbDjIvasyQ6v7vNRYOKhJiYqOPhjHZPrJ4vY4DuvKWyBwY-jFU3ffCM6az9ZR1VMl07sd0o5HIynAZTh9Tg3YyuzjxpuNx5LDKVb-TNXN4RLnV-uorYGKdbTufS7CfDFD-yCkxz2skvOKvwRW1oJmo8E-S6sO8feup2JGzIlHBd7NWbWqDjBRnkHtPy1zsOsH--7HnWcJbYJ8p8EZ9NYrQw.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:24:42+00:00",
-    "views": 44
-  },
-  {
-    "id": 72642,
-    "text": "BMW M4 загорелся на стенде, выдав при этом более 1300 лошадиных сил.\n\nРебята из компании Maximum PSI из Нью-Джерси недавно попытались выжать больше мощности из своего дрэг-кара M4, но все пошло не так. Автомобиль уже выдавал 1100 лошадиных сил, но из-за обострения конкуренции в мире дрэг-каров этого было недостаточно. Поэтому команда добавила к M4 новый интеркулер, модернизированную трансмиссию и закись азота.\n\nПри первых тестах установка интеркулера привела к увеличению мощности до 1300 лошадиных сил. Затем команда добавила в смесь закись азота, что дало еще 76 лошадей. После чего они решили «прибавить обороты», и вот тогда двигатель уже не выдержал. \n\nПри этом автомобиль выдал колоссальную мощность в 1376 лошадиных сил.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 46 views10:25",
-    "photos": [],
-    "videos": [
-      "https://cdn4.telesco.pe/file/7ad4878e3d.mp4?token=OZvXbFxIIPHSRYjMmfw1pSeaULtoZKaVlOWN3IbA-i4ZabNAdY2CwP_WIbiODN1oLDF284cWkdUsZ_BjBRVGJ7YdVmKgQBK4abGeGOs_Rd5DR-WtNkcLwfv6hbr7Zwcx8Efc3GcAHs3jT_s3aEmz7kefZmB2lExm1x1BBfSaiLbWvp7QZfWaPy-gj_HUYz_TZobyPuaWZsPndtX96p8tGF7wv_H8RIwckV0O-OvPcmKSG1c6Us000gC5ARlvjqxOwFgXYerAuMChM9yD-754KSYMpCAflo1cehjzhf5YVfLbQADA0PSmGdsyiZS-k3IWjdjELouJGXl65V6Zc-ZD-Q",
-      "https://cdn4.telesco.pe/file/7ad4878e3d.mp4?token=OZvXbFxIIPHSRYjMmfw1pSeaULtoZKaVlOWN3IbA-i4ZabNAdY2CwP_WIbiODN1oLDF284cWkdUsZ_BjBRVGJ7YdVmKgQBK4abGeGOs_Rd5DR-WtNkcLwfv6hbr7Zwcx8Efc3GcAHs3jT_s3aEmz7kefZmB2lExm1x1BBfSaiLbWvp7QZfWaPy-gj_HUYz_TZobyPuaWZsPndtX96p8tGF7wv_H8RIwckV0O-OvPcmKSG1c6Us000gC5ARlvjqxOwFgXYerAuMChM9yD-754KSYMpCAflo1cehjzhf5YVfLbQADA0PSmGdsyiZS-k3IWjdjELouJGXl65V6Zc-ZD-Q"
-    ],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:25:45+00:00",
-    "views": 46
-  },
-  {
-    "id": 72643,
-    "text": "Лайфхаки подъехали \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 44 views10:26",
-    "photos": [],
-    "videos": [
-      "https://cdn4.telesco.pe/file/5181223dba.mp4?token=NmDEuX0aKQpIVok5mPJ9oCGYqntYsuD479gL9deM0vJl4OW1S0vAROqYxLFOEnBt75xnuOmebd9dmBE6IXDdiKOdpmVak3zVDj6PQNhy_adY48rAEzMTC_l7kOK1bKg3H3SePyilu6G6HfOuhDl6w2Tc26ISA6cesqcolq_XXTJrON0RvHcpgoiUkQ7adzR9JDjtd9ecVyX4twcpo3LOfZNih-oA6wyTTF5lkcOFtSbvB2w6JMWv0-9C3a8kDck4qI4a3cczn2XX5GI-Ak7IDEPxA2Inzfj1jcBhwfzDSy0SBUCTjAbvGwkngi76xnwJCBLO4YP9eZMdSFaElbrUjw"
-    ],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:26:26+00:00",
-    "views": 44
-  },
-  {
-    "id": 72644,
-    "text": "Rolls-Royce Spectre forged carbon edition\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 45 views10:26\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
-    "photos": [
-      "https://cdn4.telesco.pe/file/RldlXZ_jRnsBbQjm8JWI2q6vE3qwIr5v_bpebeyu7mfnw2gvxaXb8Us-PNks9mnQ2uh4iTMwuhAnM2y6abnI93eJz2awbKNEy2sp0n2KwslAEgZ_ipxm72EjyM3-6QqB4WlEh6cXhO6GVs2xywgAg_WF7bwVrMCn8MIJ3g6xr0USqt6l9xCZRw1hme01vEnw3KbN52d68MtdFeK1qIQfZSUX6WyugH-YLlhEdmUktAvPczF52COZuoG20Nb19Dw9lSDXPhNhg4HfI2d7Xr66Hf5zoqLtcqj97ypS_fzij7fUs4dSG3VkrwCJg8CMhcZqHFPc6Qs_JJNBQuTzMsbYrA.jpg",
-      "https://cdn4.telesco.pe/file/lxaYKAQ27KYduCdn6RvHcCzMWFO3iqUHI7nIM5Vz8f3pNfwRHF3julAeCujl4_pNDhqKpmjDVtQ1OS_aSPc_ZN9r8NITTdrLgn_CU0-5qnknQgmni6BDUpFXMZpbphXtv52c5g4VT3K4Z_Da3k4jMoAMagqD9YprwYWh9ahpm_qtah4FKVYVPVyHzFKjsxFOFugRCxiJHhi6cCFTPm_TbRIAgKAb0GFJHR8ThFlPbtKsKBzdTueLP2Z8W8ACuvzaRnoMrY9ntn7wTsvaAVRB6S4ZLaCCsmGxKNFHFVRJzgtc5JqMVTxhBBDEkEMGS5fIF2EaPiz_KmzJWb_61FbNMA.jpg",
-      "https://cdn4.telesco.pe/file/HsGRo1x8nSEjiOi42TBaiBTcE7cxVHboYWdGFETznRHwfijwbv_QnrgDvBJA406oOa8GI5c07Gvyds1dG6YvSXnYYyZPnz1mPUYT2pEC8VlzzYbmue1YGqaOAjgo2vBnoPi7Gu8sGYvEKW_NpUcafv4JjkKHlSKphECltg9uGF9MgpaXl5BSUUkEC2-qWwmAPigqE1OSiMUYdpWyc64l6atNXJLQXv8ma72fuej6PMi82RUkxD-sY4vqMNPsjrTuJdcR0-3IpbakmJdIQIvrv9SPlqQB0A68oyYtxfeeUcSkfI8WNRXMdsHqilB1h1h29vs7u78OGAI-Le86UFf8aQ.jpg",
-      "https://cdn4.telesco.pe/file/lVlLe8qMTUAdSUgvw6Gxcb0bN19tRja-IjJZWKMVNqj3MqWpwoOdpyLDdv4ytqFTV3gg5Qz2nUiw0Z0R4-H4mlOmggLmZTJWvcJVF_pE74Pgxpk7IUy6JlpPmNmGpyetTKjqb005gRPOH8-UFdN85Tu33I05anhmnOCV1lARr9TndcNEX_8tK6IStsLLpYIttxdP9EqiuEXj9dCYAKdMrnDkOhEiiuD1d50ixxXLZ0pTPeZIyWM-cagptHQCXpmGRwe3GCMzVWEvTuNDGDJla9ZnZLwtBh7G6Vkv1C_qhmAcupEn86qeth7Yq6QPjI1u7pvQ6sziQ6MLdJRLhhBFAg.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:26:51+00:00",
-    "views": 45
-  },
-  {
-    "id": 72608,
-    "text": "Opel построил электрический кроссовер для ралли\n\nOpel представил гоночную версию Mokka GSE Rally — электрический концепт, созданный для нового класса eRally5, который появится в календаре FIA с 2026 года.\n\nКроссовер получил каркас безопасности, спортивные кресла, усиленное днище и защиту батареи. Мощность переднего электромотора — 280 л.с. и 345 Нм. Подвеска и трансмиссия адаптированы под раллийные нагрузки.\n\nПубличная премьера состоится уже в эти выходные на этапе ELE Rally в Нидерландах.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 39 views09:28",
-    "photos": [
-      "https://cdn4.telesco.pe/file/XZx6JnFZL-XV6tI2JWWi0Gb7-m4L0Hu4vmJioPP2r5veh0ju1Oyj21jBg90gDUEr6aNunMj_RW3I2HyhYEuquwhKW0RD3XZcpdr4_2KUEkJvNNMZ_0WsRv0V27WXXaaUL-LG5eUOywr883bdH4-IKOV1xzJdbUxbbk1mcX764qOnhOh4Hf56QSdBjT_fNrv5E95kmkY-14_1NJXlyyPSk6r6qvuMuzzHITGqwyx4es_bYG4aRcf3Zw8e2PrVsF5bxqaiDuKyV0KvqS1HzWJotHqxroWrgwYhH6z-_FLU7KXzpGrbu_bEdcqzla3g36fOHXBl417U2aT6qCXh1qlm1Q.jpg",
-      "https://cdn4.telesco.pe/file/gE-OWwkM7z92D7c9XlHlgeqQUTemGWbV5_x2yHKlTJ_LFCr2TuC9wzbcgDq1Q4pUW4sz9ONgWnFqzS-Z-22V3eUq1rpfBVhZ5hnRQyN3qwwlEdLOLxEZws5rEpBgQu-p6Cvhj0sjtnJSxisPyXa1AW2LSV1Wz1AogjCFJDjO4LIawrU-baTc_3mRzneDsxZA9oIbQBNpj0ctKXCSYM9Ro9GEh7h8d9XotpnVtz_Dh3VqNK5hu6746lmzYM8htVXYObIsmo_c7wOx9cAUkowP0HfCpyW6CJ2CB5QeBqrJxaZAPfIdEu4JKX0-oUFxBSq7LGycdUpvYNbCRG5-cP7U8Q.jpg",
-      "https://cdn4.telesco.pe/file/YZBAHJ3HOiv9O3H4xJw3s7YZ2W6O1fFng5XE47800LAg5xlyILADQKGgG5DtGHY5GA0qbMexfTdiJDVmgrXVjIFoGaJM-yzOBZ1NPZs4zbHyRhHod3HC9_FSUhHARsbdcApcUOGnfPcQqWhY5ROgIBMBobOuhHqV6uetQuOf8C5dOJ9jl4JPWau4s0sQ8KIBwJAAn1eIsbnLnFp75QKE7TIPZHLo3_1JxE1wW6KpJmQw3H_9NP8NGE2M-LzNvNfNAKWn-fz8oBJiw2OwIWbGEDJ_FHPJCnXkjNvsVRBnU5DAlBUdqKJ2DovKRbP09wnMFe7cUNFX2SM-t5MFnDdKnA.jpg",
-      "https://cdn4.telesco.pe/file/QxGP0-H9_yxHWl0hPZlq-rYkYMW_E0jgr88DdKT-AjCKhK-oUWUR9c2rvbP-vBNAl76id_U7IThhg5DwCkQDoW4nynSyK7bAfeSboMwPLJNwk8N8DZQi5wLJrkHgsR3Su5_ErpgIwg0VdwcJXrRie1E8oLbRHIraDw4-9Ms23sT7H1XI0X4bf1zuNkL5ZBPIJpfBDuPbBAgXsh3gUAmrR26D0dLK4YgTRedoaqRNKurlvssZZ2_K2FZagcXyzK7Omo0Sz3U4kn2sjWT4i3zVIpxWk6g9MqJ-vEAZNuC2hJw3Hc2RMHz09Slaqk8fvujsr9gdn_3diC6_jM2fDG3uQA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T09:28:52+00:00",
-    "views": 39
-  },
-  {
-    "id": 72612,
-    "text": "Sinomach может начать блокировать «серые» Li Auto в России\n\nОфициальный дистрибьютор Li Auto в России — компания Sinomach Auto — рассматривает возможность удалённой блокировки мультимедийных систем в автомобилях, ввезённых по параллельному импорту. Об этом сообщил «Газете.Ru» представитель компании Лев Лазарев.\n\nРассматривается вопрос дистанционной блокировки экранов (мультимедийной системы — “Газета.Ru”) в автомобилях. Но этот вопрос рассматривается, ещё окончательно не решено\n— отметил Лазарев.\n\nВ компании подтверждают, что такая мера фактически сделает автомобили непригодными для эксплуатации, так как почти все функции управляются через мультимедийное меню. \n\nОкончательное решение по блокировке пока не принято.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 43 views09:29",
-    "photos": [
-      "https://cdn4.telesco.pe/file/OattQ39gKsOtRDNo9A-rQA4x2LGBzXb1_xLqrBNAeJyxHq3ra5sfZrnHANAXp3vgshSw_QOjp-W-6E3ZNby2xGC_gvXFcSPifIO8scf7OLTGSiUBquAP1YLHg7J06KkQ5G9cxiILwChqYkzs1clFG-lVQnnD4lXbioby0MN9Ctchpn5md6-E_CiOZGKAjTZsukBm34ILF3k9u52XHgFhlzpRmlT_4cgIlcMKww6Db5mwYi5ieCqV9zqRQnZH6dsTEhWOjmbsrSKbP6MKmuP94fnvJNEfwz_sF82ph9HE6vmDYqumZ8gtaRrbvwyM5wmYEBw2KO9iuciLwsgt3QCgsg.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T09:29:23+00:00",
-    "views": 43
-  },
-  {
-    "id": 72613,
-    "text": "Toyota Crown представили в особых версиях к 70-летию модели\n\nВ честь юбилея седана Crown компания Toyota выпустила в Японии две спецверсии флагманской модели. \n\nПервая — Crown Z The 70th — отличается двухцветной окраской кузова, оригинальными логотипами и оформлением салона с деревянными вставками и лазерной гравировкой.\n\nВторая версия — Crown Z Limited Matte Metal — получила полностью матовый темно-серый кузов и такой же набор 20-дюймовых колес. Несмотря на отсутствие юбилейного статуса, она оказалась дороже.\n\nТехнически обе версии идентичны стандартным седанам Crown: доступны гибрид (245 л.с.) и водородная модификация с запасом хода до 820 км. \n\nЦены — от 7,55 млн иен (примерно 4,3 млн рублей).\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 42 views09:30",
-    "photos": [
-      "https://cdn4.telesco.pe/file/cgb5pd9QSYlF94CyBEIOBY_TlYN08v30fki6zoyivu8S6t4jxUvNhLIqqzOQMhIn4iYjjL1DBCeScMv9GLlcSJ7WFSWoDdacoLSjhh7YFYRVce4L1PmzWfbfpZe8NgAzUaOvjKU8H-pG8S6tvgIe9IkwADK1g7YzFspGVBK93dLmNrUyaNOqAyymLsdI4I6j4Clmv-WQzwL-s_bawCp2SgVBM1WGX3fxTvu91_xLLwsqL_2hdFQhpOyFgY7w8ek8xCFsB25GSaAyBOrO49WqalkHSU6IH0GYu3Lx0V6hmO3GuFp1P6jBL7jRHLSL6dfR2GdP_2ub19_XvFENglyCZQ.jpg",
-      "https://cdn4.telesco.pe/file/hzZcbGLeJDV7l1CkdXd5hTP2Pkq-qd5OcYjko8f1GzB4y_rrjmCMdbMyUZhL0RNKHJifFGg1rnij4LHBhUEL294SmgQxrvieyW20c5wCug2zQ-PjQFrRGGj-vWMHgrVc6o-YB3tlvO45nYmUlymVVTclZerL8t1Wjn-NkZZEQGSILZZIBhhRLRqC3R1jJho0f5NPHn42rqzCOPzOsevuNjP4RAcXCvyApOYvq1tU6yLDtiNkblf18XXkV0Ii5BpJb2We0thLcrNUqWtEy1CLYv3nrkqD3i6PNlCluEZDawRPYOtflDVEwhR7XhuV5U1ZCQb9ANWVABSLzzOje0MVVQ.jpg",
-      "https://cdn4.telesco.pe/file/etn2d4xVPR_Ay2ydtZCIPymBlJa_Yjf9fysYUq94QxCMMaLz1YT94tOUQ67quo_U26ZuQL3xQdi0kWJ0x7jjdwIXdNTHJX6r6LYkDn7vsaDaL2k7af2eN44O8zZDQaH7E5d_xiZs33gv8AI_S5lz0jCHERZueEw8-f4g_-RAcXfmRasJF3YX178TYfPiWREL_023pl00FITej2GHFBKqsirc4E7mxoDthDcakakdkpmubyoxGCtAByEh33esP4LUGdFxCzA3mCm8Yo3XUpyJgqGpNWx0FROV0TdotN-8Ot9N7_dYW_YB6mWNWgVXEYKfSQOBORoANy_qQve0rqrOWA.jpg",
-      "https://cdn4.telesco.pe/file/TSQ1iptdn639SYVoDAt95pow0nLcvIXFTi1ATMDWX0-oI8oZouUdiLHLhW7l6ru3ckFJr3Efi96uygAeeuKQqsLtMb2kwszwIrHu15w8x0O1sxi1qJKn1bVKeFOM4Spc5YYj-GBPDJy47V2OgilPwMpovkM8LSfwQWADBt_tQPwgXhUenf5BcnVkS6FGsuWuH_F7xQTOVzCn-rvUZQZlWFPlJnHsHuNryclaPrRpNSDS9bJOBxyP0YxF_TGKtkYe0G3n07eHT-w2soTgNzhq9WLCySVX3354MeDLShTpxrdxvvawa-FAusgVEO1cilP9JvA6od1duxz3U6MSKTgcoQ.jpg",
-      "https://cdn4.telesco.pe/file/jc7n2gogn28jUbSpWneiEgsCqO837-XXfyVB68kiAr8SK1UqRs0OoPeqfyXtfISyQxjYG8Qp4FjDkJkdysKaLE9XMSmIEGSTkGlbXgJsCtWPid6P3L4mEMKGsUngPCo3NL4VaIbAtFQnMKvjTaUUEsLTHHVzrt5Ncq2dKoIo1d2zniSJyQq3uN1ZV5t3-4K-kdVw5SWrPoQMI-HTVBTzETX_c_B9sIML8b1BRAyK7I_YZy9nQgrbIzUFpWsxLJ9LxrMG3rqSKqt-BdCA_bsNHi4YR3az0EKSOgRwtiLzZ10dJa3xW4o7wSZOKbYc5nIC4WRXwKj-dHeZvAyTHRC48Q.jpg",
-      "https://cdn4.telesco.pe/file/eDX84dGprTBnoHOWceTm7DJV3tosuYGbQY6-uDcXjZoAMVq6KdHo3Ie1RWhwwUyHTTOZIqFMGABy2p_3JHAZPMQX9MZ6Wuq0z6Y6cnveBfHU_nczL-UspA6JOdlJn_zb_J3St0uqcfhyz8XQyfZAg3D7Ob9kRmslOytpl-fsbCX1gkaVPELDSccZFUCo719YDtK1qHPRajsbFx94FwfmobGSUvS1OQB764RZu2BIHRelOCA4IaBFKCQLEc6ll9MPcfQNBss2RL4H4owEBZ1LpQFZkkMnFvcJOVyz6lGgv0rkGJ5-AblOuz6Pw5U6rMOw3CMwotHGF74FfMcJraWBcA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T09:30:20+00:00",
-    "views": 42
-  },
-  {
-    "id": 72619,
-    "text": "Новый Dodge Charger Daytona стал лифтбеком\n\nDodge официально представил новую версию электрического масл-кара Charger Daytona — с кузовом лифтбек и четырьмя дверьми.\n \nНесмотря на дополнительный доступ в салон, габариты остались прежними. Доступен опциональный пакет Track — с адаптивной подвеской, тормозами Brembo и спортивными сиденьями. \n\nНовинку предложат исключительно в мощной версии Scatpack: 630 л.с. и 850 Нм. Разгон до 96 км/ч — 3,3 сек. Максимальная скорость — 217 км/ч. Запас хода с батареей на 100,5 кВт·ч — 388 км.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 44 views09:30",
-    "photos": [
-      "https://cdn4.telesco.pe/file/D6GhaAto8YBOyE5FlFnnR_HY19DuwcC76nOP-baYFK9we4_xdvKMQg8DdFvaTcFTWVoRqSzDEoC7GNqmISwWldZ6mHQ_xgZFgku6BgeV_xRieWp986vYOjcV2Fp_125KY2rMDNNB4bj6vYTq9HJZ3oGlN7hihcSZTTYSeIZKopnNTRbTTAEhgQwZvgoDNd76_Cb8-PHGmTxlt70hfFHAMTDwBwrVqWy0FQwBFdClh4xrI1EDfUCI0rs-89ir_kKYTIUuR4fvO67HWRoBb5AganGo3AIWPZhVY_x2HUCE9jwMG789-qfCAV3mISGEwEV4jZYEhW6Cls9yHXphl571Qg.jpg",
-      "https://cdn4.telesco.pe/file/EGPd-9lkB8d1Zd0ysOey9ICDyfR_0LSzBVKbYEQksGL08njfxrhkqjVM8I7SLLYUoDQzFPnd_qOgD0juM7mkSLsmV5yc_ca2PZ_6xoJNK-He7_cP6lo7PboZBMzV8cLyeT5TowCAUL-WQod73dRMGHSs7mgWx7VZHNzSVd_Q0C6fXu-UMGyUXT4APPKz8fLn67ApVHzqJrJcVrw13O-mIIlJC8ETHiOhdfCxYs6-9Sewrw_UFjnBRKwumsgDLUXw--uSnZLuBRtAT9qhzUA-jpYEsz6iLsUgv9UQXY8rq6mCfyZPGg07ZD7TX11--9RaHqxMMBBnI6kGv4gNehxJ5A.jpg",
-      "https://cdn4.telesco.pe/file/AKWgTqAVdktONuZWMdalbVX1HeNUJpyOQjQGi1lkGEMi74u7vcuhX1-_JJk5FVoDt9KEWWKgL6tc6kBZnC7QdTewlypQQOFjcZ-1AJFMFofieAt6Ruo0x6Tct22EzD-QezDCU3RY2AIIoj_xpsrGq0TMsrr518fFG76dN4ScxOFg8fDVd9JphFcpnJZXDZGc2cNHitAFSS0l5XFqF5oaCe6gCJS1zddP6StCmQLKU1_OWy-1tH6mBtEv3arvVprKqsvuN0CVZhaIMP_QIfdkIzzcczT79XkLkqgHxLONrbaSk5HGRo93Dq270QagOpBM_hlOwNU_8JOjWrLt4nD2tA.jpg",
-      "https://cdn4.telesco.pe/file/SEEInvzAZZodd2A56RtBZGSjtUgrpy8fydfhzHr2BX8Waiq2NcgAzgzjb8DPB_eo8PYPv2bmrjB37ic4MU94vfgKH6l1LHy6f1MzJJoXZxyaJejV75XrUqMgwvTHpCp_3uVUQlV1egEJxuXRxQMniPLhbxu01evRtH5DplF3jfaXRvfuIrkllZ7rUe3J_EE0zxylTiJ0ZgO19lV1AAQf-Jaxzd4P4Faz7IeL97QymPygT4QrYChs-c4uj0FiYqzm9RDfI8pI-4FZSiAdeBum0FlfL13kij2WCahV7JVTm77P2rGf-o1AOWDc5cxQv7eY9vFuwte4e04HeK0kMXB7zQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T09:30:49+00:00",
-    "views": 44
-  },
-  {
-    "id": 72623,
-    "text": "Chevrolet обновил Silverado EV и выпустил внедорожную версию Trail Boss\n\nТоп-версия Trail Boss отличается улучшенной проходимостью и расширенными внедорожными возможностями. Пикап получил усиленную подвеску, увеличенный клиренс (255 мм) и новые 18-дюймовые колёса с внедорожными шинами.\n\nУглы въезда, съезда и переката существенно улучшены, добавлен режим Terrain для точной дозировки тяги. \n\nTrail Boss оснащается полноуправляемым шасси и предлагается с двумя батареями: Extended Range (170 кВт·ч, 660 км хода) и Max Range (205 кВт·ч, до 770 км). Мощность до 735 л.с.\n\nТакже все версии теперь поддерживают систему автономного вождения Super Cruise с картами Google. \n\nПродажи стартуют летом 2025 года, цены — от 72 до 89 тысяч долларов.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 41 views10:18",
-    "photos": [
-      "https://cdn4.telesco.pe/file/PWLms6nP7EwfToZUqmanTMXx184hRBYbFxYO__l4rlKWYvujprn6kL4cjyunjtAUSzTtGC6OnOc5cFQ9Sdc8NbLdOQ0RZpuIv4p8hEjWg6JvlYenscz8LsNhDS4-REtuDRpo96zr-_Ka438TIpBRd1Hgr31CqWexP_tU6sZtf1vtTuc5kJAGPS080uMYIamXCDxFnBQMH1gwxtJLUTpGgKDj8OOoGb4XQvaHZNHOMpD3AMYH3npcu24dXyOA-bkjj_ckd2DOj-Yue8SGbZfIyDaWFBOEQCm95kPd3B1nLB54e5Cx8wcaXJLXSAIP1b5ZgM47liOfAc_06tdgvgMufQ.jpg",
-      "https://cdn4.telesco.pe/file/g6DZ6JjIaGmxP-Z6R1LmEz-JxgGrk0dkma51rfopDuow16Yo3b2svjQyDvy0l8RvHivP-34BnwDT7In282hV0txpTRWIITbkkVPUlf1ApCNOqZg5RYT9rfnl4klV3CijFcTSIIWJRTtPpENqfIxQp7AsdacZHI-pUxLHBU7YKYfuVORq0d4B6RTFwb7E6KZ43Cvyu368u907andqSzxbYPh1xsX76WGMMfElWq_P2uLXF1jb1c91HJBCvd_nc-M-5vFhfEUWJiTsxmXj7B7uTPs8jxzlYveYHB_4_v6pD1wLxF9E8OBmNQgaa9Bt3sLp6u5kCbTmFd08AilXFALASw.jpg",
-      "https://cdn4.telesco.pe/file/XN2inyZAaCQ9-9RCQgAkWxt8RQ3E6ejRIlg4huxqEkZNRmY8X-ZUSfuch15t82vkbpgphnmcbSo7AF1xZBbdti_N_cpZNvF7F0HGUG0cRjdi5fPgCIf2FQiTOPiV0su4tUIqPDe6oUJY87TCxMgMCzMKSSvssORxZhqpEwpkvYiX2LcjEgsATyLHPwrr_Tk_m3iDH5KT8UPmIynU2SOnIrtXNBmtcHWzUyslYboO0V0iROpBpQleVFAP0x-3wz-T_QRQTkMQNr7QD1aDlbK2j2498j4jwZklmGb3Hqu5H3JL_93oc-ns2kn3Wc40V8IMSaqH_gIC7mKYWfcIGMLNUw.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:18:39+00:00",
-    "views": 41
-  },
-  {
-    "id": 72626,
-    "text": "Список допущенных к работе в такси автомобилей сократился до минимума\n\nДля работы в такси официально разрешены лишь несколько моделей. Как сообщает Autonews, в список вошли: \n\n— Lada Granta\n— Lada Vesta\n— Lada Aura\n— Haval Jolion\n— Haval F7/F7x\n— BAIC U5 Plus \n— Kaiyi E5.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 40 views10:19",
-    "photos": [
-      "https://cdn4.telesco.pe/file/vXJlTNFnoBY2fH_Lb_m84A3G9aJtRMsj4NbSe5SurT8226h6UMw5tRsKqK4LCkEyjBLh9eoZVnp_uUVgmTOZQ7VtLdcVVLdOtfJCBb8WyMaYp5xEy2kfNXvF9Qh6XAfq0RrZDx8ys8rIQnVF-q_a1aun_s_Ao6mL4CNsaOMnpfMeVOrcMn5dxohECamrhDBqfU4kGTrgMmW4FaSl7-UlYtAfSrf1AY-g1_pPYTaTgBPOoEbKNlaV6km8yS0eKhycsxs4KdBxtd4rIoEk5WK0F4MsRUz6lZd00Dn5PxOi4LyXW-7-1V-uJQVTFdknIdX33QQcX7ItAHvybky-KXEnpA.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:19:08+00:00",
-    "views": 40
-  },
-  {
-    "id": 72627,
-    "text": "Toyota нацелилась на сегмент компактных пикапов\n\nToyota готовит новый компактный пикап для рынка Северной Америки. Как сообщил Купер Эриксен, глава отдела планирования американского подразделения Toyota, «появление такого автомобиля — лишь вопрос времени».\n\nПодробностей пока немного, но, судя по всему, речь идет о модели с несущим кузовом — более компактной, чем уже выпускаемая Toyota Tacoma. \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 45 views10:19\n \n\n \n \n\n \n \n\n \n \n \n\n\n \n \n TWeb.init();",
-    "photos": [
-      "https://cdn4.telesco.pe/file/TkB5n8rT2glEyU-5ef_DoGASJza2hidOyBlR7CDzJ704VCF8QZNaJxsZFcKDGqsi6hduAlSAuHitPmhYbWZqu-aLrucBpkoGBThY-cIaeFLL2hOwmTCmA4x-SXfgLw7c3y55yc6aD9fa0rv0i3rQ6NcEM3I4J5JEHYw8p_oWJYyFgqqj5UmtmICwrW1ReCuzjWr6gyqQpudrV9aLsqUS8E2cNG3wVJ-1LVqi6-kU8qdJaS3hsNj6iA2U6M15utnGtSaCD14YymMdxO_-ea_8BLxLPuOwIwaJyV5rRdvxcfTVus1uwMT7LqWT1CrXH6paIz9kJpjGYLLU8_NPaK5OLg.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T10:19:33+00:00",
-    "views": 45
-  },
-  {
-    "id": 72586,
-    "text": "BMW показала тизеры нового концепта \n\nBMW опубликовала первые затемнённые тизеры нового концепт-кара. Полноценная премьера шоу-кара состоится уже в эту пятницу, в рамках мероприятия Concorso d'Eleganza Villa d'Este.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 39 views09:23",
-    "photos": [
-      "https://cdn4.telesco.pe/file/CgpqSuy6MSyLZfnKbxoDzNzA_TGSM46_mD-ZAbpBCpHphE1tPnJ3BZmIVAiCx1XGdPUivMJ7HW5FYyx4EbPlGghjK6DzQIIJvFIhmUJj4cThXU6Cb5zUe-NLbACAP7ouOc3_PBA5u2X9K8gH2Zr6AwGy7PGi39zXp1yGbZN1lCwGj0Th45WBAT59KyWU1LYs6pZ7ZoSO7_27S9ejSLb2wsxu1NyLB3rqUPXsyZsJHeEmscIu-GdQu2foUEAJ5VAiiSE9GgmYGUB6usWUOHGw7lKfnINSNJF9EjUU4sGvHzJxks_0vB9B7M7jHruEaxX8hQX45_91rhv-UU3PgmCZqA.jpg",
-      "https://cdn4.telesco.pe/file/j5ElKym63hVLKiEVZFepD_WH6vGKxu8lhfQvj3tbAWWJVYOk7EDFHmudhT1W8U7ktqxi3vH2n-or5ftjZNmNlnGTNezqd_CxQQNikuYjfedJ06ezyrQ1jJKAOycwWfJx9R5RWz0BIo9ueFDoxMboeG65DXuL6FXaJtFz2jxaQfBROYEteqvkVGywOESt0Y_zHXkuY2H7jt5IKz6D6BEvTLZq0hja-bAAtpkAg6GhYd6oHZhdbsrX9ItmtYioQPZ5P3rbowstGM-t_kK3uVeevj1G8jYWHLHiLQxI7HHTW8SSo69AIKy9khKVBy3xftSXvSlrJhBYruqD0o5ZALeILQ.jpg",
-      "https://cdn4.telesco.pe/file/fHPTq03aJsjhyd3xrtDaAkvvxw7eQsQ-4PF_KfDfZVAOuPuloRh3uRdrgSkp_CSM8bRsr6klesJX8_H4fdGsP-JDAZz6_miXuXLyKPJWB7SSS_eMkuy-x1txR8_ocm9Q0lwTdxNvJhZtH5rkhAcK2gr2on-VvIEYXjGmehsh6KMmLUNlkJZyfNipH7jd3iCQRR5aW_6mHXkHjnmquDSTNLWrQ6WPkjMt4aMEus4aQOWNv3nKybQ7HZwM3yOyazLUHFV1X1FYttXjKtbjm4Ldsr5-2zymGAjmZ9ROUYUB_OLsKvFqyPuJmriwdcuCmbMbnPgIWsMWe5ewhEfSf6AnRw.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T09:23:47+00:00",
-    "views": 39
-  },
-  {
-    "id": 72589,
-    "text": "Fiat обновил компактный кроссовер Pulse \n\nFiat провёл лёгкий рестайлинг компактного кроссовера Pulse для рынка Бразилии. \n\nОбновление свелось к новому переднему бамперу с хромированными вставками, изменённой решётке радиатора и новой отделке салона. Добавлена опция панорамной крыши.\n\nТехника прежняя: атмосферный мотор 1.3 (109 л.с.) с «механикой» или вариатором и литровая турботройка (130 л.с.) с 6-ступенчатым «автоматом». Привод — только передний. \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 39 views09:25",
-    "photos": [
-      "https://cdn4.telesco.pe/file/jLdLSnkc83fpvHZ95sPdEDEUgqqaHzr3mTbsL0Ni58dS-Q-_UPlShr_CpHYDORDHZzhNjWE4qDPNpx-3-IqlD1PTVAX76YvEDzaPEdVuGqRIgKjFD6O5G6SxZCHoNoD42QmsAAItdovLBJu5TwsBmsB3bffMxNVgkGjRMALV7pjhZyUVMmuYqHawgyMn0CtrVNcNpwqGuvV7Z-JCLcW4IDy1Kk4fTVGTN2DMfirnDMghhgyUZ_9NIrG5kGYEatJ8__oCPZ7ZFcE65NPWok6CPktxwBX5tQU7BdXJJgU3s_MqIbYaseS__uChlx6F-qJk6Y8GQp6Uo4rCBWFjQhDLdA.jpg",
-      "https://cdn4.telesco.pe/file/radd7TE7ZGRSAv_msVO2s_hR8BPLSseZddbSTngRQSeR_zr5YWbPX0348WNmYuUVUtL-mggNmVnl6F8ovh17xgv5-mg08mnW9gDWNJfssu1LUbgNEbdSDUS_ZvViksEDGh99Dj8apyYbhhi1INwYgr8IX56uQkIZHbMIgpWlzQFzmZxuyHJzNbyeSiN-KYQCYqoTHOZHiEvY0GtAvRcu0rxTGj5GCjOuJr2Eac6R_4ces_aMWXA9yU4BxCVmpn3j48M4UJHSPWLHGhwudg848ok604yX00FLpapu5GmW-GRV70hF5tRD-hqi0am6luWTPBx3eil46iegSZiFNC9-pw.jpg",
-      "https://cdn4.telesco.pe/file/q-0qmjJf6WS5_H47sYSSTIxtcSKv6orTnv1v1EyptRdYqPHCglHpfGmf_md8iDzgoUfuCPMZd0kWITFYvoDj-kUipV5EAXsUJuv3hWNidX1r1C9RM2Pm2-GDef723X7oXfzGqLXtbYVQukp82raRzqCUuZZQfiN2Z298jHOtE1sJjgSjb1c7QZoAqhWjkdA83ipIhuxyY3xmA0xhHBDVQiCUP1H4nZjjmQhtcnfOArLEUKguPlkmkVDf-jNT6PB3AaVub27wxKvElMUyYWsAKgOOOVyozVZVQp8mgd8cVqAzZW1kjRHQmnc40yBd9unYpbflSxsvFncTf2VQ0k5a5w.jpg",
-      "https://cdn4.telesco.pe/file/eTKRkSELwy7bDWfJ6csePuYGXEocumTqSwpHyK_2hxI1WZDfVNs1rwQK7FE-WTqGu-B-NR73WnxEpdCXXtk345Wl2cFQe4wyWZX1R_UV4WI24W_pK9tWzJ3hPTXGroOFhjA8nNGMENrDMLYp8qMy6lH4gIaP0yzofWG9-vAFa4_Rn2UwnbITHkz_ph4sbIDBBlGGvpgmW0w9PYlP4RWw0Aq8YyGTOXp-OmbdJTEoeAUlkvPU4MTeJ5AvzY1IvK6xj7CZNb1aMAlrrqHDWpWhNAyNQwpx23---2ZNE--QyX_sls56QQKkePNs_RkLSjrxM84MXtx8IvslfaAOLXQVPQ.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T09:25:35+00:00",
-    "views": 39
-  },
-  {
-    "id": 72593,
-    "text": "Новый Lexus ES выходит на европейский рынок\n\nLexus представил в Европе восьмое поколение седана ES — теперь только в гибридном и электрическом исполнении. \n\nМодель получила смелый дизайн с резкими гранями, узкими фарами и клиновидным силуэтом.\n\nСедан вырос до 5140 мм в длину и обзавёлся цифровым салоном с двумя экранами (12,3 и 14 дюймов), сенсорными кнопками и расширенным комфортом для задних пассажиров.\n\nВ гамме — два гибрида с 2.5-литровыми моторами (204 и 247 л.с.), а также два электромобиля: ES 350e (224 л.с., 530 км хода) и ES 500e (343 л.с., 5,7 с до 100 км/ч). \n\nПродажи в Европе стартуют в ближайшие месяцы.\n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 39 views09:26",
-    "photos": [
-      "https://cdn4.telesco.pe/file/hItY_3kjoOnBfCNVYj48LZworjpIn0AlVm4oU3xi3icECg8SdWXSOaKBKN8JfuJRDCcMPTefgsdYwdw7fVKrZqCXrbaFf_-MLbXtzGJhz8AExECYeqfOcaVNFB5_scYt_c-R2WTbTfugw2W3GWTHyxVrr4GcarzA_EVb_cnRVYUBEaCnZ1xDInaYveoINYOqNIs69ZvQZ0-nRvzZb2KISlXJA7yqrxsHzkHCdOn2UhFh1NVRnwIG7uvUmX5ULdjw7CXRqy-OoIgKoMFLlu78uHBmZQqDDFFsKukvGjZqYO8ePvZz6yHDIKdGpPAn7ZOYXjRDHSKuDftx9hlOnajqjQ.jpg",
-      "https://cdn4.telesco.pe/file/P40fLJFw_k0HoolxbKJ-GLz_I5Yzvxf4iRSdnSsEUpnX-7UDLhXducZtlWseS-5B-54Uruty4Y7pj1VJLYu-TA6kD4Om4Q86YKle49-Ss8b49qGLYSwdvHAI_1r7vVZE7HqjhOlG_f0m9GAJxNMSZUd8UWPDb8rXfIOjhW243QQQCPOR8qbfEcyg94U4_0vZEUiGwufJ8-2-vCIDBOOVxoHyrNujMnSmaLbxJJL7tmo43eSTBO5raqPzGWri2YfyEkfjqCPJL3DgZISPVBwMDY0lckRCUjr7KpVeHkpVWIoM73ZUfv5uSDxS8gyMM-uCdDHGHaeBH-brSXTItPeDow.jpg",
-      "https://cdn4.telesco.pe/file/o9jKrJRu15ItnqTGPlzaQ5hJYKERDUy12j-gKRhuPMcrlHTT2giSZwSt67a_UfAWIvV6jX9ZI0tNsZDtDOlqfne-R9Z86CtZhUAzOfXjnpkK-t2DVjBVBFN4uxAnqyfz0YBw8BEFp_2YnpRLK5dL4h-vEDdEBZWwIFFIf31xKej8bbg4d9zNh9e7rSBaYdYxG9WQfSWwuEeX_YiYOiQBrh9h_6YHTs0Clyaa8wbDw8uHeRlPWf-FW5QLV6PiMiSCjT56QmcjuSfe6zxaZyOOgfSiIw7p7eC5jhhL4tHpU2f0n1iI_ooXo5MF1R-RYYyvXtjSgycT7FEgBcBapMlp8Q.jpg",
-      "https://cdn4.telesco.pe/file/pvS0uY5jvwX59jXrfuLplrYdQ45ixfk9-n3mTnuRSCfcPn2VDaaa_plpDkVtEW2obEtg-pRKTeOREdi2c0AqVKMZ2G5cYC4C44NMW600gEVbYkeEHKB_0YKWvtdYzO-RGrz3aV7VJSYU6mernV770kp8_Iz2Z2mQK-iZfrne7Qv8H88NxSTQuWZdJegpRrNu3C9mb1qIrG5i-rc6Hi4BgxywgzvHxpzjn84R_l0E7jnHexlbRgWvJSlMeRsVRHRyrX6IIDGkzxslxWa913r9yEnODbIh7f6eZsHAbalhXE1R3O3Rs1j0ZPgBcfIpse4ICsAZpVfGCbonEYp8JaSojg.jpg",
-      "https://cdn4.telesco.pe/file/U-TBZNMq4QsU_bqTlUZmVDXifj0J9jWM7h4tI_ALb7qwrqt1fzNUlJAIswz5OA5WwRn99_pFyNzq0XtpUNjHFUSsRnTnW_c7TAmJEsQTyBpbXc6kLceCduF_X47g8pa00PrAsh7uCNTWUZluwhI-WYfBTygcSIhswJ_IEDJ7c9I3HfjAUmXcEYCocMA65e7ORiwIvYJtaKH8js37x2Iuw9XUwYQoh0mVU9_GLjqRhCDbZ5PgniHjMm6SBJizceLrO0uH2Ayeq9fXVyKxY6D91AyfgxDoe-Ho-af1JLSJvbb-CPOzWZlrQbV7gZLzXWknfYAM5XT5-yoQdMad4MFD6g.jpg",
-      "https://cdn4.telesco.pe/file/fBYm9kmjV7DZny5i9iFq5pwoAswjmMq3fEwsCpu2vvhnOUsDYkRbrm-uY7kOZoD7pxIPNoD4viCJgBdyLNjHLXt-qpe090xnsbsHL6v_fKlL3yGdwdbcRSBi2F2IDl7W4heHwLLojdTqxvoDkPCGTf3EVBdJcwIcoKaBhuyJyT3XLGjwk5mtj3Z6CbaluDBP9I_gO9GWSLjn78TCWdFMwDSu2unhU8aU0W9VfJNP8nXlkNgYi75nnoqysN7mzT7MCdHH8oy77nPs4OxoxaEcLNnceT-WbELezG81ym0yB_0RBleCW5Mb_WwHIgfr2-cT11w6-1nRbxXGY4tUlwxO9g.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T09:26:30+00:00",
-    "views": 39
-  },
-  {
-    "id": 72599,
-    "text": "LiXiang (Li Auto) нацелена на 12 тысяч проданных авто в России до конца года\n\nКитайская компания Sinomach, представляющая бренд Lixiang в России, объявила амбициозный план — реализовать 12 тысяч автомобилей до конца 2025 года. \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 38 views09:27",
-    "photos": [
-      "https://cdn4.telesco.pe/file/joZa3_er4IH_sTC4uUxmj_jkubQ4XaRnWuNnhlm754xnvuSbu-ua2CljEKiPKKjIg1Wy9anxk_MKQ8fodeklY9JELj-kAU41qx6bllT6Nlk7wclEDX_8vyNBYm0CUWGJrZP_bxe5m2oOE52GTjp8pTUUR7Ghs70XacN8Sdk80ngflOi4dD9d2H4QhIn10MhLJhExecG9gnpnzkeMwsUGvCMvdKSNtZtDVNiYFgrM-js-oikk2B_xbBTHuEA9wRG2A7aa3-c_y_uffVB5b1iex2Vr0Z64FE4WtrHNIT-Pbmcno8RmBBT8VoaWRqBFrh1bmHe0KKo1iYl50nz3Ao5DEg.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T09:27:00+00:00",
-    "views": 38
-  },
-  {
-    "id": 72600,
-    "text": "BYD начинает продажи самого дешёвого электрокара в Европе\n\nКитайский электрический хэтчбек BYD Dolphin Surf выходит на европейский рынок. Это самая компактная и доступная модель бренда: длина — менее 4 метров, начальная цена — 20 000 евро. \n\nБазовая версия оснащена электромотором на 88 л.с. и батареей 30 кВт·ч, а топ-версия с 156 л.с. и аккумулятором 43,2 кВт·ч сейчас стоит 26 тысяч евро. \n\nhttps://t.me/s/sochiautoparts\n\n@sochiautoparts\n\n#sochiautoparts\nsochiautoparts.ru\n\n \n \n 37 views09:27",
-    "photos": [
-      "https://cdn4.telesco.pe/file/Svl9VqHeu1VIEiqJ7jxz5AyV2AYLKZxApbIBQ3QDI8Z2_gXj2bz0Kc9H9XVYmU-vvZS87qaRQzWtKWEZjzhktq6OD7qaV_t7wkaf_-Hg72Mnqosk1Snvj3GJbgmEG6D6ltnLpS0ivrGwQDrNjf1eNZerFNWig-muZziCjFfap_6l9xmgjpdSZrFelru9rFfMqvixbzCn3YJU0enIS9dc6if_p2lnQAfU_EcA5ngcr3a4xli3FizvQqf_i0c3XCQWijMtvsDINuiH5BkVRxVfZYtIpMFVisqtPMipSaa1jZ1aZH6ueCxJM8Ln_WckE4O-Tbfp9ZSoTpN19sXJz6MqwQ.jpg",
-      "https://cdn4.telesco.pe/file/Lj-N4_gNwgsP5D3v-8kFDQQq90roUqeVJIbiuASfWUsvLnqric3CNF3FiITlipJgADs33ZszKMqM2r0carDhEkY44NOtaTSMlmIy8eVWRV4UvHjWqmSJEYYqW7nu3vcFOcTAMeie92xNkmpw4FrgR3aCPg6gy_3hvWVfiPijM6gPhIQ7x1C8TlIf3oW858lXygG5LDnRjyRXHd7nvo21hfoSeai4SvavJvm6DHOSWiJTi6n4lQ8N8o_E7FpeT7BTsGBvEYru0jjmtlklEg807jSdp4U4pSlx87UzWjBktNm_oDvCc3B6DuLqR_JUJ-avw2iv0gyKYOz0mNtFrbA4vw.jpg",
-      "https://cdn4.telesco.pe/file/Wjp8zKdNe-bss8WW4dAf5IFyioM2ubKu7jb-Tu5qhko4QMhADMuSpb8_ByYn051crwq6uEh7oMqkR_GgbntqaSJvCLpsN9dT4QMPzNQ526vGJrEb0I-wov4xQNj0fnZ-BDc0pCJaq-UoGd4pt4LvIcu9YnGn2yDrzJl4G-Mb3nKsNzKZs2mK1OkrAziunuq0BgiCEHUvr2qdMp6wawXfUPMOTwnFkyQMVesYZz0DdCm3RstjBGwGAoNZpl52heQbzdgBofGFAqwGdPBZaI8vlXICPkgkPzl06BAgVODJyZDCNx2_YxIC-fgufHIheW0wfBUqSXXnsolsU6bHlUQ-0w.jpg",
-      "https://cdn4.telesco.pe/file/NHr2vNnHCXMabCasrxK9lrNUjO3CuEPNXNhVKb9qQgEg4k3IqXGGpqeU8iKXVockfMQSDabmUHh-OHqSbEentH9z_QX9rcxbTq547Q3QGfRbqD70tl6wYl0Bpqmuws2nxX0llZLN-TBLC0r_m20OTpbrDTwefEiFbjw86zLM2-8xqxfbGHsrmiU-R7JuA8h_qDe0KsI_nfI-_mhlbAeZinBa3MR5Cgx99MX2OZdFzMXfCAD3GkF5Q8AxftUkpa01htYrpyGjLZoxpsRwMGVDJIC0RVK5TOte70dQ06ZMYj2V7ji1mL53TegcslBoe3Hl71DGSxKJDEcPYlp0PMXA9Q.jpg"
-    ],
-    "videos": [],
-    "video_thumbnails": [],
-    "date": "2025-05-23T09:27:30+00:00",
-    "views": 37
   }
 ]
