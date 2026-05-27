@@ -983,6 +983,11 @@ def generate_sitemap_index(
 
     # Archive sitemap — DISABLED (archive feature removed)
 
+    # Shop sitemap (all product pages in a single sitemap)
+    entries.append(
+        f"<sitemap>\n<loc>{SITE_URL}/sitemap-shop.xml</loc>\n<lastmod>{now}</lastmod>\n</sitemap>"
+    )
+
     # Product sitemaps
     for pi in range(1, min(total_product_sitemaps + 1, 11)):
         entries.append(
@@ -1646,6 +1651,69 @@ def generate_archive_sitemap(posts: Optional[list] = None) -> str:
     )
 
 
+def generate_shop_sitemap(products: list) -> str:
+    """Generate sitemap-shop.xml containing all product page URLs.
+
+    This is a dedicated shop sitemap that lists all /shop/{product_id} pages
+    with hreflang alternates (ru + en) and product image information.
+
+    Args:
+        products: List of product dicts with 'id' and optionally 'image' fields.
+
+    Returns:
+        XML string for sitemap-shop.xml.
+    """
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    urls = []
+    for product in products:
+        product_id = product.get("id", "")
+        if not product_id:
+            continue
+
+        product_url = f"{SITE_URL}/shop/{product_id}"
+        product_url_en = f"{SITE_URL}/en/shop/{product_id}"
+
+        image_tag = ""
+        if product.get("image"):
+            image_tag = f"\n<image:image><image:loc>{escape_xml(product['image'])}</image:loc></image:image>"
+
+        # Russian entry
+        urls.append(
+            f"<url>\n"
+            f"<loc>{escape_xml(product_url)}</loc>\n"
+            f"<lastmod>{now}</lastmod>\n"
+            f"<changefreq>daily</changefreq>\n"
+            f"<priority>0.7</priority>\n"
+            f'<xhtml:link rel="alternate" hreflang="ru" href="{escape_xml(product_url)}"/>\n'
+            f'<xhtml:link rel="alternate" hreflang="en" href="{escape_xml(product_url_en)}"/>\n'
+            f'<xhtml:link rel="alternate" hreflang="x-default" href="{escape_xml(product_url)}"/>{image_tag}\n'
+            f"</url>"
+        )
+
+        # English entry
+        urls.append(
+            f"<url>\n"
+            f"<loc>{escape_xml(product_url_en)}</loc>\n"
+            f"<lastmod>{now}</lastmod>\n"
+            f"<changefreq>daily</changefreq>\n"
+            f"<priority>0.7</priority>\n"
+            f'<xhtml:link rel="alternate" hreflang="ru" href="{escape_xml(product_url)}"/>\n'
+            f'<xhtml:link rel="alternate" hreflang="en" href="{escape_xml(product_url_en)}"/>\n'
+            f'<xhtml:link rel="alternate" hreflang="x-default" href="{escape_xml(product_url)}"/>{image_tag}\n'
+            f"</url>"
+        )
+
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        'xmlns:xhtml="http://www.w3.org/1999/xhtml" '
+        'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
+        + "\n".join(urls)
+        + "\n</urlset>"
+    )
+
+
 # =============================================================================
 # robots.txt
 # =============================================================================
@@ -1737,6 +1805,8 @@ def generate_robots_txt() -> str:
         f"Sitemap: {SITE_URL}/sitemap-index.xml\n"
         f"Sitemap: {SITE_URL}/sitemap.xml\n"
         f"Sitemap: {SITE_URL}/sitemap-news.xml\n"
+        f"Sitemap: {SITE_URL}/sitemap-shop.xml\n"
+        f"Sitemap: {SITE_URL}/sitemap-tags.xml\n"
     )
 
 

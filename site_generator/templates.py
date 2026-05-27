@@ -1259,13 +1259,12 @@ def render_product_page(
                 f'</div>'
             )
 
-    # Shop widget with random products
-    shop_widget = ""
-    if shop_widget_products:
-        shop_widget = render_shop_widget(shop_widget_products, lang, count=20)
+    # Shop widget — loaded dynamically via JS from /api/shop/products?random=6
+    # No need to pass static product list
+    shop_widget = render_shop_widget([], lang, count=6)
 
-    # Regional ad blocks container (client-side replaced)
-    ad_container = '<div class="ad-blocks-container"></div>'
+    # Regional ad blocks — uses placeholder for Worker injection
+    ad_container = '<!-- REGIONAL_ADS_PLACEHOLDER_RU -->'
 
     # Build the product page body
     body = f"""

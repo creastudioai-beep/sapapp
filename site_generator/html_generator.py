@@ -64,6 +64,7 @@ from .config import (
     LOGO_ICON_512,
     SOCIAL_LINKS,
     BASE_PATH,
+    MAX_POSTS_TO_GENERATE,
 )
 from .seo import (
     generate_meta_tags,
@@ -84,6 +85,7 @@ from .seo import (
     generate_amp_sitemap,
     generate_tags_sitemap,
     generate_products_sitemap,
+    generate_shop_sitemap,
     generate_archive_sitemap,
     generate_rss_feed,
     generate_robots_txt,
@@ -489,8 +491,9 @@ def generate_all_pages(data: dict, output_dir: str):
     # 2. All post pages (ru + en) — limited for GitHub Pages size
     # ------------------------------------------------------------------
     total_posts = len(posts)
-    posts_to_generate = posts[:MAX_POST_PAGES]
-    logger.info("Generating %d post pages (ru only) out of %d total", len(posts_to_generate), total_posts)
+    max_post_pages = min(MAX_POSTS_TO_GENERATE, MAX_POST_PAGES)
+    posts_to_generate = posts[:max_post_pages]
+    logger.info("Generating %d post pages (ru only) out of %d total (MAX_POSTS_TO_GENERATE=%d)", len(posts_to_generate), total_posts, MAX_POSTS_TO_GENERATE)
     for idx, post in enumerate(posts_to_generate):
         post_id = post.get("id")
         if post_id is None:
@@ -831,11 +834,11 @@ def generate_homepage(data: dict, lang: str, output_dir: str, page: int = 1) -> 
     if admitad_programs:
         ads_html = render_ad_blocks(admitad_programs, lang)
 
-    # Shop widget
+    # Shop widget — loaded dynamically via JS from /api/shop/products?random=6
+    # No static product list needed (saves ~13KB per homepage)
     shop_widget = ""
     if FEATURE_SHOP_ENABLED and page == 1:
-        products = data.get("products", [])[:20]
-        shop_widget = render_shop_widget(products, lang, count=20)
+        shop_widget = render_shop_widget([], lang, count=6)
 
     # Pagination
     pagination_html = render_numbered_pagination(page, total_pages, _lang_base(lang), lang)
@@ -978,11 +981,11 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
     if admitad_programs:
         ads_html = render_ad_blocks(admitad_programs, lang, max_blocks=4)
 
-    # Shop widget
+    # Shop widget — loaded dynamically via JS from /api/shop/products?random=6
+    # No static product list needed (saves ~13KB per post page)
     shop_widget = ""
     if FEATURE_SHOP_ENABLED:
-        products = data.get("products", [])[:20]
-        shop_widget = render_shop_widget(products, lang, count=20)
+        shop_widget = render_shop_widget([], lang, count=6)
 
     # Tags
     hashtags = post.get("hashtags", [])
@@ -2748,7 +2751,8 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
         visit_text = "Visit partner website"
         legal_text = "Advertisement"
 
-    # Programs cards HTML
+    # Programs cards HTML — use REGIONAL_ADS_PLACEHOLDER for Worker injection
+    # with <noscript> fallback for when Worker/JS is unavailable
     programs_cards_html = ""
     for prog in matching_programs:
         prog_name = prog.get("name", "")
@@ -2773,9 +2777,14 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
         card_html += '</div>'
         programs_cards_html += card_html
     
+    # Use REGIONAL_ADS_PLACEHOLDER so Worker can inject region-filtered ads
+    # with <noscript> fallback for direct GitHub Pages access
     programs_section = ""
     if programs_cards_html:
-        programs_section = f'<div class="ad-blocks-container">{programs_cards_html}</div>'
+        programs_section = (
+            f'<!-- REGIONAL_ADS_PLACEHOLDER_RU -->\n'
+            f'<noscript data-ad-fallback><div class="ad-blocks-container">{programs_cards_html}</div></noscript>'
+        )
 
     # Breadcrumbs
     bc_items = [
@@ -2903,7 +2912,8 @@ def generate_ads_index_page(data: dict, lang: str, output_dir: str) -> str:
     # Get all programs from pipeline data
     admitad_programs = get_admitad_programs(data)
 
-    # Build category cards
+    # Build category cards — use REGIONAL_ADS_PLACEHOLDER for Worker injection
+    # with <noscript> fallback
     category_cards = ""
     for cat_key, cat_data in ADMITAD_CONFIG.items():
         cat_name = cat_data.get(lang, cat_data.get("ru", cat_key))
@@ -2938,6 +2948,12 @@ def generate_ads_index_page(data: dict, lang: str, output_dir: str) -> str:
 </div>
 </div>"""
 
+    # Use REGIONAL_ADS_PLACEHOLDER for Worker injection with noscript fallback
+    ads_content = (
+        f'<!-- REGIONAL_ADS_PLACEHOLDER_RU -->\n'
+        f'<noscript data-ad-fallback><div class="ad-blocks-container">{category_cards}</div></noscript>'
+    )
+
     # Breadcrumbs
     bc_items = [
         {"name": t("bc_home", lang), "url": _lang_base(lang)},
@@ -2950,9 +2966,7 @@ def generate_ads_index_page(data: dict, lang: str, output_dir: str) -> str:
 {breadcrumbs}
 <h1 style="margin:1rem 0;">{page_title}</h1>
 <p style="color:var(--text-muted);margin-bottom:1.5rem;">{page_desc}</p>
-<div class="ad-blocks-container">
-{category_cards}
-</div>
+{ads_content}
 </div>"""
 
     return _build_page(
@@ -3202,6 +3216,12 @@ def generate_sitemaps(data: dict, output_dir: str):
             os.path.join(output_dir, f"sitemap-products-{i}.xml"),
             generate_products_sitemap(batch, i),
         )
+
+    # sitemap-shop.xml — dedicated shop/product pages sitemap
+    _write_file(
+        os.path.join(output_dir, "sitemap-shop.xml"),
+        generate_shop_sitemap(products),
+    )
 
     # sitemap-archive.xml — listing pages + individual archive post URLs
     _write_file(

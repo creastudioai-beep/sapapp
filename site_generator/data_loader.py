@@ -591,6 +591,72 @@ def _load_telegram_archive(archive_dir: str) -> list:
     return all_posts
 
 
+def _normalize_telegram_media(posts: list) -> list:
+    """Normalize media fields from telegram parser output.
+
+    The telegram parser uses `photo_urls` and `video_urls` fields,
+    while the rest of the generator expects a `media` list with items
+    like {"type": "photo", "directUrl": "..."} or {"type": "video", "directUrl": "..."}.
+
+    This function converts:
+    - `photo_urls` -> media items with type "photo"
+    - `video_urls` -> media items with type "video"
+    - `video_thumbnails` -> poster field on video media items
+
+    If a post already has a `media` field with content, it is left as-is.
+
+    Args:
+        posts: List of post dicts from telegram parser.
+
+    Returns:
+        List of post dicts with normalized media fields.
+    """
+    for post in posts:
+        if not isinstance(post, dict):
+            continue
+
+        # Skip if media already exists and is populated
+        existing_media = post.get("media", [])
+        if isinstance(existing_media, list) and len(existing_media) > 0:
+            continue
+
+        photo_urls = post.get("photo_urls", [])
+        video_urls = post.get("video_urls", [])
+        video_thumbnails = post.get("video_thumbnails", [])
+
+        if not photo_urls and not video_urls:
+            # Also check legacy field names from telegram_fetcher
+            photo_urls = post.get("photos", [])
+            video_urls = post.get("videos", [])
+            video_thumbnails = post.get("video_thumbnails", [])
+
+        if not photo_urls and not video_urls:
+            continue
+
+        media_list = []
+        for photo_url in photo_urls:
+            if isinstance(photo_url, str) and photo_url:
+                media_list.append({"type": "photo", "directUrl": photo_url, "url": photo_url})
+
+        for idx, video_url in enumerate(video_urls):
+            if isinstance(video_url, str) and video_url:
+                media_item = {"type": "video", "directUrl": video_url, "url": video_url}
+                # Attach poster/thumbnail if available
+                if video_thumbnails and idx < len(video_thumbnails):
+                    thumb = video_thumbnails[idx]
+                    if isinstance(thumb, str) and thumb:
+                        media_item["poster"] = thumb
+                elif video_thumbnails and len(video_thumbnails) > 0:
+                    # Use first thumbnail for all videos
+                    media_item["poster"] = video_thumbnails[0]
+                media_list.append(media_item)
+
+        if media_list:
+            post["media"] = media_list
+
+    return posts
+
+
 def _sort_posts_by_date(posts: list) -> list:
     """Sort posts by date, newest first.
 
@@ -730,29 +796,72 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     # ------------------------------------------------------------------
     # Telegram archive data — merge with pipeline posts
     # ------------------------------------------------------------------
-    archive_dir = os.path.join(data_dir, "telegram_archive")
-    telegram_posts = _load_telegram_archive(archive_dir)
-    if telegram_posts:
-        logger.info("Loaded %d posts from telegram archive at %s", len(telegram_posts), archive_dir)
-        # Validate and normalize telegram posts
-        telegram_posts = _validate_and_normalize_posts(telegram_posts)
-        # Merge: telegram posts take priority over pipeline posts (dedup by ID)
-        existing_ids = set()
-        for post in result["posts"]:
-            pid = post.get("id")
-            if pid is not None:
-                existing_ids.add(str(pid))
-        # Add telegram posts that don't overlap with pipeline
-        new_from_telegram = []
-        for post in telegram_posts:
-            pid = str(post.get("id", ""))
-            if pid and pid not in existing_ids:
-                new_from_telegram.append(post)
-                existing_ids.add(pid)
-        if new_from_telegram:
-            result["posts"].extend(new_from_telegram)
-            logger.info("Merged %d new posts from telegram archive (deduped)", len(new_from_telegram))
-    result["archive_posts"] = telegram_posts
+    # ------------------------------------------------------------------
+    # Telegram parser data — PRIMARY source for posts
+    # ------------------------------------------------------------------
+    # 1. Load from local telegram_parser output (data/telegram_posts/)
+    # 2. Load from old telegram_fetcher output (data/telegram_archive/) as secondary
+    # 3. Pipeline posts are the fallback
+    # Telegram parser output takes priority; dedup by post ID
+
+    tg_posts_dir = os.path.join(data_dir, "telegram_posts")
+    tg_archive_dir = os.path.join(data_dir, "telegram_archive")
+
+    telegram_parser_posts = _load_telegram_archive(tg_posts_dir)
+    if telegram_parser_posts:
+        logger.info("Loaded %d posts from telegram parser at %s", len(telegram_parser_posts), tg_posts_dir)
+        # Normalize media fields from telegram parser format
+        telegram_parser_posts = _normalize_telegram_media(telegram_parser_posts)
+        telegram_parser_posts = _validate_and_normalize_posts(telegram_parser_posts)
+
+    telegram_archive_posts = _load_telegram_archive(tg_archive_dir)
+    if telegram_archive_posts:
+        logger.info("Loaded %d posts from telegram archive at %s", len(telegram_archive_posts), tg_archive_dir)
+        telegram_archive_posts = _normalize_telegram_media(telegram_archive_posts)
+        telegram_archive_posts = _validate_and_normalize_posts(telegram_archive_posts)
+
+    # Merge all sources: telegram_parser > telegram_archive > pipeline
+    # Dedup by post ID (string), first occurrence wins
+    merged_posts = []
+    seen_ids = set()
+
+    # 1. Telegram parser posts (highest priority)
+    for post in telegram_parser_posts:
+        pid = str(post.get("id", ""))
+        if pid and pid not in seen_ids:
+            merged_posts.append(post)
+            seen_ids.add(pid)
+
+    # 2. Telegram archive posts (second priority)
+    for post in telegram_archive_posts:
+        pid = str(post.get("id", ""))
+        if pid and pid not in seen_ids:
+            merged_posts.append(post)
+            seen_ids.add(pid)
+
+    # 3. Pipeline posts (lowest priority / fallback)
+    for post in result["posts"]:
+        pid = str(post.get("id", ""))
+        if pid and pid not in seen_ids:
+            merged_posts.append(post)
+            seen_ids.add(pid)
+        elif not pid:
+            # Posts without IDs get included (no dedup possible)
+            merged_posts.append(post)
+
+    if merged_posts:
+        result["posts"] = merged_posts
+        total_tg = len(telegram_parser_posts) + len(telegram_archive_posts)
+        if total_tg > 0:
+            logger.info(
+                "Merged posts: %d from telegram_parser, %d from telegram_archive, "
+                "%d from pipeline (deduped, total=%d)",
+                len(telegram_parser_posts), len(telegram_archive_posts),
+                len(result["posts"]) - len([p for p in merged_posts if str(p.get("id", "")) in {str(pp.get("id", "")) for pp in telegram_parser_posts + telegram_archive_posts}]),
+                len(merged_posts)
+            )
+
+    result["archive_posts"] = telegram_parser_posts + telegram_archive_posts
     result["archive_post_map"] = {}
 
     # ------------------------------------------------------------------

@@ -249,17 +249,40 @@ def parse_post(wrap_element) -> Optional[Dict[str, Any]]:
             if url_match:
                 photo_urls.append(url_match.group(1))
 
-        # Videos
+        # Videos (with thumbnails)
         video_urls = []
+        video_thumbnails = []
         video_wraps = wrap_element.find_all("div", class_="tgme_widget_message_video_wrap")
         for vw in video_wraps:
             video_elem = vw.find("video")
             if video_elem and video_elem.get("src"):
                 video_urls.append(video_elem["src"])
+                # Extract poster attribute from video element
+                poster = video_elem.get("poster", "")
+                if poster:
+                    video_thumbnails.append(poster)
             else:
                 source_elem = vw.find("source")
                 if source_elem and source_elem.get("src"):
                     video_urls.append(source_elem["src"])
+            # Also try to extract thumbnail from background-image style
+            # Telegram web preview uses: style="background-image:url('...')"
+            if not video_thumbnails or len(video_thumbnails) < len(video_urls):
+                style = vw.get("style", "")
+                thumb_match = re.search(r"background-image\s*:\s*url\(['\"]?(.+?)['\"]?\)", style)
+                if thumb_match:
+                    idx = len(video_urls) - 1
+                    if idx >= len(video_thumbnails):
+                        video_thumbnails.append(thumb_match.group(1))
+                    elif not video_thumbnails[idx]:
+                        video_thumbnails[idx] = thumb_match.group(1)
+            # Also check for <img> inside the video wrapper (Telegram sometimes uses img as poster)
+            if not video_thumbnails or len(video_thumbnails) < len(video_urls):
+                img_elem = vw.find("img")
+                if img_elem and img_elem.get("src"):
+                    idx = len(video_urls) - 1
+                    if idx >= len(video_thumbnails):
+                        video_thumbnails.append(img_elem["src"])
 
         # Views
         views = None
@@ -288,6 +311,7 @@ def parse_post(wrap_element) -> Optional[Dict[str, Any]]:
             "text": text,
             "photo_urls": photo_urls,
             "video_urls": video_urls,
+            "video_thumbnails": video_thumbnails,
             "links": links,
             "views": views,
         }
