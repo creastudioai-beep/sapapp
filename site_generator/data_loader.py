@@ -728,9 +728,31 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
             result[key] = data
 
     # ------------------------------------------------------------------
-    # Telegram archive data — DISABLED (archive feature removed)
+    # Telegram archive data — merge with pipeline posts
     # ------------------------------------------------------------------
-    result["archive_posts"] = []
+    archive_dir = os.path.join(data_dir, "telegram_archive")
+    telegram_posts = _load_telegram_archive(archive_dir)
+    if telegram_posts:
+        logger.info("Loaded %d posts from telegram archive at %s", len(telegram_posts), archive_dir)
+        # Validate and normalize telegram posts
+        telegram_posts = _validate_and_normalize_posts(telegram_posts)
+        # Merge: telegram posts take priority over pipeline posts (dedup by ID)
+        existing_ids = set()
+        for post in result["posts"]:
+            pid = post.get("id")
+            if pid is not None:
+                existing_ids.add(str(pid))
+        # Add telegram posts that don't overlap with pipeline
+        new_from_telegram = []
+        for post in telegram_posts:
+            pid = str(post.get("id", ""))
+            if pid and pid not in existing_ids:
+                new_from_telegram.append(post)
+                existing_ids.add(pid)
+        if new_from_telegram:
+            result["posts"].extend(new_from_telegram)
+            logger.info("Merged %d new posts from telegram archive (deduped)", len(new_from_telegram))
+    result["archive_posts"] = telegram_posts
     result["archive_post_map"] = {}
 
     # ------------------------------------------------------------------

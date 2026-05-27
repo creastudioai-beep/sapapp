@@ -378,7 +378,7 @@ def generate_hreflang_links(
     - Archive: ru=/archive, en=/en/archive
     - Archive post: ru=/archive/post/{id}, en=/en/archive/post/{id}
     - Shop: ru=/shop, en=/en/shop
-    - Product: ru=/product/{id}, en=/en/product/{id}
+    - Product: ru=/shop/{id}, en=/en/shop/{id}
     - Category: ru=/shop/category/{id}, en=/en/shop/category/{id}
     """
     # Homepage
@@ -452,13 +452,13 @@ def generate_hreflang_links(
         )
 
     # Product page
-    product_match = re.match(r"^/(?:en/)?product/([a-z0-9_]+)$", path)
+    product_match = re.match(r"^/(?:en/)?shop/([a-z0-9_]+)$", path)
     if product_match:
         p_id = product_match.group(1)
         return (
-            f'<link rel="alternate" hreflang="ru" href="{SITE_URL}/product/{p_id}" />'
-            f'<link rel="alternate" hreflang="en" href="{SITE_URL}/en/product/{p_id}" />'
-            f'<link rel="alternate" hreflang="x-default" href="{SITE_URL}/product/{p_id}" />'
+            f'<link rel="alternate" hreflang="ru" href="{SITE_URL}/shop/{p_id}" />'
+            f'<link rel="alternate" hreflang="en" href="{SITE_URL}/en/shop/{p_id}" />'
+            f'<link rel="alternate" hreflang="x-default" href="{SITE_URL}/shop/{p_id}" />'
         )
 
     # Category page
@@ -794,7 +794,7 @@ def generate_product_schema(product: dict, lang: str = "ru") -> str:
         cat_name = cat_name.get(lang, cat_name.get("ru", ""))
     cat_id = product.get("categoryId") or product.get("category_id", "")
 
-    canonical_url = f"{SITE_URL}/product/{product.get('id', '')}"
+    canonical_url = f"{SITE_URL}/shop/{product.get('id', '')}"
     availability = (
         "https://schema.org/InStock"
         if product.get("available", False)
@@ -1511,8 +1511,8 @@ def generate_products_sitemap(products: list, page_num: int) -> str:
     urls = []
     for product in products:
         product_id = product.get("id", "")
-        product_url = f"{SITE_URL}/product/{product_id}"
-        product_url_en = f"{SITE_URL}/en/product/{product_id}"
+        product_url = f"{SITE_URL}/shop/{product_id}"
+        product_url_en = f"{SITE_URL}/en/shop/{product_id}"
 
         image_tag = ""
         if product.get("image"):
@@ -1662,7 +1662,7 @@ def generate_robots_txt() -> str:
         f"User-agent: *\n"
         f"Allow: /\n"
         f"Allow: /ads/\n"
-        f"Allow: /product/\n"
+        f"Allow: /shop/\n"
         f"Allow: /shop/category/\n"
         f"Disallow: /api/\n"
         f"Disallow: /archive/\n"

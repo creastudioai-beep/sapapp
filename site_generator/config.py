@@ -79,8 +79,8 @@ RSS_DATA_URL: str = f"{PIPELINE_BASE_URL}/rss_data.json"
 # PAGINATION
 # =============================================================================
 
-POSTS_PER_PAGE: int = 30
-MAX_POSTS: int = 10000
+POSTS_PER_PAGE: int = 50
+MAX_POSTS: int = 100000
 ARTICLES_PER_PAGE: int = 30
 
 # =============================================================================
@@ -251,12 +251,8 @@ SOCIAL_LINKS: dict[str, str] = {
 # =============================================================================
 
 ARCHIVE_POSTS_PER_PAGE: int = 50
-MAX_ARCHIVE_PAGES: int = 1800  # 90K posts / 50 per page = 1800 pages
+MAX_ARCHIVE_PAGES: int = 0  # Archive pages removed — no longer generated
 ARCHIVE_ENABLED: bool = False  # Archive pages removed — no longer generated
-
-# NOTE: Archive pages are now generated as static HTML by the Python generator
-# using pipeline data (posts.json). The Cloudflare Worker proxies these pages
-# and adds region-based affiliate filtering on top.
 
 # =============================================================================
 # GITHUB PAGES OUTPUT
@@ -306,6 +302,8 @@ PRODUCTS_INDEX_DATA_URL: str = PRODUCTS_INDEX_URL
 
 # Product display settings
 PRODUCTS_PER_PAGE: int = 30
+PRODUCT_PAGE_URL_PATTERN: str = "/shop/{product_id}"
+PRODUCTS_PER_SITEMAP: int = 1000
 PRODUCTS_IMAGE_PLACEHOLDER: str = f"{SITE_URL}/static/product-placeholder.png"
 PRODUCTS_DEFAULT_IMAGE: str = f"{SITE_URL}/static/no-image.png"
 PRODUCTS_CURRENCY_RU: str = "руб."
@@ -459,7 +457,7 @@ VERIFICATION_META_TAGS: dict[str, str] = {
 # BUILD / GENERATOR SETTINGS
 # =============================================================================
 
-OUTPUT_DIR: str = "output"  # Relative to project root
+OUTPUT_DIR: str = "docs"  # Relative to project root
 STATIC_DIR: str = "static"  # Source static files
 TEMPLATES_DIR: str = "site_generator/templates"  # Jinja2 / HTML templates
 

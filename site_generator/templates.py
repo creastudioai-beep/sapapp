@@ -1144,3 +1144,216 @@ def render_fab(lang: str = "ru") -> str:
         f'{FAB_TELEGRAM_SVG}\n'
         f'</a>'
     )
+
+
+# =============================================================================
+# render_product_page
+# =============================================================================
+
+def render_product_page(
+    product: dict,
+    lang: str = "ru",
+    related_products: Optional[list] = None,
+    shop_widget_products: Optional[list] = None,
+) -> str:
+    """Render a full individual product page.
+
+    Includes:
+    - Product name, image, description, price, old price, vendor/brand
+    - Category badge
+    - "Buy" button linking to /api/go/{feed_name}/{product_id}
+    - Schema.org Product JSON-LD
+    - Related products section (same category)
+    - Shop widget with 20 random products
+    - Breadcrumbs: Home > Shop > Product Name
+    - Regional ad blocks (client-side)
+
+    Args:
+        product: Product dict with expanded keys (name, price, image, etc.).
+        lang: Language code.
+        related_products: List of related product dicts (same category).
+        shop_widget_products: List of product dicts for the shop widget.
+
+    Returns:
+        HTML string for the product page body content.
+    """
+    if not product or not isinstance(product, dict):
+        return ""
+
+    product_id = product.get("id", "")
+    product_name = product.get("name", "")
+    product_image = product.get("image", "")
+    product_description = product.get("description", "")
+    product_price = product.get("price", "")
+    product_old_price = product.get("old_price", "")
+    product_currency = product.get("currency", "RUB")
+    product_vendor = product.get("vendor") or product.get("brand", "")
+    product_category = product.get("category", "")
+    product_feed_name = product.get("feed_name") or product.get("feedName", "")
+    product_feed_id = product.get("feed_id") or product.get("feedId", "")
+    product_available = product.get("available", True)
+    product_model = product.get("model", "")
+
+    # Build affiliate URL for "Buy" button
+    # The Worker handles /api/go/{feed_name}/{product_id} for redirect
+    buy_url = f"/api/go/{url_quote(str(product_feed_name or product_feed_id))}/{url_quote(str(product_id))}"
+
+    # Currency display
+    currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
+
+    # Price display
+    if isinstance(product_price, (int, float)):
+        price_display = f"{product_price:,.0f} {currency}"
+    elif product_price:
+        price_display = f"{product_price} {currency}"
+    else:
+        price_display = ""
+
+    old_price_display = ""
+    if product_old_price and isinstance(product_old_price, (int, float)) and product_old_price > 0:
+        old_price_display = f"{product_old_price:,.0f} {currency}"
+
+    # Availability badge
+    availability_badge = ""
+    availability_text = ""
+    if not product_available:
+        availability_badge = '<span class="product-badge badge-unavailable">Под заказ</span>' if lang == "ru" else '<span class="product-badge badge-unavailable">On order</span>'
+        availability_text = "Под заказ" if lang == "ru" else "On order"
+    elif product_old_price:
+        availability_badge = '<span class="product-badge badge-sale">Скидка</span>' if lang == "ru" else '<span class="product-badge badge-sale">Sale</span>'
+
+    # Category badge
+    category_badge = ""
+    if product_category:
+        category_badge = f'<span class="product-badge badge-category">{escape_html(str(product_category))}</span>'
+
+    # Vendor badge
+    vendor_badge = ""
+    if product_vendor:
+        vendor_badge = f'<span class="product-badge badge-vendor">{escape_html(product_vendor)}</span>'
+
+    # Buy button text
+    buy_text = "🛒 Купить" if lang == "ru" else "🛒 Buy Now"
+    if not product_available:
+        buy_text = "📦 Под заказ" if lang == "ru" else "📦 Pre-order"
+
+    # Breadcrumbs
+    shop_label = "Магазин" if lang == "ru" else "Shop"
+    bc_items = [
+        {"name": "Главная" if lang == "ru" else "Home", "url": _lang_base(lang)},
+        {"name": shop_label, "url": f"{_lang_path(lang)}/shop"},
+        {"name": product_name[:50], "url": f"{_lang_path(lang)}/shop/{product_id}"},
+    ]
+    breadcrumbs = render_breadcrumbs(bc_items, lang)
+
+    # Related products section
+    related_html = ""
+    if related_products:
+        related_title = "Похожие товары" if lang == "ru" else "Related Products"
+        related_cards = ""
+        for rp in related_products[:6]:
+            rp_id = rp.get("id", "")
+            rp_name = rp.get("name", "")
+            rp_image = rp.get("image", "")
+            rp_price = rp.get("price", "")
+            rp_url = f"{_lang_path(lang)}/shop/{rp_id}"
+            rp_price_display = f"{rp_price:,.0f} {currency}" if isinstance(rp_price, (int, float)) else f"{rp_price} {currency}" if rp_price else ""
+            related_cards += (
+                f'<a href="{rp_url}" class="related-card">\n'
+                f'<div class="related-card-media">\n'
+                f'<img src="{escape_html(rp_image)}" alt="{escape_html(rp_name)}" '
+                f'loading="lazy" decoding="async" referrerpolicy="no-referrer"'
+                f' onerror="this.onerror=null;this.src=\'/logo.jpg\'">\n'
+                f'</div>\n'
+                f'<div class="related-card-content">\n'
+                f'<div class="related-card-title">{escape_html(rp_name[:80])}</div>\n'
+                f'<div class="related-card-date" style="color:var(--primary);font-weight:700;">{escape_html(rp_price_display)}</div>\n'
+                f'</div>\n'
+                f'</a>'
+            )
+        if related_cards:
+            related_html = (
+                f'<div class="related-posts">\n'
+                f'<h3>{related_title}</h3>\n'
+                f'<div class="related-grid">\n'
+                f'{related_cards}\n'
+                f'</div>\n'
+                f'</div>'
+            )
+
+    # Shop widget with random products
+    shop_widget = ""
+    if shop_widget_products:
+        shop_widget = render_shop_widget(shop_widget_products, lang, count=20)
+
+    # Regional ad blocks container (client-side replaced)
+    ad_container = '<div class="ad-blocks-container"></div>'
+
+    # Build the product page body
+    body = f"""
+<div class="container">
+{breadcrumbs}
+<div class="article-content">
+<article class="product-detail">
+<div class="product-detail-image">
+<img src="{escape_html(product_image)}" alt="{escape_html(product_name)}" loading="eager" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='/logo.jpg'" style="width:100%;max-height:500px;object-fit:contain;border-radius:var(--radius-lg);">
+</div>
+<div class="product-detail-info">
+<div class="product-card-badges" style="margin-bottom:0.75rem;">
+{availability_badge}{category_badge}{vendor_badge}
+</div>
+<h1 style="font-size:1.5rem;font-weight:800;line-height:1.3;margin-bottom:1rem;font-family:var(--font-display);">{escape_html(product_name)}</h1>
+<div class="product-card-price" style="font-size:1.5rem;font-weight:800;color:var(--primary);margin-bottom:0.5rem;">
+{escape_html(price_display)}
+{f'<s style="font-size:0.9rem;color:var(--text-muted);margin-left:0.5rem;">{escape_html(old_price_display)}</s>' if old_price_display else ''}
+</div>
+{f'<div style="margin-bottom:0.75rem;font-size:0.875rem;color:var(--text-muted);">{escape_html(product_vendor)}{f" — {escape_html(product_model)}" if product_model else ""}</div>' if product_vendor else ''}
+<div class="article-body" style="margin-bottom:1.5rem;">
+<p>{escape_html(product_description)}</p>
+</div>
+<div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+<a href="{buy_url}" class="product-card-btn" style="flex:1;min-width:200px;padding:0.875rem;font-size:1rem;" target="_blank" rel="nofollow noopener sponsored">{buy_text}</a>
+<a href="{_lang_path(lang)}/shop" class="btn-outline" style="flex:0;min-width:auto;padding:0.875rem 1.25rem;">{'← Магазин' if lang == 'ru' else '← Shop'}</a>
+</div>
+{f'<div style="font-size:0.75rem;color:var(--text-light);margin-bottom:1rem;">{escape_html("Артикул: " + str(product_id) if lang == "ru" else "SKU: " + str(product_id))}</div>' if product_id else ''}
+</div>
+</article>
+</div>
+{related_html}
+{ad_container}
+{shop_widget}
+</div>"""
+
+    return body
+
+
+# =============================================================================
+# render_regional_ads_script
+# =============================================================================
+
+def render_regional_ads_script() -> str:
+    """Render client-side JavaScript for regional ad filtering.
+
+    The script calls /api/ads?lang=ru&max=6 (or based on page language)
+    and replaces the static ad blocks with region-filtered ones from the Worker.
+    The Worker uses request.cf.country for geo-targeting.
+
+    Returns:
+        HTML <script> tag with the regional ads JavaScript.
+    """
+    return """<script>
+(function(){
+  var adContainers = document.querySelectorAll('.ad-blocks-container');
+  if (adContainers.length > 0) {
+    var lang = document.documentElement.lang === 'en' ? 'en' : 'ru';
+    fetch('/api/ads?lang=' + lang + '&max=6')
+      .then(function(r){ return r.text(); })
+      .then(function(html){
+        if (html) {
+          adContainers.forEach(function(c){ c.innerHTML = html; });
+        }
+      })
+      .catch(function(){});
+  }
+})();
+</script>"""

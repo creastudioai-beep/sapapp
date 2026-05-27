@@ -1,18 +1,20 @@
 /**
- * SochiAutoParts Cloudflare Worker v11.0
+ * SochiAutoParts Cloudflare Worker v12.0
  *
  * Proxies sochiautoparts.ru → GitHub Pages static site.
  * Handles regional filtering for Admitad partner programs.
  * Provides /api/shop/products and /api/ads endpoints for client-side dynamic content.
  *
  * Architecture:
- *   1. /api/{id}              → Admitad affiliate redirect (direct lookup by program ID, no region filter)
- *   2. /api/shop/products     → Products API for shop page pagination/filtering
- *   3. /api/ads               → Region-filtered ad blocks HTML (for static pages)
- *   4. /rss.xml               → serve from GitHub Pages /rss.xml
- *   5. /feed.xml              → serve from GitHub Pages /rss.xml (compat alias)
- *   6. All other requests     → proxy from GitHub Pages
- *   7. 404 from GH Pages      → try .html, then /index.html, then custom 404
+ *   1. /api/go/{platform}/{id} → Product affiliate redirect (lookup by platform + product ID)
+ *   2. /api/{id}               → Admitad affiliate redirect (direct lookup by program ID, no region filter)
+ *   3. /api/shop/products      → Products API for shop page pagination/filtering
+ *   4. /api/ads                → Region-filtered ad blocks HTML (for static pages), supports ?cat= filter
+ *   5. /shop/{id}              → Proxy to GitHub Pages /shop/{id}/index.html
+ *   6. /rss.xml                → serve from GitHub Pages /rss.xml
+ *   7. /feed.xml               → serve from GitHub Pages /rss.xml (compat alias)
+ *   8. All other requests      → proxy from GitHub Pages
+ *   9. 404 from GH Pages       → try .html, then /index.html, then custom 404
  *
  * GitHub Pages URL: https://creastudioai-beep.github.io/sapapp/
  * Route: sochiautoparts.ru/* → creastudioai-beep.github.io/sapapp/*
@@ -44,6 +46,20 @@ const ADMITAD_CATEGORIES = {
   other: { ru: 'Другое', en: 'Other' },
 };
 
+// Platform name normalisation for /api/go/{platform}/{id}
+// Maps common aliases to canonical feed_name substrings
+const PLATFORM_ALIASES = {
+  ozon: ['ozon', 'озон'],
+  wb: ['wb', 'wildberries', 'вайлдберриз'],
+  lukoil: ['lukoil', 'лукойл'],
+  yandex: ['yandex', 'яндекс', 'market', 'ямаркет'],
+  exist: ['exist', 'экзист'],
+  autodoc: ['autodoc', 'автодок'],
+  zzap: ['zzap', 'ззап'],
+  emex: ['emex', 'эмекс'],
+  pasker: ['pasker', 'паскер'],
+};
+
 // Products data (for shop) — paginated from sapapp repo
 const PRODUCTS_BASE_URL = GITHUB_PAGES_BASE + '/data/products';
 const PRODUCTS_FALLBACK_URL = 'https://raw.githubusercontent.com/creastudioai-beep/sapapp/main/data/products';
@@ -52,7 +68,11 @@ let productsMetaCacheTime = 0;
 let productsPageCache = {};       // page_num -> { data, time }
 const PRODUCTS_CACHE_TTL = 3600000; // 1 hour in ms
 
-const USER_AGENT = 'SochiAutoParts-Worker/11.0';
+// Product lookup index: id -> product (lazy-built from all pages)
+let productIndexCache = null;
+let productIndexCacheTime = 0;
+
+const USER_AGENT = 'SochiAutoParts-Worker/12.0';
 
 const ALLOWED_ORIGINS = [
   'https://sochiautoparts.ru',
@@ -96,7 +116,15 @@ export default {
     let path = url.pathname;
     const country = request.cf?.country || 'RU';
 
+    // --- Product affiliate redirect: /api/go/{platform}/{id} ---
+    // e.g. /api/go/ozon/12345 → redirect to affiliate URL for product 12345 on Ozon
+    const goMatch = path.match(/^\/api\/go\/([a-z]+)\/(\w+)$/);
+    if (goMatch) {
+      return handleProductAffiliateRedirect(goMatch[1], goMatch[2], country, request, ctx);
+    }
+
     // --- Admitad affiliate redirect: /api/{programId} ---
+    // Matches ONLY numeric IDs — /api/12345 (no conflict with /api/go/* or /api/shop/*)
     const apiMatch = path.match(/^\/api\/(\d+)$/);
     if (apiMatch) {
       return handleAffiliateRedirect(apiMatch[1], country, request, ctx);
@@ -110,6 +138,12 @@ export default {
     // --- Region-filtered Ads API: /api/ads ---
     if (path === '/api/ads') {
       return handleAdsAPI(url, country, request, ctx);
+    }
+
+    // --- Shop product page: /shop/{id} → proxy /shop/{id}/index.html ---
+    const shopProductMatch = path.match(/^\/shop\/([a-zA-Z0-9_-]+)$/);
+    if (shopProductMatch) {
+      path = `/shop/${shopProductMatch[1]}/index.html`;
     }
 
     // --- RSS compatibility: /feed.xml → serve /rss.xml ---
@@ -136,6 +170,130 @@ export default {
     return proxyToGitHubPages(path, request, ctx);
   },
 };
+
+
+// =============================================================================
+// Product affiliate redirect: /api/go/{platform}/{id}
+// Finds product by ID, matches platform, and redirects to affiliate URL
+// =============================================================================
+
+async function handleProductAffiliateRedirect(platform, productId, country, request, ctx) {
+  try {
+    // Build product index if needed
+    const productIndex = await getProductIndex(ctx);
+
+    // Try exact ID match first
+    let product = productIndex[productId];
+
+    // If not found by exact ID, try searching all products for a matching feed + ID
+    if (!product) {
+      const allProducts = await getProducts(ctx);
+      // Try matching by id, feedId, or any other identifier
+      product = allProducts.find(p =>
+        String(p.id) === String(productId) ||
+        String(p.feedId) === String(productId)
+      );
+    }
+
+    if (product) {
+      // If the product has a direct affiliate URL (goto_link), use it
+      const gotoLink = product.goto_link || product.gotoLink || '';
+      if (gotoLink) {
+        return Response.redirect(gotoLink, 302);
+      }
+
+      // If the product's URL is already an affiliate link (most are from Admitad feeds)
+      const productUrl = product.url || '';
+      if (productUrl && productUrl !== '#') {
+        // Check if it's already an affiliate/tracking URL
+        if (productUrl.includes('hvjjg.com') || productUrl.includes('admitad') ||
+            productUrl.includes('goto_link') || productUrl.includes('/g/') ||
+            productUrl.includes('ad_network') || productUrl.includes('utm_')) {
+          return Response.redirect(productUrl, 302);
+        }
+      }
+
+      // Try to find an Admitad program matching the product's feed_name
+      const feedName = (product.feedName || '').toLowerCase();
+      const platformLower = platform.toLowerCase();
+
+      if (feedName || platformLower) {
+        const programs = await getAdmitadPrograms(ctx);
+
+        // Build a list of candidate programs by matching platform/feed_name
+        let candidatePrograms = [];
+
+        // 1. Match by feed_name
+        if (feedName) {
+          const feedMatches = programs.filter(p => {
+            const progName = (p.name || '').toLowerCase();
+            const progFeedName = (p.feed_name || p.feedName || '').toLowerCase();
+            return progFeedName.includes(feedName) || feedName.includes(progFeedName) ||
+                   progName.includes(feedName) || feedName.includes(progName);
+          });
+          candidatePrograms.push(...feedMatches);
+        }
+
+        // 2. Match by platform alias
+        const aliases = PLATFORM_ALIASES[platformLower] || [platformLower];
+        for (const alias of aliases) {
+          const aliasMatches = programs.filter(p => {
+            const progName = (p.name || '').toLowerCase();
+            const progFeedName = (p.feed_name || p.feedName || '').toLowerCase();
+            const progSite = (p.site_url || p.siteUrl || '').toLowerCase();
+            return progName.includes(alias) || progFeedName.includes(alias) || progSite.includes(alias);
+          });
+          candidatePrograms.push(...aliasMatches);
+        }
+
+        // Deduplicate and find one with a goto_link
+        const seen = new Set();
+        candidatePrograms = candidatePrograms.filter(p => {
+          if (seen.has(p.id)) return false;
+          seen.add(p.id);
+          return true;
+        });
+
+        // Prefer programs with goto_link that match the platform
+        const withLink = candidatePrograms.filter(p => p.goto_link || p.gotoLink);
+        if (withLink.length > 0) {
+          return Response.redirect(withLink[0].goto_link || withLink[0].gotoLink, 302);
+        }
+      }
+
+      // Fallback: redirect to the product's original URL
+      if (productUrl && productUrl !== '#') {
+        return Response.redirect(productUrl, 302);
+      }
+    }
+
+    // No product found or no URL — redirect to /ads/ as final fallback
+    return Response.redirect(SITE_URL + '/ads/', 302);
+  } catch (e) {
+    console.error('Product affiliate redirect error:', e);
+    return Response.redirect(SITE_URL + '/ads/', 302);
+  }
+}
+
+
+// Build a lookup index: productId → product object
+async function getProductIndex(ctx) {
+  const now = Date.now();
+  if (productIndexCache && (now - productIndexCacheTime) < PRODUCTS_CACHE_TTL) {
+    return productIndexCache;
+  }
+
+  const allProducts = await getProducts(ctx);
+  const index = {};
+  for (const p of allProducts) {
+    // Index by both id and feedId
+    if (p.id) index[String(p.id)] = p;
+    if (p.feedId && !index[String(p.feedId)]) index[String(p.feedId)] = p;
+  }
+  productIndexCache = index;
+  productIndexCacheTime = now;
+  return index;
+}
 
 
 // =============================================================================
@@ -278,13 +436,14 @@ async function getProductsPage(pageNum, ctx) {
     shortNote: p.sn || p.shortNote || '',
     model: p.m || p.model || '',
     type: p.tp || p.type || '',
+    goto_link: p.goto_link || p.gotoLink || '',
   }));
   productsPageCache[pageNum] = { data: mapped, time: now };
   return mapped;
 }
 
 // Get ALL products (loads all pages on demand, cached per-page).
-// Used ONLY for the shop API.
+// Used ONLY for the shop API and product index.
 async function getProducts(ctx) {
   const meta = await getProductsMeta(ctx);
   const totalPages = meta.pages_count || 0;
@@ -403,7 +562,7 @@ async function handleShopProductsAPI(url, request, ctx) {
 
 
 // =============================================================================
-// Region-filtered Ads API: /api/ads?lang=ru|en&max=6
+// Region-filtered Ads API: /api/ads?lang=ru|en&max=6&cat=autoparts
 // Returns HTML of region-filtered ad blocks for client-side injection
 // =============================================================================
 

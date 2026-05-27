@@ -1,18 +1,9 @@
-name: Build & Deploy Site
+name: Daily Full Build & Deploy
 
 on:
   schedule:
-    - cron: '0 */2 * * *'
-  push:
-    branches:
-      - main
+    - cron: '0 3 * * *'  # Daily at 03:00 UTC
   workflow_dispatch:
-    inputs:
-      purge_cache:
-        description: 'Purge Cloudflare cache after deploy'
-        required: false
-        default: 'true'
-        type: boolean
 
 concurrency:
   group: build-deploy-pages
@@ -29,9 +20,9 @@ env:
 
 jobs:
   build:
-    name: Generate Static Site
+    name: Full Archive Fetch & Generate
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     outputs:
       build_status: ${{ steps.build_result.outputs.status }}
       posts_count: ${{ steps.build_summary.outputs.posts_count }}
@@ -61,29 +52,33 @@ jobs:
           restore-keys: |
             pipeline-data-
 
-      - name: Run site generator
+      - name: Run full Telegram archive fetch
+        timeout-minutes: 45
+        run: |
+          echo "::group::Full Archive Fetch"
+          python -m site_generator --full-archive --force-refresh 2>&1 | tee fetch.log || {
+            echo "::warning::Full archive fetch encountered errors, continuing..."
+          }
+          echo "::endgroup::"
+
+      - name: Generate site
         id: generator
         timeout-minutes: 30
         run: |
-          echo "::group::Site Generator"
+          echo "::group::Site Generation"
           START_TIME=$(date +%s)
 
-          BUILD_SUCCESS=0
-
-          # Standard build (no archive fetch)
-          echo "Running standard site build"
-          python -m site_generator 2>&1 | tee build.log && BUILD_SUCCESS=1 || {
+          python -m site_generator --force-refresh --output-dir docs 2>&1 | tee build.log || {
             echo "::warning::Build failed, trying with --no-pages"
-            rm -rf output
-            python -m site_generator --no-pages 2>&1 | tee build-nopages.log || true
+            rm -rf docs
+            python -m site_generator --no-pages --output-dir docs 2>&1 | tee build-nopages.log || true
           }
 
           # Ensure output directory exists with at least a minimal site
-          mkdir -p output
-          if [ ! -f "output/index.html" ]; then
-            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1><p>Site is being rebuilt.</p></body></html>' > output/index.html
-            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>404</title></head><body><h1>404</h1></body></html>' > output/404.html
-            echo "::warning::Created minimal fallback pages (build failed)"
+          mkdir -p docs
+          if [ ! -f "docs/index.html" ]; then
+            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1><p>Site is being rebuilt.</p></body></html>' > docs/index.html
+            echo "::warning::Created minimal fallback index page (build failed)"
           fi
 
           END_TIME=$(date +%s)
@@ -91,48 +86,57 @@ jobs:
           echo "::endgroup::"
 
           echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
-          echo "Build completed in ${DURATION}s"
 
       - name: Validate output
         run: |
-          if [ ! -d "output" ]; then
-            echo "::error::output/ directory not found — creating minimal fallback"
-            mkdir -p output
-            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1></body></html>' > output/index.html
-            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>404</title></head><body><h1>404</h1></body></html>' > output/404.html
+          if [ ! -d "docs" ]; then
+            echo "::error::docs/ directory not found — creating minimal fallback"
+            mkdir -p docs
+            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1></body></html>' > docs/index.html
           fi
 
-          HTML_COUNT=$(find output -name '*.html' | wc -l)
+          HTML_COUNT=$(find docs -name '*.html' | wc -l)
           echo "html_files_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
 
           if [ "$HTML_COUNT" -eq 0 ]; then
             echo "::warning::No HTML files generated — creating fallback"
-            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1></body></html>' > output/index.html
-            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>404</title></head><body><h1>404</h1></body></html>' > output/404.html
-            HTML_COUNT=2
+            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1></body></html>' > docs/index.html
+            HTML_COUNT=1
           fi
 
           echo "Output validation: ${HTML_COUNT} HTML file(s) found"
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: output/
 
       - name: Set build result
         id: build_result
         run: echo "status=success" >> $GITHUB_OUTPUT
 
+      - name: Commit and push generated site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-generate site $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
       - name: Build summary
         id: build_summary
         run: |
-          HTML_COUNT=$(find output -name '*.html' | wc -l)
-          TOTAL_SIZE=$(du -sh output/ | cut -f1)
+          HTML_COUNT=$(find docs -name '*.html' | wc -l)
+          TOTAL_SIZE=$(du -sh docs/ | cut -f1)
 
           echo "posts_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
           echo "build_duration=${DURATION:-N/A}" >> $GITHUB_OUTPUT
 
-          echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## Daily Full Build Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
@@ -141,6 +145,7 @@ jobs:
           echo "| Output Size | ${TOTAL_SIZE} |" >> $GITHUB_STEP_SUMMARY
           echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Type | Full Archive + Rebuild |" >> $GITHUB_STEP_SUMMARY
 
   deploy:
     name: Deploy to GitHub Pages
@@ -239,7 +244,7 @@ jobs:
             exit 0
           fi
 
-          echo "Deploying Cloudflare Worker v11.0 to account ${ACCOUNT_ID}..."
+          echo "Deploying Cloudflare Worker v12.0 to account ${ACCOUNT_ID}..."
 
           # Deploy using Cloudflare Workers API
           WORKER_FILE="sochiautoparts-worker-proxy.js"

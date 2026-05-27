@@ -1,0 +1,262 @@
+name: On Push Rebuild
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: build-deploy-pages
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  PYTHON_VERSION: '3.11'
+  PIP_CACHE_DIR: ~/.cache/pip
+
+jobs:
+  build:
+    name: Rebuild Site
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      build_status: ${{ steps.build_result.outputs.status }}
+      posts_count: ${{ steps.build_summary.outputs.posts_count }}
+      build_duration: ${{ steps.build_summary.outputs.build_duration }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Restore pipeline data cache
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: pipeline-data-${{ github.run_id }}
+          restore-keys: |
+            pipeline-data-
+
+      - name: Generate site
+        id: generator
+        timeout-minutes: 20
+        run: |
+          echo "::group::Site Generation"
+          START_TIME=$(date +%s)
+
+          python -m site_generator --output-dir docs 2>&1 | tee build.log || {
+            echo "::warning::Build failed, trying with --no-pages"
+            rm -rf docs
+            python -m site_generator --no-pages --output-dir docs 2>&1 | tee build-nopages.log || true
+          }
+
+          # Ensure output directory exists with at least a minimal site
+          mkdir -p docs
+          if [ ! -f "docs/index.html" ]; then
+            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1><p>Site is being rebuilt.</p></body></html>' > docs/index.html
+            echo "::warning::Created minimal fallback index page (build failed)"
+          fi
+
+          END_TIME=$(date +%s)
+          DURATION=$(( END_TIME - START_TIME ))
+          echo "::endgroup::"
+
+          echo "build_duration=${DURATION}s" >> $GITHUB_OUTPUT
+
+      - name: Validate output
+        run: |
+          if [ ! -d "docs" ]; then
+            echo "::error::docs/ directory not found — creating minimal fallback"
+            mkdir -p docs
+            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1></body></html>' > docs/index.html
+          fi
+
+          HTML_COUNT=$(find docs -name '*.html' | wc -l)
+          echo "html_files_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
+
+          if [ "$HTML_COUNT" -eq 0 ]; then
+            echo "::warning::No HTML files generated — creating fallback"
+            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SOCHIAUTOPARTS</title></head><body><h1>SOCHIAUTOPARTS</h1></body></html>' > docs/index.html
+            HTML_COUNT=1
+          fi
+
+          echo "Output validation: ${HTML_COUNT} HTML file(s) found"
+
+      - name: Set build result
+        id: build_result
+        run: echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Commit and push generated site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-generate site $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+      - name: Build summary
+        id: build_summary
+        run: |
+          HTML_COUNT=$(find docs -name '*.html' | wc -l)
+          TOTAL_SIZE=$(du -sh docs/ | cut -f1)
+
+          echo "posts_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
+          echo "build_duration=${DURATION:-N/A}" >> $GITHUB_OUTPUT
+
+          echo "## On-Push Rebuild Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | Success |" >> $GITHUB_STEP_SUMMARY
+          echo "| HTML Pages | ${HTML_COUNT} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Output Size | ${TOTAL_SIZE} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Type | Push Rebuild (no fetch) |" >> $GITHUB_STEP_SUMMARY
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: ${{ needs.build.outputs.build_status == 'success' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Deploy summary
+        run: |
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| URL | ${{ steps.deployment.outputs.page_url }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| HTML Pages | ${{ needs.build.outputs.posts_count }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Duration | ${{ needs.build.outputs.build_duration }} |" >> $GITHUB_STEP_SUMMARY
+
+  purge-cache:
+    name: Purge Cloudflare Cache
+    needs: deploy
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Purge Cloudflare cache
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_ZONE_ID" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "Cloudflare secrets not configured — skipping cache purge"
+            exit 0
+          fi
+
+          echo "Purging Cloudflare cache..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')
+
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "Cloudflare cache purged successfully"
+          else
+            echo "Cloudflare cache purge returned HTTP ${HTTP_STATUS}"
+          fi
+
+  deploy-worker:
+    name: Deploy Cloudflare Worker
+    needs: deploy
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy Worker to Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "CLOUDFLARE_API_TOKEN not configured — skipping worker deploy"
+            exit 0
+          fi
+
+          # Get account ID: use CLOUDFLARE_ACCOUNT_ID secret if available,
+          # otherwise derive it from the zone API
+          if [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            ACCOUNT_ID="$CLOUDFLARE_ACCOUNT_ID"
+          elif [ -n "$CLOUDFLARE_ZONE_ID" ]; then
+            echo "Deriving account ID from zone..."
+            ACCOUNT_ID=$(curl -s \
+              "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}" \
+              -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+              | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('result',{}).get('account',{}).get('id',''))" 2>/dev/null)
+            if [ -z "$ACCOUNT_ID" ]; then
+              echo "Failed to derive account ID from zone — skipping worker deploy"
+              exit 0
+            fi
+          else
+            echo "No CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_ZONE_ID configured — skipping worker deploy"
+            exit 0
+          fi
+
+          echo "Deploying Cloudflare Worker v12.0 to account ${ACCOUNT_ID}..."
+
+          # Deploy using Cloudflare Workers API
+          WORKER_FILE="sochiautoparts-worker-proxy.js"
+          if [ ! -f "$WORKER_FILE" ]; then
+            echo "Worker file not found: $WORKER_FILE"
+            exit 1
+          fi
+
+          # Upload worker script
+          HTTP_STATUS=$(curl -s -o /tmp/worker-deploy-response.json -w "%{http_code}" \
+            -X PUT \
+            "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/workers/scripts/sochiautoparts-worker-proxy" \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            -F "metadata={\"main_module\": \"${WORKER_FILE}\"}" \
+            -F "${WORKER_FILE}=@${WORKER_FILE};type=application/javascript+module")
+
+          echo "Deploy response HTTP ${HTTP_STATUS}"
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "Cloudflare Worker deployed successfully"
+          else
+            echo "Worker deploy failed with HTTP ${HTTP_STATUS}"
+            cat /tmp/worker-deploy-response.json 2>/dev/null || true
+          fi

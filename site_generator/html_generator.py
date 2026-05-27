@@ -116,6 +116,8 @@ from .templates import (
     render_breadcrumbs,
     render_matrix_bg,
     render_fab,
+    render_product_page,
+    render_regional_ads_script,
     LOGO_EXTERNAL_URL,
     ADMITAD_CATEGORY_NAMES,
     ADMITAD_CATEGORY_MAPPING,
@@ -153,7 +155,7 @@ if not logger.handlers:
 
 # GitHub Pages size limits require constraining the number of generated files.
 MAX_TAG_PAGES: int = 10000  # Only generate tag pages for the top 200 tags (size constraint)
-MAX_POST_PAGES: int = 10000  # Only generate individual post pages for the latest 500 posts (size constraint)
+MAX_POST_PAGES: int = 100000  # Generate individual post pages for all posts (up to 100K)
 GENERATE_AMP: bool = False  # Skip AMP pages to reduce output size
 GENERATE_AMP_HOMEPAGE: bool = False  # Skip AMP homepage
 
@@ -539,6 +541,45 @@ def generate_all_pages(data: dict, output_dir: str):
     # 5. Archive pages — DISABLED (removed from site)
     # ------------------------------------------------------------------
     logger.info("Skipping archive pages generation (FEATURE_ARCHIVE_ENABLED=False)")
+
+    # ------------------------------------------------------------------
+    # 5b. Individual product pages (ru + en)
+    # ------------------------------------------------------------------
+    if FEATURE_SHOP_ENABLED and products:
+        logger.info("Generating %d individual product pages (ru + en)", len(products))
+        # Build category map for related products
+        product_by_category: dict[str, list] = {}
+        for p in products:
+            if not isinstance(p, dict):
+                continue
+            cat = p.get("category", "uncategorized") or "uncategorized"
+            cat_slug = str(cat).lower().strip().replace(" ", "-")
+            if cat_slug not in product_by_category:
+                product_by_category[cat_slug] = []
+            product_by_category[cat_slug].append(p)
+
+        import random as _random
+        for idx, product in enumerate(products):
+            if not isinstance(product, dict):
+                continue
+            product_id = product.get("id")
+            if product_id is None:
+                continue
+            # Get related products (same category)
+            cat = product.get("category", "uncategorized") or "uncategorized"
+            cat_slug = str(cat).lower().strip().replace(" ", "-")
+            same_category = product_by_category.get(cat_slug, [])
+            related = [p for p in same_category if str(p.get("id", "")) != str(product_id)][:6]
+            # Random shop widget products
+            widget_products = _random.sample(products, min(20, len(products)))
+            for lang in ("ru", "en"):
+                html = generate_product_page(data, product, lang, output_dir, related_products=related, shop_widget_products=widget_products)
+                if lang == "ru":
+                    _write_file(os.path.join(output_dir, "shop", str(product_id), "index.html"), html)
+                else:
+                    _write_file(os.path.join(output_dir, "en", "shop", str(product_id), "index.html"), html)
+            if (idx + 1) % 500 == 0:
+                logger.info("  Generated %d/%d product pages", idx + 1, len(products))
 
     # ------------------------------------------------------------------
     # 6. Shop page with iframe embed (ru + en)
@@ -2129,129 +2170,79 @@ renderProducts(initialProducts);
 # Product Page
 # ===========================================================================
 
-def generate_product_page(data: dict, product_id: str, lang: str, output_dir: str) -> str:
+def generate_product_page(data: dict, product, lang: str, output_dir: str,
+                         related_products: list = None, shop_widget_products: list = None) -> str:
     """Generate product detail page with Schema.org Product markup.
+
+    Generates individual product pages at /shop/{product_id}/index.html
+    with full description, price, affiliate link, Schema.org Product markup,
+    related products, shop widget, breadcrumbs, and regional ad blocks.
 
     Args:
         data: The data dict from data_loader.
-        product_id: The product ID string.
+        product: The product dict (already expanded keys).
         lang: Language code.
         output_dir: Output directory.
+        related_products: List of related product dicts (same category).
+        shop_widget_products: List of product dicts for the shop widget.
 
     Returns:
         Complete HTML page string.
     """
+    if isinstance(product, str):
+        # Legacy call with product_id string
+        product_map = data.get("product_map", {})
+        product = product_map.get(str(product))
+        if product is None:
+            return generate_404_page(lang, output_dir)
+
+    product_id = product.get("id", "")
     product_map = data.get("product_map", {})
-    product = product_map.get(str(product_id))
-    if product is None:
-        return generate_404_page(lang, output_dir)
 
-    # URLs
+    # URLs — using /shop/{product_id} pattern
     if lang == "en":
-        product_url = f"{SITE_URL}/en/product/{product_id}"
+        product_url = f"{SITE_URL}/en/shop/{product_id}"
     else:
-        product_url = f"{SITE_URL}/product/{product_id}"
-
-    product_url_rel = f"{_lang_path(lang)}/product/{product_id}"
+        product_url = f"{SITE_URL}/shop/{product_id}"
 
     name = product.get("name", "")
-    description = (product.get("description") or name)[:200]
+    description = (product.get("description") or name)[:300]
     price = product.get("price", 0)
     currency = product.get("currency", "RUB")
     available = product.get("available", False)
     image = product.get("image", "")
-    vendor = product.get("vendor") or product.get("brand", "")
-    model = product.get("model", "")
-    cat_name = product.get("category", "")
-    if isinstance(cat_name, dict):
-        cat_name = cat_name.get(lang, cat_name.get("ru", ""))
 
     # Title
-    if lang == "ru":
-        page_title = f"{name} | SOCHIAUTOPARTS"
-    else:
-        page_title = f"{name} | SOCHIAUTOPARTS"
+    page_title = f"{name} | SOCHIAUTOPARTS"
 
     # Schema.org Product
     product_schema = generate_product_schema(product, lang)
 
-    # Breadcrumbs
+    # Breadcrumb schema (using new /shop/{id} pattern)
     bc_items = [
-        {"name": t("bc_home", lang), "url": _lang_base(lang)},
-        {"name": t("bc_shop", lang), "url": f"{_lang_path(lang)}/shop"},
-        {"name": name[:50], "url": product_url_rel},
+        {"name": t("bc_home", lang), "url": f"{SITE_URL}{_canonical_lang_path(lang)}/"},
+        {"name": t("bc_shop", lang), "url": f"{SITE_URL}{_canonical_lang_path(lang)}/shop"},
+        {"name": name[:50], "url": product_url},
     ]
     breadcrumb_schema = generate_breadcrumb_schema(bc_items)
-    breadcrumbs = render_breadcrumbs(bc_items, lang)
 
-    # Price formatting
-    try:
-        price_formatted = f"{int(price):,} {currency}"
-    except (ValueError, TypeError):
-        price_formatted = f"{price} {currency}"
+    # Render product page body using the templates function
+    body = render_product_page(
+        product=product,
+        lang=lang,
+        related_products=related_products,
+        shop_widget_products=shop_widget_products,
+    )
 
-    availability_text = "В наличии" if available else "Под заказ"
-    availability_class = "in-stock" if available else "out-of-stock"
-    if lang == "en":
-        availability_text = "In Stock" if available else "Backorder"
-
-    # Category link
-    category_html = ""
-    cat_id = product.get("categoryId") or product.get("category_id", "")
-    if cat_id or cat_name:
-        cat_slug = str(cat_name).lower().strip().replace(" ", "-") if cat_name else str(cat_id)
-        cat_url = f"{_lang_path(lang)}/shop/category/{cat_slug}"
-        _cat_label = t("product_category", lang)
-        category_html = f'<div class="product-category"><span>{_cat_label}:</span> <a href="{cat_url}">{escape_html(str(cat_name))}</a></div>'
-
-    # Vendor
-    vendor_html = ""
-    if vendor:
-        _vendor_label = t("product_vendor", lang)
-        vendor_html = f'<div class="product-vendor"><span>{_vendor_label}:</span> {escape_html(vendor)}</div>'
-
-    # Model
-    model_html = ""
-    if model:
-        model_html = f'<div class="product-model"><span>Model:</span> {escape_html(model)}</div>'
-
-    # Image
-    image_html = ""
-    if image:
-        image_html = f'<div class="product-detail-image"><img src="{escape_html(image)}" alt="{escape_html(name)}" referrerpolicy="no-referrer" style="width:100%;border-radius:12px;" onerror="this.remove()" /></div>'
-
-    # Telegram link
-    telegram_link = f"https://t.me/{CHANNEL_USERNAME}"
-    buy_text = t("shop_buy", lang) if lang == "en" else "Купить"
-
-    body = f"""
-<div class="container">
-{breadcrumbs}
-<div class="product-detail-grid">
-<div>
-{image_html}
-</div>
-<div>
-<h1>{escape_html(name)}</h1>
-<div class="product-price" style="font-size:1.5rem;font-weight:800;color:var(--primary);margin:0.75rem 0;">{price_formatted}</div>
-<div class="product-availability {availability_class}" style="font-weight:600;margin:0.5rem 0;">{availability_text}</div>
-{category_html}
-{vendor_html}
-{model_html}
-<p style="color:var(--text-muted);margin:1rem 0;line-height:1.7;">{escape_html(description)}</p>
-<div style="margin:1.5rem 0;">
-<a href="{telegram_link}" class="btn-cta" target="_blank" rel="nofollow noopener noreferrer">💬 {buy_text}</a>
-</div>
-</div>
-</div>
-</div>"""
+    # Regional ads script
+    regional_ads_script = render_regional_ads_script()
 
     return _build_page(
         lang=lang,
         title=page_title,
         description=description,
         url=product_url,
-        path=f"/product/{product_id}" if lang == "ru" else f"/en/product/{product_id}",
+        path=f"/shop/{product_id}" if lang == "ru" else f"/en/shop/{product_id}",
         body_content=body,
         og_type="product",
         image=image or None,
@@ -2259,6 +2250,7 @@ def generate_product_page(data: dict, product_id: str, lang: str, output_dir: st
         product_price=str(price),
         product_currency=currency,
         extra_schema=[product_schema, breadcrumb_schema],
+        extra_head=regional_ads_script,
         active_page="shop",
         include_matrix=False,
     )
@@ -2321,7 +2313,7 @@ def generate_category_page(data: dict, category_id: str, lang: str, output_dir: 
         avail_class = "in-stock" if available else "out-of-stock"
         avail_text = ("В наличии" if lang == "ru" else "In Stock") if available else ("Под заказ" if lang == "ru" else "Backorder")
 
-        product_url = f"{_lang_path(lang)}/product/{pid}"
+        product_url = f"{_lang_path(lang)}/shop/{pid}"
 
         # Build product image HTML separately to avoid backslash in f-string
         # (Python 3.11 does not allow backslashes inside f-string expressions)

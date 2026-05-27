@@ -410,11 +410,25 @@ def main(argv: Optional[list] = None) -> None:
     logger.debug("Arguments: %s", vars(args))
 
     # ------------------------------------------------------------------
-    # Step 0b: Telegram archive fetch — DISABLED (archive feature removed)
+    # Step 0b: Telegram archive fetch
     # ------------------------------------------------------------------
     if args.full_archive or args.fetch_archive:
-        logger.info("Archive fetch requested but archive feature is disabled — skipping")
-        print("  Archive feature disabled — skipping Telegram fetch")
+        try:
+            from .telegram_fetcher import fetch_all_posts
+            archive_data_dir = os.path.join(args.data_dir, "telegram_archive")
+            channel = CHANNEL_USERNAME
+            if args.full_archive:
+                logger.info("Starting full Telegram archive fetch for @%s", channel)
+                print(f"  Running full Telegram archive fetch for @{channel} (up to 100000 posts)…")
+                fetch_all_posts(channel, archive_data_dir, max_posts=100000, force_full=True)
+            else:
+                logger.info("Starting incremental Telegram archive update for @%s", channel)
+                print(f"  Running incremental Telegram archive update for @{channel} (last 50 posts)…")
+                fetch_all_posts(channel, archive_data_dir, max_posts=50, force_full=False)
+        except Exception as exc:
+            logger.error("Telegram fetch failed: %s", exc)
+            print(f"  WARNING: Telegram fetch failed: {exc}")
+            # Continue with build even if fetch fails
 
     # ------------------------------------------------------------------
     # Step 1: Load pipeline data
