@@ -133,7 +133,12 @@ export default {
     }
 
     // --- Shop Products API: /api/shop/products ---
+    // Supports: ?page=N&per_page=N&q=search&cat=category&sort=field&feed=supplier&random=N
     if (path === '/api/shop/products') {
+      // Check for ?random=N parameter (for shop widget)
+      if (url.searchParams.has('random')) {
+        return handleShopRandomProductsAPI(url, request, ctx);
+      }
       return handleShopProductsAPI(url, request, ctx);
     }
 
@@ -483,6 +488,49 @@ async function fetchProductPage(pageNum) {
     }
   }
   return [];
+}
+
+
+// =============================================================================
+// Shop Random Products API: /api/shop/products?random=N
+// Returns N random products as JSON (for the shop widget on post pages)
+// =============================================================================
+
+async function handleShopRandomProductsAPI(url, request, ctx) {
+  try {
+    const count = Math.min(20, Math.max(1, parseInt(url.searchParams.get('random') || '6', 10)));
+    const products = await getProducts(ctx);
+    if (!products || products.length === 0) {
+      return new Response(JSON.stringify([]), {
+        headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=300', 'Access-Control-Allow-Origin': getAllowedOrigin(request) },
+      });
+    }
+    // Fisher-Yates shuffle and pick first N
+    const shuffled = [...products];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    const randomProducts = shuffled.slice(0, count).map(p => ({
+      name: p.name || '',
+      price: p.price || 0,
+      image: p.image || '',
+      url: p.url || '#',
+      vendor: p.vendor || '',
+    }));
+    return new Response(JSON.stringify(randomProducts), {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'public, max-age=60, s-maxage=60',
+        'Access-Control-Allow-Origin': getAllowedOrigin(request),
+      },
+    });
+  } catch (e) {
+    console.error('Shop random products API error:', e);
+    return new Response(JSON.stringify([]), {
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    });
+  }
 }
 
 

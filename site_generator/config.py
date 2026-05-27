@@ -476,7 +476,7 @@ FETCH_RETRY_DELAY: float = 1.0  # seconds
 # LOCALE / I18N
 # =============================================================================
 
-SUPPORTED_LANGUAGES: list[str] = ["ru", "en"]
+SUPPORTED_LANGUAGES: list[str] = ["ru"]  # English is handled client-side via i18n.js
 DEFAULT_LANGUAGE: str = "ru"
 LANGUAGE_NAMES: dict[str, str] = {
     "ru": "Русский",

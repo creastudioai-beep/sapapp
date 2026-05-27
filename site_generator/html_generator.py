@@ -90,6 +90,7 @@ from .seo import (
     generate_manifest_json,
     generate_cookie_consent_html,
     get_common_client_scripts,
+    generate_scripts_js,
     STATIC_ORG_SCHEMA,
     escape_html,
     escape_xml,
@@ -154,7 +155,7 @@ if not logger.handlers:
 # ---------------------------------------------------------------------------
 
 # GitHub Pages size limits require constraining the number of generated files.
-MAX_TAG_PAGES: int = 10000  # Only generate tag pages for the top 200 tags (size constraint)
+MAX_TAG_PAGES: int = 500  # Only generate tag pages for the top tags (size constraint)
 MAX_POST_PAGES: int = 100000  # Generate individual post pages for all posts (up to 100K)
 GENERATE_AMP: bool = False  # Skip AMP pages to reduce output size
 GENERATE_AMP_HOMEPAGE: bool = False  # Skip AMP homepage
@@ -191,22 +192,31 @@ def _write_file(path: str, content: str):
 # ---------------------------------------------------------------------------
 
 def _lang_path(lang: str) -> str:
-    """Return the language prefix path segment (with BASE_PATH)."""
-    if lang == "en":
-        return BASE_PATH + "/en"
+    """Return the language prefix path segment (with BASE_PATH).
+
+    Since i18n is now handled client-side via JavaScript, all pages are generated
+    only in Russian. The lang parameter is kept for API compatibility but always
+    returns the root path.
+    """
     return BASE_PATH
 
 
 def _lang_base(lang: str) -> str:
-    """Return the base URL for the given language (relative paths, with BASE_PATH)."""
-    if lang == "en":
-        return BASE_PATH + "/en/"
+    """Return the base URL for the given language (relative paths, with BASE_PATH).
+
+    Since i18n is now handled client-side via JavaScript, all pages are generated
+    only in Russian. The lang parameter is kept for API compatibility but always
+    returns the root path.
+    """
     return BASE_PATH + "/"
 
 
 def _canonical_lang_path(lang: str) -> str:
-    """Return language path WITHOUT BASE_PATH for canonical/OG URLs (production domain)."""
-    return "/en" if lang == "en" else ""
+    """Return language path WITHOUT BASE_PATH for canonical/OG URLs (production domain).
+
+    Since all pages are now generated in Russian only, this always returns empty string.
+    """
+    return ""
 
 
 def _bp(path: str) -> str:
@@ -253,7 +263,7 @@ def _build_page(
 
     This is the universal page builder used by all generate_* functions.
     """
-    html_lang = "ru" if lang == "ru" else "en"
+    html_lang = "ru"
 
     # Meta tags
     meta_tags = generate_meta_tags(
@@ -309,8 +319,8 @@ def _build_page(
     if include_matrix:
         matrix_html = render_matrix_bg()
 
-    # CSS
-    css_content = css_override if css_override else CSS_STYLES
+    # CSS — now loaded from external /style.css instead of inline
+    css_content = css_override  # only used if override is provided
 
     # Schema.org
     schema_tags = ""
@@ -355,7 +365,7 @@ def _build_page(
 <meta name="theme-color" content="#2481CC" />
 {preconnect_hints}
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<style>{css_content}</style>
+<link rel="stylesheet" href="/style.css" />
 {org_schema_tag}
 {schema_tags}
 {extra_head}
@@ -371,6 +381,7 @@ def _build_page(
 {footer_html}
 {fab_html}
 {client_scripts}
+<script src="/i18n.js"></script>
 </body>
 </html>"""
 
@@ -382,36 +393,48 @@ def _build_page(
 # ===========================================================================
 
 def generate_all_pages(data: dict, output_dir: str):
-    """Master function: Generate ALL pages for both languages.
+    """Master function: Generate ALL pages (Russian only, English via client-side i18n).
 
     Steps:
-    1. Homepage (ru + en)
-    2. All post pages (ru + en) + AMP versions
-    3. Articles listing (ru + en)
-    4. All article pages (ru + en)
-    5. Archive pages with pagination (ru + en) — static HTML from pipeline data
-    5b. Individual archive post pages (ru + en)
-    6. Shop page with iframe embed (ru + en)
-    7. Tag pages (ru + en)
-    8. Privacy page (ru + en)
-    9. Contacts page (ru + en)
-    10. Ad category pages (ru + en)
+    1. Homepage with pagination
+    2. All post pages + AMP versions
+    3. Articles listing with pagination
+    4. All article pages
+    5. Archive pages - DISABLED
+    5b. Individual product pages
+    6. Shop page
+    7. Tag pages
+    8. Privacy page
+    9. Contacts page
+    10. Ad category pages
     11. 404 page
-    12. AMP homepage (ru + en)
+    12. AMP homepage
     13. All sitemaps, robots.txt, RSS, manifest
 
-    NOTE: Archive pages are now generated as real static HTML with pagination
-    using pipeline data. Individual archive post pages are generated at
-    /archive/post/{id}.html for the same posts that appear on the regular
-    post pages (up to MAX_POST_PAGES). The Cloudflare Worker proxies these
-    and adds region-based affiliate filtering. The shop page uses an iframe
-    embed of zap-online.ru.
+    Only Russian pages are generated. English translation is handled client-side
+    via /i18n.js. CSS is loaded from external /style.css instead of inline.
 
     Args:
         data: The data dict returned by data_loader.load_data().
         output_dir: Root output directory for generated files.
     """
     os.makedirs(output_dir, exist_ok=True)
+
+    # Generate /style.css as a separate file (instead of inlining in every HTML)
+    from .css import CSS_STYLES as _CSS_STYLES
+    _write_file(os.path.join(output_dir, "style.css"), _CSS_STYLES)
+    logger.info("Generated /style.css (%d bytes)", len(_CSS_STYLES))
+
+    # Generate /i18n.js for client-side language switching
+    from .i18n_js import generate_i18n_js
+    _i18n_js_content = generate_i18n_js()
+    _write_file(os.path.join(output_dir, "i18n.js"), _i18n_js_content)
+    logger.info("Generated /i18n.js (%d bytes)", len(_i18n_js_content))
+
+    # Generate /scripts.js as a separate file (instead of inlining in every HTML)
+    _scripts_js_content = generate_scripts_js()
+    _write_file(os.path.join(output_dir, "scripts.js"), _scripts_js_content)
+    logger.info("Generated /scripts.js (%d bytes)", len(_scripts_js_content))
 
     # Copy logo.jpg to output root for relative /logo.jpg references
     import shutil
@@ -447,50 +470,38 @@ def generate_all_pages(data: dict, output_dir: str):
     # ------------------------------------------------------------------
     # 1. Homepage (ru + en) — with pagination as real HTML files
     # ------------------------------------------------------------------
-    for lang in ("ru", "en"):
-        logger.info("Generating homepage (%s)", lang)
-        # Page 1 (root index.html)
-        html = generate_homepage(data, lang, output_dir, page=1)
-        if lang == "ru":
-            _write_file(os.path.join(output_dir, "index.html"), html)
-        else:
-            _write_file(os.path.join(output_dir, "en", "index.html"), html)
+    lang = "ru"  # Only generate Russian pages; English is handled client-side via i18n.js
+    logger.info("Generating homepage (%s)", lang)
+    # Page 1 (root index.html)
+    html = generate_homepage(data, lang, output_dir, page=1)
+    _write_file(os.path.join(output_dir, "index.html"), html)
 
-        # Paginated pages: /page/2/index.html, /page/3/index.html, ...
-        total_home_pages = max(1, math.ceil(len(posts) / POSTS_PER_PAGE))
-        for page_num in range(2, total_home_pages + 1):
-            html = generate_homepage(data, lang, output_dir, page=page_num)
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "page", str(page_num), "index.html"), html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "page", str(page_num), "index.html"), html)
+    # Paginated pages: /page/2/index.html, /page/3/index.html, ...
+    total_home_pages = max(1, math.ceil(len(posts) / POSTS_PER_PAGE))
+    for page_num in range(2, total_home_pages + 1):
+        html = generate_homepage(data, lang, output_dir, page=page_num)
+        _write_file(os.path.join(output_dir, "page", str(page_num), "index.html"), html)
 
-        logger.info("Generated %d homepage pages (%s)", total_home_pages, lang)
+    logger.info("Generated %d homepage pages", total_home_pages)
 
     # ------------------------------------------------------------------
     # 2. All post pages (ru + en) — limited for GitHub Pages size
     # ------------------------------------------------------------------
     total_posts = len(posts)
     posts_to_generate = posts[:MAX_POST_PAGES]
-    logger.info("Generating %d post pages (ru + en) out of %d total", len(posts_to_generate), total_posts)
+    logger.info("Generating %d post pages (ru only) out of %d total", len(posts_to_generate), total_posts)
     for idx, post in enumerate(posts_to_generate):
         post_id = post.get("id")
         if post_id is None:
             continue
-        for lang in ("ru", "en"):
-            html = generate_post_page(data, post_id, lang, output_dir)
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "post", f"{post_id}.html"), html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "post", f"{post_id}.html"), html)
+        lang = "ru"
+        html = generate_post_page(data, post_id, lang, output_dir)
+        _write_file(os.path.join(output_dir, "post", f"{post_id}.html"), html)
 
-            # AMP version (optional — skipped by default for size)
-            if GENERATE_AMP:
-                amp_html = generate_amp_post_page(data, post_id, lang, output_dir)
-                if lang == "ru":
-                    _write_file(os.path.join(output_dir, "post", str(post_id), "amp.html"), amp_html)
-                else:
-                    _write_file(os.path.join(output_dir, "en", "post", str(post_id), "amp.html"), amp_html)
+        # AMP version (optional — skipped by default for size)
+        if GENERATE_AMP:
+            amp_html = generate_amp_post_page(data, post_id, lang, output_dir)
+            _write_file(os.path.join(output_dir, "post", str(post_id), "amp.html"), amp_html)
 
         if (idx + 1) % 100 == 0:
             logger.info("  Generated %d/%d posts", idx + 1, len(posts_to_generate))
@@ -499,41 +510,32 @@ def generate_all_pages(data: dict, output_dir: str):
     # 3. Articles listing (ru + en) — with pagination
     # ------------------------------------------------------------------
     if FEATURE_ARTICLES_ENABLED:
-        for lang in ("ru", "en"):
-            logger.info("Generating articles listing (%s)", lang)
-            # Page 1 (root index.html)
-            html = generate_articles_page(data, lang, output_dir, page=1)
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "articles", "index.html"), html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "articles", "index.html"), html)
+        lang = "ru"
+        logger.info("Generating articles listing (%s)", lang)
+        # Page 1 (root index.html)
+        html = generate_articles_page(data, lang, output_dir, page=1)
+        _write_file(os.path.join(output_dir, "articles", "index.html"), html)
 
-            # Paginated pages: /articles/page/2/index.html, etc.
-            total_article_pages = max(1, math.ceil(len(articles) / ARTICLES_PER_PAGE))
-            for page_num in range(2, total_article_pages + 1):
-                html = generate_articles_page(data, lang, output_dir, page=page_num)
-                if lang == "ru":
-                    _write_file(os.path.join(output_dir, "articles", "page", str(page_num), "index.html"), html)
-                else:
-                    _write_file(os.path.join(output_dir, "en", "articles", "page", str(page_num), "index.html"), html)
+        # Paginated pages: /articles/page/2/index.html, etc.
+        total_article_pages = max(1, math.ceil(len(articles) / ARTICLES_PER_PAGE))
+        for page_num in range(2, total_article_pages + 1):
+            html = generate_articles_page(data, lang, output_dir, page=page_num)
+            _write_file(os.path.join(output_dir, "articles", "page", str(page_num), "index.html"), html)
 
-            logger.info("Generated %d articles pages (%s)", total_article_pages, lang)
+        logger.info("Generated %d articles pages", total_article_pages)
 
     # ------------------------------------------------------------------
     # 4. All article pages (ru + en)
     # ------------------------------------------------------------------
     total_articles = len(articles)
-    logger.info("Generating %d article pages (ru + en)", total_articles)
+    logger.info("Generating %d article pages (ru only)", total_articles)
     for idx, article in enumerate(articles):
         article_id = article.get("id")
         if article_id is None:
             continue
-        for lang in ("ru", "en"):
-            html = generate_article_page(data, article_id, lang, output_dir)
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "article", f"{article_id}.html"), html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "article", f"{article_id}.html"), html)
+        lang = "ru"
+        html = generate_article_page(data, article_id, lang, output_dir)
+        _write_file(os.path.join(output_dir, "article", f"{article_id}.html"), html)
         if (idx + 1) % 50 == 0:
             logger.info("  Generated %d/%d articles", idx + 1, total_articles)
 
@@ -570,14 +572,10 @@ def generate_all_pages(data: dict, output_dir: str):
             cat_slug = str(cat).lower().strip().replace(" ", "-")
             same_category = product_by_category.get(cat_slug, [])
             related = [p for p in same_category if str(p.get("id", "")) != str(product_id)][:6]
-            # Random shop widget products
-            widget_products = _random.sample(products, min(20, len(products)))
-            for lang in ("ru", "en"):
-                html = generate_product_page(data, product, lang, output_dir, related_products=related, shop_widget_products=widget_products)
-                if lang == "ru":
-                    _write_file(os.path.join(output_dir, "shop", str(product_id), "index.html"), html)
-                else:
-                    _write_file(os.path.join(output_dir, "en", "shop", str(product_id), "index.html"), html)
+            # Shop widget products are now loaded dynamically via JS, no need for static list
+            lang = "ru"
+            html = generate_product_page(data, product, lang, output_dir, related_products=related, shop_widget_products=[])
+            _write_file(os.path.join(output_dir, "shop", str(product_id), "index.html"), html)
             if (idx + 1) % 500 == 0:
                 logger.info("  Generated %d/%d product pages", idx + 1, len(products))
 
@@ -585,13 +583,10 @@ def generate_all_pages(data: dict, output_dir: str):
     # 6. Shop page with iframe embed (ru + en)
     # ------------------------------------------------------------------
     if FEATURE_SHOP_ENABLED:
-        for lang in ("ru", "en"):
-            logger.info("Generating shop page (%s)", lang)
-            html = generate_shop_page(data, lang, output_dir)
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "shop", "index.html"), html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "shop", "index.html"), html)
+        lang = "ru"
+        logger.info("Generating shop page (%s)", lang)
+        html = generate_shop_page(data, lang, output_dir)
+        _write_file(os.path.join(output_dir, "shop", "index.html"), html)
 
     # ------------------------------------------------------------------
     # 7. Tag pages (ru + en)
@@ -620,52 +615,37 @@ def generate_all_pages(data: dict, output_dir: str):
         # (GitHub Pages decodes it to /tag/авто.html and finds nothing).
         # Using the Unicode name directly solves this.
         safe_tag_name = tag_name.replace("/", "_").replace("\\", "_").replace(" ", "_")
-        for lang in ("ru", "en"):
-            html = generate_tag_page(data, tag_name, lang, output_dir)
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "tag", f"{safe_tag_name}.html"), html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "tag", f"{safe_tag_name}.html"), html)
+        lang = "ru"
+        html = generate_tag_page(data, tag_name, lang, output_dir)
+        _write_file(os.path.join(output_dir, "tag", f"{safe_tag_name}.html"), html)
 
     # ------------------------------------------------------------------
     # 8. Privacy page (ru + en)
     # ------------------------------------------------------------------
-    for lang in ("ru", "en"):
-        html = generate_privacy_page(lang, output_dir)
-        if lang == "ru":
-            _write_file(os.path.join(output_dir, "privacy", "index.html"), html)
-        else:
-            _write_file(os.path.join(output_dir, "en", "privacy", "index.html"), html)
+    lang = "ru"
+    html = generate_privacy_page(lang, output_dir)
+    _write_file(os.path.join(output_dir, "privacy", "index.html"), html)
 
     # ------------------------------------------------------------------
     # 9. Contacts page (ru + en)
     # ------------------------------------------------------------------
-    for lang in ("ru", "en"):
-        html = generate_contacts_page(lang, output_dir)
-        if lang == "ru":
-            _write_file(os.path.join(output_dir, "contacts", "index.html"), html)
-        else:
-            _write_file(os.path.join(output_dir, "en", "contacts", "index.html"), html)
+    lang = "ru"
+    html = generate_contacts_page(lang, output_dir)
+    _write_file(os.path.join(output_dir, "contacts", "index.html"), html)
 
     # ------------------------------------------------------------------
     # 10. Ad category pages (ru + en) + /ads/index.html listing page
     # ------------------------------------------------------------------
     if FEATURE_ADMITAD_ENABLED:
         for category_key in ADMITAD_CONFIG:
-            for lang in ("ru", "en"):
-                html = generate_ad_category_page(data, category_key, lang, output_dir)
-                if lang == "ru":
-                    _write_file(os.path.join(output_dir, "ads", f"{category_key}.html"), html)
-                else:
-                    _write_file(os.path.join(output_dir, "en", "ads", f"{category_key}.html"), html)
+            lang = "ru"
+            html = generate_ad_category_page(data, category_key, lang, output_dir)
+            _write_file(os.path.join(output_dir, "ads", f"{category_key}.html"), html)
 
         # Generate /ads/index.html — listing of all ad categories
-        for lang in ("ru", "en"):
-            html = generate_ads_index_page(data, lang, output_dir)
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "ads", "index.html"), html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "ads", "index.html"), html)
+        lang = "ru"
+        html = generate_ads_index_page(data, lang, output_dir)
+        _write_file(os.path.join(output_dir, "ads", "index.html"), html)
 
     # ------------------------------------------------------------------
     # 11. 404 page
@@ -677,12 +657,9 @@ def generate_all_pages(data: dict, output_dir: str):
     # 12. AMP homepage (ru + en) — optional, skipped for size
     # ------------------------------------------------------------------
     if GENERATE_AMP_HOMEPAGE:
-        for lang in ("ru", "en"):
-            html = generate_amp_homepage(data, lang, output_dir)
-            if lang == "ru":
-                _write_file(os.path.join(output_dir, "amp", "index.html"), html)
-            else:
-                _write_file(os.path.join(output_dir, "en", "amp", "index.html"), html)
+        lang = "ru"
+        html = generate_amp_homepage(data, lang, output_dir)
+        _write_file(os.path.join(output_dir, "amp", "index.html"), html)
     else:
         logger.info("Skipping AMP homepage generation (GENERATE_AMP_HOMEPAGE=False)")
 
@@ -3152,14 +3129,10 @@ def generate_sitemaps(data: dict, output_dir: str):
             generate_posts_sitemap(batch, i),
         )
 
-    # sitemap-ru.xml and sitemap-en.xml
+    # sitemap-ru.xml (English sitemap no longer generated - i18n is client-side)
     _write_file(
         os.path.join(output_dir, "sitemap-ru.xml"),
         generate_language_sitemap(posts, "ru"),
-    )
-    _write_file(
-        os.path.join(output_dir, "sitemap-en.xml"),
-        generate_language_sitemap(posts, "en"),
     )
 
     # sitemap-news.xml
@@ -3219,13 +3192,8 @@ def generate_rss(data: dict, output_dir: str):
         generate_rss_feed(posts, articles, "ru"),
     )
 
-    # English RSS
-    _write_file(
-        os.path.join(output_dir, "en", "rss.xml"),
-        generate_rss_feed(posts, articles, "en"),
-    )
-
-    logger.info("Generated RSS feeds for ru and en")
+    # English RSS is no longer generated separately (i18n is client-side)
+    logger.info("Generated RSS feed for ru")
 
 
 # ===========================================================================
@@ -3261,13 +3229,8 @@ def generate_manifests(output_dir: str):
         generate_manifest_json("ru"),
     )
 
-    # English manifest
-    _write_file(
-        os.path.join(output_dir, "en", "manifest.json"),
-        generate_manifest_json("en"),
-    )
-
-    logger.info("Generated manifest.json for ru and en")
+    # English manifest is no longer generated separately (i18n is client-side)
+    logger.info("Generated manifest.json for ru")
 
 
 # ===========================================================================

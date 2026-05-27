@@ -38,7 +38,6 @@ TELEGRAM_URL: str = "https://t.me/sochiautoparts"
 INSTAGRAM_URL: str = "https://www.instagram.com/sochi_auto_parts/"
 SITE_AUTHOR: str = "SOCHIAUTOPARTS"
 SHOP_PATH: str = "/shop"
-SHOP_PATH_EN: str = "/en/shop"
 CONTACTS_PATH: str = "/contacts"
 PRIVACY_PATH: str = "/privacy"
 
@@ -274,16 +273,22 @@ def _format_date_short(date_str: str, lang: str = "ru") -> str:
 # =============================================================================
 
 def _lang_path(lang: str) -> str:
-    """Return the language prefix path segment (with BASE_PATH)."""
-    if lang == "en":
-        return BASE_PATH + "/en"
+    """Return the language prefix path segment (with BASE_PATH).
+
+    Since i18n is now handled client-side via JavaScript, all pages are generated
+    only in Russian. The lang parameter is kept for API compatibility but always
+    returns the root path.
+    """
     return BASE_PATH
 
 
 def _lang_base(lang: str) -> str:
-    """Return the base URL for the given language (relative paths, with BASE_PATH)."""
-    if lang == "en":
-        return BASE_PATH + "/en/"
+    """Return the base URL for the given language (relative paths, with BASE_PATH).
+
+    Since i18n is now handled client-side via JavaScript, all pages are generated
+    only in Russian. The lang parameter is kept for API compatibility but always
+    returns the root path.
+    """
     return BASE_PATH + "/"
 
 
@@ -311,9 +316,9 @@ def render_header(lang: str = "ru", active_page: str = "") -> str:
     active_contacts = " active" if active_page == "contacts" else ""
 
     logo_href = _lang_base(lang)
-    shop_url = f"{_lang_path(lang)}{SHOP_PATH}"
-    contacts_url = f"{_lang_path(lang)}{CONTACTS_PATH}"
-    menu_label = "\u041c\u0435\u043d\u044e" if lang == 'ru' else 'Menu'
+    shop_url = f"{_bp(SHOP_PATH)}"
+    contacts_url = f"{_bp(CONTACTS_PATH)}"
+    menu_label = "\u041c\u0435\u043d\u044e"
 
     return f"""<header class="site-header">
 <div class="container">
@@ -324,16 +329,16 @@ def render_header(lang: str = "ru", active_page: str = "") -> str:
 SOCHIAUTOPARTS
 </a>
 <nav class="main-nav" id="mainNav">
-<a href="{_lang_path(lang)}/" class="{active_home}">{t('nav_home', lang)}</a>
-<a href="{_lang_path(lang)}/articles" class="{active_articles}">{t('nav_articles', lang)}</a>
-<a href="{shop_url}" class="{active_shop}">{'🛒 Магазин' if lang == 'ru' else '🛒 Shop'}</a>
-<a href="{contacts_url}" class="{active_contacts}">{t('nav_contacts', lang)}</a>
+<a href="{_bp('/')}" class="{active_home}" data-i18n="nav_home">{t('nav_home', 'ru')}</a>
+<a href="{_bp('/articles')}" class="{active_articles}" data-i18n="nav_articles">{t('nav_articles', 'ru')}</a>
+<a href="{shop_url}" class="{active_shop}" data-i18n="nav_shop">🛒 {t('nav_shop', 'ru')}</a>
+<a href="{contacts_url}" class="{active_contacts}" data-i18n="nav_contacts">{t('nav_contacts', 'ru')}</a>
 </nav>
 <div class="controls-group">
-<button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="{menu_label}">☰</button>
+<button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="{menu_label}" data-i18n-aria-label="menu_label">☰</button>
 <nav class="lang-switcher">
-<a href="{_lang_base('ru')}" class="lang-btn {'active' if lang == 'ru' else ''}">RU</a>
-<a href="{_lang_base('en')}" class="lang-btn {'active' if lang == 'en' else ''}">EN</a>
+<button class="lang-btn active" data-lang="ru" onclick="window.SAPI18n.setLang('ru')">RU</button>
+<button class="lang-btn" data-lang="en" onclick="window.SAPI18n.setLang('en')">EN</button>
 </nav>
 <div class="theme-toggle">
 <button class="theme-btn" data-theme="light" aria-label="Light theme">{SUN_ICON}</button>
@@ -355,26 +360,21 @@ def render_hero(lang: str = "ru") -> str:
     Includes gradient background, title, subtitle, search input with button.
     """
     hero_title = "SOCHIAUTOPARTS"
-    if lang == "ru":
-        hero_subtitle = "Ежедневные новости, тест-драйвы и обзоры мирового автопрома. В архиве 10000 публикаций"  # totalPosts will be injected
-        btn_label = "Подписаться"
-        search_placeholder = "Поиск"
-    else:
-        hero_subtitle = "Daily news, test drives and reviews of the global automotive industry. 10000 publications in archive"  # totalPosts will be injected
-        btn_label = "Subscribe"
-        search_placeholder = "Search"
+    hero_subtitle = "Ежедневные новости, тест-драйвы и обзоры мирового автопрома. В архиве 10000 публикаций"  # totalPosts will be injected
+    btn_label = "Подписаться"
+    search_placeholder = "Поиск"
 
     return f"""<header class="hero">
 <h1>{hero_title}</h1>
-<p>{hero_subtitle}</p>
+<p data-i18n="hero_subtitle">{hero_subtitle}</p>
 <div class="search-container">
-<input type="search" class="search-input" id="searchInput" placeholder="{search_placeholder}" aria-label="{search_placeholder}" autocomplete="off" value="">
+<input type="search" class="search-input" id="searchInput" placeholder="{search_placeholder}" data-i18n-placeholder="search_placeholder" aria-label="{search_placeholder}" data-i18n-aria-label="search_placeholder" autocomplete="off" value="">
 <button class="search-btn" id="searchBtn" aria-label="Search">{SEARCH_ICON}</button>
 <div class="search-results" id="searchResults"></div>
 </div>
 <a href="https://t.me/{CHANNEL_USERNAME}" class="btn-cta" target="_blank" rel="nofollow noopener noreferrer">
 {TELEGRAM_SVG}
-{btn_label}
+<span data-i18n="hero_cta">{btn_label}</span>
 </a>
 </header>"""
 
@@ -388,20 +388,15 @@ def render_seo_block(lang: str = "ru") -> str:
 
     Includes h2 title and descriptive paragraphs about the site.
     """
-    if lang == "ru":
-        title = "О канале SOCHIAUTOPARTS"
-        p1 = "Мы ежедневно публикуем актуальные автомобильные новости, обзоры новых моделей и экспертные тест-драйвы. Наша цель — держать вас в курсе последних тенденций мирового автопрома. 📊 В архиве: <b>10000</b> публикаций"
-        p2 = "Подписывайтесь на наш"
-    else:
-        title = "About SOCHIAUTOPARTS"
-        p1 = "We daily publish the latest automotive news, reviews of new models and expert test drives. Our goal is to keep you updated with the latest global automotive trends. 📊 In archive: <b>10000</b> publications"
-        p2 = "Subscribe to our"
+    title = "О канале SOCHIAUTOPARTS"
+    p1 = "Мы ежедневно публикуем актуальные автомобильные новости, обзоры новых моделей и экспертные тест-драйвы. Наша цель — держать вас в курсе последних тенденций мирового автопрома. 📊 В архиве: <b>10000</b> публикаций"
+    p2 = "Подписывайтесь на наш"
 
     return f"""
 <section class="seo-block">
-<h2>{title}</h2>
-<p>{p1}</p>
-<p>{p2} <a href="https://t.me/{CHANNEL_USERNAME}" target="_blank" rel="nofollow noopener noreferrer">Telegram-канал</a>!</p>
+<h2 data-i18n="seo_block_title">{title}</h2>
+<p data-i18n="seo_block_text">{p1}</p>
+<p data-i18n="seo_block_subscribe">{p2} <a href="https://t.me/{CHANNEL_USERNAME}" target="_blank" rel="nofollow noopener noreferrer">Telegram-канал</a>!</p>
 </section>"""
 
 
@@ -429,7 +424,7 @@ def render_popular_tags(tags: list, lang: str = "ru") -> str:
             continue
         if not tag_name:
             continue
-        tag_url = f"{_bp('/tag')}/{url_quote(tag_name)}.html" if lang == "ru" else f"{_bp('/en/tag')}/{url_quote(tag_name)}.html"
+        tag_url = f"{_bp('/tag')}/{url_quote(tag_name)}.html"
         tags_html_parts.append(f'<a href="{tag_url}" class="footer-tag">#{escape_html(tag_name)}</a>')
 
     tags_html = "".join(tags_html_parts)
@@ -508,22 +503,22 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
                     )
 
     # Build URLs (relative paths)
-    post_url = post.get("postUrl") if lang == "ru" else post.get("postUrlEn", "")
+    post_url = post.get("postUrl", "")
     if not post_url or post_url.startswith("http"):
-        post_url = f"{_lang_path(lang)}/post/{post_id}"
+        post_url = f"{_bp('/post')}/{post_id}"
     else:
-        # postUrl/postUrlEn may be relative paths without BASE_PATH
+        # postUrl may be a relative path without BASE_PATH
         if not post_url.startswith(BASE_PATH):
             post_url = _bp(post_url)
 
-    amp_url = post.get("ampUrl") if lang == "ru" else post.get("ampUrlEn", "")
+    amp_url = post.get("ampUrl", "")
     if not amp_url or amp_url.startswith("http"):
-        amp_url = f"{_lang_path(lang)}/post/{post_id}/amp"
+        amp_url = f"{_bp('/post')}/{post_id}/amp"
     else:
         if not amp_url.startswith(BASE_PATH):
             amp_url = _bp(amp_url)
 
-    btn_text = "Подробнее" if lang == "ru" else "More Details"
+    btn_text = "Подробнее"
     date_display = _format_date(date_str, lang)
 
     return (
@@ -539,7 +534,7 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
         f'</h3>\n'
         f'<div class="post-feed-text">{_format_post_text_no_tags(text, lang)}</div>\n'
         f'<div class="post-feed-actions">\n'
-        f'<a href="{post_url}" class="btn-outline">{btn_text}</a>\n'
+        f'<a href="{post_url}" class="btn-outline" data-i18n="read_more">{btn_text}</a>\n'
         f'</div>\n'
         f'</div>\n'
         f'</article>'
@@ -626,7 +621,7 @@ def render_archive_post_card(post: dict, lang: str = "ru") -> str:
             f'</div>'
         )
 
-    archive_base = _bp("/en/archive/post/") if lang == "en" else _bp("/archive/post/")
+    archive_base = _bp("/archive/post/")
     post_id = post.get("postId") or post.get("id", "")
     views = post.get("views", "")
 
@@ -726,9 +721,9 @@ def render_related_posts(posts: list, lang: str = "ru") -> str:
 
     cards_html = ""
     for rp in posts:
-        rp_url = rp.get("postUrl") if lang == "ru" else rp.get("postUrlEn", "")
+        rp_url = rp.get("postUrl", "")
         if not rp_url or rp_url.startswith("http"):
-            rp_url = f"{_lang_path(lang)}/post/{rp.get('id', '')}"
+            rp_url = f"{_bp('/post')}/{rp.get('id', '')}"
         else:
             if not rp_url.startswith(BASE_PATH):
                 rp_url = _bp(rp_url)
@@ -787,14 +782,14 @@ def render_footer(tags: Optional[list] = None, lang: str = "ru") -> str:
     - Telegram FAB button
     """
     current_year = _get_current_year()
-    rights_text = "Все права защищены." if lang == "ru" else "All rights reserved."
-    privacy_url = f"{_lang_path(lang)}{PRIVACY_PATH}"
-    contacts_url = f"{_lang_path(lang)}{CONTACTS_PATH}"
+    rights_text = "Все права защищены."
+    privacy_url = f"{_bp(PRIVACY_PATH)}"
+    contacts_url = f"{_bp(CONTACTS_PATH)}"
 
-    home_label = t('nav_home', lang)
-    articles_label = t('nav_articles', lang)
-    contacts_label = t('nav_contacts', lang)
-    privacy_label = t('nav_privacy', lang)
+    home_label = t('nav_home', 'ru')
+    articles_label = t('nav_articles', 'ru')
+    contacts_label = t('nav_contacts', 'ru')
+    privacy_label = t('nav_privacy', 'ru')
 
     # Popular tags HTML
     popular_tags_html = ""
@@ -802,13 +797,13 @@ def render_footer(tags: Optional[list] = None, lang: str = "ru") -> str:
         popular_tags_html = render_popular_tags(tags, lang)
 
     return f"""<footer>
-<p>© {current_year} {SITE_AUTHOR}. {rights_text}</p>
+<p>© {current_year} {SITE_AUTHOR}. <span data-i18n="footer_rights">{rights_text}</span></p>
 <div class="footer-links">
-<a href="{_lang_base('ru')}">{home_label}</a> |
-<a href="{_lang_path(lang)}/articles">{articles_label}</a> |
+<a href="{_bp('/')}">{home_label}</a> |
+<a href="{_bp('/articles')}">{articles_label}</a> |
 <a href="{contacts_url}">{contacts_label}</a> |
 <a href="{_bp('/rss.xml')}">RSS</a> |
-<a href="{_bp('/sitemap.xml')}">{"Карта сайта" if lang == "ru" else "Sitemap"}</a> |
+<a href="{_bp('/sitemap.xml')}">Карта сайта</a> |
 <a href="{_bp('/sitemap-tags.xml')}">Tags</a> |
 <a href="{privacy_url}">{privacy_label}</a> |
 <a href="https://t.me/{CHANNEL_USERNAME}" target="_blank" rel="nofollow noopener noreferrer">Telegram</a>
@@ -933,7 +928,7 @@ def render_ad_category_buttons(lang: str = "ru") -> str:
     for cat_key, cat_data in ADMITAD_CONFIG.items():
         cat_label = cat_data.get(lang, cat_data.get("ru", cat_key))
         cat_icon = cat_data.get("icon", "")
-        cat_url = f"{_lang_path(lang)}/ads/{cat_key}"
+        cat_url = f"{_bp('/ads')}/{cat_key}"
         buttons_html += f'<a href="{cat_url}" class="ad-category-btn">{cat_icon} {escape_html(cat_label)}</a>\n'
 
     # NOTE: render_ad_category_buttons already uses _lang_path which includes BASE_PATH
@@ -1032,59 +1027,25 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
 # =============================================================================
 
 def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
-    """Render compact shop widget for post/archive pages.
+    """Render shop widget placeholder — products are loaded dynamically via JavaScript.
 
-    Shows native product cards fetched from pipeline data with a "Visit Shop" link.
-    The shop page shows a full native product catalog (no iframe).
+    The widget container is rendered server-side but products are fetched
+    client-side from the Worker API endpoint /api/shop/products?random=N.
+    This saves ~13 KB per page of static product HTML.
     """
-    shop_path = _bp(SHOP_PATH_EN) if lang == "en" else _bp(SHOP_PATH)
-    widget_title = "🛒 Магазин автозапчастей" if lang == "ru" else "🛒 Auto Parts Shop"
-    visit_shop_link = "Перейти в магазин →" if lang == "ru" else "Visit shop →"
-    buy_text = "Купить" if lang == "ru" else "Buy"
-    currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
-
-    # SEO noscript for crawlers
-    seo_text = (
-        "Автозапчасти с доставкой по всей России. Оригинальные и неоригинальные детали."
-        if lang == "ru" else
-        "Auto parts with delivery across Russia. OEM and aftermarket parts."
-    )
-
-    # Render product cards from pipeline data
-    products_html = ""
-    if products:
-        for p in products[:count]:
-            if not isinstance(p, dict):
-                continue
-            p_name = p.get("name", "")
-            if len(p_name) > 50:
-                p_name = p_name[:50] + "..."
-            p_price = p.get("price", "")
-            p_image = p.get("image", "") or "/logo.jpg"
-            p_url = p.get("url", "#")
-            price_display = f'{p_price:,.0f} {currency}' if isinstance(p_price, (int, float)) else f'{p_price} {currency}' if p_price else ""
-            products_html += (
-                f'<a href="{escape_html(p_url)}" class="widget-product" target="_blank" rel="nofollow noopener sponsored">'
-                f'<img src="{escape_html(p_image)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\'/logo.jpg\'">'
-                f'<div class="wp-name">{escape_html(p_name)}</div>'
-                f'<div class="wp-price">{escape_html(price_display)}</div>'
-                f'</a>'
-            )
-
-    products_grid = ""
-    if products_html:
-        products_grid = f'<div class="shop-widget-grid" id="shopWidgetGrid">{products_html}</div>'
+    shop_path = _bp(SHOP_PATH)
+    widget_title = "🛒 Магазин автозапчастей"
+    visit_shop_link = "Перейти в магазин →"
 
     return (
         f'<div class="shop-widget" id="shopWidget">\n'
         f'<div class="widget-header">'
-        f'<span class="widget-title">{widget_title}</span>'
-        f'<a href="{shop_path}" class="widget-link">{visit_shop_link}</a>'
+        f'<span class="widget-title" data-i18n="shop_title">{widget_title}</span>'
+        f'<a href="{shop_path}" class="widget-link" data-i18n="shop_visit">{visit_shop_link}</a>'
         f'</div>\n'
-        f'{products_grid}'
+        f'<div class="shop-widget-grid" id="shopWidgetGrid" data-shop-widget-count="{count}"></div>\n'
         f'<div style="text-align:center;padding:1rem;">'
-        f'<a href="{shop_path}" class="btn-cta" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:var(--primary);color:#fff;font-weight:700;text-decoration:none;">🛒 {visit_shop_link}</a>'
-        f'<noscript><p style="margin-top:0.75rem;font-size:0.875rem;color:var(--text-muted);">{seo_text}</p></noscript>'
+        f'<a href="{shop_path}" class="btn-cta" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:var(--primary);color:#fff;font-weight:700;text-decoration:none;" data-i18n="shop_visit">🛒 {visit_shop_link}</a>'
         f'</div>\n'
         f'</div>\n'
     )
@@ -1195,7 +1156,7 @@ def render_product_page(
     buy_url = f"/api/go/{url_quote(str(product_feed_name or product_feed_id))}/{url_quote(str(product_id))}"
 
     # Currency display
-    currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
+    currency = PRODUCTS_CURRENCY_RU
 
     # Price display
     if isinstance(product_price, (int, float)):
@@ -1213,10 +1174,10 @@ def render_product_page(
     availability_badge = ""
     availability_text = ""
     if not product_available:
-        availability_badge = '<span class="product-badge badge-unavailable">Под заказ</span>' if lang == "ru" else '<span class="product-badge badge-unavailable">On order</span>'
-        availability_text = "Под заказ" if lang == "ru" else "On order"
+        availability_badge = '<span class="product-badge badge-unavailable">Под заказ</span>'
+        availability_text = "Под заказ"
     elif product_old_price:
-        availability_badge = '<span class="product-badge badge-sale">Скидка</span>' if lang == "ru" else '<span class="product-badge badge-sale">Sale</span>'
+        availability_badge = '<span class="product-badge badge-sale">Скидка</span>'
 
     # Category badge
     category_badge = ""
@@ -1229,16 +1190,16 @@ def render_product_page(
         vendor_badge = f'<span class="product-badge badge-vendor">{escape_html(product_vendor)}</span>'
 
     # Buy button text
-    buy_text = "🛒 Купить" if lang == "ru" else "🛒 Buy Now"
+    buy_text = "🛒 Купить"
     if not product_available:
-        buy_text = "📦 Под заказ" if lang == "ru" else "📦 Pre-order"
+        buy_text = "📦 Под заказ"
 
     # Breadcrumbs
-    shop_label = "Магазин" if lang == "ru" else "Shop"
+    shop_label = "Магазин"
     bc_items = [
-        {"name": "Главная" if lang == "ru" else "Home", "url": _lang_base(lang)},
-        {"name": shop_label, "url": f"{_lang_path(lang)}/shop"},
-        {"name": product_name[:50], "url": f"{_lang_path(lang)}/shop/{product_id}"},
+        {"name": "Главная", "url": _lang_base(lang)},
+        {"name": shop_label, "url": f"{_bp('/shop')}"},
+        {"name": product_name[:50], "url": f"{_bp('/shop')}/{product_id}"},
     ]
     breadcrumbs = render_breadcrumbs(bc_items, lang)
 
@@ -1252,7 +1213,7 @@ def render_product_page(
             rp_name = rp.get("name", "")
             rp_image = rp.get("image", "")
             rp_price = rp.get("price", "")
-            rp_url = f"{_lang_path(lang)}/shop/{rp_id}"
+            rp_url = f"{_bp('/shop')}/{rp_id}"
             rp_price_display = f"{rp_price:,.0f} {currency}" if isinstance(rp_price, (int, float)) else f"{rp_price} {currency}" if rp_price else ""
             related_cards += (
                 f'<a href="{rp_url}" class="related-card">\n'
@@ -1309,9 +1270,9 @@ def render_product_page(
 </div>
 <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.5rem;">
 <a href="{buy_url}" class="product-card-btn" style="flex:1;min-width:200px;padding:0.875rem;font-size:1rem;" target="_blank" rel="nofollow noopener sponsored">{buy_text}</a>
-<a href="{_lang_path(lang)}/shop" class="btn-outline" style="flex:0;min-width:auto;padding:0.875rem 1.25rem;">{'← Магазин' if lang == 'ru' else '← Shop'}</a>
+<a href="{_bp('/shop')}" class="btn-outline" style="flex:0;min-width:auto;padding:0.875rem 1.25rem;">← Магазин</a>
 </div>
-{f'<div style="font-size:0.75rem;color:var(--text-light);margin-bottom:1rem;">{escape_html("Артикул: " + str(product_id) if lang == "ru" else "SKU: " + str(product_id))}</div>' if product_id else ''}
+{f'<div style="font-size:0.75rem;color:var(--text-light);margin-bottom:1rem;">Артикул: {escape_html(str(product_id))}</div>' if product_id else ''}
 </div>
 </article>
 </div>

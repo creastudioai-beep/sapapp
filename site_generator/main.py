@@ -151,11 +151,11 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--lang",
-        default="ru,en",
+        default="ru",
         metavar="LANGS",
         help=(
             "Comma-separated list of languages to generate "
-            "(default: ru,en). Supported: ru, en."
+            "(default: ru). English is handled client-side via i18n.js."
         ),
     )
     parser.add_argument(
@@ -191,8 +191,8 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         else:
             logger.warning("Unsupported language '%s' ignored (supported: %s)", lang, SUPPORTED_LANGUAGES)
     if not valid_langs:
-        logger.error("No valid languages specified. Using defaults: ru, en")
-        valid_langs = ["ru", "en"]
+        logger.error("No valid languages specified. Using default: ru")
+        valid_langs = ["ru"]
     args.langs = valid_langs
 
     return args
