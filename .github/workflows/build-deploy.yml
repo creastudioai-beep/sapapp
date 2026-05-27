@@ -3,6 +3,8 @@ name: Build & Deploy Static Site
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'docs/**'
   workflow_dispatch:
   schedule:
     # Run daily at 03:00 UTC (06:00 MSK)
@@ -30,25 +32,18 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Configure git
+      - name: Parse Telegram channel (full)
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Build static site
-        run: python -m site_generator --output docs --force-refresh
+          echo "=== Running Telegram parser (full scan up to 25000 posts) ==="
+          python -m site_generator.telegram_parser --full --limit 25000
         env:
           PYTHONUNBUFFERED: '1'
+          PARSE_LIMIT: '25000'
 
-      - name: Generate paginated products data
-        run: |
-          python -c "
-          import json, os
-          src = 'docs/data/products'
-          os.makedirs(src, exist_ok=True)
-          # Products are already in docs/ by the generator — just verify
-          print('Products data directory ready')
-          "
+      - name: Build static site
+        run: python -m site_generator --output docs
+        env:
+          PYTHONUNBUFFERED: '1'
 
       - name: Verify build output
         run: |
@@ -69,16 +64,25 @@ jobs:
           echo ""
           echo "Shop pages count:"
           find docs/shop/ -name "index.html" 2>/dev/null | wc -l | xargs -I{} echo "  {} shop pages"
+          echo ""
+          echo "Post pages count:"
+          find docs/post/ -name "*.html" 2>/dev/null | wc -l | xargs -I{} echo "  {} post pages"
+          echo ""
+          echo "Telegram posts parsed:"
+          cat data/telegram_posts/meta.json 2>/dev/null | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'  {d.get(\"total_posts\",\"?\")} posts in {d.get(\"pages_count\",\"?\")} pages')" || echo "  (meta.json not found)"
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit and push docs/
         run: |
-          # Add all generated files (docs/ is no longer in .gitignore)
           git add -f docs/
-          # Check if there are changes to commit
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "🔄 Auto-build: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git commit -m "Auto-build: $(date -u '+%Y-%m-%d %H:%M UTC')"
             git push
           fi
 
@@ -88,6 +92,6 @@ jobs:
           SIZE_MB=$((SIZE_BYTES / 1024 / 1024))
           echo "Total docs/ size: ${SIZE_MB} MB"
           if [ "$SIZE_MB" -gt 950 ]; then
-            echo "⚠️  WARNING: docs/ exceeds 950 MB! GitHub Pages limit is 1 GB."
-            echo "Consider reducing generated pages or implementing size optimizations."
+            echo "WARNING: docs/ exceeds 950 MB! GitHub Pages limit is 1 GB."
+            echo "Consider reducing MAX_POSTS_TO_GENERATE in config.py"
           fi

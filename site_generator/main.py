@@ -4,12 +4,12 @@ Main entry point for the SochiAutoParts static site generator.
 Orchestrates the entire build process:
     1. Parse command-line arguments
     2. (Optional) Fetch/update Telegram archive via --fetch-archive / --full-archive
-    3. Load all data from the pipeline (GitHub raw JSON with local caching)
+    3. Load all data from local files (telegram_parser output + products + ads)
     4. Generate all HTML pages (bilingual: Russian and English)
     5. Print a build summary with file counts and statistics
 
-NOTE: Archive pages are generated as static HTML by the Python generator
-using pipeline data. The Cloudflare Worker proxies these pages and adds
+NOTE: All data comes from local sources — telegram_parser for posts,
+local JSON for products and ads. The Cloudflare Worker proxies pages and adds
 region-based affiliate filtering on top.
 
 Usage:
@@ -17,8 +17,8 @@ Usage:
 
 Options:
     --output-dir DIR       Output directory (default: output)
-    --data-dir DIR         Data cache directory (default: data)
-    --force-refresh        Force refresh data from pipeline (ignore cache)
+    --data-dir DIR         Local data directory (default: data)
+    --force-refresh        Force refresh (re-read local data files)
     --fetch-archive        Run incremental Telegram archive update, then build
     --full-archive         Run full Telegram archive fetch, then build
     --no-pages             Skip page generation (only fetch data)
@@ -431,10 +431,10 @@ def main(argv: Optional[list] = None) -> None:
             # Continue with build even if fetch fails
 
     # ------------------------------------------------------------------
-    # Step 1: Load pipeline data
+    # Step 1: Load local data
     # ------------------------------------------------------------------
     print()
-    print("Loading pipeline data…")
+    print("Loading data from local files…")
     data = load_data(args.data_dir, force_refresh=args.force_refresh)
 
     posts_count = len(data.get("posts", []))

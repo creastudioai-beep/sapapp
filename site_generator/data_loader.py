@@ -1,17 +1,19 @@
 """
 Data loader module for the SochiAutoParts static site generator.
 
-Loads all data needed for site generation from the existing GitHub pipeline
-(same data sources as the Cloudflare Worker). Fetches pre-computed JSON files
-from the creastudioai-beep/Main1 repository, plus products from zap.online
-and Admitad affiliate programs from the pr repository.
+Loads all data needed for site generation from LOCAL data files only.
+No remote pipeline URLs are used — all data comes from the local
+``data/`` directory:
+
+    - Posts:     data/telegram_posts/  (from telegram_parser.py)
+    - Products:  data/products.json    (and data/products/ directory)
+    - Admitad:   data/admitad_ads.json
 
 Features:
-    - Fetches JSON data from GitHub raw URLs with timeout and retry logic
-    - Caches data locally in a data/ directory (saves JSON after first fetch)
-    - Uses cached data if less than 1 hour old (configurable)
-    - Handles missing/failed downloads gracefully (partial data is used)
-    - Builds auxiliary data structures: postMap, productMap, categoryMap
+    - Reads local JSON files for products and Admitad programs
+    - Loads posts from the telegram_parser output directory
+    - Builds auxiliary data structures on the fly: postMap, productMap,
+      categoryMap, hashtagIndex, searchIndex, popularTags, relatedPosts
     - Sorts posts by date (newest first) and validates dates
 
 Usage:
@@ -29,12 +31,10 @@ import logging
 import math
 import os
 import re
-import time
+from collections import Counter
 from datetime import datetime, timezone
 from typing import Any, Optional
 from urllib.parse import quote as url_quote
-
-import requests
 
 
 # ---------------------------------------------------------------------------
@@ -44,7 +44,7 @@ import requests
 def _sanitize_surrogates(obj):
     """Recursively remove UTF-16 surrogate characters from data structures.
 
-    Pipeline JSON from GitHub may contain stray surrogate code points
+    Local JSON files may contain stray surrogate code points
     (U+D800..U+DFFF) which are invalid in UTF-8 and cause
     UnicodeEncodeError when written with ``json.dump(ensure_ascii=False)``.
     This function walks dicts and lists and replaces any string containing
@@ -82,20 +82,11 @@ if not logger.handlers:
     logger.setLevel(logging.INFO)
 
 # ---------------------------------------------------------------------------
-# URL Configuration
+# Local file paths (relative to data_dir)
 # ---------------------------------------------------------------------------
 
-PIPELINE_BASE_URL = (
-    "https://raw.githubusercontent.com/creastudioai-beep/Main1/main/data/output"
-)
-
-PRODUCTS_URL = (
-    "https://raw.githubusercontent.com/creastudioai-beep/zap.online/main/products.json"
-)
-
-ADMITAD_URL = (
-    "https://raw.githubusercontent.com/creastudioai-beep/pr/main/data/admitad_ads.json"
-)
+_PRODUCTS_FILENAME = "products.json"
+_ADMITAD_FILENAME = "admitad_ads.json"
 
 # Product field mapping (compressed keys -> readable names)
 _PRODUCT_KEY_MAP = {
@@ -105,162 +96,41 @@ _PRODUCT_KEY_MAP = {
     "cat": "category_id", "a": "available", "sn": "short_note",
     "m": "model", "tp": "type", "id": "id",
 }
-_DATA_SOURCES = {
-    "posts":           ("posts.json",           f"{PIPELINE_BASE_URL}/posts.json"),
-    "articles":        ("articles.json",        f"{PIPELINE_BASE_URL}/articles.json"),
-    "seo_posts":       ("seo-posts.json",       f"{PIPELINE_BASE_URL}/seo-posts.json"),
-    "seo_articles":    ("seo-articles.json",    f"{PIPELINE_BASE_URL}/seo-articles.json"),
-    "schema_posts":    ("schema-posts.json",    f"{PIPELINE_BASE_URL}/schema-posts.json"),
-    "schema_articles": ("schema-articles.json", f"{PIPELINE_BASE_URL}/schema-articles.json"),
-    "search_index":    ("search-index.json",    f"{PIPELINE_BASE_URL}/search-index.json"),
-    "hashtag_index":   ("hashtag-index.json",   f"{PIPELINE_BASE_URL}/hashtag-index.json"),
-    "popular_tags":    ("popular-tags.json",    f"{PIPELINE_BASE_URL}/popular-tags.json"),
-    "related_posts":   ("related-posts.json",   f"{PIPELINE_BASE_URL}/related-posts.json"),
-    "products":        ("products.json",        PRODUCTS_URL),
-    "admitad_programs": ("admitad_ads.json",    ADMITAD_URL),
-}
-
-# ---------------------------------------------------------------------------
-# Default request settings
-# ---------------------------------------------------------------------------
-
-_DEFAULT_TIMEOUT = 30       # seconds
-_DEFAULT_RETRIES = 3
-_DEFAULT_RETRY_DELAY = 1.0  # seconds (base delay, exponentially backed off)
-_DEFAULT_CACHE_MAX_AGE = 3600  # 1 hour in seconds
 
 
 # ===========================================================================
-# Core fetch / cache helpers
+# Core local file helpers
 # ===========================================================================
 
 
-def _fetch_json(url: str, timeout: int = _DEFAULT_TIMEOUT, retries: int = _DEFAULT_RETRIES) -> Optional[dict]:
-    """Fetch JSON from URL with retry logic.
+def _load_local_json(filepath: str) -> Optional[Any]:
+    """Load and parse a local JSON file.
 
-    Uses exponential backoff between retries. Returns parsed JSON on success
-    or ``None`` if all retries are exhausted.
-
-    Args:
-        url: The URL to fetch.
-        timeout: Request timeout in seconds.
-        retries: Maximum number of retry attempts.
-
-    Returns:
-        Parsed JSON as dict/list, or None on failure.
-    """
-    last_exc: Optional[Exception] = None
-
-    for attempt in range(1, retries + 1):
-        try:
-            logger.debug("Fetching %s (attempt %d/%d)", url, attempt, retries)
-            resp = requests.get(url, timeout=timeout, headers={
-                "User-Agent": "SochiAutoParts-SiteGenerator/1.0",
-                "Accept": "application/json",
-            })
-            resp.raise_for_status()
-            data = resp.json()
-            logger.debug("Successfully fetched %s (%d bytes)", url, len(resp.content))
-            return data
-        except requests.exceptions.Timeout as exc:
-            last_exc = exc
-            logger.warning("Timeout fetching %s (attempt %d/%d): %s", url, attempt, retries, exc)
-        except requests.exceptions.HTTPError as exc:
-            status = exc.response.status_code if exc.response is not None else "N/A"
-            last_exc = exc
-            # Don't retry 404s – the resource simply doesn't exist
-            if status == 404:
-                logger.warning("Resource not found (404): %s", url)
-                return None
-            logger.warning("HTTP %s fetching %s (attempt %d/%d): %s", status, url, attempt, retries, exc)
-        except requests.exceptions.ConnectionError as exc:
-            last_exc = exc
-            logger.warning("Connection error fetching %s (attempt %d/%d): %s", url, attempt, retries, exc)
-        except (json.JSONDecodeError, ValueError) as exc:
-            last_exc = exc
-            logger.error("Invalid JSON from %s: %s", url, exc)
-            return None  # No point retrying bad JSON
-        except Exception as exc:
-            last_exc = exc
-            logger.warning("Unexpected error fetching %s (attempt %d/%d): %s", url, attempt, retries, exc)
-
-        # Exponential backoff before next retry
-        if attempt < retries:
-            delay = _DEFAULT_RETRY_DELAY * (2 ** (attempt - 1))
-            logger.debug("Retrying in %.1f seconds...", delay)
-            time.sleep(delay)
-
-    logger.error("All %d retries exhausted for %s: %s", retries, url, last_exc)
-    return None
-
-
-def _load_from_cache(data_dir: str, filename: str, max_age: int = _DEFAULT_CACHE_MAX_AGE) -> Optional[dict]:
-    """Load from local cache if fresh enough.
-
-    Checks if a cached file exists and its modification time is within
-    ``max_age`` seconds of the current time. If so, parses and returns
-    the JSON content.
+    Reads a JSON file from the local filesystem and returns the parsed
+    data. Returns None if the file does not exist, cannot be read, or
+    contains invalid JSON.
 
     Args:
-        data_dir: Directory containing cached files.
-        filename: Name of the cache file.
-        max_age: Maximum age in seconds for the cache to be considered fresh.
+        filepath: Absolute or relative path to the JSON file.
 
     Returns:
-        Parsed JSON data if cache is fresh, otherwise None.
+        Parsed JSON data (dict, list, etc.) or None on error.
     """
-    filepath = os.path.join(data_dir, filename)
     if not os.path.isfile(filepath):
+        logger.debug("Local file not found: %s", filepath)
         return None
 
     try:
-        mtime = os.path.getmtime(filepath)
-        age = time.time() - mtime
-        if age > max_age:
-            logger.debug("Cache expired for %s (age=%.0fs, max_age=%ds)", filepath, age, max_age)
-            return None
-
         with open(filepath, "r", encoding="utf-8") as fh:
             data = json.load(fh)
-
-        logger.debug("Loaded from cache: %s (age=%.0fs)", filepath, age)
+        logger.debug("Loaded local file: %s", filepath)
         return data
     except (json.JSONDecodeError, ValueError) as exc:
-        logger.warning("Corrupt cache file %s, will re-fetch: %s", filepath, exc)
+        logger.warning("Invalid JSON in %s: %s", filepath, exc)
         return None
     except OSError as exc:
-        logger.warning("Cannot read cache file %s: %s", filepath, exc)
+        logger.warning("Cannot read file %s: %s", filepath, exc)
         return None
-
-
-def _save_to_cache(data_dir: str, filename: str, data: Any) -> None:
-    """Save to local cache.
-
-    Creates the ``data_dir`` directory if it doesn't exist, then writes
-    the data as pretty-printed JSON. Sanitizes any UTF-16 surrogate
-    characters before writing to prevent UnicodeEncodeError.
-
-    Args:
-        data_dir: Directory to store the cache file.
-        filename: Name of the cache file.
-        data: JSON-serializable data to cache.
-    """
-    try:
-        os.makedirs(data_dir, exist_ok=True)
-        filepath = os.path.join(data_dir, filename)
-
-        # Sanitize surrogate characters that may be present in pipeline data
-        clean_data = _sanitize_surrogates(data)
-
-        # Use ensure_ascii=True as a safety net to avoid UnicodeEncodeError
-        # from stray surrogate characters that _sanitize_surrogates might miss.
-        # This produces ASCII-safe JSON with \uXXXX escapes but is bulletproof.
-        with open(filepath, "w", encoding="utf-8") as fh:
-            json.dump(clean_data, fh, ensure_ascii=True, indent=2)
-
-        logger.debug("Saved to cache: %s", filepath)
-    except (OSError, UnicodeEncodeError) as exc:
-        logger.warning("Cannot write cache file %s/%s: %s", data_dir, filename, exc)
 
 
 # ===========================================================================
@@ -360,7 +230,7 @@ def _generate_product_id(name: str, vendor: str, idx: int) -> str:
 def _expand_product_keys(products: list) -> list:
     """Expand compressed product keys (n->name, p->price, etc.) to readable names.
 
-    The products JSON from the pipeline uses abbreviated field names to
+    The products JSON may use abbreviated field names to
     reduce file size. This function expands them to full names that the
     rest of the generator expects.
 
@@ -398,7 +268,7 @@ def _expand_product_keys(products: list) -> list:
 
 
 def _parse_admitad_data(raw_data) -> list:
-    """Parse Admitad data from the pipeline JSON format.
+    """Parse Admitad data from local JSON format.
 
     The Admitad JSON may be:
     - A dict with 'programs' key containing the list of programs
@@ -409,7 +279,7 @@ def _parse_admitad_data(raw_data) -> list:
     standard keys (name, image, category, gotoLink, etc.).
 
     Args:
-        raw_data: Raw Admitad data from the pipeline.
+        raw_data: Raw Admitad data.
 
     Returns:
         List of Admitad program dicts.
@@ -457,6 +327,167 @@ def _parse_admitad_data(raw_data) -> list:
 
 
 # ===========================================================================
+# Index builders (built on the fly from posts)
+# ===========================================================================
+
+
+def _build_hashtag_index(posts: list) -> dict:
+    """Build hashtag index from posts.
+
+    Iterates over all posts, collects their hashtags, and builds:
+    - A dict mapping each tag to a list of post IDs
+    - A tag counts dict for popularity ranking
+
+    Args:
+        posts: List of post dicts (each may have a ``hashtags`` field).
+
+    Returns:
+        Dict with keys:
+            - "index": dict mapping tag (str) -> list of post IDs
+            - "tagCounts": dict mapping tag (str) -> count (int)
+    """
+    index: dict[str, list] = {}
+    tag_counts: dict[str, int] = {}
+
+    for post in posts:
+        if not isinstance(post, dict):
+            continue
+
+        post_id = post.get("id")
+        if post_id is None:
+            continue
+
+        hashtags = post.get("hashtags", [])
+        if not isinstance(hashtags, list):
+            continue
+
+        for tag in hashtags:
+            tag_str = str(tag).strip()
+            if not tag_str:
+                continue
+
+            # Store under the tag as-is (e.g. "#автозапчасти")
+            if tag_str not in index:
+                index[tag_str] = []
+            index[tag_str].append(post_id)
+
+            tag_counts[tag_str] = tag_counts.get(tag_str, 0) + 1
+
+    return {"index": index, "tagCounts": tag_counts}
+
+
+def _build_search_index(posts: list) -> dict:
+    """Build a simple tokenized search index from posts.
+
+    Tokenizes each post's text and title into lowercase word tokens,
+    then maps each token to a dict of {post_id: frequency} for relevance
+    scoring.
+
+    Args:
+        posts: List of post dicts (each may have ``text`` and ``title`` fields).
+
+    Returns:
+        Dict mapping token (str) -> {post_id (int): count (int)}.
+    """
+    search_index: dict[str, dict[int, int]] = {}
+
+    for post in posts:
+        if not isinstance(post, dict):
+            continue
+
+        post_id = post.get("id")
+        if post_id is None:
+            continue
+
+        # Combine text and title for tokenization
+        text = str(post.get("text", "")) + " " + str(post.get("title", ""))
+
+        # Tokenize: split on non-word chars, keep tokens of length >= 2
+        tokens = re.findall(r"[a-zA-Zа-яА-ЯёЁ0-9]+", text.lower())
+        tokens = [t for t in tokens if len(t) >= 2]
+
+        # Count token occurrences in this post
+        token_counts = Counter(tokens)
+
+        for token, count in token_counts.items():
+            if token not in search_index:
+                search_index[token] = {}
+            search_index[token][post_id] = search_index[token].get(post_id, 0) + count
+
+    return search_index
+
+
+def _build_popular_tags(hashtag_index_data: dict, limit: int = 200) -> list:
+    """Build popular tags list from hashtag index data.
+
+    Sorts tags by their count (frequency) in descending order and
+    returns a list of dicts with ``tag`` and ``count`` keys.
+
+    Args:
+        hashtag_index_data: The hashtag index dict (with "tagCounts" key).
+        limit: Maximum number of tags to return.
+
+    Returns:
+        List of dicts: [{"tag": "#автозапчасти", "count": 42}, ...]
+    """
+    tag_counts = hashtag_index_data.get("tagCounts", {})
+    sorted_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)
+    return [{"tag": tag, "count": count} for tag, count in sorted_tags[:limit]]
+
+
+def _build_related_posts(posts: list) -> dict:
+    """Build related posts index based on shared hashtags.
+
+    For each post, finds other posts that share at least one hashtag.
+    Related posts are sorted by the number of shared hashtags (most
+    related first), limited to 20 per post.
+
+    Args:
+        posts: List of post dicts (each with ``hashtags`` field).
+
+    Returns:
+        Dict mapping post_id (int) -> list of related post IDs.
+    """
+    # Build tag -> [post_ids] reverse index
+    tag_to_posts: dict[str, list] = {}
+    for post in posts:
+        if not isinstance(post, dict):
+            continue
+        post_id = post.get("id")
+        if post_id is None:
+            continue
+        for tag in post.get("hashtags", []):
+            tag_str = str(tag).strip()
+            if tag_str:
+                if tag_str not in tag_to_posts:
+                    tag_to_posts[tag_str] = []
+                tag_to_posts[tag_str].append(post_id)
+
+    # For each post, find related posts by shared tags
+    related: dict[int, list] = {}
+    for post in posts:
+        if not isinstance(post, dict):
+            continue
+        post_id = post.get("id")
+        if post_id is None:
+            continue
+
+        shared_counts: dict[int, int] = {}
+        for tag in post.get("hashtags", []):
+            tag_str = str(tag).strip()
+            if tag_str in tag_to_posts:
+                for other_id in tag_to_posts[tag_str]:
+                    if other_id != post_id:
+                        shared_counts[other_id] = shared_counts.get(other_id, 0) + 1
+
+        # Sort by number of shared tags, keep top 20
+        sorted_related = sorted(shared_counts.items(), key=lambda x: x[1], reverse=True)
+        related[post_id] = [pid for pid, _ in sorted_related[:20]]
+
+    return related
+
+
+# ===========================================================================
 # Date validation & sorting
 # ===========================================================================
 
@@ -476,7 +507,7 @@ def _parse_date(date_str: str) -> Optional[datetime]:
     if not date_str:
         return None
 
-    # Try ISO format first (most common from pipeline)
+    # Try ISO format first (most common)
     for fmt in (
         "%Y-%m-%dT%H:%M:%S",
         "%Y-%m-%dT%H:%M:%S%z",
@@ -725,29 +756,33 @@ def _validate_and_normalize_posts(posts: list) -> list:
 
 
 def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
-    """Load all data from GitHub pipeline URLs with local caching.
+    """Load all data from LOCAL files only.
 
-    Fetches pre-computed JSON files from the creastudioai-beep repositories.
-    On the first run, downloads are saved to the ``data_dir`` cache directory.
-    On subsequent runs, cached data is used if less than 1 hour old.
+    Reads data from the local ``data_dir`` directory:
+    - Posts from telegram_parser output (data/telegram_posts/)
+    - Products from data/products.json
+    - Admitad from data/admitad_ads.json
 
-    Missing or failed downloads are handled gracefully — partial data is
-    returned with empty defaults so the generator can still run.
+    Builds auxiliary indexes (hashtag_index, search_index, popular_tags,
+    related_posts) on the fly from the posts data.
+
+    The ``force_refresh`` parameter is accepted for API compatibility
+    but is not used since all data is local.
 
     Args:
-        data_dir: Local directory for cached JSON files. Defaults to ``"data"``.
-        force_refresh: If True, bypass cache and re-download all data.
+        data_dir: Local directory containing data files. Defaults to ``"data"``.
+        force_refresh: Ignored (kept for API compatibility).
 
     Returns:
         Dict with keys:
             - posts: list of post dicts (sorted by date, newest first)
-            - articles: list of article dicts
-            - seo_posts: dict of SEO metadata per post
-            - seo_articles: dict of SEO metadata per article
-            - schema_posts: dict of Schema.org JSON-LD per post
-            - schema_articles: dict of Schema.org JSON-LD per article
-            - search_index: dict of tokenized search index
-            - hashtag_index: dict of tag -> post IDs mapping + tag counts
+            - articles: empty list (not used in local-only mode)
+            - seo_posts: empty dict
+            - seo_articles: empty dict
+            - schema_posts: empty dict
+            - schema_articles: empty dict
+            - search_index: dict of tokenized search index (built from posts)
+            - hashtag_index: dict of tag -> post IDs mapping
             - popular_tags: list of top tags sorted by frequency
             - related_posts: dict of post_id -> related post IDs
             - products: list of product dicts
@@ -758,59 +793,15 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     """
     result: dict[str, Any] = {}
 
-    for key, (filename, url) in _DATA_SOURCES.items():
-        data = None
-
-        # Step 1: Try cache (unless force_refresh)
-        if not force_refresh:
-            cached = _load_from_cache(data_dir, filename)
-            if cached is not None:
-                data = cached
-                logger.info("Loaded %s from cache", key)
-
-        # Step 2: Fetch from remote if cache miss or force_refresh
-        if data is None:
-            data = _fetch_json(url)
-            if data is not None:
-                _save_to_cache(data_dir, filename, data)
-                logger.info("Fetched and cached %s", key)
-            else:
-                # Try stale cache as last resort
-                stale = _load_from_cache(data_dir, filename, max_age=999999999)
-                if stale is not None:
-                    data = stale
-                    logger.warning("Using stale cache for %s (remote fetch failed)", key)
-                else:
-                    logger.error("No data available for %s — using empty default", key)
-
-        # Step 3: Assign with sensible defaults
-        if data is None:
-            # Provide empty defaults based on expected type
-            if key in ("posts", "articles", "popular_tags", "products", "admitad_programs"):
-                result[key] = []
-            else:
-                result[key] = {}
-        else:
-            result[key] = data
-
     # ------------------------------------------------------------------
-    # Telegram archive data — merge with pipeline posts
+    # Load posts from telegram_parser output (ONLY source)
     # ------------------------------------------------------------------
-    # ------------------------------------------------------------------
-    # Telegram parser data — PRIMARY source for posts
-    # ------------------------------------------------------------------
-    # 1. Load from local telegram_parser output (data/telegram_posts/)
-    # 2. Load from old telegram_fetcher output (data/telegram_archive/) as secondary
-    # 3. Pipeline posts are the fallback
-    # Telegram parser output takes priority; dedup by post ID
-
     tg_posts_dir = os.path.join(data_dir, "telegram_posts")
     tg_archive_dir = os.path.join(data_dir, "telegram_archive")
 
     telegram_parser_posts = _load_telegram_archive(tg_posts_dir)
     if telegram_parser_posts:
         logger.info("Loaded %d posts from telegram parser at %s", len(telegram_parser_posts), tg_posts_dir)
-        # Normalize media fields from telegram parser format
         telegram_parser_posts = _normalize_telegram_media(telegram_parser_posts)
         telegram_parser_posts = _validate_and_normalize_posts(telegram_parser_posts)
 
@@ -820,8 +811,7 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
         telegram_archive_posts = _normalize_telegram_media(telegram_archive_posts)
         telegram_archive_posts = _validate_and_normalize_posts(telegram_archive_posts)
 
-    # Merge all sources: telegram_parser > telegram_archive > pipeline
-    # Dedup by post ID (string), first occurrence wins
+    # Merge: telegram_parser > telegram_archive, dedup by post ID
     merged_posts = []
     seen_ids = set()
 
@@ -838,31 +828,66 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
         if pid and pid not in seen_ids:
             merged_posts.append(post)
             seen_ids.add(pid)
-
-    # 3. Pipeline posts (lowest priority / fallback)
-    for post in result["posts"]:
-        pid = str(post.get("id", ""))
-        if pid and pid not in seen_ids:
-            merged_posts.append(post)
-            seen_ids.add(pid)
         elif not pid:
             # Posts without IDs get included (no dedup possible)
             merged_posts.append(post)
 
-    if merged_posts:
-        result["posts"] = merged_posts
-        total_tg = len(telegram_parser_posts) + len(telegram_archive_posts)
-        if total_tg > 0:
-            logger.info(
-                "Merged posts: %d from telegram_parser, %d from telegram_archive, "
-                "%d from pipeline (deduped, total=%d)",
-                len(telegram_parser_posts), len(telegram_archive_posts),
-                len(result["posts"]) - len([p for p in merged_posts if str(p.get("id", "")) in {str(pp.get("id", "")) for pp in telegram_parser_posts + telegram_archive_posts}]),
-                len(merged_posts)
-            )
-
+    result["posts"] = merged_posts
     result["archive_posts"] = telegram_parser_posts + telegram_archive_posts
     result["archive_post_map"] = {}
+
+    logger.info(
+        "Loaded %d posts: %d from telegram_parser, %d from telegram_archive",
+        len(merged_posts), len(telegram_parser_posts), len(telegram_archive_posts),
+    )
+
+    # ------------------------------------------------------------------
+    # Load products from local file
+    # ------------------------------------------------------------------
+    products_path = os.path.join(data_dir, _PRODUCTS_FILENAME)
+    products_data = _load_local_json(products_path)
+
+    # Also check data/products/ directory for additional product files
+    products_dir = os.path.join(data_dir, "products")
+    if os.path.isdir(products_dir):
+        import glob as _glob
+        for pfile in sorted(_glob.glob(os.path.join(products_dir, "*.json"))):
+            extra = _load_local_json(pfile)
+            if isinstance(extra, list):
+                if products_data is None:
+                    products_data = []
+                if isinstance(products_data, list):
+                    products_data.extend(extra)
+            elif isinstance(extra, dict):
+                # Might be a dict with products key
+                extra_list = extra.get("products", extra.get("items", []))
+                if isinstance(extra_list, list):
+                    if products_data is None:
+                        products_data = []
+                    if isinstance(products_data, list):
+                        products_data.extend(extra_list)
+
+    if isinstance(products_data, list):
+        result["products"] = products_data
+    elif isinstance(products_data, dict):
+        result["products"] = products_data.get("products", products_data.get("items", []))
+    else:
+        result["products"] = []
+        logger.warning("No products data found at %s", products_path)
+
+    logger.info("Loaded %d products", len(result["products"]))
+
+    # ------------------------------------------------------------------
+    # Load admitad from local file
+    # ------------------------------------------------------------------
+    admitad_path = os.path.join(data_dir, _ADMITAD_FILENAME)
+    admitad_data = _load_local_json(admitad_path)
+
+    if admitad_data is not None:
+        result["admitad_programs"] = admitad_data
+    else:
+        result["admitad_programs"] = []
+        logger.warning("No admitad data found at %s", admitad_path)
 
     # ------------------------------------------------------------------
     # Post-processing
@@ -895,29 +920,40 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     result["category_map"] = _build_category_map(result["products"])
     logger.info("Built category_map with %d categories", len(result["category_map"]))
 
-    # Ensure seo/schema structures are dict even if they came as lists
-    for key in ("seo_posts", "seo_articles", "schema_posts", "schema_articles",
-                "search_index", "hashtag_index", "related_posts"):
-        if isinstance(result.get(key), list):
-            # Convert list to dict if possible (e.g. list of objects with 'id')
-            try:
-                result[key] = {item["id"]: item for item in result[key] if isinstance(item, dict) and "id" in item}
-            except (TypeError, KeyError):
-                pass  # Keep as-is
+    # ------------------------------------------------------------------
+    # Build indexes on the fly from posts (no pipeline dependency)
+    # ------------------------------------------------------------------
 
-    # Unwrap nested hashtag_index structure: pipeline sends {"index": {tag: [ids]}, "tagCounts": {tag: count}}
-    # Normalize to just the "index" part for easier downstream use
-    hi_raw = result.get("hashtag_index", {})
-    if isinstance(hi_raw, dict) and "index" in hi_raw:
-        # Store both the full structure and the unwrapped index for convenience
-        result["hashtag_index_full"] = hi_raw
-        result["hashtag_index"] = hi_raw["index"]
-        logger.info("Unwrapped hashtag_index: %d tags (from nested structure)", len(hi_raw["index"]))
+    # Build hashtag_index from posts
+    hashtag_index_data = _build_hashtag_index(result["posts"])
+    result["hashtag_index"] = hashtag_index_data["index"]
+    result["hashtag_index_full"] = hashtag_index_data
+    logger.info("Built hashtag_index: %d tags", len(hashtag_index_data["index"]))
+
+    # Build popular_tags from hashtag counts
+    result["popular_tags"] = _build_popular_tags(hashtag_index_data)
+    logger.info("Built popular_tags: %d tags", len(result["popular_tags"]))
+
+    # Build search_index from posts
+    result["search_index"] = _build_search_index(result["posts"])
+    logger.info("Built search_index: %d tokens", len(result["search_index"]))
+
+    # Build related_posts from posts
+    result["related_posts"] = _build_related_posts(result["posts"])
+    logger.info("Built related_posts: %d entries", len(result["related_posts"]))
+
+    # ------------------------------------------------------------------
+    # Empty defaults for keys that were previously from pipeline
+    # ------------------------------------------------------------------
+    result["articles"] = []
+    result["seo_posts"] = {}
+    result["seo_articles"] = {}
+    result["schema_posts"] = {}
+    result["schema_articles"] = {}
 
     logger.info(
-        "Data loading complete: %d posts, %d articles, %d products, %d admitad programs",
+        "Data loading complete: %d posts, %d products, %d admitad programs",
         len(result["posts"]),
-        len(result.get("articles", [])),
         len(result.get("products", [])),
         len(result.get("admitad_programs", [])),
     )
@@ -1392,12 +1428,13 @@ def get_admitad_programs(data: dict, category: str = None, region: str = None) -
 
 
 def refresh_data(data_dir: str = "data") -> dict:
-    """Force a full refresh of all data, ignoring cache.
+    """Force a full refresh of all data.
 
     Shortcut for ``load_data(data_dir, force_refresh=True)``.
+    Since all data is local, this simply re-reads the files.
 
     Args:
-        data_dir: Local directory for cached JSON files.
+        data_dir: Local directory containing data files.
 
     Returns:
         Fresh data dict.
@@ -1413,13 +1450,12 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
 
     print("=" * 60)
-    print("SochiAutoParts Data Loader — Standalone Test")
+    print("SochiAutoParts Data Loader — Standalone Test (LOCAL ONLY)")
     print("=" * 60)
 
     data = load_data()
 
     print(f"\nPosts:        {len(data['posts'])}")
-    print(f"Articles:     {len(data['articles'])}")
     print(f"Products:     {len(data['products'])}")
     print(f"Admitad:      {len(data['admitad_programs'])}")
     print(f"Post Map:     {len(data['post_map'])} entries")
@@ -1437,22 +1473,3 @@ if __name__ == "__main__":
         print(f"  - [{r.get('id')}] {r.get('title', '(no title)')[:60]}  (score={r.get('_search_score', 0)})")
 
     # Test get_post_by_id
-    if data["posts"]:
-        first_post = data["posts"][0]
-        pid = first_post.get("id")
-        found = get_post_by_id(data, pid)
-        print(f"\nget_post_by_id({pid}): {'OK' if found else 'NOT FOUND'}")
-
-    # Test extract_first_image
-    if data["posts"]:
-        img = extract_first_image(data["posts"][0])
-        print(f"First image of first post: {img[:80] if img else 'None'}...")
-
-    # Test get_posts_by_tag
-    if tags:
-        test_tag = tags[0]["tag"]
-        tag_posts, total, pages = get_posts_by_tag(data, test_tag, page=1, per_page=5)
-        print(f"\nPosts by tag '{test_tag}': {total} total, {pages} pages, showing {len(tag_posts)}")
-
-    print("\n" + "=" * 60)
-    print("Data loader test complete.")

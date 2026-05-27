@@ -1023,9 +1023,9 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
 <a href="{home_url}" class="btn-cta">🏠 {home_label}</a>
 </div>
 </article>
-{related_html}
 {ads_html}
 {shop_widget}
+{related_html}
 </div>
 </div>"""
 
@@ -1760,9 +1760,9 @@ def generate_archive_post_page(data: dict, post_id: int, lang: str, output_dir: 
 <a href="{telegram_link}" class="btn-cta" target="_blank" rel="nofollow noopener noreferrer">💬 {open_in_tg}</a>
 </div>
 </article>
-{related_html}
 {ads_html}
 {shop_widget}
+{related_html}
 </div>
 </div>"""
 
@@ -2751,40 +2751,17 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
         visit_text = "Visit partner website"
         legal_text = "Advertisement"
 
-    # Programs cards HTML — use REGIONAL_ADS_PLACEHOLDER for Worker injection
-    # with <noscript> fallback for when Worker/JS is unavailable
-    programs_cards_html = ""
-    for prog in matching_programs:
-        prog_name = prog.get("name", "")
-        prog_desc = prog.get("description", "")
-        prog_image = prog.get("image") or prog.get("logo", "")
-        prog_id = prog.get("id", "")
-
-        # Use /api/{prog_id} format for Worker-based affiliate redirect
-        # The proxy Worker looks up the program ID and redirects to goto_link
-        if prog_id:
-            prog_url = f"/api/{prog_id}"
-        else:
-            prog_url = prog.get("affiliateUrl") or prog.get("url") or prog.get("gotoLink", cat_url)
-
-        card_html = f'<div class="ad-block-item">'
-        if prog_image:
-            card_html += f'<div class="ad-block-media"><img src="{escape_html(prog_image)}" alt="{escape_html(prog_name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"></div>'
-        card_html += f'<h4 class="ad-block-title">{escape_html(prog_name)}</h4>'
-        if prog_desc:
-            card_html += f'<p class="ad-block-desc">{escape_html(prog_desc[:200])}</p>'
-        card_html += f'<a href="{escape_html(prog_url)}" class="btn-cta" target="_blank" rel="nofollow noopener sponsored">{visit_text}</a>'
-        card_html += '</div>'
-        programs_cards_html += card_html
-    
-    # Use REGIONAL_ADS_PLACEHOLDER so Worker can inject region-filtered ads
-    # with <noscript> fallback for direct GitHub Pages access
-    programs_section = ""
-    if programs_cards_html:
-        programs_section = (
-            f'<!-- REGIONAL_ADS_PLACEHOLDER_RU -->\n'
-            f'<noscript data-ad-fallback><div class="ad-blocks-container">{programs_cards_html}</div></noscript>'
-        )
+    # Programs section — use REGIONAL_ADS_PLACEHOLDER for Worker injection
+    # and client-side JS to load region-filtered programs from /api/ads.
+    # No static program listing (avoids showing ALL regions unfiltered).
+    no_offers_text = "В вашем регионе нет доступных предложений" if lang == "ru" else "No offers available in your region"
+    programs_section = (
+        f'<!-- REGIONAL_ADS_PLACEHOLDER -->\n'
+        f'<div id="categoryAds" data-cat="{escape_html(category)}">'
+        f'<div class="shop-loading"><div class="spinner"></div>'
+        f'{"Загрузка..." if lang == "ru" else "Loading..."}'
+        f'</div></div>\n'
+    )
 
     # Breadcrumbs
     bc_items = [
@@ -2817,51 +2794,7 @@ def generate_ad_category_page(data: dict, category: str, lang: str, output_dir: 
 </div>
 </div>
 <script>
-(function(){{
-  // Region-aware partner program filtering
-  // Each program card has data-regions attribute; hide programs not available in user's region
-  var userCountry = null;
-  // Try to get country from Cloudflare headers (set by Worker as CF-IPCountry response header)
-  // Since we can't read response headers from JS, we use the /api/ads endpoint to get region-filtered programs
-  fetch('/api/ads?lang={"ru" if lang == "ru" else "en"}&max=20&cat={category}')
-    .then(function(r) {{ return r.text(); }})
-    .then(function(html) {{
-      if (!html) return;
-      var container = document.querySelector('.ad-blocks-container');
-      if (container) {{
-        // Replace the static programs with region-filtered ones
-        var temp = document.createElement('div');
-        temp.innerHTML = html;
-        var filteredItems = temp.querySelectorAll('.ad-block-item');
-        if (filteredItems.length > 0) {{
-          // Check which of our static programs are in the filtered set
-          var filteredLinks = new Set();
-          filteredItems.forEach(function(item) {{
-            var link = item.querySelector('a[href*="/api/"]');
-            if (link) filteredLinks.add(link.getAttribute('href'));
-          }});
-          // Hide programs not in filtered set
-          var staticItems = container.querySelectorAll('.ad-block-item');
-          var hiddenCount = 0;
-          staticItems.forEach(function(item) {{
-            var link = item.querySelector('a[href*="/api/"]');
-            if (link && !filteredLinks.has(link.getAttribute('href'))) {{
-              item.style.display = 'none';
-              hiddenCount++;
-            }}
-          }});
-          // If all programs hidden, show region message
-          if (hiddenCount >= staticItems.length) {{
-            var msg = document.createElement('p');
-            msg.style.cssText = 'text-align:center;color:var(--text-muted);padding:2rem;';
-            msg.textContent = '{"В вашем регионе нет доступных предложений" if lang == "ru" else "No offers available in your region"}';
-            container.parentNode.appendChild(msg);
-          }}
-        }}
-      }}
-    }})
-    .catch(function() {{}});  // Silently fail — static content still visible
-}})();
+fetch('/api/ads?cat='+document.getElementById('categoryAds').dataset.cat+'&max=20').then(function(r){{return r.text()}}).then(function(html){{if(html)document.getElementById('categoryAds').innerHTML=html;else document.getElementById('categoryAds').innerHTML='<p style="text-align:center;color:var(--text-muted);padding:2rem;">{"В вашем регионе нет доступных предложений" if lang == "ru" else "No offers available in your region"}</p>';}}).catch(function(){{document.getElementById('categoryAds').innerHTML='<p style="text-align:center;color:var(--text-muted);padding:2rem;">{"Не удалось загрузить предложения" if lang == "ru" else "Failed to load offers"}</p>';}});
 </script>"""
 
     return _build_page(
@@ -2912,46 +2845,30 @@ def generate_ads_index_page(data: dict, lang: str, output_dir: str) -> str:
     # Get all programs from pipeline data
     admitad_programs = get_admitad_programs(data)
 
-    # Build category cards — use REGIONAL_ADS_PLACEHOLDER for Worker injection
-    # with <noscript> fallback
+    # Build category cards — these are navigation links, NOT region-specific,
+    # so they are always shown as static HTML.
     category_cards = ""
     for cat_key, cat_data in ADMITAD_CONFIG.items():
         cat_name = cat_data.get(lang, cat_data.get("ru", cat_key))
         cat_icon = cat_data.get("icon", "")
         cat_url_path = f"{_lang_path(lang)}/ads/{cat_key}"
 
-        # Count matching programs
-        matching = [p for p in admitad_programs if isinstance(p, dict) and (p.get("jsonCategory") or p.get("category")) == cat_key]
-        count_text = f"{len(matching)} {'программ' if is_ru else 'programs'}" if matching else ""
-
-        # Get first program's affiliate URL for the main button
-        main_url = cat_url_path
-        if matching:
-            first_prog_id = matching[0].get("id", "")
-            if first_prog_id:
-                main_url = f"/api/{first_prog_id}"
-
         category_cards += f"""
 <div class="ad-block-item" style="cursor:default;">
 <div style="padding:1.5rem;text-align:center;">
 <div style="font-size:2.5rem;margin-bottom:0.75rem;">{cat_icon}</div>
 <h4 class="ad-block-title">{escape_html(cat_name)}</h4>
-{f'<p class="ad-block-desc">{escape_html(count_text)}</p>' if count_text else ''}
-<div style="display:flex;gap:0.5rem;justify-content:center;margin-top:1rem;">
-<a href="{main_url}" class="btn-cta" target="_blank" rel="nofollow noopener sponsored" style="font-size:0.85rem;padding:8px 20px;">
-{"Перейти" if is_ru else "Visit"}
-</a>
-<a href="{cat_url_path}" class="btn-outline" style="font-size:0.85rem;padding:8px 20px;">
+<a href="{cat_url_path}" class="btn-outline" style="font-size:0.85rem;padding:8px 20px;margin-top:1rem;display:inline-block;">
 {"Все" if is_ru else "All"}
 </a>
 </div>
-</div>
 </div>"""
 
-    # Use REGIONAL_ADS_PLACEHOLDER for Worker injection with noscript fallback
+    # REGIONAL_ADS_PLACEHOLDER for Worker injection of region-filtered
+    # featured programs; category grid is always shown as static navigation.
     ads_content = (
-        f'<!-- REGIONAL_ADS_PLACEHOLDER_RU -->\n'
-        f'<noscript data-ad-fallback><div class="ad-blocks-container">{category_cards}</div></noscript>'
+        f'<!-- REGIONAL_ADS_PLACEHOLDER -->\n'
+        f'<div class="ad-blocks-container">{category_cards}</div>'
     )
 
     # Breadcrumbs

@@ -36,44 +36,46 @@ CHANNEL_URL: str = f"https://t.me/{CHANNEL_USERNAME}"
 CHANNEL_JOIN_URL: str = f"https://t.me/{CHANNEL_USERNAME}"
 
 # =============================================================================
-# PIPELINE DATA URLs
-# Raw GitHub URLs from the creastudioai-beep/Main1 repository
+# DATA SOURCES (LOCAL)
+# Posts are parsed locally via telegram_parser.py.
+# Products come from data/products/ directory.
+# Admitad data comes from data/admitad_ads.json.
+# Remote pipeline URLs (creastudioai-beep/Main1) are no longer used.
 # =============================================================================
 
-PIPELINE_BASE_URL: str = (
-    "https://raw.githubusercontent.com/creastudioai-beep/Main1/main"
-)
+# Pipeline base URL — kept as empty string; data is now local
+PIPELINE_BASE_URL: str = ""
 
-# Posts data
-POSTS_JSON_URL: str = f"{PIPELINE_BASE_URL}/posts.json"
-POSTS_INDEX_URL: str = f"{PIPELINE_BASE_URL}/posts_index.json"
+# Posts data — parsed locally by telegram_parser.py, not fetched from remote
+POSTS_JSON_URL: str = ""
+POSTS_INDEX_URL: str = ""
 
-# Articles data
-ARTICLES_JSON_URL: str = f"{PIPELINE_BASE_URL}/articles.json"
-ARTICLES_INDEX_URL: str = f"{PIPELINE_BASE_URL}/articles_index.json"
+# Articles data — not fetched from remote pipeline
+ARTICLES_JSON_URL: str = ""
+ARTICLES_INDEX_URL: str = ""
 
-# Tags data
-TAGS_JSON_URL: str = f"{PIPELINE_BASE_URL}/tags.json"
-POPULAR_TAGS_JSON_URL: str = f"{PIPELINE_BASE_URL}/popular_tags.json"
+# Tags data — generated locally from parsed posts
+TAGS_JSON_URL: str = ""
+POPULAR_TAGS_JSON_URL: str = ""
 
-# Search index
-SEARCH_INDEX_URL: str = f"{PIPELINE_BASE_URL}/search_index.json"
+# Search index — built locally during site generation
+SEARCH_INDEX_URL: str = ""
 
-# Archive data (paginated)
-ARCHIVE_INDEX_URL: str = f"{PIPELINE_BASE_URL}/archive_index.json"
+# Archive data — not fetched from remote pipeline
+ARCHIVE_INDEX_URL: str = ""
 
-# Products / shop data
-PRODUCTS_JSON_URL: str = "https://raw.githubusercontent.com/creastudioai-beep/zap.online/main/products.json"
-PRODUCTS_INDEX_URL: str = f"{PIPELINE_BASE_URL}/products_index.json"
+# Products / shop data — loaded from local data/products/ directory
+PRODUCTS_JSON_URL: str = "data/products.json"
+PRODUCTS_INDEX_URL: str = ""
 
-# Categories data
-CATEGORIES_JSON_URL: str = f"{PIPELINE_BASE_URL}/categories.json"
+# Categories data — generated locally from product data
+CATEGORIES_JSON_URL: str = ""
 
-# Sitemap data
-SITEMAP_DATA_URL: str = f"{PIPELINE_BASE_URL}/sitemap_data.json"
+# Sitemap data — generated locally during site build
+SITEMAP_DATA_URL: str = ""
 
-# RSS feed data
-RSS_DATA_URL: str = f"{PIPELINE_BASE_URL}/rss_data.json"
+# RSS feed data — generated locally during site build
+RSS_DATA_URL: str = ""
 
 # =============================================================================
 # PAGINATION
@@ -296,7 +298,7 @@ SHOP_CART_URL: str = f"{SHOP_ZAP_ONLINE_URL}/cart"
 SHOP_SEARCH_URL: str = f"{SHOP_ZAP_ONLINE_URL}/search"
 SHOP_API_URL: str = f"{SHOP_ZAP_ONLINE_URL}/api"
 
-# Products data source (pipeline)
+# Products data source (local)
 PRODUCTS_DATA_URL: str = PRODUCTS_JSON_URL
 PRODUCTS_INDEX_DATA_URL: str = PRODUCTS_INDEX_URL
 
@@ -314,9 +316,8 @@ PRODUCTS_CURRENCY_EN: str = "RUB"
 # Affiliate marketing integration with 8 categories
 # =============================================================================
 
-# Admitad programs are loaded dynamically from the pipeline JSON:
-# https://raw.githubusercontent.com/creastudioai-beep/pr/main/admitad_ads.json
-# No static ADMITAD_CONFIG — all partner data comes from the pipeline.
+# Admitad programs are loaded from local data/admitad_ads.json.
+# No remote pipeline fetch — all partner data is local.
 ADMITAD_CONFIG: dict[str, dict[str, str]] = {
     "autoparts": {
         "ru": "Автозапчасти",
@@ -621,7 +622,7 @@ MAX_POSTS_TO_GENERATE: int = 15000
 
 # Product pages settings
 PRODUCT_PAGES_ENABLED: bool = True
-PRODUCT_PAGES_DATA_URL: str = PRODUCTS_JSON_URL
+PRODUCT_PAGES_DATA_URL: str = "data/products.json"
 PRODUCT_SITEMAP_ENABLED: bool = True
 
 # Maximum number of related posts to show
@@ -658,6 +659,7 @@ CONFIG: dict = {
     "channel_id": CHANNEL_ID,
     "channel_url": CHANNEL_URL,
     "channel_join_url": CHANNEL_JOIN_URL,
+    # Data source URLs — all local now (no remote pipeline)
     "pipeline_base_url": PIPELINE_BASE_URL,
     "posts_json_url": POSTS_JSON_URL,
     "posts_index_url": POSTS_INDEX_URL,
@@ -672,6 +674,14 @@ CONFIG: dict = {
     "categories_json_url": CATEGORIES_JSON_URL,
     "sitemap_data_url": SITEMAP_DATA_URL,
     "rss_data_url": RSS_DATA_URL,
+    # Local data paths
+    "products_data_url": PRODUCTS_DATA_URL,
+    "products_index_data_url": PRODUCTS_INDEX_DATA_URL,
+    "product_pages_data_url": PRODUCT_PAGES_DATA_URL,
+    "telegram_parser_data_dir": TELEGRAM_PARSER_DATA_DIR,
+    "telegram_parser_full_limit": TELEGRAM_PARSER_FULL_LIMIT,
+    "max_posts_to_generate": MAX_POSTS_TO_GENERATE,
+    # Pagination & limits
     "posts_per_page": POSTS_PER_PAGE,
     "max_posts": MAX_POSTS,
     "articles_per_page": ARTICLES_PER_PAGE,
