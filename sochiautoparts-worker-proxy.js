@@ -15,6 +15,8 @@
  *   7. /feed.xml               → serve from GitHub Pages /rss.xml (compat alias)
  *   8. All other requests      → proxy from GitHub Pages
  *   9. 404 from GH Pages       → try .html, then /index.html, then custom 404
+ *  10. Server-Side Ads Injection → <!-- REGIONAL_ADS_PLACEHOLDER --> in HTML replaced
+ *      with region-filtered ads (supports _RU / _EN suffixes for lang-specific slots)
  *
  * GitHub Pages URL: https://creastudioai-beep.github.io/sapapp/
  * Route: sochiautoparts.ru/* → creastudioai-beep.github.io/sapapp/*
@@ -167,7 +169,7 @@ export default {
     }
 
     // --- Proxy to GitHub Pages ---
-    return proxyToGitHubPages(path, request, ctx);
+    return proxyToGitHubPages(path, request, ctx, country);
   },
 };
 
@@ -670,7 +672,7 @@ ${prog.advertiser_legal_info?.name ? `<div class="ad-block-legal">${lang === 'ru
 // GitHub Pages proxy
 // =============================================================================
 
-async function proxyToGitHubPages(path, request, ctx) {
+async function proxyToGitHubPages(path, request, ctx, country) {
   const headers = new Headers();
   headers.set('User-Agent', USER_AGENT);
   headers.set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
@@ -683,6 +685,18 @@ async function proxyToGitHubPages(path, request, ctx) {
 
   let cachedResponse = await cache.match(cacheKey);
   if (cachedResponse) {
+    // Server-Side Ads Injection for cached HTML responses
+    const contentType = cachedResponse.headers.get('Content-Type') || '';
+    if (contentType.includes('text/html')) {
+      let body = await cachedResponse.text();
+      body = await injectRegionalAds(body, country, ctx);
+      const resp = new Response(body, {
+        status: cachedResponse.status,
+        statusText: cachedResponse.statusText,
+        headers: cachedResponse.headers,
+      });
+      return addSiteHeaders(resp, request.url, request);
+    }
     return addSiteHeaders(new Response(cachedResponse.body, cachedResponse), request.url, request);
   }
 
@@ -730,9 +744,23 @@ async function proxyToGitHubPages(path, request, ctx) {
       });
     }
 
-    // Clone and cache
+    // Clone and cache the ORIGINAL response (before ad injection,
+    // so region-specific ads are not baked into the edge cache)
     const responseToCache = response.clone();
     ctx.waitUntil(cache.put(cacheKey, responseToCache));
+
+    // Server-Side Ads Injection for fresh HTML responses
+    const contentType = response.headers.get('Content-Type') || '';
+    if (contentType.includes('text/html')) {
+      let body = await response.text();
+      body = await injectRegionalAds(body, country, ctx);
+      const resp = new Response(body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: response.headers,
+      });
+      return addSiteHeaders(resp, request.url, request);
+    }
 
     return addSiteHeaders(response, request.url, request);
 
@@ -746,6 +774,50 @@ async function proxyToGitHubPages(path, request, ctx) {
 
 
 // =============================================================================
+// Server-Side Ads Injection
+// Detects <!-- REGIONAL_ADS_PLACEHOLDER --> (or _RU / _EN variants) in HTML
+// and replaces with region-filtered ad blocks
+// =============================================================================
+
+async function injectRegionalAds(htmlBody, country, ctx) {
+  // Quick check: does the HTML contain any ad placeholder?
+  const hasPlaceholder = htmlBody.includes('<!-- REGIONAL_ADS_PLACEHOLDER -->') ||
+                         htmlBody.includes('<!-- REGIONAL_ADS_PLACEHOLDER_RU -->') ||
+                         htmlBody.includes('<!-- REGIONAL_ADS_PLACEHOLDER_EN -->');
+  if (!hasPlaceholder) return htmlBody;
+
+  // Detect language from <html lang="...">
+  const langMatch = htmlBody.match(/<html[^>]+\blang=["']([a-z]{2})/i);
+  const lang = (langMatch && langMatch[1].toLowerCase() === 'en') ? 'en' : 'ru';
+
+  // Render region-filtered ad blocks
+  const adBlocksHtml = await renderAdBlocks(lang, [country], ctx, 6, '');
+
+  let result = htmlBody;
+
+  if (adBlocksHtml) {
+    // Replace language-specific placeholders first (more specific match)
+    if (lang === 'ru') {
+      result = result.replace('<!-- REGIONAL_ADS_PLACEHOLDER_RU -->', adBlocksHtml);
+    } else {
+      result = result.replace('<!-- REGIONAL_ADS_PLACEHOLDER_EN -->', adBlocksHtml);
+    }
+    // Replace generic placeholder
+    result = result.replace('<!-- REGIONAL_ADS_PLACEHOLDER -->', adBlocksHtml);
+  } else {
+    // No ads available — remove all placeholders
+    result = result.replace(/<!-- REGIONAL_ADS_PLACEHOLDER(?:_RU|_EN)? -->/g, '');
+  }
+
+  // Remove <noscript data-ad-fallback>...</noscript> tags
+  // (fallback shown when JS disabled, not needed with server-side injection)
+  result = result.replace(/<noscript\s+data-ad-fallback>[\s\S]*?<\/noscript>/gi, '');
+
+  return result;
+}
+
+
+// =============================================================================
 // Helper functions
 // =============================================================================
 
@@ -755,6 +827,7 @@ function addSiteHeaders(response, requestUrl, request) {
   const contentType = newHeaders.get('Content-Type') || '';
   if (contentType.includes('text/html')) {
     newHeaders.set('Content-Type', 'text/html; charset=utf-8');
+    newHeaders.set('Vary', 'Accept-Encoding, Cloudflare-Viewer-Country');
   }
   if (contentType.includes('application/xml') || contentType.includes('text/xml')) {
     newHeaders.set('Content-Type', 'application/xml; charset=utf-8');
