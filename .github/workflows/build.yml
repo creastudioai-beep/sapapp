@@ -8,11 +8,6 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      full_fetch:
-        description: 'Run full Telegram archive fetch (all ~87K posts, takes ~60 min)'
-        required: false
-        default: 'false'
-        type: boolean
       purge_cache:
         description: 'Purge Cloudflare cache after deploy'
         required: false
@@ -36,11 +31,10 @@ jobs:
   build:
     name: Generate Static Site
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 60
     outputs:
       build_status: ${{ steps.build_result.outputs.status }}
       posts_count: ${{ steps.build_summary.outputs.posts_count }}
-      archive_count: ${{ steps.build_summary.outputs.archive_count }}
       build_duration: ${{ steps.build_summary.outputs.build_duration }}
 
     steps:
@@ -69,41 +63,20 @@ jobs:
 
       - name: Run site generator
         id: generator
-        timeout-minutes: 90
+        timeout-minutes: 30
         run: |
           echo "::group::Site Generator"
           START_TIME=$(date +%s)
 
           BUILD_SUCCESS=0
 
-          if [ "${{ github.event.inputs.full_fetch }}" == "true" ]; then
-            echo "Full archive fetch requested — fetching ALL posts from Telegram (~60 min)"
-            python -m site_generator --full-archive 2>&1 | tee build.log && BUILD_SUCCESS=1 || {
-              echo "::warning::Full archive fetch failed, trying with incremental"
-              rm -rf output
-              python -m site_generator --fetch-archive 2>&1 | tee build-retry.log && BUILD_SUCCESS=1 || {
-                echo "::warning::Incremental fetch also failed, trying without fetch"
-                rm -rf output
-                python -m site_generator 2>&1 | tee build-nofetch.log && BUILD_SUCCESS=1 || {
-                  echo "::warning::Build without fetch also failed, trying with --no-pages"
-                  rm -rf output
-                  python -m site_generator --no-pages 2>&1 | tee build-nopages.log || true
-                }
-              }
-            }
-          else
-            # Standard build: try incremental Telegram update, then build
-            echo "Standard build with incremental Telegram update"
-            python -m site_generator --fetch-archive 2>&1 | tee build.log && BUILD_SUCCESS=1 || {
-              echo "::warning::Build with incremental fetch failed, trying without fetch"
-              rm -rf output
-              python -m site_generator 2>&1 | tee build-nofetch.log && BUILD_SUCCESS=1 || {
-                echo "::warning::Build without fetch also failed, trying with --no-pages"
-                rm -rf output
-                python -m site_generator --no-pages 2>&1 | tee build-nopages.log || true
-              }
-            }
-          fi
+          # Standard build (no archive fetch)
+          echo "Running standard site build"
+          python -m site_generator 2>&1 | tee build.log && BUILD_SUCCESS=1 || {
+            echo "::warning::Build failed, trying with --no-pages"
+            rm -rf output
+            python -m site_generator --no-pages 2>&1 | tee build-nopages.log || true
+          }
 
           # Ensure output directory exists with at least a minimal site
           mkdir -p output
@@ -141,48 +114,10 @@ jobs:
 
           echo "Output validation: ${HTML_COUNT} HTML file(s) found"
 
-          # Check archive data
-          if [ -d "output/data/telegram_archive" ]; then
-            ARCHIVE_FILES=$(find output/data/telegram_archive -name '*.json' | wc -l)
-            echo "Telegram archive data: ${ARCHIVE_FILES} JSON files deployed"
-          else
-            echo "::warning::No Telegram archive data deployed — /archive/post/{id} will return 404"
-          fi
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: output/
-
-      - name: Commit updated Telegram archive data
-        if: always()
-        run: |
-          # Commit the telegram archive data back to the repo so the Worker
-          # can access it via raw.githubusercontent.com
-          if [ ! -d "data/telegram_archive" ]; then
-            echo "No telegram archive data to commit"
-            exit 0
-          fi
-
-          ARCHIVE_FILES=$(find data/telegram_archive -name '*.json' | wc -l)
-          if [ "$ARCHIVE_FILES" -eq 0 ]; then
-            echo "No JSON files in telegram archive"
-            exit 0
-          fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/telegram_archive/
-
-          # Only commit if there are changes
-          if git diff --cached --quiet; then
-            echo "No changes to telegram archive data"
-          else
-            ARCHIVE_COUNT=$(python3 -c "import json; print(json.load(open('data/telegram_archive/meta.json')).get('total_posts', 0))" 2>/dev/null || echo "unknown")
-            git commit -m "chore: update telegram archive data (${ARCHIVE_COUNT} posts) [skip ci]"
-            git push
-            echo "Committed telegram archive data: ${ARCHIVE_COUNT} posts"
-          fi
 
       - name: Set build result
         id: build_result
@@ -194,14 +129,7 @@ jobs:
           HTML_COUNT=$(find output -name '*.html' | wc -l)
           TOTAL_SIZE=$(du -sh output/ | cut -f1)
 
-          # Count archive posts from meta.json
-          ARCHIVE_COUNT=0
-          if [ -f "output/data/telegram_archive/meta.json" ]; then
-            ARCHIVE_COUNT=$(python3 -c "import json; print(json.load(open('output/data/telegram_archive/meta.json')).get('total_posts', 0))" 2>/dev/null || echo "0")
-          fi
-
           echo "posts_count=${HTML_COUNT}" >> $GITHUB_OUTPUT
-          echo "archive_count=${ARCHIVE_COUNT}" >> $GITHUB_OUTPUT
           echo "build_duration=${DURATION:-N/A}" >> $GITHUB_OUTPUT
 
           echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
@@ -210,11 +138,9 @@ jobs:
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| Status | Success |" >> $GITHUB_STEP_SUMMARY
           echo "| HTML Pages | ${HTML_COUNT} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Archive Posts | ${ARCHIVE_COUNT} |" >> $GITHUB_STEP_SUMMARY
           echo "| Output Size | ${TOTAL_SIZE} |" >> $GITHUB_STEP_SUMMARY
           echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
-          echo "| Full Fetch | ${{ github.event.inputs.full_fetch || 'false' }} |" >> $GITHUB_STEP_SUMMARY
 
   deploy:
     name: Deploy to GitHub Pages
@@ -238,7 +164,6 @@ jobs:
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| URL | ${{ steps.deployment.outputs.page_url }} |" >> $GITHUB_STEP_SUMMARY
           echo "| HTML Pages | ${{ needs.build.outputs.posts_count }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Archive Posts | ${{ needs.build.outputs.archive_count }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Duration | ${{ needs.build.outputs.build_duration }} |" >> $GITHUB_STEP_SUMMARY
 
   purge-cache:
@@ -314,7 +239,7 @@ jobs:
             exit 0
           fi
 
-          echo "Deploying Cloudflare Worker v8.0 to account ${ACCOUNT_ID}..."
+          echo "Deploying Cloudflare Worker v11.0 to account ${ACCOUNT_ID}..."
 
           # Deploy using Cloudflare Workers API
           WORKER_FILE="sochiautoparts-worker-proxy.js"

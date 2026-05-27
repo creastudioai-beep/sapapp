@@ -536,54 +536,9 @@ def generate_all_pages(data: dict, output_dir: str):
             logger.info("  Generated %d/%d articles", idx + 1, total_articles)
 
     # ------------------------------------------------------------------
-    # 5. Archive pages (ru + en) — real static HTML with pagination
-    # Generate /archive/index.html (page 1), /archive/page/2/index.html, etc.
-    # Uses archive_posts (90K+ from Telegram) if available, falls back to pipeline posts (10K).
+    # 5. Archive pages — DISABLED (removed from site)
     # ------------------------------------------------------------------
-    if FEATURE_ARCHIVE_ENABLED:
-        from .config import ARCHIVE_POSTS_PER_PAGE, MAX_ARCHIVE_PAGES
-        # Use Telegram archive data (90K+ posts) if available, else pipeline data
-        archive_posts = data.get("archive_posts", [])
-        if not archive_posts:
-            archive_posts = posts
-            logger.warning("No Telegram archive data found — using pipeline posts for archive (%d)", len(archive_posts))
-        else:
-            logger.info("Using Telegram archive data: %d posts", len(archive_posts))
-
-        for lang in ("ru", "en"):
-            logger.info("Generating archive pages (%s)", lang)
-            total_archive_posts = len(archive_posts)
-            total_archive_pages = min(
-                max(1, math.ceil(total_archive_posts / ARCHIVE_POSTS_PER_PAGE)),
-                MAX_ARCHIVE_PAGES,
-            )
-            for archive_page in range(1, total_archive_pages + 1):
-                html = generate_archive_page(data, lang, output_dir, page=archive_page, archive_posts_override=archive_posts)
-                if archive_page == 1:
-                    archive_file = os.path.join(output_dir, "archive", "index.html")
-                else:
-                    archive_file = os.path.join(output_dir, "archive", "page", str(archive_page), "index.html")
-                if lang == "ru":
-                    _write_file(archive_file, html)
-                else:
-                    # For /en, prepend /en to the path
-                    en_archive_file = os.path.join(
-                        output_dir, "en",
-                        os.path.relpath(archive_file, output_dir)
-                    )
-                    _write_file(en_archive_file, html)
-            logger.info("Generated %d archive pages (%s)", total_archive_pages, lang)
-
-    # ------------------------------------------------------------------
-    # 5b. Individual archive post pages are NO LONGER generated as static HTML.
-    # The Cloudflare Worker generates /archive/post/{id} pages dynamically
-    # from Telegram archive JSON data deployed to GitHub Pages.
-    # See: sochiautoparts-worker-proxy.js → handleArchivePost()
-    # ------------------------------------------------------------------
-    logger.info(
-        "Skipping individual archive post page generation — "
-        "Worker handles /archive/post/{id} dynamically from deployed JSON data."
-    )
+    logger.info("Skipping archive pages generation (FEATURE_ARCHIVE_ENABLED=False)")
 
     # ------------------------------------------------------------------
     # 6. Shop page with iframe embed (ru + en)
@@ -700,32 +655,9 @@ def generate_all_pages(data: dict, output_dir: str):
     generate_search_index(data, output_dir)
 
     # ------------------------------------------------------------------
-    # 14. Deploy Telegram archive data to GitHub Pages
-    # The Worker reads these JSON files to generate /archive/post/{id} pages.
-    # Files: data/telegram_archive/{meta.json, posts_index.json, page_N.json}
+    # 14. Telegram archive data — DISABLED (removed from site)
     # ------------------------------------------------------------------
-    telegram_archive_src = os.path.join("data", "telegram_archive")
-    telegram_archive_dest = os.path.join(output_dir, "data", "telegram_archive")
-    if os.path.isdir(telegram_archive_src):
-        logger.info("Deploying Telegram archive data to GitHub Pages output…")
-        os.makedirs(telegram_archive_dest, exist_ok=True)
-        _archive_files_copied = 0
-        for fname in os.listdir(telegram_archive_src):
-            if fname.endswith(".json"):
-                src_path = os.path.join(telegram_archive_src, fname)
-                dest_path = os.path.join(telegram_archive_dest, fname)
-                shutil.copy2(src_path, dest_path)
-                _archive_files_copied += 1
-        logger.info(
-            "Copied %d Telegram archive JSON files to output/data/telegram_archive/",
-            _archive_files_copied,
-        )
-    else:
-        logger.warning(
-            "No Telegram archive data found at %s — Worker will not be able to "
-            "generate /archive/post/{id} pages. Run with --fetch-archive or --full-archive.",
-            telegram_archive_src,
-        )
+    logger.info("Skipping Telegram archive data deployment (archive feature disabled)")
 
     # ------------------------------------------------------------------
     # 15. Deploy products data to GitHub Pages (for Worker to fetch)

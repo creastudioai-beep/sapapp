@@ -728,25 +728,10 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
             result[key] = data
 
     # ------------------------------------------------------------------
-    # Load Telegram archive data (90K+ posts) for the archive section
+    # Telegram archive data — DISABLED (archive feature removed)
     # ------------------------------------------------------------------
-    telegram_archive_dir = os.path.join(data_dir, "telegram_archive")
-    archive_posts = []
-    archive_post_map = {}
-    if os.path.isdir(telegram_archive_dir):
-        archive_posts = _load_telegram_archive(telegram_archive_dir)
-        archive_post_map = _build_post_map(archive_posts)
-        logger.info(
-            "Loaded %d archive posts from Telegram archive directory",
-            len(archive_posts),
-        )
-    else:
-        logger.info(
-            "No Telegram archive directory found at %s — archive will use pipeline posts only",
-            telegram_archive_dir,
-        )
-    result["archive_posts"] = archive_posts
-    result["archive_post_map"] = archive_post_map
+    result["archive_posts"] = []
+    result["archive_post_map"] = {}
 
     # ------------------------------------------------------------------
     # Post-processing

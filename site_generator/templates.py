@@ -309,7 +309,6 @@ def render_header(lang: str = "ru", active_page: str = "") -> str:
     active_articles = " active" if active_page == "articles" else ""
     active_shop = " active" if active_page == "shop" else ""
     active_contacts = " active" if active_page == "contacts" else ""
-    active_archive = " active" if active_page == "archive" else ""
 
     logo_href = _lang_base(lang)
     shop_url = f"{_lang_path(lang)}{SHOP_PATH}"
@@ -327,7 +326,6 @@ SOCHIAUTOPARTS
 <nav class="main-nav" id="mainNav">
 <a href="{_lang_path(lang)}/" class="{active_home}">{t('nav_home', lang)}</a>
 <a href="{_lang_path(lang)}/articles" class="{active_articles}">{t('nav_articles', lang)}</a>
-<a href="{_lang_path(lang)}/archive" class="{active_archive}">{'📁 Архив' if lang == 'ru' else '📁 Archive'}</a>
 <a href="{shop_url}" class="{active_shop}">{'🛒 Магазин' if lang == 'ru' else '🛒 Shop'}</a>
 <a href="{contacts_url}" class="{active_contacts}">{t('nav_contacts', lang)}</a>
 </nav>

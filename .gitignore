@@ -4,9 +4,10 @@ __pycache__/
 # Generated output
 output/
 
-# Pipeline data cache (NOT telegram_archive — that needs to be in the repo for Worker access)
+# Pipeline data cache
 data/pipeline/
 data/cache/
+data/telegram_archive/
 
 # Cloudflare worker (maintained separately)
 cloudflare-worker/

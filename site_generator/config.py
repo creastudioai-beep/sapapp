@@ -252,7 +252,7 @@ SOCIAL_LINKS: dict[str, str] = {
 
 ARCHIVE_POSTS_PER_PAGE: int = 50
 MAX_ARCHIVE_PAGES: int = 1800  # 90K posts / 50 per page = 1800 pages
-ARCHIVE_ENABLED: bool = True  # Generate static archive pages from pipeline data
+ARCHIVE_ENABLED: bool = False  # Archive pages removed — no longer generated
 
 # NOTE: Archive pages are now generated as static HTML by the Python generator
 # using pipeline data (posts.json). The Cloudflare Worker proxies these pages
@@ -590,7 +590,7 @@ CONTACT_WORKING_HOURS_EN: str = "24/7 (online)"
 
 FEATURE_SHOP_ENABLED: bool = True
 FEATURE_ARTICLES_ENABLED: bool = True
-FEATURE_ARCHIVE_ENABLED: bool = True  # Generate real archive HTML pages
+FEATURE_ARCHIVE_ENABLED: bool = False  # Archive pages removed from site
 FEATURE_SEARCH_ENABLED: bool = True
 FEATURE_RSS_ENABLED: bool = True
 FEATURE_SITEMAP_ENABLED: bool = True

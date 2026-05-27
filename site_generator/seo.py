@@ -440,23 +440,8 @@ def generate_hreflang_links(
             f'<link rel="alternate" hreflang="x-default" href="{SITE_URL}/post/{p_id}" />'
         )
 
-    # Archive pages
-    if path in ("/archive", "/en/archive"):
-        return (
-            f'<link rel="alternate" hreflang="ru" href="{SITE_URL}/archive" />'
-            f'<link rel="alternate" hreflang="en" href="{SITE_URL}/en/archive" />'
-            f'<link rel="alternate" hreflang="x-default" href="{SITE_URL}/archive" />'
-        )
-
-    # Archive post pages
-    archive_post_match = re.match(r"^/(?:en/)?archive/post/(\d+)$", path)
-    if archive_post_match:
-        a_post_id = archive_post_match.group(1)
-        return (
-            f'<link rel="alternate" hreflang="ru" href="{SITE_URL}/archive/post/{a_post_id}" />'
-            f'<link rel="alternate" hreflang="en" href="{SITE_URL}/en/archive/post/{a_post_id}" />'
-            f'<link rel="alternate" hreflang="x-default" href="{SITE_URL}/archive/post/{a_post_id}" />'
-        )
+    # Archive pages — DISABLED (archive feature removed)
+    # Archive post pages — DISABLED (archive feature removed)
 
     # Shop page
     if path in ("/shop", "/en/shop"):
@@ -995,11 +980,7 @@ def generate_sitemap_index(
         f"<sitemap>\n<loc>{SITE_URL}/sitemap-tags.xml</loc>\n<lastmod>{now}</lastmod>\n</sitemap>"
     )
 
-    # Archive sitemap
-    if has_archive:
-        entries.append(
-            f"<sitemap>\n<loc>{SITE_URL}/sitemap-archive.xml</loc>\n<lastmod>{now}</lastmod>\n</sitemap>"
-        )
+    # Archive sitemap — DISABLED (archive feature removed)
 
     # Product sitemaps
     for pi in range(1, min(total_product_sitemaps + 1, 11)):
@@ -1108,8 +1089,7 @@ def generate_static_sitemap(lang: str = "ru") -> str:
     # ── Articles listing ──
     urls.append(_static_url_entry("/articles", "/en/articles", "weekly", "0.8", now))
 
-    # ── Archive listing ──
-    urls.append(_static_url_entry("/archive", "/en/archive", "daily", "0.7", now))
+    # ── Archive listing — DISABLED (archive feature removed) ──
 
     # ── Shop ──
     urls.append(_static_url_entry(SHOP_PATH, SHOP_PATH_EN, "daily", "0.9", now))
@@ -1682,10 +1662,10 @@ def generate_robots_txt() -> str:
         f"User-agent: *\n"
         f"Allow: /\n"
         f"Allow: /ads/\n"
-        f"Allow: /archive/\n"
         f"Allow: /product/\n"
         f"Allow: /shop/category/\n"
         f"Disallow: /api/\n"
+        f"Disallow: /archive/\n"
         f"Disallow: /m/\n"
         f"Crawl-delay: 1\n"
         f"\n"

@@ -364,7 +364,7 @@ def print_build_summary(output_dir: str, elapsed_seconds: float = 0.0) -> None:
             print(f"    {dir_name:<20} {count:>6}")
         print()
 
-    print("  Note: Archive pages rendered dynamically by Cloudflare Worker")
+    print("  Note: Archive feature disabled — pages not generated")
     print(f"  Built at: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print("=" * 60)
     print()
@@ -410,77 +410,11 @@ def main(argv: Optional[list] = None) -> None:
     logger.debug("Arguments: %s", vars(args))
 
     # ------------------------------------------------------------------
-    # Step 0b: Telegram archive fetch (if requested)
-    # NON-BLOCKING: Even if the fetch fails or times out, the build
-    # continues with pipeline data from GitHub.
+    # Step 0b: Telegram archive fetch — DISABLED (archive feature removed)
     # ------------------------------------------------------------------
-    telegram_data_dir = os.path.join(args.data_dir, "telegram_archive")
-    if args.full_archive:
-        logger.info("Full Telegram archive fetch requested (--full-archive)")
-        print()
-        print("Fetching full Telegram archive…")
-        try:
-            from .telegram_fetcher import fetch_all_posts
-            meta = fetch_all_posts(
-                channel=CHANNEL_USERNAME,
-                data_dir=telegram_data_dir,
-                max_posts=100000,
-                batch_delay=0.5,
-                force_full=True,
-            )
-            logger.info(
-                "Telegram full fetch complete: %d posts in %d pages",
-                meta.get("total_posts", 0),
-                meta.get("pages_count", 0),
-            )
-            print(f"  Telegram archive: {meta.get('total_posts', 0)} posts in {meta.get('pages_count', 0)} pages")
-        except ImportError as exc:
-            logger.warning("telegram_fetcher module not available (skipping): %s", exc)
-            print(f"  WARNING: telegram_fetcher not available: {exc}")
-            print("  Continuing with pipeline data only…")
-        except Exception as exc:
-            logger.warning("Telegram full archive fetch failed (non-fatal): %s", exc)
-            print(f"  WARNING: Telegram full archive fetch failed: {exc}")
-            print("  Continuing with pipeline data only…")
-            # DO NOT raise — the build should continue with pipeline data
-    elif args.fetch_archive:
-        logger.info("Incremental Telegram archive update requested (--fetch-archive)")
-        print()
-        print("Running incremental Telegram update…")
-        try:
-            from .telegram_fetcher import fetch_all_posts
-            # Incremental update: fetch new posts + expand archive backwards
-            # expand_pages is now auto-computed based on archive completeness:
-            #   < 40K posts → 500 pages (~10K posts, ~3 min)
-            #   40K-70K     → 300 pages (~6K posts, ~2 min)
-            #   70K-85K     → 100 pages (~2K posts, ~40 sec)
-            #   >= 85K      →  30 pages (~600 posts, ~12 sec)
-            # With dynamic sizing, the full ~87K archive completes in
-            # ~7-8 runs (every 2 hours ≈ ~16 hours from ~22K posts).
-            meta = fetch_all_posts(
-                channel=CHANNEL_USERNAME,
-                data_dir=telegram_data_dir,
-                max_posts=90000,
-                batch_delay=0.3,
-                force_full=False,
-            )
-            # Note: incremental_update auto-computes expand_pages via
-            # _compute_expand_pages() based on current total_posts.
-            logger.info(
-                "Telegram incremental update complete: %d posts in %d pages",
-                meta.get("total_posts", 0),
-                meta.get("pages_count", 0),
-            )
-            print(f"  Telegram archive: {meta.get('total_posts', 0)} posts in {meta.get('pages_count', 0)} pages")
-        except ImportError as exc:
-            logger.warning("telegram_fetcher module not available (skipping): %s", exc)
-            print(f"  WARNING: telegram_fetcher not available: {exc}")
-            print("  Continuing with pipeline data only…")
-        except Exception as exc:
-            logger.warning("Telegram incremental update failed (non-fatal): %s", exc)
-            print(f"  WARNING: Telegram incremental update failed: {exc}")
-            print("  Continuing with pipeline data only…")
-            # DO NOT raise — the build should continue with pipeline data
+    if args.full_archive or args.fetch_archive:
+        logger.info("Archive fetch requested but archive feature is disabled — skipping")
+        print("  Archive feature disabled — skipping Telegram fetch")
 
     # ------------------------------------------------------------------
     # Step 1: Load pipeline data
