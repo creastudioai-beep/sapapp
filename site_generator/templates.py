@@ -354,13 +354,18 @@ SOCHIAUTOPARTS
 # render_hero
 # =============================================================================
 
-def render_hero(lang: str = "ru") -> str:
+def render_hero(lang: str = "ru", total_posts: int = 0) -> str:
     """Render hero section with search.
 
     Includes gradient background, title, subtitle, search input with button.
+    The total_posts count is injected into the subtitle text dynamically.
     """
     hero_title = "SOCHIAUTOPARTS"
-    hero_subtitle = "Ежедневные новости, тест-драйвы и обзоры мирового автопрома. В архиве 10000 публикаций"  # totalPosts will be injected
+    posts_display = f"{total_posts:,}".replace(",", " ") if total_posts else ""
+    if posts_display:
+        hero_subtitle = f"Ежедневные новости, тест-драйвы и обзоры мирового автопрома. В архиве {posts_display} публикаций"
+    else:
+        hero_subtitle = "Ежедневные новости, тест-драйвы и обзоры мирового автопрома"
     btn_label = "Подписаться"
     search_placeholder = "Поиск"
 
@@ -383,13 +388,18 @@ def render_hero(lang: str = "ru") -> str:
 # render_seo_block
 # =============================================================================
 
-def render_seo_block(lang: str = "ru") -> str:
+def render_seo_block(lang: str = "ru", total_posts: int = 0) -> str:
     """Render SEO text block below posts.
 
     Includes h2 title and descriptive paragraphs about the site.
+    The total_posts count is injected into the SEO text dynamically.
     """
     title = "О канале SOCHIAUTOPARTS"
-    p1 = "Мы ежедневно публикуем актуальные автомобильные новости, обзоры новых моделей и экспертные тест-драйвы. Наша цель — держать вас в курсе последних тенденций мирового автопрома. 📊 В архиве: <b>10000</b> публикаций"
+    posts_display = f"{total_posts:,}".replace(",", " ") if total_posts else ""
+    if posts_display:
+        p1 = f"Мы ежедневно публикуем актуальные автомобильные новости, обзоры новых моделей и экспертные тест-драйвы. Наша цель — держать вас в курсе последних тенденций мирового автопрома. 📊 В архиве: <b>{posts_display}</b> публикаций"
+    else:
+        p1 = "Мы ежедневно публикуем актуальные автомобильные новости, обзоры новых моделей и экспертные тест-драйвы. Наша цель — держать вас в курсе последних тенденций мирового автопрома."
     p2 = "Подписывайтесь на наш"
 
     return f"""
@@ -462,19 +472,19 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
             if first_media.get("type") == "video":
                 video_src = first_media.get("directUrl", "")
                 poster = _get_poster_for_post(post)
-                # If poster is just the logo fallback, use a video-style card with play overlay
                 is_logo_fallback = (poster == LOGO_EXTERNAL_URL or poster.endswith("/logo.jpg"))
                 if is_logo_fallback:
+                    # No real thumbnail — use <video preload="metadata"> to show first frame
+                    # The browser loads just enough data to render the first frame
                     media_block = (
                         f'<div class="post-feed-media">\n'
-                        f'<div class="video-container">\n'
-                        f'<div class="video-thumbnail" data-video-src="{escape_html(video_src)}" '
-                        f'data-video-title="{escape_html(title)}" data-video-type="video/mp4" '
-                        f'style="background:#1a1a2e;display:flex;align-items:center;justify-content:center;min-height:200px;">\n'
-                        f'<img src="{escape_html(poster)}" alt="{escape_html(title)}" '
-                        f'loading="lazy" decoding="async" referrerpolicy="no-referrer" '
-                        f'style="max-width:80px;max-height:80px;opacity:0.6;">\n'
-                        f'</div>\n'
+                        f'<div class="video-container video-card-preview">\n'
+                        f'<video src="{escape_html(video_src)}" preload="metadata" muted playsinline '
+                        f'referrerpolicy="no-referrer" '
+                        f'style="width:100%;max-height:400px;object-fit:cover;background:#1a1a2e;" '
+                        f'class="video-preview-thumb"></video>\n'
+                        f'<div class="video-play-overlay" data-video-src="{escape_html(video_src)}" '
+                        f'data-video-title="{escape_html(title)}" data-video-type="video/mp4"></div>\n'
                         f'</div>\n'
                         f'</div>'
                     )

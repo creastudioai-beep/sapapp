@@ -258,6 +258,7 @@ def _build_page(
     include_ga: bool = True,
     include_matrix: bool = True,
     css_override: Optional[str] = None,
+    total_posts: int = 0,
 ) -> str:
     """Build a complete HTML page with head, header, body, footer, scripts.
 
@@ -306,7 +307,7 @@ def _build_page(
     # Hero (optional)
     hero_html = ""
     if show_hero:
-        hero_html = render_hero(lang=lang)
+        hero_html = render_hero(lang=lang, total_posts=total_posts)
 
     # Footer
     footer_html = render_footer(tags=tags_for_footer, lang=lang)
@@ -785,7 +786,7 @@ def generate_homepage(data: dict, lang: str, output_dir: str, page: int = 1) -> 
         posts_html += render_post_card(post, lang)
 
     # SEO block (only on first page)
-    seo_block = render_seo_block(lang) if page == 1 else ""
+    seo_block = render_seo_block(lang, total_posts=total_posts) if page == 1 else ""
 
     # Ad blocks
     ads_html = ""
@@ -836,6 +837,7 @@ def generate_homepage(data: dict, lang: str, output_dir: str, page: int = 1) -> 
         show_hero=show_hero,
         tags_for_footer=popular_tags,
         robots=robots,
+        total_posts=total_posts,
     )
 
 
@@ -2576,10 +2578,7 @@ def generate_contacts_page(lang: str, output_dir: str) -> str:
     else:
         full_title = f"Contacts | SOCHIAUTOPARTS"
 
-    # Contact info
-    address = CONTACT_ADDRESS_RU if lang == "ru" else CONTACT_ADDRESS_EN
-    hours = CONTACT_WORKING_HOURS_RU if lang == "ru" else CONTACT_WORKING_HOURS_EN
-
+    # Contact info (address and working hours removed per user request)
     email_label = t("contacts_email", lang)
     telegram_label = t("contacts_telegram", lang)
     instagram_label = t("contacts_instagram", lang)
@@ -2604,10 +2603,6 @@ def generate_contacts_page(lang: str, output_dir: str) -> str:
 {breadcrumbs}
 <h1>{page_title}</h1>
 <div class="article-body">
-<div style="margin:1.5rem 0;">
-<h2>📍 {"Адрес" if lang == "ru" else "Address"}</h2>
-<p>{escape_html(address)}</p>
-</div>
 {phone_section}
 <div style="margin:1.5rem 0;">
 <h2>📧 {email_label}</h2>
@@ -2620,10 +2615,6 @@ def generate_contacts_page(lang: str, output_dir: str) -> str:
 <div style="margin:1.5rem 0;">
 <h2>📷 {instagram_label}</h2>
 <p><a href="{SOCIAL_LINKS.get('instagram', '#')}" target="_blank" rel="nofollow noopener noreferrer">Instagram</a></p>
-</div>
-<div style="margin:1.5rem 0;">
-<h2>🕐 {"Часы работы" if lang == "ru" else "Working Hours"}</h2>
-<p>{escape_html(hours)}</p>
 </div>
 </div>
 </div>

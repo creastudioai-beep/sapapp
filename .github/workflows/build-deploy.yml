@@ -1,0 +1,93 @@
+name: Build & Deploy Static Site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Run daily at 03:00 UTC (06:00 MSK)
+    - cron: '0 3 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Build static site
+        run: python -m site_generator --output docs --force-refresh
+        env:
+          PYTHONUNBUFFERED: '1'
+
+      - name: Generate paginated products data
+        run: |
+          python -c "
+          import json, os
+          src = 'docs/data/products'
+          os.makedirs(src, exist_ok=True)
+          # Products are already in docs/ by the generator — just verify
+          print('Products data directory ready')
+          "
+
+      - name: Verify build output
+        run: |
+          echo "=== Build Output Summary ==="
+          echo "Total size of docs/:"
+          du -sh docs/ 2>/dev/null || echo "docs/ not found"
+          echo ""
+          echo "File counts:"
+          find docs/ -name "*.html" 2>/dev/null | wc -l | xargs -I{} echo "  HTML files: {}"
+          find docs/ -name "*.css" 2>/dev/null | wc -l | xargs -I{} echo "  CSS files: {}"
+          find docs/ -name "*.js" 2>/dev/null | wc -l | xargs -I{} echo "  JS files: {}"
+          find docs/ -name "*.xml" 2>/dev/null | wc -l | xargs -I{} echo "  XML files: {}"
+          find docs/ -name "*.json" 2>/dev/null | wc -l | xargs -I{} echo "  JSON files: {}"
+          echo ""
+          echo "Key files:"
+          ls -la docs/index.html docs/style.css docs/i18n.js docs/scripts.js 2>/dev/null || true
+          ls -la docs/shop/index.html docs/contacts/index.html docs/privacy/index.html 2>/dev/null || true
+          echo ""
+          echo "Shop pages count:"
+          find docs/shop/ -name "index.html" 2>/dev/null | wc -l | xargs -I{} echo "  {} shop pages"
+
+      - name: Commit and push docs/
+        run: |
+          # Add all generated files (docs/ is no longer in .gitignore)
+          git add -f docs/
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🔄 Auto-build: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+
+      - name: Check GitHub Pages size
+        run: |
+          SIZE_BYTES=$(du -sb docs/ | cut -f1)
+          SIZE_MB=$((SIZE_BYTES / 1024 / 1024))
+          echo "Total docs/ size: ${SIZE_MB} MB"
+          if [ "$SIZE_MB" -gt 950 ]; then
+            echo "⚠️  WARNING: docs/ exceeds 950 MB! GitHub Pages limit is 1 GB."
+            echo "Consider reducing generated pages or implementing size optimizations."
+          fi

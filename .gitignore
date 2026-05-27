@@ -1,9 +1,11 @@
 __pycache__/
 *.pyc
 
-# Generated output
+# Generated output (intermediate)
 output/
-docs/
+
+# docs/ is NOT ignored — it's the GitHub Pages deploy directory
+# and must be committed for GitHub Pages to serve the site.
 
 # Pipeline data cache
 data/pipeline/
