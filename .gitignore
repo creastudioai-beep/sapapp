@@ -3,6 +3,7 @@ __pycache__/
 
 # Generated output
 output/
+docs/
 
 # Pipeline data cache
 data/pipeline/
