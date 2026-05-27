@@ -376,8 +376,6 @@ def generate_hreflang_links(
     - Articles: ru=/article/{id}, en=/en/article/{id}
     - Tags: ru=/tag/{tag}, en=/en/tag/{tag}
     - Static: ru=/path, en=/en/path
-    - Archive: ru=/archive, en=/en/archive
-    - Archive post: ru=/archive/post/{id}, en=/en/archive/post/{id}
     - Shop: ru=/shop, en=/en/shop
     - Product: ru=/shop/{id}, en=/en/shop/{id}
     - Category: ru=/shop/category/{id}, en=/en/shop/category/{id}
@@ -440,9 +438,6 @@ def generate_hreflang_links(
             f'<link rel="alternate" hreflang="en" href="{SITE_URL}/en/post/{p_id}" />'
             f'<link rel="alternate" hreflang="x-default" href="{SITE_URL}/post/{p_id}" />'
         )
-
-    # Archive pages — DISABLED (archive feature removed)
-    # Archive post pages — DISABLED (archive feature removed)
 
     # Shop page
     if path in ("/shop", "/en/shop"):
@@ -931,14 +926,12 @@ def generate_ga4_script(measurement_id: str = "G-2GZ7FKV6CK") -> str:
 def generate_sitemap_index(
     total_post_sitemaps: int,
     total_product_sitemaps: int,
-    has_archive: bool = True,
 ) -> str:
     """Generate sitemap-index.xml content.
 
     Args:
         total_post_sitemaps: Number of post sitemap files (sitemap-posts-N.xml).
         total_product_sitemaps: Number of product sitemap files (sitemap-products-N.xml).
-        has_archive: Whether archive sitemap should be included.
 
     Returns:
         XML string for sitemap-index.xml.
@@ -980,8 +973,6 @@ def generate_sitemap_index(
     entries.append(
         f"<sitemap>\n<loc>{SITE_URL}/sitemap-tags.xml</loc>\n<lastmod>{now}</lastmod>\n</sitemap>"
     )
-
-    # Archive sitemap — DISABLED (archive feature removed)
 
     # Shop sitemap (all product pages in a single sitemap)
     entries.append(
@@ -1555,102 +1546,6 @@ def generate_products_sitemap(products: list, page_num: int) -> str:
     )
 
 
-def generate_archive_sitemap(posts: Optional[list] = None) -> str:
-    """Generate sitemap-archive.xml with individual archive post URLs.
-
-    Includes the archive listing pages (ru + en) and every individual
-    /archive/post/{id} URL (ru + en) for all posts in the dataset,
-    up to MAX_POSTS_SITEMAP entries.
-
-    Args:
-        posts: List of post dicts (same data used for post sitemaps).
-            If None or empty, only the listing pages are included.
-
-    Returns:
-        XML string for sitemap-archive.xml.
-    """
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-
-    urls: List[str] = []
-
-    # ── Archive listing page (ru) ──
-    urls.append(
-        f"<url>\n"
-        f"  <loc>{SITE_URL}/archive</loc>\n"
-        f"  <lastmod>{now}</lastmod>\n"
-        f"  <changefreq>daily</changefreq>\n"
-        f"  <priority>0.7</priority>\n"
-        f'  <xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/archive"/>\n'
-        f'  <xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}/en/archive"/>\n'
-        f'  <xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/archive"/>\n'
-        f"</url>"
-    )
-
-    # ── Archive listing page (en) ──
-    urls.append(
-        f"<url>\n"
-        f"  <loc>{SITE_URL}/en/archive</loc>\n"
-        f"  <lastmod>{now}</lastmod>\n"
-        f"  <changefreq>daily</changefreq>\n"
-        f"  <priority>0.7</priority>\n"
-        f'  <xhtml:link rel="alternate" hreflang="ru" href="{SITE_URL}/archive"/>\n'
-        f'  <xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}/en/archive"/>\n'
-        f'  <xhtml:link rel="alternate" hreflang="x-default" href="{SITE_URL}/archive"/>\n'
-        f"</url>"
-    )
-
-    # ── Individual archive post pages ──
-    if posts:
-        archive_posts = posts[:MAX_POSTS_SITEMAP]
-        for post in archive_posts:
-            post_id = post.get("id", "")
-            if not post_id:
-                continue
-
-            # Date
-            try:
-                post_date = datetime.fromisoformat(str(post.get("date", ""))).strftime("%Y-%m-%d")
-            except (ValueError, TypeError):
-                post_date = now
-
-            ru_url = f"{SITE_URL}/archive/post/{post_id}"
-            en_url = f"{SITE_URL}/en/archive/post/{post_id}"
-
-            # Russian entry
-            urls.append(
-                f"<url>\n"
-                f"  <loc>{ru_url}</loc>\n"
-                f"  <lastmod>{post_date}</lastmod>\n"
-                f"  <changefreq>monthly</changefreq>\n"
-                f"  <priority>0.5</priority>\n"
-                f'  <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}"/>\n'
-                f'  <xhtml:link rel="alternate" hreflang="en" href="{en_url}"/>\n'
-                f'  <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}"/>\n'
-                f"</url>"
-            )
-
-            # English entry
-            urls.append(
-                f"<url>\n"
-                f"  <loc>{en_url}</loc>\n"
-                f"  <lastmod>{post_date}</lastmod>\n"
-                f"  <changefreq>monthly</changefreq>\n"
-                f"  <priority>0.5</priority>\n"
-                f'  <xhtml:link rel="alternate" hreflang="ru" href="{ru_url}"/>\n'
-                f'  <xhtml:link rel="alternate" hreflang="en" href="{en_url}"/>\n'
-                f'  <xhtml:link rel="alternate" hreflang="x-default" href="{ru_url}"/>\n'
-                f"</url>"
-            )
-
-    return (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
-        'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
-        + "\n".join(urls)
-        + "\n</urlset>"
-    )
-
-
 def generate_shop_sitemap(products: list) -> str:
     """Generate sitemap-shop.xml containing all product page URLs.
 
@@ -1734,7 +1629,6 @@ def generate_robots_txt() -> str:
         f"Allow: /shop/\n"
         f"Allow: /shop/category/\n"
         f"Disallow: /api/\n"
-        f"Disallow: /archive/\n"
         f"Disallow: /m/\n"
         f"Crawl-delay: 1\n"
         f"\n"

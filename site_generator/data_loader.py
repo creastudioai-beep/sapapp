@@ -797,7 +797,6 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     # Load posts from telegram_parser output (ONLY source)
     # ------------------------------------------------------------------
     tg_posts_dir = os.path.join(data_dir, "telegram_posts")
-    tg_archive_dir = os.path.join(data_dir, "telegram_archive")
 
     telegram_parser_posts = _load_telegram_archive(tg_posts_dir)
     if telegram_parser_posts:
@@ -805,40 +804,11 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
         telegram_parser_posts = _normalize_telegram_media(telegram_parser_posts)
         telegram_parser_posts = _validate_and_normalize_posts(telegram_parser_posts)
 
-    telegram_archive_posts = _load_telegram_archive(tg_archive_dir)
-    if telegram_archive_posts:
-        logger.info("Loaded %d posts from telegram archive at %s", len(telegram_archive_posts), tg_archive_dir)
-        telegram_archive_posts = _normalize_telegram_media(telegram_archive_posts)
-        telegram_archive_posts = _validate_and_normalize_posts(telegram_archive_posts)
-
-    # Merge: telegram_parser > telegram_archive, dedup by post ID
-    merged_posts = []
-    seen_ids = set()
-
-    # 1. Telegram parser posts (highest priority)
-    for post in telegram_parser_posts:
-        pid = str(post.get("id", ""))
-        if pid and pid not in seen_ids:
-            merged_posts.append(post)
-            seen_ids.add(pid)
-
-    # 2. Telegram archive posts (second priority)
-    for post in telegram_archive_posts:
-        pid = str(post.get("id", ""))
-        if pid and pid not in seen_ids:
-            merged_posts.append(post)
-            seen_ids.add(pid)
-        elif not pid:
-            # Posts without IDs get included (no dedup possible)
-            merged_posts.append(post)
-
-    result["posts"] = merged_posts
-    result["archive_posts"] = telegram_parser_posts + telegram_archive_posts
-    result["archive_post_map"] = {}
+    result["posts"] = telegram_parser_posts
 
     logger.info(
-        "Loaded %d posts: %d from telegram_parser, %d from telegram_archive",
-        len(merged_posts), len(telegram_parser_posts), len(telegram_archive_posts),
+        "Loaded %d posts from telegram_parser",
+        len(telegram_parser_posts),
     )
 
     # ------------------------------------------------------------------

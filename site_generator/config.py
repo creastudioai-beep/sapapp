@@ -61,9 +61,6 @@ POPULAR_TAGS_JSON_URL: str = ""
 # Search index — built locally during site generation
 SEARCH_INDEX_URL: str = ""
 
-# Archive data — not fetched from remote pipeline
-ARCHIVE_INDEX_URL: str = ""
-
 # Products / shop data — loaded from local data/products/ directory
 PRODUCTS_JSON_URL: str = "data/products.json"
 PRODUCTS_INDEX_URL: str = ""
@@ -247,14 +244,6 @@ SOCIAL_LINKS: dict[str, str] = {
     "telegram": f"https://t.me/{CHANNEL_USERNAME}",
     "instagram": "https://www.instagram.com/sochi_auto_parts/",
 }
-
-# =============================================================================
-# ARCHIVE SETTINGS
-# =============================================================================
-
-ARCHIVE_POSTS_PER_PAGE: int = 50
-MAX_ARCHIVE_PAGES: int = 0  # Archive pages removed — no longer generated
-ARCHIVE_ENABLED: bool = False  # Archive pages removed — no longer generated
 
 # =============================================================================
 # GITHUB PAGES OUTPUT
@@ -565,8 +554,6 @@ BREADCRUMB_ARTICLES_RU: str = "Статьи"
 BREADCRUMB_ARTICLES_EN: str = "Articles"
 BREADCRUMB_CATALOG_RU: str = "Каталог"
 BREADCRUMB_CATALOG_EN: str = "Catalog"
-BREADCRUMB_ARCHIVE_RU: str = "Архив"
-BREADCRUMB_ARCHIVE_EN: str = "Archive"
 BREADCRUMB_SEARCH_RU: str = "Поиск"
 BREADCRUMB_SEARCH_EN: str = "Search"
 
@@ -589,7 +576,6 @@ CONTACT_WORKING_HOURS_EN: str = "24/7 (online)"
 
 FEATURE_SHOP_ENABLED: bool = True
 FEATURE_ARTICLES_ENABLED: bool = True
-FEATURE_ARCHIVE_ENABLED: bool = False  # Archive pages removed from site
 FEATURE_SEARCH_ENABLED: bool = True
 FEATURE_RSS_ENABLED: bool = True
 FEATURE_SITEMAP_ENABLED: bool = True
@@ -668,7 +654,6 @@ CONFIG: dict = {
     "tags_json_url": TAGS_JSON_URL,
     "popular_tags_json_url": POPULAR_TAGS_JSON_URL,
     "search_index_url": SEARCH_INDEX_URL,
-    "archive_index_url": ARCHIVE_INDEX_URL,
     "products_json_url": PRODUCTS_JSON_URL,
     "products_index_url": PRODUCTS_INDEX_URL,
     "categories_json_url": CATEGORIES_JSON_URL,
@@ -695,7 +680,6 @@ CONFIG: dict = {
     "logo_svg_url": LOGO_SVG_URL,
     "logo_favicon_url": LOGO_FAVICON_URL,
     "social_links": SOCIAL_LINKS,
-    "archive_posts_per_page": ARCHIVE_POSTS_PER_PAGE,
     "github_pages_url": GITHUB_PAGES_URL,
     "github_pages_base_path": GITHUB_PAGES_BASE_PATH,
     "base_path": BASE_PATH,
@@ -741,8 +725,6 @@ def _validate_config() -> None:
         raise ValueError(f"POSTS_PER_PAGE must be >= 1, got {POSTS_PER_PAGE}")
     if MAX_POSTS < POSTS_PER_PAGE:
         raise ValueError(f"MAX_POSTS ({MAX_POSTS}) must be >= POSTS_PER_PAGE ({POSTS_PER_PAGE})")
-    if ARCHIVE_POSTS_PER_PAGE < 1:
-        raise ValueError(f"ARCHIVE_POSTS_PER_PAGE must be >= 1, got {ARCHIVE_POSTS_PER_PAGE}")
     if len(PRODUCT_CATEGORIES) == 0:
         raise ValueError("PRODUCT_CATEGORIES must not be empty")
     for key, val in PRODUCT_CATEGORIES.items():

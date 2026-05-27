@@ -8,7 +8,6 @@ Allow: /ads/
 Allow: /shop/
 Allow: /shop/category/
 Disallow: /api/
-Disallow: /archive/
 Disallow: /m/
 Crawl-delay: 1
 

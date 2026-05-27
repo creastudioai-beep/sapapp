@@ -3,7 +3,7 @@ Main entry point for the SochiAutoParts static site generator.
 
 Orchestrates the entire build process:
     1. Parse command-line arguments
-    2. (Optional) Fetch/update Telegram archive via --fetch-archive / --full-archive
+    2. (Optional) Parse new posts via --parse / --full flags
     3. Load all data from local files (telegram_parser output + products + ads)
     4. Generate all HTML pages (bilingual: Russian and English)
     5. Print a build summary with file counts and statistics
@@ -19,8 +19,8 @@ Options:
     --output-dir DIR       Output directory (default: output)
     --data-dir DIR         Local data directory (default: data)
     --force-refresh        Force refresh (re-read local data files)
-    --fetch-archive        Run incremental Telegram archive update, then build
-    --full-archive         Run full Telegram archive fetch, then build
+    --parse               Run incremental Telegram parser (50 latest posts)
+    --full                Run full Telegram parser (all posts up to PARSE_LIMIT)
     --no-pages             Skip page generation (only fetch data)
     --no-sitemaps          Skip sitemap generation
     --no-rss               Skip RSS generation
@@ -65,7 +65,7 @@ from .config import (
 from .data_loader import load_data
 from .html_generator import generate_all_pages
 
-# telegram_fetcher is imported lazily inside main() only when --fetch-archive / --full-archive is used.
+# telegram_parser is imported lazily inside main() only when --parse / --full is used.
 # This prevents import errors if telegram_fetcher dependencies are missing.
 
 
@@ -159,19 +159,19 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         ),
     )
     parser.add_argument(
-        "--fetch-archive",
+        "--parse",
         action="store_true",
         help=(
-            "Run incremental Telegram archive update (fetch new posts only), "
-            "then generate site. Used by GitHub Actions on scheduled builds."
+            "Run incremental Telegram parser (50 latest posts), "
+            "then generate site. Used by GitHub Actions on hourly builds."
         ),
     )
     parser.add_argument(
-        "--full-archive",
+        "--full",
         action="store_true",
         help=(
-            "Run full Telegram archive fetch (all posts from scratch), "
-            "then generate site. Used by GitHub Actions on manual trigger."
+            "Run full Telegram parser (all posts up to PARSE_LIMIT), "
+            "then generate site. Used by GitHub Actions on daily builds."
         ),
     )
     parser.add_argument(
@@ -364,8 +364,7 @@ def print_build_summary(output_dir: str, elapsed_seconds: float = 0.0) -> None:
             print(f"    {dir_name:<20} {count:>6}")
         print()
 
-    print("  Note: Archive feature disabled — pages not generated")
-    print(f"  Built at: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
+    print("  Built at: {}".format(datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')))
     print("=" * 60)
     print()
 
@@ -410,25 +409,24 @@ def main(argv: Optional[list] = None) -> None:
     logger.debug("Arguments: %s", vars(args))
 
     # ------------------------------------------------------------------
-    # Step 0b: Telegram archive fetch
+    # Step 0b: Telegram parser (parse new posts)
     # ------------------------------------------------------------------
-    if args.full_archive or args.fetch_archive:
+    if args.full or args.parse:
         try:
-            from .telegram_fetcher import fetch_all_posts
-            archive_data_dir = os.path.join(args.data_dir, "telegram_archive")
+            from .telegram_parser import parse_telegram_channel
             channel = CHANNEL_USERNAME
-            if args.full_archive:
-                logger.info("Starting full Telegram archive fetch for @%s", channel)
-                print(f"  Running full Telegram archive fetch for @{channel} (up to 100000 posts)…")
-                fetch_all_posts(channel, archive_data_dir, max_posts=100000, force_full=True)
+            if args.full:
+                logger.info("Starting full Telegram parse for @%s", channel)
+                print(f"  Running full Telegram parse for @{channel} (up to 15000 posts)…")
+                parse_telegram_channel(channel, full=True)
             else:
-                logger.info("Starting incremental Telegram archive update for @%s", channel)
-                print(f"  Running incremental Telegram archive update for @{channel} (last 50 posts)…")
-                fetch_all_posts(channel, archive_data_dir, max_posts=50, force_full=False)
+                logger.info("Starting incremental Telegram parse for @%s", channel)
+                print(f"  Running incremental Telegram parse for @{channel} (last 50 posts)…")
+                parse_telegram_channel(channel, full=False)
         except Exception as exc:
-            logger.error("Telegram fetch failed: %s", exc)
-            print(f"  WARNING: Telegram fetch failed: {exc}")
-            # Continue with build even if fetch fails
+            logger.error("Telegram parse failed: %s", exc)
+            print(f"  WARNING: Telegram parse failed: {exc}")
+            # Continue with build even if parse fails
 
     # ------------------------------------------------------------------
     # Step 1: Load local data

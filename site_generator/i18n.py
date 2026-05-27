@@ -11,7 +11,6 @@ STRINGS = {
         'nav_home': 'Главная',
         'nav_articles': 'Статьи',
         'nav_shop': 'Магазин',
-        'nav_archive': 'Архив',
         'nav_contacts': 'Контакты',
         'nav_privacy': 'Конфиденциальность',
 
@@ -41,12 +40,6 @@ STRINGS = {
         'articles_title': 'Статьи - Руководства по ремонту и обслуживанию автомобилей',
         'articles_subtitle': 'Подробные руководства по ремонту и обслуживанию популярных автомобилей. Полные инструкции, советы по техническому обслуживанию.',
 
-        # Archive
-        'archive_title': 'Архив публикаций',
-        'archive_subtitle': 'Архив всех публикаций канала sochiautoparts в Telegram. Автоновости, обзоры, тест-драйвы и акции.',
-        'archive_newer': '← Новее',
-        'archive_older': 'Старее →',
-        'archive_post_views': 'просмотры',
         'open_in_telegram': 'Открыть в Telegram',
 
         # Shop
@@ -103,7 +96,6 @@ STRINGS = {
         # Breadcrumbs
         'bc_home': 'Главная',
         'bc_articles': 'Статьи',
-        'bc_archive': 'Архив',
         'bc_shop': 'Магазин',
         'bc_tag': 'Тег',
         'bc_product': 'Товар',
@@ -140,7 +132,6 @@ STRINGS = {
         'nav_home': 'Home',
         'nav_articles': 'Articles',
         'nav_shop': 'Shop',
-        'nav_archive': 'Archive',
         'nav_contacts': 'Contacts',
         'nav_privacy': 'Privacy',
 
@@ -170,12 +161,6 @@ STRINGS = {
         'articles_title': 'Articles - Car Repair and Maintenance Guides',
         'articles_subtitle': 'Detailed repair and maintenance guides for popular cars. Complete instructions and service tips.',
 
-        # Archive
-        'archive_title': 'Publications Archive',
-        'archive_subtitle': 'Archive of all sochiautoparts Telegram channel publications. Auto news, reviews, test drives and promos.',
-        'archive_newer': '← Newer',
-        'archive_older': 'Older →',
-        'archive_post_views': 'views',
         'open_in_telegram': 'Open in Telegram',
 
         # Shop
@@ -232,7 +217,6 @@ STRINGS = {
         # Breadcrumbs
         'bc_home': 'Home',
         'bc_articles': 'Articles',
-        'bc_archive': 'Archive',
         'bc_shop': 'Shop',
         'bc_tag': 'Tag',
         'bc_product': 'Product',
