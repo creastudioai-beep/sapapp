@@ -331,6 +331,8 @@ def generate_product_page(
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/style.css" />
+<script>try{{var _t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',_t)}}catch(e){{}}</script>
 <meta property="og:type" content="product" />
 <meta property="og:title" content="{escape_html(page_title)}" />
 <meta property="og:description" content="{escape_html(page_description)}" />
@@ -389,11 +391,8 @@ def generate_product_page(
 </main>
 {footer_html}
 {fab_html}
-<script>
-try{{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}}catch(e){{}}
-document.querySelectorAll('.theme-btn').forEach(function(b){{b.addEventListener('click',function(){{document.documentElement.setAttribute('data-theme',this.dataset.theme);localStorage.setItem('theme',this.dataset.theme)}})}});
-var mBtn=document.getElementById('mobileMenuBtn');var mNav=document.getElementById('mainNav');if(mBtn&&mNav){{mBtn.addEventListener('click',function(){{mNav.classList.toggle('open')}})}}
-</script>
+<script src="/scripts.js"></script>
+<script src="/i18n.js"></script>
 <style>
 .product-page{{padding:1.5rem 0}}
 .product-layout{{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}}

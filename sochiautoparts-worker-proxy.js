@@ -92,6 +92,8 @@ const PATH_ALIASES = {
   '/shop/': '/shop/index.html',
   '/articles': '/articles/index.html',
   '/articles/': '/articles/index.html',
+  '/article': '/articles/index.html',
+  '/article/': '/articles/index.html',
   '/contacts': '/contacts/index.html',
   '/contacts/': '/contacts/index.html',
   '/privacy': '/privacy/index.html',
@@ -120,9 +122,10 @@ export default {
 
     // --- Product affiliate redirect: /api/go/{platform}/{id} ---
     // e.g. /api/go/ozon/12345 → redirect to affiliate URL for product 12345 on Ozon
-    const goMatch = path.match(/^\/api\/go\/([a-z]+)\/(\w+)$/);
+    // Platform name may contain any URL-encoded characters (Cyrillic, spaces, etc.)
+    const goMatch = path.match(/^\/api\/go\/([^/]+)\/([^/]+)$/);
     if (goMatch) {
-      return handleProductAffiliateRedirect(goMatch[1], goMatch[2], country, request, ctx);
+      return handleProductAffiliateRedirect(decodeURIComponent(goMatch[1]), decodeURIComponent(goMatch[2]), country, request, ctx);
     }
 
     // --- Admitad affiliate redirect: /api/{programId} ---
@@ -166,6 +169,20 @@ export default {
     const postMatch = path.match(/^\/post\/([a-zA-Z0-9_-]+)$/);
     if (postMatch) {
       path = `/post/${postMatch[1]}.html`;
+    }
+
+    // --- Article page: /article/{slug} → proxy to GitHub Pages /article/{slug}.html ---
+    // Article slugs may contain Latin, Cyrillic, digits, hyphens, underscores
+    const articleMatch = path.match(/^\/article\/([^/]+)$/);
+    if (articleMatch) {
+      path = `/article/${articleMatch[1]}.html`;
+    }
+
+    // --- Tag page: /tag/{name} → proxy to GitHub Pages /tag/{name}.html ---
+    // Tag names may contain Unicode characters (Cyrillic, Arabic, etc.)
+    const tagMatch = path.match(/^\/tag\/([^/]+)$/);
+    if (tagMatch && !path.endsWith('.html') && !path.endsWith('.xml')) {
+      path = `/tag/${tagMatch[1]}.html`;
     }
 
     // --- RSS compatibility: /feed.xml → serve /rss.xml ---

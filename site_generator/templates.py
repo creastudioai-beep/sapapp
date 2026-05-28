@@ -984,9 +984,17 @@ def render_shop_widget(products: list, lang: str = "ru", count: int = 20) -> str
             p_image = p.get("image", "") or "/logo.jpg"
             p_url = p.get("url", "")
             p_id = p.get("id", "")
+            p_feed = p.get("feedName") or p.get("feed_name") or p.get("feed_id") or ""
             p_product_page = f"/shop/{p_id}" if p_id else ""
-            # Buy URL: direct partner link
-            buy_url = p_url if p_url and p_url != "#" else f"/shop/{p_id}" if p_id else "#"
+            # Buy URL: direct partner link, then /api/go/ redirect, never product page
+            if p_url and p_url != "#":
+                buy_url = p_url
+            elif p_id and p_feed:
+                buy_url = f"/api/go/{url_quote(str(p_feed))}/{url_quote(str(p_id))}"
+            elif p_id:
+                buy_url = f"/api/go/{url_quote(str(p_id))}/{url_quote(str(p_id))}"
+            else:
+                buy_url = "#"
 
             static_cards += (
                 f'<div class="widget-product">'

@@ -108,7 +108,7 @@ jobs:
           echo "Output cleaned"
 
       - name: Build static site
-        run: python -m site_generator --output _site
+        run: python -m site_generator --output-dir _site
         env:
           PYTHONUNBUFFERED: '1'
 
