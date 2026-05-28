@@ -1056,7 +1056,7 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
         active_page="home",
         post_id=post_id,
         post_slug=post_slug,
-        include_matrix=False,
+        include_matrix=True,
     )
 
 
@@ -1235,7 +1235,7 @@ def generate_articles_page(data: dict, lang: str, output_dir: str, page: int = 1
         article_id = article.get("id", "")
         article_url = f"{_lang_path(lang)}/article/{article_id}"
         article_title = article.get("title", "")
-        article_desc = article.get("plainDescription") or ""
+        article_desc = article.get("plainDescription") or article.get("description") or ""
         article_thumb = article.get("thumbnail", "")
         article_date = article.get("date", "")
         date_display = _format_date_display(article_date, lang)
@@ -1335,10 +1335,10 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
     article_url_rel = f"{_lang_path(lang)}/article/{article_id}"
 
     title = article.get("title", "")
-    description = seo_data.get("description") or article.get("plainDescription") or ""
+    description = seo_data.get("description") or article.get("plainDescription") or article.get("description") or ""
     og_image = article.get("thumbnail") or DEFAULT_THUMBNAIL
     published_time = seo_data.get("publishedTime") or article.get("date", "")
-    modified_time = seo_data.get("modifiedTime") or article.get("date", "")
+    modified_time = seo_data.get("modifiedTime") or article.get("updated") or article.get("date", "")
 
     if lang == "ru":
         page_title = f"{title} | SOCHIAUTOPARTS"
@@ -1367,7 +1367,7 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
     date_display = _format_date_display(article.get("date", ""), lang)
 
     # Content
-    content_html = article.get("content") or article.get("plainDescription") or ""
+    content_html = article.get("content") or article.get("content_html") or article.get("plainDescription") or article.get("text") or ""
     if content_html and not content_html.strip().startswith("<"):
         content_html = f"<p>{escape_html(content_html)}</p>"
 
@@ -1384,6 +1384,15 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
         if tag_links:
             tags_html = '<div class="post-tags" style="margin-top:1.5rem;">' + " ".join(tag_links) + "</div>"
 
+    # Shop widget — render static product cards for immediate visibility
+    shop_widget = ""
+    if FEATURE_SHOP_ENABLED:
+        import random as _random_a
+        _all_a_products = data.get("products", [])
+        _a_widget_products = list(_all_a_products)
+        _random_a.shuffle(_a_widget_products)
+        shop_widget = render_shop_widget(_a_widget_products[:20], lang, count=20)
+
     body = f"""
 <div class="container">
 <div class="article-content">
@@ -1399,6 +1408,7 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
 {tags_html}
 </article>
 </div>
+{shop_widget}
 </div>"""
 
     return _build_page(
@@ -1415,7 +1425,7 @@ def generate_article_page(data: dict, article_id: int, lang: str, output_dir: st
         article_modified=modified_time,
         extra_schema=[article_schema, breadcrumb_schema],
         active_page="articles",
-        include_matrix=False,
+        include_matrix=True,
     )
 
 
@@ -1939,7 +1949,7 @@ def generate_product_page(data: dict, product, lang: str, output_dir: str,
         extra_schema=[product_schema, breadcrumb_schema],
         extra_head=regional_ads_script,
         active_page="shop",
-        include_matrix=False,
+        include_matrix=True,
     )
 
 
@@ -2044,7 +2054,7 @@ def generate_category_page(data: dict, category_id: str, lang: str, output_dir: 
         og_type="website",
         extra_schema=[breadcrumb_schema],
         active_page="shop",
-        include_matrix=False,
+        include_matrix=True,
     )
 
 
@@ -2254,7 +2264,7 @@ def generate_privacy_page(lang: str, output_dir: str) -> str:
         body_content=body,
         og_type="website",
         active_page="",
-        include_matrix=False,
+        include_matrix=True,
         robots="noindex, follow",
     )
 
@@ -2337,7 +2347,7 @@ def generate_contacts_page(lang: str, output_dir: str) -> str:
         body_content=body,
         og_type="website",
         active_page="contacts",
-        include_matrix=False,
+        include_matrix=True,
     )
 
 
@@ -2462,7 +2472,7 @@ fetch('/api/ads?cat='+document.getElementById('categoryAds').dataset.cat+'&max=2
         body_content=body,
         og_type="website",
         active_page="",
-        include_matrix=False,
+        include_matrix=True,
         robots="noindex, follow",
     )
 
@@ -2562,7 +2572,7 @@ def generate_ads_index_page(data: dict, lang: str, output_dir: str) -> str:
         body_content=body,
         og_type="website",
         active_page="",
-        include_matrix=False,
+        include_matrix=True,
         robots="noindex, follow",
     )
 
@@ -2713,7 +2723,7 @@ def generate_404_page(lang: str, output_dir: str) -> str:
         body_content=body,
         og_type="website",
         active_page="",
-        include_matrix=False,
+        include_matrix=True,
         robots="noindex, nofollow",
     )
 

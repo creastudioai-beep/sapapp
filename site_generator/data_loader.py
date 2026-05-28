@@ -899,6 +899,116 @@ def _validate_and_normalize_posts(posts: list) -> list:
 # ===========================================================================
 
 
+def _normalize_blog_posts(raw_posts: list) -> list:
+    """Normalize blog posts from blog_posts.json (Blogger format).
+
+    The blog_posts.json format uses:
+        - id: "tag:blogger.com,1999:blog-XXX.post-YYY" (Blogger post ID)
+        - title: post title
+        - slug: URL-friendly slug from Blogger
+        - content_html: HTML content of the post
+        - content_text: plain text content
+        - published: ISO date string
+        - updated: ISO date string
+        - thumbnail: thumbnail image URL
+        - images: list of image URLs
+        - description: short description/excerpt
+        - tags: list of tags
+        - categories: list of categories
+        - author: dict with name and url
+        - seo: dict with headline, description, etc.
+        - json_ld: Schema.org JSON-LD dict
+
+    This function converts to the internal articles format:
+        - id: string (slug for URL)
+        - slug: URL-friendly slug
+        - title: post title
+        - content: HTML content
+        - text: plain text content
+        - date: ISO date string (published)
+        - media: list of {"type": "photo", "directUrl": "...", "url": "..."}
+        - thumbnail: thumbnail URL
+        - description: short description
+        - hashtags: list of tags (from tags/categories)
+        - author: author name
+    """
+    normalized = []
+    for post in raw_posts:
+        if not isinstance(post, dict):
+            continue
+
+        # Use slug as ID for URL routing
+        slug = post.get("slug", "")
+        if not slug:
+            # Generate slug from title
+            title = post.get("title", "")
+            slug = _generate_slug(title, abs(hash(title)) % 100000)
+
+        # Build media list from images
+        media_list = []
+        thumbnail = post.get("thumbnail", "")
+        # Add thumbnail as first image if available
+        if thumbnail and isinstance(thumbnail, str):
+            media_list.append({"type": "photo", "directUrl": thumbnail, "url": thumbnail})
+        # Add other images
+        for img_url in post.get("images", []):
+            if isinstance(img_url, str) and img_url != thumbnail:
+                media_list.append({"type": "photo", "directUrl": img_url, "url": img_url})
+
+        # Extract hashtags from tags and categories
+        hashtags = []
+        for tag in post.get("tags", []):
+            tag_str = str(tag).strip()
+            if tag_str and not tag_str.startswith("#"):
+                hashtags.append(f"#{tag_str}")
+            elif tag_str:
+                hashtags.append(tag_str)
+        for cat in post.get("categories", []):
+            cat_str = str(cat).strip()
+            if cat_str and not cat_str.startswith("#"):
+                hashtags.append(f"#{cat_str}")
+            elif cat_str:
+                hashtags.append(cat_str)
+
+        # Get author name
+        author_data = post.get("author", {})
+        author_name = ""
+        if isinstance(author_data, dict):
+            author_name = author_data.get("name", "")
+        elif isinstance(author_data, str):
+            author_name = author_data
+
+        # Get description
+        description = post.get("description", "") or post.get("content_text", "")[:200] or ""
+
+        # Build the normalized article
+        normalized_article = {
+            "id": slug,  # Use slug as the article ID for URL routing
+            "slug": slug,
+            "title": post.get("title", ""),
+            "content": post.get("content_html", ""),
+            "text": post.get("content_text", ""),
+            "textWithHashtags": post.get("content_text", ""),
+            "date": post.get("published", ""),
+            "updated": post.get("updated", ""),
+            "media": media_list,
+            "thumbnail": thumbnail,
+            "description": description,
+            "hashtags": hashtags,
+            "author": author_name,
+            "url": post.get("url", ""),
+            "original_url": post.get("original_url", ""),
+            "seo": post.get("seo", {}),
+            "json_ld": post.get("json_ld", {}),
+            "word_count": post.get("word_count", 0),
+            "image_count": post.get("image_count", 0),
+        }
+
+        normalized.append(normalized_article)
+
+    return normalized
+
+
 def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     """Load all data from LOCAL files only.
 
@@ -1074,17 +1184,52 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     logger.info("Built related_posts: %d entries", len(result["related_posts"]))
 
     # ------------------------------------------------------------------
+    # Load blog articles from blog_posts.json (from Blogger via newblosap repo)
+    # ------------------------------------------------------------------
+    blog_posts_path = os.path.join(data_dir, "blog_posts.json")
+    all_articles = []
+
+    if os.path.isfile(blog_posts_path):
+        raw_blog = _load_local_json(blog_posts_path)
+        if isinstance(raw_blog, dict) and "posts" in raw_blog:
+            all_articles = _normalize_blog_posts(raw_blog["posts"])
+            logger.info("Loaded %d articles from %s", len(all_articles), blog_posts_path)
+        elif isinstance(raw_blog, list):
+            all_articles = _normalize_blog_posts(raw_blog)
+            logger.info("Loaded %d articles from %s", len(all_articles), blog_posts_path)
+        else:
+            logger.warning("blog_posts.json format not recognized at %s", blog_posts_path)
+    else:
+        logger.info("No blog_posts.json found at %s — articles page will be empty", blog_posts_path)
+
+    # Sort articles by date (newest first)
+    all_articles = _sort_posts_by_date(all_articles)
+    result["articles"] = all_articles
+    logger.info("Loaded %d articles (sorted by date, newest first)", len(all_articles))
+
+    # Build article_map for O(1) lookups
+    article_map = {}
+    for art in all_articles:
+        art_slug = art.get("slug", "")
+        art_id = art.get("id", "")
+        if art_slug:
+            article_map[art_slug] = art
+        if art_id:
+            article_map[str(art_id)] = art
+    result["article_map"] = article_map
+
+    # ------------------------------------------------------------------
     # Empty defaults for keys that were previously from pipeline
     # ------------------------------------------------------------------
-    result["articles"] = []
     result["seo_posts"] = {}
     result["seo_articles"] = {}
     result["schema_posts"] = {}
     result["schema_articles"] = {}
 
     logger.info(
-        "Data loading complete: %d posts, %d products, %d admitad programs",
+        "Data loading complete: %d posts, %d articles, %d products, %d admitad programs",
         len(result["posts"]),
+        len(result.get("articles", [])),
         len(result.get("products", [])),
         len(result.get("admitad_programs", [])),
     )

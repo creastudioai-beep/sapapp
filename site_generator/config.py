@@ -598,6 +598,10 @@ COPYRIGHT_EN: str = f"© {CURRENT_YEAR} {SITE_NAME_EN}"
 CACHED_POSTS_URL: str = "https://raw.githubusercontent.com/creastudioai-beep/sap/refs/heads/main/data/cached_posts.json"
 CACHED_POSTS_LOCAL_PATH: str = "data/cached_posts.json"
 
+# Blog articles data source — from Blogger via newblosap repo
+BLOG_POSTS_URL: str = "https://raw.githubusercontent.com/creastudioai-beep/newblosap/main/blog_posts.json"
+BLOG_POSTS_LOCAL_PATH: str = "data/blog_posts.json"
+
 # Telegram parser settings (kept for backward compatibility, but no longer used)
 TELEGRAM_PARSER_CHANNEL: str = CHANNEL_USERNAME
 TELEGRAM_PARSER_FULL_LIMIT: int = 15000  # Max posts for full daily parse

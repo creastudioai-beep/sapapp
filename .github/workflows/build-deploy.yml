@@ -90,6 +90,17 @@ jobs:
             exit 1
           fi
 
+      - name: Download blog articles
+        run: |
+          echo "=== Downloading latest blog_posts.json ==="
+          curl -sL "https://raw.githubusercontent.com/creastudioai-beep/newblosap/main/blog_posts.json" \
+            -o data/blog_posts.json
+          ARTICLE_COUNT=$(python3 -c "import json; data=json.load(open('data/blog_posts.json')); posts=data.get('posts',data); print(len(posts) if isinstance(posts,list) else 0)" 2>/dev/null || echo "0")
+          echo "Downloaded blog_posts.json with ${ARTICLE_COUNT} articles"
+          if [ "$ARTICLE_COUNT" -eq "0" ]; then
+            echo "WARNING: blog_posts.json is empty or failed to download — articles page will be empty"
+          fi
+
       - name: Clean old build output
         run: |
           echo "=== Cleaning output directory ==="
