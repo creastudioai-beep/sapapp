@@ -99,7 +99,8 @@ def _generate_slug(title: str, post_id: int) -> str:
     """Generate a URL-safe slug from a post title.
 
     Transliterates Russian characters to Latin, removes special characters,
-    and appends the post ID for uniqueness.
+    and appends the post ID for uniqueness. Avoids duplicate ID patterns
+    like "post-87923-87923" when the title itself contains the post ID.
 
     Args:
         title: Post title text.
@@ -138,6 +139,12 @@ def _generate_slug(title: str, post_id: int) -> str:
     # If slug is empty after cleaning, use post_id
     if not slug:
         return str(post_id)
+
+    # Check if slug already ends with the post ID (e.g. "post-87923")
+    # to avoid duplication like "post-87923-87923"
+    post_id_str = str(post_id)
+    if slug.endswith(f"-{post_id_str}") or slug == post_id_str:
+        return slug
 
     # Append post ID for guaranteed uniqueness
     return f"{slug}-{post_id}"
