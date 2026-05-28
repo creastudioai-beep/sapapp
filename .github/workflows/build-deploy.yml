@@ -101,6 +101,17 @@ jobs:
             echo "WARNING: blog_posts.json is empty or failed to download — articles page will be empty"
           fi
 
+      - name: Download latest products
+        run: |
+          echo "=== Downloading latest products.json from zap.online ==="
+          curl -sL "https://raw.githubusercontent.com/creastudioai-beep/zap.online/main/products.json" \
+            -o data/products.json
+          PRODUCT_COUNT=$(python3 -c "import json; data=json.load(open('data/products.json')); print(len(data) if isinstance(data,list) else len(data.get('products',data.get('items',[]))))" 2>/dev/null || echo "0")
+          echo "Downloaded products.json with ${PRODUCT_COUNT} products"
+          if [ "$PRODUCT_COUNT" -eq "0" ]; then
+            echo "WARNING: products.json download failed or empty — keeping existing data"
+          fi
+
       - name: Clean old build output
         run: |
           echo "=== Cleaning output directory ==="
