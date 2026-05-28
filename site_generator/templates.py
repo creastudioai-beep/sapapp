@@ -1088,8 +1088,8 @@ mctx.fillStyle=dk?"rgba(15,17,21,0.05)":"rgba(244,244,245,0.05)";
 mctx.fillRect(0,0,c.width,c.height);
 for(var j=0;j<drops.length;j++){{
 var t=kw[Math.floor(Math.random()*kw.length)];var r=Math.random();
-if(r>0.95){{mctx.shadowBlur=30;mctx.shadowColor=dk?"#FFFFFF":"#2481CC";mctx.fillStyle=dk?"#FFFFFF":"#2481CC";mctx.font="bold 16px monospace";}}
-else if(r>0.8){{mctx.shadowBlur=20;mctx.shadowColor=dk?"#CCCCCC":"#1D6FAD";mctx.fillStyle=dk?"#E0E0E0":"#2AABEE";mctx.font="bold 14px monospace";}}
+if(r>0.95){{mctx.shadowBlur=30;mctx.shadowColor="#FFFFFF";mctx.fillStyle="#FFFFFF";mctx.font="bold 16px monospace";}}
+else if(r>0.8){{mctx.shadowBlur=20;mctx.shadowColor=dk?"#CCCCCC":"#BBBBBB";mctx.fillStyle=dk?"#E0E0E0":"#CCCCCC";mctx.font="bold 14px monospace";}}
 else{{mctx.shadowBlur=6;mctx.shadowColor=dk?"#666666":"#999999";mctx.fillStyle=dk?"#707070":"#AAAAAA";mctx.font="12px monospace";}}
 mctx.fillText(t,j*colW,drops[j]*colW);mctx.shadowBlur=0;
 if(drops[j]*colW>c.height&&Math.random()>0.97){{drops[j]=0;}}drops[j]+=0.3+Math.random()*0.4;}}
