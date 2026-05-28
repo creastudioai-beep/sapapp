@@ -169,18 +169,18 @@ def _get_current_year() -> int:
 # Helper: post URL builder
 # =============================================================================
 
-def _post_url(post_id, lang="ru") -> str:
+def _post_url(post_id_or_slug, lang="ru") -> str:
     """Build canonical post URL."""
     if lang == "en":
-        return f"{SITE_URL}/en/post/{post_id}"
-    return f"{SITE_URL}/post/{post_id}"
+        return f"{SITE_URL}/en/post/{post_id_or_slug}"
+    return f"{SITE_URL}/post/{post_id_or_slug}"
 
 
-def _amp_url(post_id, lang="ru") -> str:
+def _amp_url(post_id_or_slug, lang="ru") -> str:
     """Build AMP post URL."""
     if lang == "en":
-        return f"{SITE_URL}/en/post/{post_id}/amp"
-    return f"{SITE_URL}/post/{post_id}/amp"
+        return f"{SITE_URL}/en/post/{post_id_or_slug}/amp"
+    return f"{SITE_URL}/post/{post_id_or_slug}/amp"
 
 
 def _article_url(article_id, lang="ru") -> str:
@@ -713,7 +713,7 @@ def generate_item_list_schema(posts: list, lang: str = "ru") -> str:
             {
                 "@type": "ListItem",
                 "position": index + 1,
-                "url": post.get("postUrlEn" if lang == "en" else "postUrl", _post_url(post.get("id", ""), lang)),
+                "url": post.get("postUrlEn" if lang == "en" else "postUrl", _post_url(post.get("slug") or post.get("id", ""), lang)),
                 "name": post.get("title", ""),
             }
             for index, post in enumerate(posts[:POSTS_PER_PAGE])
@@ -1143,10 +1143,10 @@ def generate_posts_sitemap(posts: list, page_num: int, lang: str = "ru") -> str:
     urls = []
     for post in posts:
         post_id = post.get("id", "")
-        post_url = post.get("postUrl") or _post_url(post_id, "ru")
-        post_url_en = post.get("postUrlEn") or _post_url(post_id, "en")
-        amp_url = post.get("ampUrl") or _amp_url(post_id, "ru")
-        amp_url_en = post.get("ampUrlEn") or _amp_url(post_id, "en")
+        post_url = post.get("postUrl") or _post_url(post.get("slug") or post_id, "ru")
+        post_url_en = post.get("postUrlEn") or _post_url(post.get("slug") or post_id, "en")
+        amp_url = post.get("ampUrl") or _amp_url(post.get("slug") or post_id, "ru")
+        amp_url_en = post.get("ampUrlEn") or _amp_url(post.get("slug") or post_id, "en")
 
         # Date
         try:
@@ -1238,8 +1238,8 @@ def generate_language_sitemap(posts: list, lang: str = "ru") -> str:
     # Post URLs
     for post in sitemap_posts:
         post_id = post.get("id", "")
-        post_url = post.get("postUrl" if lang == "ru" else "postUrlEn") or _post_url(post_id, lang)
-        amp_url = post.get("ampUrl" if lang == "ru" else "ampUrlEn") or _amp_url(post_id, lang)
+        post_url = post.get("postUrl" if lang == "ru" else "postUrlEn") or _post_url(post.get("slug") or post_id, lang)
+        amp_url = post.get("ampUrl" if lang == "ru" else "ampUrlEn") or _amp_url(post.get("slug") or post_id, lang)
 
         try:
             post_date = datetime.fromisoformat(str(post.get("date", ""))).strftime("%Y-%m-%d")
@@ -1309,7 +1309,7 @@ def generate_news_sitemap(posts: list, lang: str = "ru") -> str:
         except (ValueError, TypeError):
             post_date = now
 
-        post_url = post.get("postUrl") or _post_url(post.get("id", ""), "ru")
+        post_url = post.get("postUrl") or _post_url(post.get("slug") or post.get("id", ""), "ru")
         urls.append(
             f"<url>\n"
             f"<loc>{escape_xml(post_url)}</loc>\n"
@@ -1372,8 +1372,8 @@ def generate_amp_sitemap(posts: list, lang: str = "ru") -> str:
     # AMP post URLs
     for post in sitemap_posts:
         post_id = post.get("id", "")
-        amp_url = post.get("ampUrl") or _amp_url(post_id, "ru")
-        amp_url_en = post.get("ampUrlEn") or _amp_url(post_id, "en")
+        amp_url = post.get("ampUrl") or _amp_url(post.get("slug") or post_id, "ru")
+        amp_url_en = post.get("ampUrlEn") or _amp_url(post.get("slug") or post_id, "en")
 
         try:
             post_date = datetime.fromisoformat(str(post.get("date", ""))).strftime("%Y-%m-%d")
@@ -1831,7 +1831,7 @@ def generate_rss_feed(posts: list, articles: list, lang: str = "ru") -> str:
         else:
             category_tags = ""
 
-        post_url = escape_xml(post.get("postUrl") or _post_url(post.get("id", ""), lang))
+        post_url = escape_xml(post.get("postUrl") or _post_url(post.get("slug") or post.get("id", ""), lang))
         try:
             pub_date = datetime.fromisoformat(str(post.get("date", ""))).strftime("%a, %d %b %Y %H:%M:%S +0000")
         except (ValueError, TypeError):
@@ -2138,6 +2138,7 @@ def generate_scripts_js() -> str:
     var idx = window._searchIndex;
     var inverted = idx.i || {{}};
     var titles = idx.t || {{}};
+    var slugs = idx.s || {{}};
     var scoreMap = {{}};
     for (var ti = 0; ti < tokens.length; ti++) {{
       var ids = inverted[tokens[ti]];
@@ -2152,7 +2153,8 @@ def generate_scripts_js() -> str:
     if (sorted.length > 0) {{
       var html = "";
       sorted.forEach(function(pid) {{
-        var postUrl = basePath + "/post/" + pid;
+        var slug = slugs[pid] || slugs[String(pid)] || pid;
+        var postUrl = basePath + "/post/" + slug;
         var title = titles[pid] || titles[String(pid)] || "";
         html += '<a href="' + postUrl + '" class="search-result-item">';
         html += '<div class="search-result-title">' + escapeHTML(title) + '</div>';
@@ -2224,25 +2226,26 @@ def generate_scripts_js() -> str:
       var drops = [];
       for (var mi = 0; mi < cols; mi++) {{ drops[mi] = Math.random() * -100; }}
       function drawMatrix() {{
-        mctx.fillStyle = "rgba(15, 17, 21, 0.05)";
+        var isDark = document.documentElement.getAttribute("data-theme") !== "light";
+        mctx.fillStyle = isDark ? "rgba(15, 17, 21, 0.05)" : "rgba(244, 244, 245, 0.05)";
         mctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
         for (var mj = 0; mj < drops.length; mj++) {{
           var t = matrixKeywords[Math.floor(Math.random() * matrixKeywords.length)];
           var r = Math.random();
           if (r > 0.95) {{
             mctx.shadowBlur = 30;
-            mctx.shadowColor = "#FFFFFF";
-            mctx.fillStyle = "#FFFFFF";
+            mctx.shadowColor = isDark ? "#FFFFFF" : "#2481CC";
+            mctx.fillStyle = isDark ? "#FFFFFF" : "#2481CC";
             mctx.font = "bold 18px monospace";
           }} else if (r > 0.8) {{
             mctx.shadowBlur = 20;
-            mctx.shadowColor = "#CCCCCC";
-            mctx.fillStyle = "#E0E0E0";
+            mctx.shadowColor = isDark ? "#CCCCCC" : "#1D6FAD";
+            mctx.fillStyle = isDark ? "#E0E0E0" : "#2AABEE";
             mctx.font = "bold 16px monospace";
           }} else {{
             mctx.shadowBlur = 6;
-            mctx.shadowColor = "#666666";
-            mctx.fillStyle = "#707070";
+            mctx.shadowColor = isDark ? "#666666" : "#999999";
+            mctx.fillStyle = isDark ? "#707070" : "#AAAAAA";
             mctx.font = "12px monospace";
           }}
           mctx.fillText(t, mj * 22, drops[mj] * 22);

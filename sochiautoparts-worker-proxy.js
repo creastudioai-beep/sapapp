@@ -1,5 +1,5 @@
 /**
- * SochiAutoParts Cloudflare Worker v12.0
+ * SochiAutoParts Cloudflare Worker v13.0
  *
  * Proxies sochiautoparts.ru → GitHub Pages static site.
  * Handles regional filtering for Admitad partner programs.
@@ -74,7 +74,7 @@ const PRODUCTS_CACHE_TTL = 3600000; // 1 hour in ms
 let productIndexCache = null;
 let productIndexCacheTime = 0;
 
-const USER_AGENT = 'SochiAutoParts-Worker/12.0';
+const USER_AGENT = 'SochiAutoParts-Worker/13.0';
 
 const ALLOWED_ORIGINS = [
   'https://sochiautoparts.ru',
@@ -151,6 +151,15 @@ export default {
     const shopProductMatch = path.match(/^\/shop\/([a-zA-Z0-9_-]+)$/);
     if (shopProductMatch) {
       path = `/shop/${shopProductMatch[1]}/index.html`;
+    }
+
+    // --- Post page: /post/{slug} → proxy to GitHub Pages /post/{slug}.html ---
+    // Slug-based URLs (e.g. /post/toyota-corolla-2024-87923) are served
+    // from /post/{slug}.html on GitHub Pages. The static site generator
+    // also creates redirect files at /post/{id}.html for backward compat.
+    const postMatch = path.match(/^\/post\/([a-zA-Z0-9_-]+)$/);
+    if (postMatch) {
+      path = `/post/${postMatch[1]}.html`;
     }
 
     // --- RSS compatibility: /feed.xml → serve /rss.xml ---

@@ -124,6 +124,7 @@ from .templates import (
 from .css import CSS_STYLES, AMP_CSS
 from .data_loader import (
     get_post_by_id,
+    get_post_by_slug,
     get_posts_by_tag,
     get_related_posts,
     get_popular_tags,
@@ -247,6 +248,7 @@ def _build_page(
     extra_schema: str = "",
     active_page: str = "",
     post_id: Optional[int] = None,
+    post_slug: Optional[str] = None,
     article_id: Optional[int] = None,
     tag: Optional[str] = None,
     robots: str = "index, follow, max-image-preview:large",
@@ -336,7 +338,8 @@ def _build_page(
     # AMP link for post pages
     amp_link = ""
     if post_id:
-        amp_link = f'<link rel="amphtml" href="{_lang_path(lang)}/post/{post_id}/amp" />'
+        _amp_slug = post_slug or str(post_id)
+        amp_link = f'<link rel="amphtml" href="{_lang_path(lang)}/post/{_amp_slug}/amp" />'
 
     # Preconnect hints for performance (matching production site)
     preconnect_hints = (
@@ -361,6 +364,7 @@ def _build_page(
 <link rel="apple-touch-icon" href="{_bp('/logo.jpg')}" />
 <link rel="manifest" href="{_bp('/manifest.json')}" />
 <meta name="theme-color" content="#2481CC" />
+<script>try{{var _t=localStorage.getItem("theme")||"dark";document.documentElement.setAttribute("data-theme",_t)}}catch(e){{}}</script>
 {preconnect_hints}
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/style.css" />
@@ -493,9 +497,15 @@ def generate_all_pages(data: dict, output_dir: str):
         post_id = post.get("id")
         if post_id is None:
             continue
+        post_slug = post.get("slug", str(post_id))
         lang = "ru"
         html = generate_post_page(data, post_id, lang, output_dir)
-        _write_file(os.path.join(output_dir, "post", f"{post_id}.html"), html)
+        _write_file(os.path.join(output_dir, "post", f"{post_slug}.html"), html)
+
+        # Generate redirect from old numeric URL to new slug URL
+        if post_slug != str(post_id):
+            redirect_html = f'<!DOCTYPE html><html><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0;url={_bp("/post")}/{post_slug}"><link rel="canonical" href="{SITE_URL}/post/{post_slug}"><title>Redirect</title></head><body></body></html>'
+            _write_file(os.path.join(output_dir, "post", f"{post_id}.html"), redirect_html)
 
         # AMP version (optional — skipped by default for size)
         if GENERATE_AMP:
@@ -900,14 +910,15 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
     seo_data = seo_posts.get(str(post_id), seo_posts.get(post_id, {}))
 
     # Build URLs - canonical/OG use absolute (SITE_URL), content links use relative (with BASE_PATH)
+    post_slug = post.get("slug", str(post_id))
     if lang == "en":
-        canonical_url = f"{SITE_URL}/en/post/{post_id}"
-        post_url_rel = f"{_lang_path(lang)}/post/{post_id}"
-        amp_url_rel = f"{_lang_path(lang)}/post/{post_id}/amp"
+        canonical_url = f"{SITE_URL}/en/post/{post_slug}"
+        post_url_rel = f"{_lang_path(lang)}/post/{post_slug}"
+        amp_url_rel = f"{_lang_path(lang)}/post/{post_slug}/amp"
     else:
-        canonical_url = f"{SITE_URL}/post/{post_id}"
-        post_url_rel = f"{_lang_path(lang)}/post/{post_id}"
-        amp_url_rel = f"{_lang_path(lang)}/post/{post_id}/amp"
+        canonical_url = f"{SITE_URL}/post/{post_slug}"
+        post_url_rel = f"{_lang_path(lang)}/post/{post_slug}"
+        amp_url_rel = f"{_lang_path(lang)}/post/{post_slug}/amp"
 
     # Title and description - use per-post SEO data when available
     title = post.get("title", "")
@@ -978,7 +989,7 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
     # No static product list needed (saves ~13KB per post page)
     shop_widget = ""
     if FEATURE_SHOP_ENABLED:
-        shop_widget = render_shop_widget([], lang, count=6)
+        shop_widget = render_shop_widget([], lang, count=20)
 
     # Tags
     hashtags = post.get("hashtags", [])
@@ -1027,7 +1038,7 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
         title=page_title,
         description=description[:200],
         url=canonical_url,
-        path=f"/post/{post_id}" if lang == "ru" else f"/en/post/{post_id}",
+        path=f"/post/{post_slug}" if lang == "ru" else f"/en/post/{post_slug}",
         body_content=body,
         og_type="article",
         image=og_image,
@@ -1038,6 +1049,7 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
         extra_schema=[news_schema, breadcrumb_schema],
         active_page="home",
         post_id=post_id,
+        post_slug=post_slug,
         include_matrix=False,
     )
 
@@ -1065,12 +1077,13 @@ def generate_amp_post_page(data: dict, post_id: int, lang: str, output_dir: str)
     seo_posts = data.get("seo_posts", {})
     seo_data = seo_posts.get(str(post_id), seo_posts.get(post_id, {}))
 
+    post_slug = post.get("slug", str(post_id))
     if lang == "en":
-        post_url = f"{SITE_URL}/en/post/{post_id}"
-        canonical_url = f"{SITE_URL}/en/post/{post_id}"
+        post_url = f"{SITE_URL}/en/post/{post_slug}"
+        canonical_url = f"{SITE_URL}/en/post/{post_slug}"
     else:
-        post_url = f"{SITE_URL}/post/{post_id}"
-        canonical_url = f"{SITE_URL}/post/{post_id}"
+        post_url = f"{SITE_URL}/post/{post_slug}"
+        canonical_url = f"{SITE_URL}/post/{post_slug}"
 
     title = post.get("title", "")
     description = seo_data.get("description", "") or (SITE_DESCRIPTION_RU if lang == "ru" else SITE_DESCRIPTION_EN)
@@ -2569,7 +2582,7 @@ def generate_amp_homepage(data: dict, lang: str, output_dir: str) -> str:
     for post in page_posts:
         post_id = post.get("id", 0)
         title = post.get("title", "")
-        post_url = f"{_lang_path(lang)}/post/{post_id}"
+        post_url = f"{_lang_path(lang)}/post/{post.get('slug', post_id)}"
         text = (post.get("text") or "")[:200]
         date_display = _format_date_display(post.get("date", ""), lang)
 
@@ -2890,7 +2903,7 @@ def generate_search_index(data: dict, output_dir: str):
 
     Creates an inverted index (token -> list of post IDs) limited to the
     top 2000 most frequent tokens with at most 20 post IDs per token.
-    Also includes a title lookup table for displaying search results.
+    Also includes a title lookup table and slug map for slug-based URLs.
 
     The output file is placed at output/search-index.json so it can be
     loaded by the client-side JavaScript search in get_common_client_scripts().
@@ -2901,30 +2914,52 @@ def generate_search_index(data: dict, output_dir: str):
     """
     import json as _json
 
-    search_index_data = data.get("search_index", [])
-    if not search_index_data or not isinstance(search_index_data, list):
+    # data_loader returns search_index as dict: token -> {post_id: count}
+    search_index_dict = data.get("search_index", {})
+    posts = data.get("posts", [])
+
+    if not search_index_dict or not isinstance(search_index_dict, dict):
         # Try loading from cache file
         cache_path = os.path.join("data", "search-index.json")
         if os.path.isfile(cache_path):
             try:
                 with open(cache_path, "r", encoding="utf-8") as fh:
-                    search_index_data = _json.load(fh)
+                    cached = _json.load(fh)
+                    if isinstance(cached, dict) and "i" in cached:
+                        # Already in compact format — just copy
+                        out_path = os.path.join(output_dir, "search-index.json")
+                        _write_file(out_path, _json.dumps(cached, ensure_ascii=True))
+                        logger.info("Copied cached search-index.json")
+                        return
+                    elif isinstance(cached, dict):
+                        search_index_dict = cached
             except (json.JSONDecodeError, OSError):
                 pass
 
-    if not search_index_data or not isinstance(search_index_data, list):
+    if not search_index_dict:
         logger.warning("No search index data available — skipping search-index.json generation")
         return
 
-    # Count token frequencies
-    token_counts: dict[str, int] = {}
-    for item in search_index_data:
-        if not isinstance(item, dict):
+    # Build title lookup and slug map from posts
+    titles: dict[str, str] = {}
+    slug_map: dict[str, str] = {}
+    for post in posts:
+        if not isinstance(post, dict):
             continue
-        for t in item.get("tokens", []):
-            t = t.lower()
-            if len(t) >= 3:
-                token_counts[t] = token_counts.get(t, 0) + 1
+        pid = post.get("id")
+        if pid is not None:
+            titles[str(pid)] = (post.get("title", "") or "")[:50]
+            slug = post.get("slug")
+            if slug:
+                slug_map[str(pid)] = slug
+
+    # Count token frequencies (sum of all post counts per token)
+    token_counts: dict[str, int] = {}
+    for token, post_dict in search_index_dict.items():
+        if isinstance(post_dict, dict):
+            token_counts[token] = sum(post_dict.values())
+        elif isinstance(post_dict, list):
+            token_counts[token] = len(post_dict)
 
     # Keep top 2000 tokens
     top_tokens = sorted(token_counts.items(), key=lambda x: -x[1])[:2000]
@@ -2932,36 +2967,20 @@ def generate_search_index(data: dict, output_dir: str):
 
     # Build inverted index: token -> list of post IDs
     inverted: dict[str, list] = {}
-    for item in search_index_data:
-        if not isinstance(item, dict):
+    for token, post_dict in search_index_dict.items():
+        if token not in top_token_set:
             continue
-        pid = item.get("id")
-        if pid is None:
-            continue
-        for t in item.get("tokens", []):
-            t = t.lower()
-            if t in top_token_set:
-                if t not in inverted:
-                    inverted[t] = []
-                inverted[t].append(pid)
+        if isinstance(post_dict, dict):
+            # Sort by count descending, take top 20
+            sorted_posts = sorted(post_dict.items(), key=lambda x: -x[1])[:20]
+            inverted[token] = [pid for pid, _ in sorted_posts]
+        elif isinstance(post_dict, list):
+            inverted[token] = post_dict[:20]
 
-    # Deduplicate and limit IDs per token
-    for t in inverted:
-        inverted[t] = list(set(inverted[t]))[:20]
-
-    # Title lookup for search results: post_id -> title (truncated)
-    titles: dict[str, str] = {}
-    for item in search_index_data:
-        if not isinstance(item, dict):
-            continue
-        pid = item.get("id")
-        if pid is not None:
-            titles[str(pid)] = (item.get("title", "") or "")[:50]
-
-    compact = {"i": inverted, "t": titles}
+    compact = {"i": inverted, "t": titles, "s": slug_map}
     out_path = os.path.join(output_dir, "search-index.json")
     _write_file(out_path, _json.dumps(compact, ensure_ascii=True))
 
     size_kb = os.path.getsize(out_path) / 1024
-    logger.info("Generated compact search-index.json (%d tokens, %d titles, %.0f KB)",
-                len(inverted), len(titles), size_kb)
+    logger.info("Generated compact search-index.json (%d tokens, %d titles, %d slugs, %.0f KB)",
+                len(inverted), len(titles), len(slug_map), size_kb)

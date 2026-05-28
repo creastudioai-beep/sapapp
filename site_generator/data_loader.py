@@ -85,6 +85,64 @@ if not logger.handlers:
 # Local file paths (relative to data_dir)
 # ---------------------------------------------------------------------------
 
+# Cyrillic-to-Latin transliteration table for slug generation
+_CYRILLIC_TO_LATIN = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
+    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+    'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
+    'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya',
+}
+
+
+def _generate_slug(title: str, post_id: int) -> str:
+    """Generate a URL-safe slug from a post title.
+
+    Transliterates Russian characters to Latin, removes special characters,
+    and appends the post ID for uniqueness.
+
+    Args:
+        title: Post title text.
+        post_id: Numeric post ID for uniqueness.
+
+    Returns:
+        URL-safe slug string (e.g., "toyota-corolla-2024-87923").
+    """
+    if not title:
+        return str(post_id)
+
+    # Lowercase
+    slug = title.lower().strip()
+
+    # Transliterate Cyrillic to Latin
+    result = []
+    for char in slug:
+        if char in _CYRILLIC_TO_LATIN:
+            result.append(_CYRILLIC_TO_LATIN[char])
+        elif char in _CYRILLIC_TO_LATIN.values():
+            result.append(char)
+        elif char.isalnum() and ord(char) < 128:
+            result.append(char)
+        elif char in (' ', '-', '_', '/'):
+            result.append('-')
+        # Skip other characters (emoji, special symbols, etc.)
+
+    slug = ''.join(result)
+
+    # Clean up: remove consecutive hyphens, leading/trailing hyphens
+    slug = re.sub(r'-+', '-', slug).strip('-')
+
+    # Remove leading/trailing whitespace
+    slug = slug.strip()
+
+    # If slug is empty after cleaning, use post_id
+    if not slug:
+        return str(post_id)
+
+    # Append post ID for guaranteed uniqueness
+    return f"{slug}-{post_id}"
+
+
 _PRODUCTS_FILENAME = "products.json"
 _ADMITAD_FILENAME = "admitad_ads.json"
 
@@ -685,6 +743,7 @@ def _normalize_cached_posts(raw_posts: list) -> list:
         # Build the normalized post
         normalized_post = {
             "id": post_id,
+            "slug": _generate_slug(title, post_id),
             "title": title,
             "text": text,
             "textWithHashtags": text,  # Keep original text with hashtags
@@ -976,6 +1035,15 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     result["category_map"] = _build_category_map(result["products"])
     logger.info("Built category_map with %d categories", len(result["category_map"]))
 
+    # Build slug_map for slug-based lookups
+    slug_map = {}
+    for post in result["posts"]:
+        slug = post.get("slug", "")
+        if slug:
+            slug_map[slug] = post
+    result["slug_map"] = slug_map
+    logger.info("Built slug_map with %d entries", len(slug_map))
+
     # ------------------------------------------------------------------
     # Build indexes on the fly from posts (no pipeline dependency)
     # ------------------------------------------------------------------
@@ -1039,6 +1107,20 @@ def get_post_by_id(data: dict, post_id: int) -> Optional[dict]:
         return post_map[int(post_id)]
     except (KeyError, ValueError, TypeError):
         return None
+
+
+def get_post_by_slug(data: dict, slug: str) -> Optional[dict]:
+    """Get post by slug from loaded data.
+
+    Args:
+        data: The data dict returned by load_data().
+        slug: The post slug to look up.
+
+    Returns:
+        The post dict if found, otherwise None.
+    """
+    slug_map = data.get("slug_map", {})
+    return slug_map.get(slug)
 
 
 def get_posts_by_tag(data: dict, tag: str, page: int = 1, per_page: int = 30) -> tuple:

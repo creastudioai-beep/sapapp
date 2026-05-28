@@ -352,7 +352,7 @@ SOCHIAUTOPARTS
 </nav>
 <div class="theme-toggle">
 <button class="theme-btn" data-theme="light" aria-label="Light theme">{SUN_ICON}</button>
-<button class="theme-btn" data-theme="dark" aria-label="Dark theme">{MOON_ICON}</button>
+<button class="theme-btn active" data-theme="dark" aria-label="Dark theme">{MOON_ICON}</button>
 </div>
 </div>
 </div>
@@ -469,6 +469,7 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
     - Action buttons (Read more, In Telegram)
     """
     post_id = post.get("id", 0)
+    post_slug = post.get("slug", str(post_id))
     title = post.get("title", "")
     text = post.get("textWithHashtags") or post.get("text") or ""
     date_str = post.get("date", "")
@@ -484,7 +485,7 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
                 poster = _get_poster_for_post(post)
                 is_logo_fallback = (poster == LOGO_EXTERNAL_URL or poster.endswith("/logo.jpg"))
                 # All video cards link to post page for playback
-                post_link = f"{_bp('/post')}/{post_id}"
+                post_link = f"{_bp('/post')}/{post_slug}"
                 if not is_logo_fallback:
                     # We have a real poster image — show it with play overlay
                     media_block = (
@@ -523,10 +524,10 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
                         f'</div>'
                     )
 
-    # Build URLs (relative paths)
+    # Build URLs (relative paths — use slug)
     post_url = post.get("postUrl", "")
     if not post_url or post_url.startswith("http"):
-        post_url = f"{_bp('/post')}/{post_id}"
+        post_url = f"{_bp('/post')}/{post_slug}"
     else:
         # postUrl may be a relative path without BASE_PATH
         if not post_url.startswith(BASE_PATH):
@@ -534,7 +535,7 @@ def render_post_card(post: dict, lang: str = "ru") -> str:
 
     amp_url = post.get("ampUrl", "")
     if not amp_url or amp_url.startswith("http"):
-        amp_url = f"{_bp('/post')}/{post_id}/amp"
+        amp_url = f"{_bp('/post')}/{post_slug}/amp"
     else:
         if not amp_url.startswith(BASE_PATH):
             amp_url = _bp(amp_url)
@@ -638,9 +639,10 @@ def render_related_posts(posts: list, lang: str = "ru") -> str:
 
     cards_html = ""
     for rp in posts:
+        rp_slug = rp.get("slug", str(rp.get('id', '')))
         rp_url = rp.get("postUrl", "")
         if not rp_url or rp_url.startswith("http"):
-            rp_url = f"{_bp('/post')}/{rp.get('id', '')}"
+            rp_url = f"{_bp('/post')}/{rp_slug}"
         else:
             if not rp_url.startswith(BASE_PATH):
                 rp_url = _bp(rp_url)
@@ -943,7 +945,7 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
 # render_shop_widget
 # =============================================================================
 
-def render_shop_widget(products: list, lang: str = "ru", count: int = 6) -> str:
+def render_shop_widget(products: list, lang: str = "ru", count: int = 20) -> str:
     """Render shop widget placeholder — products are loaded dynamically via JavaScript.
 
     The widget container is rendered server-side but products are fetched
