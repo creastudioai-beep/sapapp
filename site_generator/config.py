@@ -365,30 +365,31 @@ ADMITAD_CONFIG: dict[str, dict[str, str]] = {
 # =============================================================================
 
 NEWS_KEYWORDS: list[str] = [
+    # ── Русские ключевые слова ──
     'автоновости', 'авторынок', 'sochiautoparts', 'тест-драйв', 'обзоры', 'премьеры', 'новинки', 'сравнения', 'электрокары', 'гибриды', 'внедорожники',
     'кроссоверы', 'седаны', 'автопром', 'цены', 'дилеры', 'запчасти', 'тюнинг', 'сервис', 'каршеринг', 'автоподбор',
-    // ── Глобальные автоновости и аналитика ──
+    # ── Глобальные автоновости и аналитика ──
     'global auto news', 'car industry', 'automotive trends', 'world car market', 'auto analytics',
     'car sales statistics', 'auto show', 'motor show', 'geneva motor show', 'frankfurt auto show',
     'detroit auto show', 'shanghai auto show', 'tokyo motor show', 'LA auto show',
     'новости автопрома', 'мировой авторынок', 'глобальные автоновости', 'аналитика авторынка',
     'автосалон', 'автоиндустрия', 'производство автомобилей', 'автомобильный рынок',
-    // ── Электромобили и технологии (Global) ──
+    # ── Электромобили и технологии (Global) ──
     'электромобиль', 'зарядная станция', 'EV', 'PHEV', 'гибридный двигатель', 'автопилот',
     'беспилотное авто', 'автономное вождение', 'умный автомобиль',
     'electric vehicle', 'EV market', 'battery technology', 'charging infrastructure',
     'autonomous driving', 'self-driving car', 'connected car', 'smart mobility',
     'EV range', 'fast charging', 'solid state battery', 'vehicle-to-grid',
-    // ── Типы запчастей и услуг ──
+    # ── Типы запчастей и услуг ──
     'моторное масло', 'шины', 'диски', 'автошины', 'шиномонтаж', 'тормозные колодки', 'фильтры',
     'свечи зажигания', 'амортизаторы', 'аккумуляторы', 'автостекло', 'кузовные запчасти',
     'оригинальные запчасти', 'аналоги запчастей', 'автохимия', 'автокосметика', 'автоаксессуары',
     'auto parts online', 'OEM parts', 'aftermarket parts', 'car accessories',
-    // ── Услуги и сервисы ──
+    # ── Услуги и сервисы ──
     'автострахование', 'ОСАГО', 'КАСКО', 'диагностика авто', 'ТО автомобиля', 'техосмотр',
     'проверка авто', 'автоистория', 'автоподбор специалист', 'автоаукцион', 'trade-in',
     'car insurance', 'vehicle inspection', 'carfax', 'auto auction', 'car loan',
-    // ── Бренды (Global) ──
+    # ── Бренды (Global) ──
     'Toyota', 'BMW', 'Mercedes', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Kia', 'Hyundai', 'Nissan', 'Honda', 'Mazda',
     'Ford', 'Chevrolet', 'Tesla', 'Lexus', 'Porsche', 'Volvo', 'Skoda', 'Renault', 'Peugeot', 'Mitsubishi',
     'Subaru', 'Suzuki', 'Jeep', 'Land Rover', 'Jaguar', 'Mini', 'Cadillac', 'Infiniti', 'Acura', 'Genesis',
@@ -396,7 +397,7 @@ NEWS_KEYWORDS: list[str] = [
     'Lada', 'УАЗ', 'ГАЗ', 'BYD', 'Nio', 'Xpeng', 'Rivian', 'Lucid', 'Lotus', 'Alfa Romeo',
     'Maserati', 'Bentley', 'Rolls-Royce', 'Aston Martin', 'Lamborghini', 'Ferrari', 'McLaren',
     'Fiat', 'Seat', 'Cupra', 'Dacia', 'SsangYong', 'Mahindra', 'Tata', 'Maruti',
-    // ── Модели (Global — США, Европа, Азия) ──
+    # ── Модели (Global — США, Европа, Азия) ──
     'Camry', 'Corolla', 'RAV4', 'Land Cruiser', 'Prado', 'X5', 'X7', 'X3', 'E-Class', 'S-Class',
     'GLC', 'GLE', 'A4', 'A6', 'A8', 'Q5', 'Q7', 'Q3', 'Golf', 'Tiguan',
     'Touareg', 'Passat', 'Polo', 'Rio', 'Solaris', 'Creta', 'Tucson', 'Sportage', 'Sorento', 'Mohave',
@@ -419,9 +420,9 @@ NEWS_KEYWORDS: list[str] = [
     'R1T', 'R1S', 'Air', 'Gravity', 'Stelvio', 'Giulia', 'Tonale',
     'Supra', 'GR86', 'Corvette', 'Camaro', 'GR Yaris', 'Type R', 'GTI', 'RS3', 'M3', 'M4',
     'Range Rover Sport', 'Bentayga', 'Cullinan', 'DBX', 'Urus', 'Purosangue',
-    // ── Масла и техжидкости ──
+    # ── Масла и техжидкости ──
     'Motul', 'Castrol', 'ZIC', 'Lukoil', 'Shell', 'Mobil', 'TotalEnergies', 'Liqui Moly',
-    // ── Шины ──
+    # ── Шины ──
     'Michelin', 'Continental', 'Pirelli', 'Nokian', 'Hankook', 'Kumho', 'Yokohama', 'Bridgestone', 'Dunlop', 'Goodyear'
 ]
 
