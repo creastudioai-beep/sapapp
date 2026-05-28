@@ -82,13 +82,17 @@ STORE_INFO: Dict[int, Dict[str, str]] = {
 # Helper: slug generation
 # =============================================================================
 
-def product_slug(product: Dict) -> str:
+def product_slug(product: Dict, idx: int = 0) -> str:
     """Generate URL-safe slug for a product.
 
-    Uses product ID to ensure uniqueness and avoid encoding issues.
+    Uses product ID (or generated unique ID) to ensure uniqueness.
     Format: {id}-{sanitized-name}
     """
-    pid = product.get("id") or product.get("f") or ""
+    pid = product.get("id") or ""
+    if not pid:
+        # Generate unique ID from feed_id + index to avoid collisions
+        fid = product.get("f", "")
+        pid = f"{fid}-{idx}" if fid else str(idx)
     name = product.get("n") or product.get("name") or ""
     # Sanitize name: keep alphanumeric + hyphens, limit length
     slug_name = re.sub(r"[^\w\-]", "-", name.lower())[:60].strip("-")
@@ -102,11 +106,16 @@ def product_slug(product: Dict) -> str:
 # Expand compressed product keys
 # =============================================================================
 
-def expand_product(p: Dict) -> Dict:
+def expand_product(p: Dict, idx: int = 0) -> Dict:
     """Expand compressed product keys (n->name, p->price, etc.) to full names."""
     store_info = STORE_INFO.get(p.get("f", 0), {})
+    # Generate unique product ID — never use feed_id (f) as product ID
+    product_id = p.get("id")
+    if not product_id:
+        fid = p.get("f", "")
+        product_id = f"{fid}-{idx}" if fid else str(idx)
     return {
-        "id": p.get("f") or p.get("id"),
+        "id": product_id,
         "name": p.get("n") or p.get("name", ""),
         "price": p.get("p") or p.get("price", 0),
         "old_price": p.get("o") or p.get("old_price", 0),
@@ -453,7 +462,7 @@ def generate_all_product_pages(
         return 0
 
     # Expand all products
-    expanded = [expand_product(p) for p in products_data]
+    expanded = [expand_product(p, idx) for idx, p in enumerate(products_data)]
 
     # Index by category for related products
     by_category: Dict[int, List[Dict]] = {}
@@ -514,9 +523,9 @@ def generate_product_sitemap_urls(
 ) -> List[Dict]:
     """Generate sitemap URL entries for all product pages."""
     urls = []
-    for p_raw in products_data:
-        product = expand_product(p_raw)
-        slug = product_slug(product)
+    for idx, p_raw in enumerate(products_data):
+        product = expand_product(p_raw, idx)
+        slug = product_slug(product, idx)
         loc = f"{site_url}/product/{slug}/"
         urls.append({
             "loc": loc,
