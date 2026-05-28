@@ -242,12 +242,18 @@
           var pName = (p.name || '').length > 50 ? p.name.substring(0, 50) + '...' : (p.name || '');
           var pPrice = p.price ? (typeof p.price === 'number' ? p.price.toLocaleString('ru-RU') + ' ₽' : p.price + ' ₽') : '';
           var pImg = p.image || '/logo.jpg';
-          var pLink = p.product_page || (p.id ? '/shop/' + p.id : (p.url || '#'));
-          shopHtml += '<a href="' + pLink + '" class="widget-product">'
+          var pFeed = p.feedName || p.feed_name || '';
+          var pId = p.id || '';
+          var pBuyUrl = pId && pFeed ? '/api/go/' + encodeURIComponent(pFeed) + '/' + encodeURIComponent(pId) : (p.url || '#');
+          var pPageUrl = p.product_page || (pId ? '/shop/' + pId : (p.url || '#'));
+          shopHtml += '<div class="widget-product">'
+            + '<a href="' + pPageUrl + '" style="text-decoration:none;color:inherit;">'
             + '<img src="' + pImg + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='/logo.jpg'">'
             + '<div class="wp-name">' + pName + '</div>'
             + '<div class="wp-price">' + pPrice + '</div>'
-            + '</a>';
+            + '</a>'
+            + '<a href="' + pBuyUrl + '" class="wp-buy-btn" target="_blank" rel="nofollow noopener sponsored">Купить</a>'
+            + '</div>';
         });
         shopGrid.innerHTML = shopHtml;
       })
