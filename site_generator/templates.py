@@ -351,8 +351,8 @@ SOCHIAUTOPARTS
 <button class="lang-btn" data-lang="en" onclick="window.SAPI18n.setLang('en')">EN</button>
 </nav>
 <div class="theme-toggle">
-<button class="theme-btn" data-theme="light" aria-label="Light theme">{SUN_ICON}</button>
-<button class="theme-btn active" data-theme="dark" aria-label="Dark theme">{MOON_ICON}</button>
+<button class="theme-btn" data-theme="light" aria-label="Light theme" onclick="document.documentElement.setAttribute('data-theme','light');localStorage.setItem('theme','light');document.querySelectorAll('.theme-btn').forEach(function(b){{b.classList.remove('active');if(b.dataset.theme==='light')b.classList.add('active');}})">{SUN_ICON}</button>
+<button class="theme-btn active" data-theme="dark" aria-label="Dark theme" onclick="document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('theme','dark');document.querySelectorAll('.theme-btn').forEach(function(b){{b.classList.remove('active');if(b.dataset.theme==='dark')b.classList.add('active');}})">{MOON_ICON}</button>
 </div>
 </div>
 </div>
@@ -1057,8 +1057,36 @@ def render_breadcrumbs(items: list, lang: str = "ru") -> str:
 # =============================================================================
 
 def render_matrix_bg() -> str:
-    """Render matrix-bg canvas element for visual effect."""
-    return '<canvas id="matrix-bg"></canvas>'
+    """Render matrix-bg canvas element with inline initialization script.
+
+    The animation is started inline (not from scripts.js) to ensure it
+    always works regardless of external script loading order or Cloudflare
+    Rocket Loader interference.
+    """
+    return '''<canvas id="matrix-bg"></canvas>
+<script data-cfasync="false">
+(function(){
+var c=document.getElementById("matrix-bg");if(!c)return;
+c.width=window.innerWidth;c.height=window.innerHeight;
+var mctx=c.getContext("2d");
+var kw=["#автозапчасти","#сочи","#запчастисочи","#авто","#автоновости","#autonews","#cars","#sochi","#автомобиль","#машина","#двигатель","#тормоза","#подвеска","#масло","#фильтр","#шиномонтаж","#кузов","#электрика","#рейтинг","#обзор"];
+var cols=Math.floor(c.width/22);var drops=[];for(var i=0;i<cols;i++){drops[i]=Math.random()*-100;}
+function draw(){
+var dk=document.documentElement.getAttribute("data-theme")!=="light";
+mctx.fillStyle=dk?"rgba(15,17,21,0.05)":"rgba(244,244,245,0.05)";
+mctx.fillRect(0,0,c.width,c.height);
+for(var j=0;j<drops.length;j++){
+var t=kw[Math.floor(Math.random()*kw.length)];var r=Math.random();
+if(r>0.95){mctx.shadowBlur=30;mctx.shadowColor=dk?"#FFFFFF":"#2481CC";mctx.fillStyle=dk?"#FFFFFF":"#2481CC";mctx.font="bold 18px monospace";}
+else if(r>0.8){mctx.shadowBlur=20;mctx.shadowColor=dk?"#CCCCCC":"#1D6FAD";mctx.fillStyle=dk?"#E0E0E0":"#2AABEE";mctx.font="bold 16px monospace";}
+else{mctx.shadowBlur=6;mctx.shadowColor=dk?"#666666":"#999999";mctx.fillStyle=dk?"#707070":"#AAAAAA";mctx.font="12px monospace";}
+mctx.fillText(t,j*22,drops[j]*22);mctx.shadowBlur=0;
+if(drops[j]*22>c.height&&Math.random()>0.97){drops[j]=0;}drops[j]+=0.25+Math.random()*0.3;}
+}
+setInterval(draw,50);
+window.addEventListener("resize",function(){c.width=window.innerWidth;c.height=window.innerHeight;cols=Math.floor(c.width/22);drops=[];for(var i=0;i<cols;i++){drops[i]=Math.random()*-100;}});
+})();
+</script>'''
 
 
 # =============================================================================
