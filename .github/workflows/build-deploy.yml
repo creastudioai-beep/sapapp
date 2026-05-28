@@ -112,6 +112,17 @@ jobs:
             echo "WARNING: products.json download failed or empty — keeping existing data"
           fi
 
+      - name: Download latest admitad ads
+        run: |
+          echo "=== Downloading latest admitad_ads.json from pr repo ==="
+          curl -sL "https://raw.githubusercontent.com/creastudioai-beep/pr/main/data/admitad_ads.json" \
+            -o data/admitad_ads.json
+          ADMITAD_COUNT=$(python3 -c "import json; data=json.load(open('data/admitad_ads.json')); programs=data.get('programs',[]); print(len(programs) if isinstance(programs,list) else 0)" 2>/dev/null || echo "0")
+          echo "Downloaded admitad_ads.json with ${ADMITAD_COUNT} programs"
+          if [ "$ADMITAD_COUNT" -eq "0" ]; then
+            echo "WARNING: admitad_ads.json download failed or empty — keeping existing data"
+          fi
+
       - name: Clean old build output
         run: |
           echo "=== Cleaning output directory ==="
