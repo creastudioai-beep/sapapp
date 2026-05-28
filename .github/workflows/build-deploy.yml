@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths-ignore:
       - 'docs/**'
+      - '_site/**'
   workflow_dispatch:
     inputs:
       mode:
@@ -26,8 +27,6 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want these deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -96,12 +95,12 @@ jobs:
 
       - name: Clean old build output
         run: |
-          echo "=== Cleaning docs/ directory to remove stale pages ==="
-          rm -rf docs/
-          echo "docs/ cleaned"
+          echo "=== Cleaning output directory ==="
+          rm -rf _site/
+          echo "Output cleaned"
 
       - name: Build static site
-        run: python -m site_generator --output docs
+        run: python -m site_generator --output _site
         env:
           PYTHONUNBUFFERED: '1'
 
@@ -110,59 +109,37 @@ jobs:
           echo "=== Build Output Summary ==="
           echo "Build mode: $BUILD_MODE"
           echo ""
-          echo "Total size of docs/:"
-          du -sh docs/ 2>/dev/null || echo "docs/ not found"
+          echo "Total size of _site/:"
+          du -sh _site/ 2>/dev/null || echo "_site/ not found"
           echo ""
           echo "File counts:"
-          find docs/ -name "*.html" 2>/dev/null | wc -l | xargs -I{} echo "  HTML files: {}"
-          find docs/ -name "*.css" 2>/dev/null | wc -l | xargs -I{} echo "  CSS files: {}"
-          find docs/ -name "*.js" 2>/dev/null | wc -l | xargs -I{} echo "  JS files: {}"
-          find docs/ -name "*.xml" 2>/dev/null | wc -l | xargs -I{} echo "  XML files: {}"
-          find docs/ -name "*.json" 2>/dev/null | wc -l | xargs -I{} echo "  JSON files: {}"
+          find _site/ -name "*.html" 2>/dev/null | wc -l | xargs -I{} echo "  HTML files: {}"
+          find _site/ -name "*.css" 2>/dev/null | wc -l | xargs -I{} echo "  CSS files: {}"
+          find _site/ -name "*.js" 2>/dev/null | wc -l | xargs -I{} echo "  JS files: {}"
+          find _site/ -name "*.xml" 2>/dev/null | wc -l | xargs -I{} echo "  XML files: {}"
+          find _site/ -name "*.json" 2>/dev/null | wc -l | xargs -I{} echo "  JSON files: {}"
           echo ""
           echo "Key files:"
-          ls -la docs/index.html docs/style.css docs/i18n.js docs/scripts.js 2>/dev/null || true
-          ls -la docs/shop/index.html docs/contacts/index.html docs/privacy/index.html 2>/dev/null || true
+          ls -la _site/index.html _site/style.css _site/i18n.js _site/scripts.js 2>/dev/null || true
           echo ""
           echo "Shop pages count:"
-          find docs/shop/ -name "index.html" 2>/dev/null | wc -l | xargs -I{} echo "  {} shop pages"
+          find _site/shop/ -name "index.html" 2>/dev/null | wc -l | xargs -I{} echo "  {} shop pages"
           echo ""
           echo "Post pages count:"
-          find docs/post/ -name "*.html" 2>/dev/null | wc -l | xargs -I{} echo "  {} post pages"
-          echo ""
-          echo "Cached posts downloaded:"
-          python3 -c "import json; d=json.load(open('data/cached_posts.json')); print(f'  {len(d)} posts')" 2>/dev/null || echo "  (cached_posts.json not found)"
+          find _site/post/ -name "*.html" 2>/dev/null | wc -l | xargs -I{} echo "  {} post pages"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/
+          path: _site/
 
-      - name: Configure git
+      - name: Check site size
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Commit and push docs/
-        run: |
-          # Remove all tracked docs/ files first, then add new ones
-          git rm -r --cached docs/ 2>/dev/null || true
-          git add -f docs/
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Auto-build ($BUILD_MODE): $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
-          fi
-
-      - name: Check GitHub Pages size
-        run: |
-          SIZE_BYTES=$(du -sb docs/ | cut -f1)
+          SIZE_BYTES=$(du -sb _site/ | cut -f1)
           SIZE_MB=$((SIZE_BYTES / 1024 / 1024))
-          echo "Total docs/ size: ${SIZE_MB} MB"
+          echo "Total _site/ size: ${SIZE_MB} MB"
           if [ "$SIZE_MB" -gt 950 ]; then
-            echo "WARNING: docs/ exceeds 950 MB! GitHub Pages limit is 1 GB."
-            echo "Consider reducing MAX_POSTS_TO_GENERATE in config.py"
+            echo "WARNING: Site exceeds 950 MB! GitHub Pages limit is 1 GB."
           fi
 
   deploy:

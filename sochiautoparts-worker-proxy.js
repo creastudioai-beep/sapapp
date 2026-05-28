@@ -153,6 +153,12 @@ export default {
       path = `/shop/${shopProductMatch[1]}/index.html`;
     }
 
+    // --- Shop product page with trailing slash: /shop/{id}/ → proxy /shop/{id}/index.html ---
+    const shopProductSlashMatch = path.match(/^\/shop\/([a-zA-Z0-9_-]+)\/$/);
+    if (shopProductSlashMatch) {
+      path = `/shop/${shopProductSlashMatch[1]}/index.html`;
+    }
+
     // --- Post page: /post/{slug} → proxy to GitHub Pages /post/{slug}.html ---
     // Slug-based URLs (e.g. /post/toyota-corolla-2024-87923) are served
     // from /post/{slug}.html on GitHub Pages. The static site generator

@@ -447,7 +447,7 @@ VERIFICATION_META_TAGS: dict[str, str] = {
 # BUILD / GENERATOR SETTINGS
 # =============================================================================
 
-OUTPUT_DIR: str = "docs"  # Relative to project root
+OUTPUT_DIR: str = "_site"  # Relative to project root
 STATIC_DIR: str = "static"  # Source static files
 TEMPLATES_DIR: str = "site_generator/templates"  # Jinja2 / HTML templates
 

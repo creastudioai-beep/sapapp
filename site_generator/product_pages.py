@@ -169,7 +169,7 @@ def generate_product_page(
 
     # Meta information
     page_title = f"{product['name']} | SOCHIAUTOPARTS"
-    page_description = product.get("description", "")[:200] or product["name"]
+    page_description = product.get("description", "")[:200] or product["name"]  # meta description, keep short for SEO
     canonical_url = f"{SITE_URL}/product/{slug}/"
 
     # Category info
@@ -259,7 +259,7 @@ def generate_product_page(
         "@context": "https://schema.org",
         "@type": "Product",
         "name": product["name"],
-        "description": product.get("description", "")[:500],
+        "description": product.get("description", ""),
         "image": product.get("image", ""),
         "brand": {
             "@type": "Brand",
@@ -278,10 +278,10 @@ def generate_product_page(
         },
     }
 
-    # Buy button — link to partner store via Worker affiliate redirect
+    # Buy button — link directly to partner store (affiliate URL)
     buy_text = "Купить" if is_ru else "Buy Now"
-    feed_id = product.get("feed_id") or product.get("feedId") or ""
-    buy_url = f"/api/go/{url_quote(str(feed_id))}/{url_quote(str(product.get('id', '')))}" if feed_id else product.get("url", "#")
+    product_url = product.get("url", "")
+    buy_url = product_url if product_url and product_url != "#" else f"/api/go/{url_quote(str(product.get('feed_id', '') or product.get('feedId', '')))}/{url_quote(str(product.get('id', '')))}"
 
     # Description (preserve line breaks)
     description_html = ""

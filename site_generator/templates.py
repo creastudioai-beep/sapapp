@@ -946,15 +946,56 @@ def render_ad_blocks(programs: list, lang: str = "ru", max_blocks: int = 6) -> s
 # =============================================================================
 
 def render_shop_widget(products: list, lang: str = "ru", count: int = 20) -> str:
-    """Render shop widget placeholder — products are loaded dynamically via JavaScript.
+    """Render shop widget with static product cards and dynamic JS fallback.
 
-    The widget container is rendered server-side but products are fetched
-    client-side from the Worker API endpoint /api/shop/products?random=N.
-    This saves ~13 KB per page of static product HTML.
+    If a products list is provided and non-empty, renders static product cards
+    directly in the HTML. The JS dynamic loader can still refresh/replace them
+    as a progressive enhancement. If no products are given, falls back to the
+    empty container for JS-only loading.
     """
     shop_path = _bp(SHOP_PATH)
     widget_title = "🛒 Магазин автозапчастей"
     visit_shop_link = "Перейти в магазин →"
+
+    # Render static product cards if products are provided
+    static_cards = ""
+    if products and len(products) > 0:
+        import random as _random
+        # Pick random subset
+        widget_products = list(products)
+        _random.shuffle(widget_products)
+        widget_products = widget_products[:count]
+
+        for p in widget_products:
+            p_name = p.get("name", "")
+            if len(p_name) > 60:
+                p_name = p_name[:57] + "..."
+            p_price = p.get("price", 0)
+            p_currency = p.get("currency", "RUB")
+            if p_price:
+                try:
+                    price_display = f"{int(p_price):,} ₽".replace(",", " ")
+                except (ValueError, TypeError):
+                    price_display = str(p_price) + " ₽"
+            else:
+                price_display = ""
+            p_image = p.get("image", "") or "/logo.jpg"
+            p_url = p.get("url", "")
+            p_id = p.get("id", "")
+            p_product_page = f"/shop/{p_id}" if p_id else ""
+            # Buy URL: direct partner link
+            buy_url = p_url if p_url and p_url != "#" else f"/shop/{p_id}" if p_id else "#"
+
+            static_cards += (
+                f'<div class="widget-product">'
+                f'<a href="{p_product_page}" style="text-decoration:none;color:inherit;">'
+                f'<img src="{escape_html(p_image)}" alt="{escape_html(p_name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\'/logo.jpg\'">'
+                f'<div class="wp-name">{escape_html(p_name)}</div>'
+                f'<div class="wp-price">{escape_html(price_display)}</div>'
+                f'</a>'
+                f'<a href="{escape_html(buy_url)}" class="wp-buy-btn" target="_blank" rel="nofollow noopener sponsored">Купить</a>'
+                f'</div>'
+            )
 
     return (
         f'<div class="shop-widget" id="shopWidget">\n'
@@ -962,11 +1003,13 @@ def render_shop_widget(products: list, lang: str = "ru", count: int = 20) -> str
         f'<span class="widget-title" data-i18n="shop_title">{widget_title}</span>'
         f'<a href="{shop_path}" class="widget-link" data-i18n="shop_visit">{visit_shop_link}</a>'
         f'</div>\n'
-        f'<div class="shop-widget-grid" id="shopWidgetGrid" data-shop-widget-count="{count}"></div>\n'
+        f'<div class="shop-widget-grid" id="shopWidgetGrid" data-shop-widget-count="{count}">\n'
+        f'{static_cards}'
+        f'</div>\n'
         f'<div style="text-align:center;padding:1rem;">'
         f'<a href="{shop_path}" class="btn-cta" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:var(--primary);color:#fff;font-weight:700;text-decoration:none;" data-i18n="shop_visit">🛒 {visit_shop_link}</a>'
         f'</div>\n'
-        f'</div>\n'
+        f'</div>'
     )
 
 
@@ -1070,9 +1113,15 @@ def render_product_page(
     product_available = product.get("available", True)
     product_model = product.get("model", "")
 
-    # Build affiliate URL for "Buy" button
-    # The Worker handles /api/go/{feed_name}/{product_id} for redirect
-    buy_url = f"/api/go/{url_quote(str(product_feed_name or product_feed_id))}/{url_quote(str(product_id))}"
+    # Build affiliate URL for "Buy" button — link directly to partner store (affiliate URL)
+    # Fall back to Worker redirect only if no direct URL available
+    product_partner_url = product.get("url", "") or ""
+    if product_partner_url and product_partner_url != "#":
+        buy_url = product_partner_url
+    elif product_feed_name or product_feed_id:
+        buy_url = f"/api/go/{url_quote(str(product_feed_name or product_feed_id))}/{url_quote(str(product_id))}"
+    else:
+        buy_url = "#"
 
     # Currency display
     currency = PRODUCTS_CURRENCY_RU

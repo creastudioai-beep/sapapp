@@ -837,11 +837,14 @@ def generate_homepage(data: dict, lang: str, output_dir: str, page: int = 1) -> 
     if admitad_programs:
         ads_html = render_ad_blocks(admitad_programs, lang)
 
-    # Shop widget — loaded dynamically via JS from /api/shop/products?random=6
-    # No static product list needed (saves ~13KB per homepage)
+    # Shop widget — render static product cards for immediate visibility
     shop_widget = ""
     if FEATURE_SHOP_ENABLED and page == 1:
-        shop_widget = render_shop_widget([], lang, count=6)
+        import random as _random_h
+        _all_hp_products = data.get("products", [])
+        _hp_widget_products = list(_all_hp_products)
+        _random_h.shuffle(_hp_widget_products)
+        shop_widget = render_shop_widget(_hp_widget_products[:6], lang, count=6)
 
     # Pagination
     pagination_html = render_numbered_pagination(page, total_pages, _lang_base(lang), lang)
@@ -985,11 +988,14 @@ def generate_post_page(data: dict, post_id: int, lang: str, output_dir: str) -> 
     if admitad_programs:
         ads_html = render_ad_blocks(admitad_programs, lang, max_blocks=4)
 
-    # Shop widget — loaded dynamically via JS from /api/shop/products?random=6
-    # No static product list needed (saves ~13KB per post page)
+    # Shop widget — render static product cards for immediate visibility
     shop_widget = ""
     if FEATURE_SHOP_ENABLED:
-        shop_widget = render_shop_widget([], lang, count=20)
+        import random as _random_p
+        _all_pp_products = data.get("products", [])
+        _pp_widget_products = list(_all_pp_products)
+        _random_p.shuffle(_pp_widget_products)
+        shop_widget = render_shop_widget(_pp_widget_products[:20], lang, count=20)
 
     # Tags
     hashtags = post.get("hashtags", [])
@@ -1515,15 +1521,17 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 
         feed_badge = f'<span class="product-badge badge-supplier">{escape_html(p_feed)}</span>' if p_feed else ""
 
-        # Build partner store URL for "Buy" button
+        # Build partner store URL for "Buy" button — link directly to affiliate URL
         p_partner_url = p.get("url", "#") or "#"
-        # If product has an affiliate URL, use /api/go/{feed}/{id} for tracking
-        if p_id and p_feed:
+        # Use direct partner URL (affiliate link from feed), fall back to Worker redirect
+        if p_partner_url and p_partner_url != "#":
+            p_buy_url = p_partner_url
+        elif p_id and p_feed:
             p_buy_url = f"/api/go/{url_quote(str(p_feed))}/{url_quote(str(p_id))}"
         elif p_id:
             p_buy_url = f"/api/go/{url_quote(str(p_id))}/{url_quote(str(p_id))}"
         else:
-            p_buy_url = p_partner_url
+            p_buy_url = "#"
 
         product_cards_html += (
             f'<div class="shop-product-card" data-supplier="{escape_html(p_feed)}" data-price="{p_price if isinstance(p_price, (int, float)) else 0}" data-name="{escape_html(p_name.lower())}">'
@@ -1885,7 +1893,7 @@ def generate_product_page(data: dict, product, lang: str, output_dir: str,
         product_url = f"{SITE_URL}/shop/{product_id}"
 
     name = product.get("name", "")
-    description = (product.get("description") or name)[:500]
+    description = product.get("description") or name
     price = product.get("price", 0)
     currency = product.get("currency", "RUB")
     available = product.get("available", False)
