@@ -29,3 +29,4 @@ Usage:
 __version__ = "1.0.0"
 __author__ = "SOCHIAUTOPARTS"
 __description__ = "Static site generator for sochiautoparts.ru"
+# Build: 2026-05-28
