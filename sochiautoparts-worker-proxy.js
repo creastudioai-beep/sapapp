@@ -62,19 +62,18 @@ const PLATFORM_ALIASES = {
   pasker: ['pasker', 'паскер'],
 };
 
-// Products data (for shop) — paginated from sapapp repo
-const PRODUCTS_BASE_URL = GITHUB_PAGES_BASE + '/data/products';
-const PRODUCTS_FALLBACK_URL = 'https://raw.githubusercontent.com/creastudioai-beep/sapapp/main/data/products';
-let productsMetaCache = null;     // { pages_count, total_products }
-let productsMetaCacheTime = 0;
-let productsPageCache = {};       // page_num -> { data, time }
+// Products data (for shop) — loaded directly from zap.online repo (always fresh)
+const PRODUCTS_JSON_URL = 'https://raw.githubusercontent.com/creastudioai-beep/zap.online/main/products.json';
+const PRODUCTS_FALLBACK_URL = GITHUB_PAGES_BASE + '/data/products/page_1.json';
+let productsCache = null;           // full products array (mapped to readable keys)
+let productsCacheTime = 0;
 const PRODUCTS_CACHE_TTL = 3600000; // 1 hour in ms
 
 // Product lookup index: id -> product (lazy-built from all pages)
 let productIndexCache = null;
 let productIndexCacheTime = 0;
 
-const USER_AGENT = 'SochiAutoParts-Worker/13.0';
+const USER_AGENT = 'SochiAutoParts-Worker/14.0';
 
 const ALLOWED_ORIGINS = [
   'https://sochiautoparts.ru',
@@ -422,105 +421,109 @@ async function getAdmitadPrograms(ctx) {
 // Products data (for shop page)
 // =============================================================================
 
-// Get products meta info (pages count, total). Cached separately from product pages.
-async function getProductsMeta(ctx) {
-  const now = Date.now();
-  if (productsMetaCache && (now - productsMetaCacheTime) < PRODUCTS_CACHE_TTL) {
-    return productsMetaCache;
-  }
-
-  for (const baseUrl of [PRODUCTS_BASE_URL, PRODUCTS_FALLBACK_URL]) {
-    try {
-      const metaResp = await fetchWithRetry(`${baseUrl}/meta.json`, {
-        headers: { 'User-Agent': USER_AGENT },
-        cf: { cacheTtl: 3600, cacheEverything: true },
-      });
-      if (metaResp.ok) {
-        productsMetaCache = await metaResp.json();
-        productsMetaCacheTime = now;
-        return productsMetaCache;
-      }
-    } catch (e) {
-      console.error(`Failed to fetch products meta from ${baseUrl}:`, e);
-    }
-  }
-  return productsMetaCache || { pages_count: 0, total_products: 0 };
-}
-
-// Get a single page of products. Cached per-page.
-async function getProductsPage(pageNum, ctx) {
-  const now = Date.now();
-  const cached = productsPageCache[pageNum];
-  if (cached && (now - cached.time) < PRODUCTS_CACHE_TTL) {
-    return cached.data;
-  }
-
-  const raw = await fetchProductPage(pageNum);
-  const mapped = raw.map(p => ({
-    id: p.id || p.f || '',
-    name: p.n || p.name || '',
-    price: p.p || p.price || 0,
-    oldPrice: p.o || p.oldPrice || p.old_price || 0,
-    currency: p.c || p.currency || 'RUB',
-    url: p.u || p.url || p.productUrl || '#',
-    image: p.i || p.image || p.imageUrl || '',
-    vendor: p.v || p.vendor || p.brand || '',
-    description: p.d || p.description || '',
-    feedId: p.f || p.feedId || p.feed_id || '',
-    feedName: p.fn || p.feedName || p.feed_name || '',
-    feedColor: p.fc || p.feedColor || '',
-    feedIcon: p.fi || p.feedIcon || '',
-    categoryId: p.cat || p.categoryId || p.category_id || '',
-    available: p.a !== undefined ? p.a : (p.available !== undefined ? p.available : true),
-    shortNote: p.sn || p.shortNote || '',
-    model: p.m || p.model || '',
-    type: p.tp || p.type || '',
-    goto_link: p.goto_link || p.gotoLink || '',
-    product_page: p.product_page || '',
-  }));
-  productsPageCache[pageNum] = { data: mapped, time: now };
-  return mapped;
-}
-
-// Get ALL products (loads all pages on demand, cached per-page).
-// Used ONLY for the shop API and product index.
+// Get ALL products — loads products.json from zap.online, maps to readable keys.
+// Cached for 1 hour. Falls back to GitHub Pages paginated data.
 async function getProducts(ctx) {
-  const meta = await getProductsMeta(ctx);
-  const totalPages = meta.pages_count || 0;
-  if (totalPages === 0) return [];
-
-  const allProducts = [];
-  const batchSize = 5;
-  for (let batch = 0; batch < totalPages; batch += batchSize) {
-    const promises = [];
-    for (let i = batch + 1; i <= Math.min(batch + batchSize, totalPages); i++) {
-      promises.push(getProductsPage(i, ctx));
-    }
-    const results = await Promise.allSettled(promises);
-    for (const result of results) {
-      if (result.status === 'fulfilled' && Array.isArray(result.value)) {
-        allProducts.push(...result.value);
-      }
-    }
+  const now = Date.now();
+  if (productsCache && (now - productsCacheTime) < PRODUCTS_CACHE_TTL) {
+    return productsCache;
   }
-  return allProducts;
-}
 
-async function fetchProductPage(pageNum) {
-  for (const baseUrl of [PRODUCTS_BASE_URL, PRODUCTS_FALLBACK_URL]) {
-    try {
-      const response = await fetchWithRetry(`${baseUrl}/page_${pageNum}.json`, {
-        headers: { 'User-Agent': USER_AGENT },
-        cf: { cacheTtl: 3600, cacheEverything: true },
-      });
-      if (response.ok) {
-        return await response.json();
-      }
-    } catch (e) {
-      console.error(`Failed to fetch products page ${pageNum} from ${baseUrl}:`, e);
+  // Primary: load full products.json from zap.online
+  try {
+    const resp = await fetchWithRetry(PRODUCTS_JSON_URL, {
+      headers: { 'User-Agent': USER_AGENT },
+      cf: { cacheTtl: 1800, cacheEverything: true },
+    });
+    if (resp.ok) {
+      const raw = await resp.json();
+      const items = Array.isArray(raw) ? raw : (raw.products || raw.items || []);
+      const mapped = items.map((p, idx) => ({
+        id: p.id || (p.f ? p.f + '-' + idx : String(idx)),
+        name: p.n || p.name || '',
+        price: p.p || p.price || 0,
+        oldPrice: p.o || p.oldPrice || p.old_price || 0,
+        currency: p.c || p.currency || 'RUB',
+        url: p.u || p.url || p.productUrl || '#',
+        image: p.i || p.image || p.imageUrl || '',
+        vendor: p.v || p.vendor || p.brand || '',
+        description: p.d || p.description || '',
+        feedId: p.f || p.feedId || p.feed_id || '',
+        feedName: p.fn || p.feedName || p.feed_name || '',
+        feedColor: p.fc || p.feedColor || '',
+        feedIcon: p.fi || p.feedIcon || '',
+        categoryId: p.cat || p.categoryId || p.category_id || '',
+        available: p.a !== undefined ? p.a : (p.available !== undefined ? p.available : true),
+        shortNote: p.sn || p.shortNote || '',
+        model: p.m || p.model || '',
+        type: p.tp || p.type || '',
+        goto_link: p.goto_link || p.gotoLink || '',
+        product_page: p.product_page || '',
+      }));
+      productsCache = mapped;
+      productsCacheTime = now;
+      // Invalidate product index since data changed
+      productIndexCache = null;
+      return mapped;
     }
+  } catch (e) {
+    console.error('Failed to fetch products.json from zap.online:', e);
   }
-  return [];
+
+  // Fallback: try GitHub Pages paginated data
+  try {
+    const metaResp = await fetchWithRetry(GITHUB_PAGES_BASE + '/data/products/meta.json', {
+      headers: { 'User-Agent': USER_AGENT },
+      cf: { cacheTtl: 3600, cacheEverything: true },
+    });
+    if (metaResp.ok) {
+      const meta = await metaResp.json();
+      const totalPages = meta.pages_count || 1;
+      const allProducts = [];
+      for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+        const pageResp = await fetchWithRetry(`${GITHUB_PAGES_BASE}/data/products/page_${pageNum}.json`, {
+          headers: { 'User-Agent': USER_AGENT },
+          cf: { cacheTtl: 3600, cacheEverything: true },
+        });
+        if (pageResp.ok) {
+          const pageData = await pageResp.json();
+          const items = Array.isArray(pageData) ? pageData : [];
+          items.forEach((p, idx) => {
+            allProducts.push({
+              id: p.id || (p.f ? p.f + '-' + (allProducts.length) : String(allProducts.length)),
+              name: p.n || p.name || '',
+              price: p.p || p.price || 0,
+              oldPrice: p.o || p.oldPrice || p.old_price || 0,
+              currency: p.c || p.currency || 'RUB',
+              url: p.u || p.url || p.productUrl || '#',
+              image: p.i || p.image || p.imageUrl || '',
+              vendor: p.v || p.vendor || p.brand || '',
+              description: p.d || p.description || '',
+              feedId: p.f || p.feedId || p.feed_id || '',
+              feedName: p.fn || p.feedName || p.feed_name || '',
+              feedColor: p.fc || p.feedColor || '',
+              feedIcon: p.fi || p.feedIcon || '',
+              categoryId: p.cat || p.categoryId || p.category_id || '',
+              available: p.a !== undefined ? p.a : (p.available !== undefined ? p.available : true),
+              shortNote: p.sn || p.shortNote || '',
+              model: p.m || p.model || '',
+              type: p.tp || p.type || '',
+              goto_link: p.goto_link || p.gotoLink || '',
+              product_page: p.product_page || '',
+            });
+          });
+        }
+      }
+      productsCache = allProducts;
+      productsCacheTime = now;
+      productIndexCache = null;
+      return allProducts;
+    }
+  } catch (e) {
+    console.error('Failed to fetch products from GitHub Pages fallback:', e);
+  }
+
+  return productsCache || [];
 }
 
 
