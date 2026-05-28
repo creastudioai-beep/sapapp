@@ -26,6 +26,7 @@ from .config import (
     PRODUCTS_CURRENCY_EN,
     ADMITAD_CONFIG,
     BASE_PATH,
+    NEWS_KEYWORDS,
 )
 
 
@@ -1059,33 +1060,43 @@ def render_breadcrumbs(items: list, lang: str = "ru") -> str:
 def render_matrix_bg() -> str:
     """Render matrix-bg canvas element with inline initialization script.
 
+    The animation uses NEWS_KEYWORDS from config.py as falling text,
+    creating a thematic "Matrix rain" effect with automotive keywords.
     The animation is started inline (not from scripts.js) to ensure it
     always works regardless of external script loading order or Cloudflare
     Rocket Loader interference.
     """
-    return '''<canvas id="matrix-bg"></canvas>
+    # Build JavaScript array from NEWS_KEYWORDS in config.py
+    # Each keyword is wrapped in quotes and escaped for JS safety
+    kw_items = ", ".join(f'"{k.replace(chr(34), chr(92)+chr(34))}"' for k in NEWS_KEYWORDS)
+    kw_js = f"[{kw_items}]"
+
+    return f'''<canvas id="matrix-bg"></canvas>
 <script data-cfasync="false">
-(function(){
+(function(){{
 var c=document.getElementById("matrix-bg");if(!c)return;
+if(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=2)return;
+if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
 c.width=window.innerWidth;c.height=window.innerHeight;
 var mctx=c.getContext("2d");
-var kw=["#автозапчасти","#сочи","#запчастисочи","#авто","#автоновости","#autonews","#cars","#sochi","#автомобиль","#машина","#двигатель","#тормоза","#подвеска","#масло","#фильтр","#шиномонтаж","#кузов","#электрика","#рейтинг","#обзор"];
-var cols=Math.floor(c.width/22);var drops=[];for(var i=0;i<cols;i++){drops[i]=Math.random()*-100;}
-function draw(){
+var kw={kw_js};
+var fontSize=14;var colW=fontSize+4;
+var cols=Math.floor(c.width/colW);var drops=[];for(var i=0;i<cols;i++){{drops[i]=Math.random()*-100;}}
+function draw(){{
 var dk=document.documentElement.getAttribute("data-theme")!=="light";
 mctx.fillStyle=dk?"rgba(15,17,21,0.05)":"rgba(244,244,245,0.05)";
 mctx.fillRect(0,0,c.width,c.height);
-for(var j=0;j<drops.length;j++){
+for(var j=0;j<drops.length;j++){{
 var t=kw[Math.floor(Math.random()*kw.length)];var r=Math.random();
-if(r>0.95){mctx.shadowBlur=30;mctx.shadowColor=dk?"#FFFFFF":"#2481CC";mctx.fillStyle=dk?"#FFFFFF":"#2481CC";mctx.font="bold 18px monospace";}
-else if(r>0.8){mctx.shadowBlur=20;mctx.shadowColor=dk?"#CCCCCC":"#1D6FAD";mctx.fillStyle=dk?"#E0E0E0":"#2AABEE";mctx.font="bold 16px monospace";}
-else{mctx.shadowBlur=6;mctx.shadowColor=dk?"#666666":"#999999";mctx.fillStyle=dk?"#707070":"#AAAAAA";mctx.font="12px monospace";}
-mctx.fillText(t,j*22,drops[j]*22);mctx.shadowBlur=0;
-if(drops[j]*22>c.height&&Math.random()>0.97){drops[j]=0;}drops[j]+=0.25+Math.random()*0.3;}
-}
-setInterval(draw,50);
-window.addEventListener("resize",function(){c.width=window.innerWidth;c.height=window.innerHeight;cols=Math.floor(c.width/22);drops=[];for(var i=0;i<cols;i++){drops[i]=Math.random()*-100;}});
-})();
+if(r>0.95){{mctx.shadowBlur=30;mctx.shadowColor=dk?"#00FF41":"#2481CC";mctx.fillStyle=dk?"#00FF41":"#2481CC";mctx.font="bold 16px monospace";}}
+else if(r>0.8){{mctx.shadowBlur=20;mctx.shadowColor=dk?"#00CC33":"#1D6FAD";mctx.fillStyle=dk?"#00CC33":"#2AABEE";mctx.font="bold 14px monospace";}}
+else{{mctx.shadowBlur=6;mctx.shadowColor=dk?"#005500":"#999999";mctx.fillStyle=dk?"#008F11":"#AAAAAA";mctx.font="12px monospace";}}
+mctx.fillText(t,j*colW,drops[j]*colW);mctx.shadowBlur=0;
+if(drops[j]*colW>c.height&&Math.random()>0.97){{drops[j]=0;}}drops[j]+=0.3+Math.random()*0.4;}}
+}}
+setInterval(draw,60);
+window.addEventListener("resize",function(){{c.width=window.innerWidth;c.height=window.innerHeight;cols=Math.floor(c.width/colW);drops=[];for(var i=0;i<cols;i++){{drops[i]=Math.random()*-100;}}}});
+}})();
 </script>'''
 
 
