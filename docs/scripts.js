@@ -101,6 +101,7 @@
     var idx = window._searchIndex;
     var inverted = idx.i || {};
     var titles = idx.t || {};
+    var slugs = idx.s || {};
     var scoreMap = {};
     for (var ti = 0; ti < tokens.length; ti++) {
       var ids = inverted[tokens[ti]];
@@ -115,7 +116,8 @@
     if (sorted.length > 0) {
       var html = "";
       sorted.forEach(function(pid) {
-        var postUrl = basePath + "/post/" + pid;
+        var slug = slugs[pid] || slugs[String(pid)] || pid;
+        var postUrl = basePath + "/post/" + slug;
         var title = titles[pid] || titles[String(pid)] || "";
         html += '<a href="' + postUrl + '" class="search-result-item">';
         html += '<div class="search-result-title">' + escapeHTML(title) + '</div>';
@@ -187,25 +189,26 @@
       var drops = [];
       for (var mi = 0; mi < cols; mi++) { drops[mi] = Math.random() * -100; }
       function drawMatrix() {
-        mctx.fillStyle = "rgba(15, 17, 21, 0.05)";
+        var isDark = document.documentElement.getAttribute("data-theme") !== "light";
+        mctx.fillStyle = isDark ? "rgba(15, 17, 21, 0.05)" : "rgba(244, 244, 245, 0.05)";
         mctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
         for (var mj = 0; mj < drops.length; mj++) {
           var t = matrixKeywords[Math.floor(Math.random() * matrixKeywords.length)];
           var r = Math.random();
           if (r > 0.95) {
             mctx.shadowBlur = 30;
-            mctx.shadowColor = "#FFFFFF";
-            mctx.fillStyle = "#FFFFFF";
+            mctx.shadowColor = isDark ? "#FFFFFF" : "#2481CC";
+            mctx.fillStyle = isDark ? "#FFFFFF" : "#2481CC";
             mctx.font = "bold 18px monospace";
           } else if (r > 0.8) {
             mctx.shadowBlur = 20;
-            mctx.shadowColor = "#CCCCCC";
-            mctx.fillStyle = "#E0E0E0";
+            mctx.shadowColor = isDark ? "#CCCCCC" : "#1D6FAD";
+            mctx.fillStyle = isDark ? "#E0E0E0" : "#2AABEE";
             mctx.font = "bold 16px monospace";
           } else {
             mctx.shadowBlur = 6;
-            mctx.shadowColor = "#666666";
-            mctx.fillStyle = "#707070";
+            mctx.shadowColor = isDark ? "#666666" : "#999999";
+            mctx.fillStyle = isDark ? "#707070" : "#AAAAAA";
             mctx.font = "12px monospace";
           }
           mctx.fillText(t, mj * 22, drops[mj] * 22);
