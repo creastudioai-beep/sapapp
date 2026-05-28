@@ -329,6 +329,8 @@ footer a:hover { color: var(--text-link); }
 .shop-widget .widget-product img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:4px;background:var(--bg-body)}
 .shop-widget .widget-product .wp-name{font-size:0.75rem;color:var(--text-main);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .shop-widget .widget-product .wp-price{font-size:0.85rem;font-weight:700;color:var(--primary)}
+.wp-buy-btn{display:block;text-align:center;padding:4px 0;background:var(--primary);color:#fff;font-size:0.72rem;font-weight:600;border-radius:4px;text-decoration:none;margin-top:4px;transition:background 0.15s}
+.wp-buy-btn:hover{background:var(--primary-dark)}
 .shop-controls-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap}
 .shop-controls{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap}
 .shop-search-input{flex:1;min-width:200px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:0.55rem 0.85rem;font-size:0.9rem;color:var(--text-main);outline:none;transition:border-color 0.15s}
@@ -350,8 +352,9 @@ footer a:hover { color: var(--text-link); }
 .product-badge.badge-supplier{background:#2481CC}
 .product-card-price{font-size:1.05rem;font-weight:700;color:var(--primary);margin-bottom:0.5rem}
 .product-card-price s{font-size:0.8rem;color:var(--text-muted);margin-left:0.4rem}
-.product-card-btn{display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;width:100%;padding:0.55rem 1rem;border-radius:var(--radius-md);background:var(--primary);color:#fff;font-size:0.8rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:background 0.15s;text-align:center}
-.product-card-btn:hover{background:var(--primary-dark)}
+.product-card-btn{display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;width:100%;padding:0.55rem 1rem;border-radius:var(--radius-md);background:var(--primary);color:#fff;font-size:0.8rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:background 0.15s;text-align:center;box-sizing:border-box}
+.product-card-btn:hover{background:var(--primary-dark);color:#fff}
+.shop-product-card .product-card-btn{margin:0 1rem 1rem;border-radius:0 0 var(--radius-lg) var(--radius-lg)}
 .product-card-desc{font-size:0.78rem;color:var(--text-sec);line-height:1.35;margin:0.3rem 0 0.5rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 @media(max-width:768px){.shop-product-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem}.shop-supplier-stats{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.shop-page-container{padding:0 0.5rem 1.5rem}.shop-controls-row{flex-direction:column;align-items:stretch}.shop-sort-select{min-width:auto;width:100%}.shop-widget .widget-grid{grid-template-columns:repeat(2,1fr)}.shop-features{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.shop-product-grid{grid-template-columns:repeat(2,1fr);gap:0.5rem}.shop-product-card .card-body{padding:0.5rem 0.75rem 0.75rem}.shop-product-card .card-name{font-size:0.78rem;min-height:auto;-webkit-line-clamp:1}.shop-product-card .card-prices .price{font-size:0.95rem}.shop-product-card .card-btn{font-size:0.72rem;padding:0.45rem 0.5rem}.shop-supplier-stats{grid-template-columns:1fr 1fr;gap:0.5rem}.shop-widget .widget-grid{grid-template-columns:repeat(2,1fr)}.shop-features{grid-template-columns:1fr 1fr}}

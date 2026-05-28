@@ -528,6 +528,7 @@ async function handleShopRandomProductsAPI(url, request, ctx) {
       image: p.i || p.image || '',
       url: p.u || p.url || '#',
       vendor: p.v || p.vendor || '',
+      feedName: p.fn || p.feedName || p.feed_name || '',
       product_page: p.product_page || (p.id ? '/shop/' + p.id : ''),
     }));
     return new Response(JSON.stringify(randomProducts), {

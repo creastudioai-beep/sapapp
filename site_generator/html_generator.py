@@ -1515,6 +1515,16 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
 
         feed_badge = f'<span class="product-badge badge-supplier">{escape_html(p_feed)}</span>' if p_feed else ""
 
+        # Build partner store URL for "Buy" button
+        p_partner_url = p.get("url", "#") or "#"
+        # If product has an affiliate URL, use /api/go/{feed}/{id} for tracking
+        if p_id and p_feed:
+            p_buy_url = f"/api/go/{url_quote(str(p_feed))}/{url_quote(str(p_id))}"
+        elif p_id:
+            p_buy_url = f"/api/go/{url_quote(str(p_id))}/{url_quote(str(p_id))}"
+        else:
+            p_buy_url = p_partner_url
+
         product_cards_html += (
             f'<div class="shop-product-card" data-supplier="{escape_html(p_feed)}" data-price="{p_price if isinstance(p_price, (int, float)) else 0}" data-name="{escape_html(p_name.lower())}">'
             f'<a href="{escape_html(card_link)}"{card_target}{card_rel} style="text-decoration:none;color:inherit;">'
@@ -1524,9 +1534,9 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
             f'<div class="product-card-badges">{available_badge}{feed_badge}</div>'
             f'<div class="product-card-price">{escape_html(price_display)}{f" <s>{escape_html(old_price_display)}</s>" if old_price_display else ""}</div>'
             f'<div class="product-card-desc">{escape_html((p.get("description","") or "")[:120])}</div>'
-            f'<div class="product-card-btn">{buy_text}</div>'
             f'</div>'
             f'</a>'
+            f'<a href="{escape_html(p_buy_url)}" class="product-card-btn" target="_blank" rel="nofollow noopener sponsored">{buy_text}</a>'
             f'</div>\n'
         )
 
@@ -1611,9 +1621,11 @@ function renderCard(p){{
   else if(oldPrice)badge='<span class="product-badge badge-sale">{"Скидка" if lang=="ru" else "Sale"}</span>';
   var feedBadge=feed?'<span class="product-badge badge-supplier">'+feed+'</span>':'';
   var pid=p.id||"";
+  var pfeed=p.feedName||p.feed_name||feed||"";
   var link=pid?'/shop/'+pid:(p.url||"#");
   var target=pid?'':' target="_blank"';
   var rel=pid?'':' rel="nofollow noopener sponsored"';
+  var buyUrl=pid&&pfeed?'/api/go/'+encodeURIComponent(pfeed)+'/'+encodeURIComponent(pid):(p.url||'#');
   return '<div class="shop-product-card" data-supplier="'+feed+'">'+
     '<a href="'+link+'"'+target+rel+' style="text-decoration:none;color:inherit;">'+
     '<div class="product-card-image"><img src="'+(p.image||"/logo.jpg")+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\\'/logo.jpg\\'"></div>'+
@@ -1622,8 +1634,9 @@ function renderCard(p){{
     '<div class="product-card-badges">'+badge+feedBadge+'</div>'+
     '<div class="product-card-price">'+pd+(od?' <s>'+od+'</s>':'')+'</div>'+
     (desc?'<div class="product-card-desc">'+desc+'</div>':'')+
-    '<div class="product-card-btn">'+buyText+'</div>'+
-    '</div></a></div>';
+    '</div></a>'+
+    '<a href="'+buyUrl+'" class="product-card-btn" target="_blank" rel="nofollow noopener sponsored">'+buyText+'</a>'+
+    '</div>';
 }}
 
 function updatePageInfo(count){{
@@ -1872,7 +1885,7 @@ def generate_product_page(data: dict, product, lang: str, output_dir: str,
         product_url = f"{SITE_URL}/shop/{product_id}"
 
     name = product.get("name", "")
-    description = (product.get("description") or name)[:300]
+    description = (product.get("description") or name)[:500]
     price = product.get("price", 0)
     currency = product.get("currency", "RUB")
     available = product.get("available", False)

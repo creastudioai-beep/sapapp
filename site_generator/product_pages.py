@@ -278,9 +278,10 @@ def generate_product_page(
         },
     }
 
-    # Buy button
+    # Buy button — link to partner store via Worker affiliate redirect
     buy_text = "Купить" if is_ru else "Buy Now"
-    buy_url = product.get("url", "#")
+    feed_id = product.get("feed_id") or product.get("feedId") or ""
+    buy_url = f"/api/go/{url_quote(str(feed_id))}/{url_quote(str(product.get('id', '')))}" if feed_id else product.get("url", "#")
 
     # Description (preserve line breaks)
     description_html = ""

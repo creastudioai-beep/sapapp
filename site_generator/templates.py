@@ -1184,7 +1184,7 @@ def render_product_page(
 </div>
 {f'<div style="margin-bottom:0.75rem;font-size:0.875rem;color:var(--text-muted);">{escape_html(product_vendor)}{f" — {escape_html(product_model)}" if product_model else ""}</div>' if product_vendor else ''}
 <div class="article-body" style="margin-bottom:1.5rem;">
-<p>{escape_html(product_description)}</p>
+<p>{escape_html(product_description).replace(chr(10), "<br>\n")}</p>
 </div>
 <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.5rem;">
 <a href="{buy_url}" class="product-card-btn" style="flex:1;min-width:200px;padding:0.875rem;font-size:1rem;" target="_blank" rel="nofollow noopener sponsored">{buy_text}</a>
