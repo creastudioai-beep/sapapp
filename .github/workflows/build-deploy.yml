@@ -23,10 +23,20 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want these deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      build_mode: ${{ env.BUILD_MODE }}
 
     steps:
       - name: Checkout repository
@@ -123,6 +133,11 @@ jobs:
           echo "Cached posts downloaded:"
           python3 -c "import json; d=json.load(open('data/cached_posts.json')); print(f'  {len(d)} posts')" 2>/dev/null || echo "  (cached_posts.json not found)"
 
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
       - name: Configure git
         run: |
           git config user.name "github-actions[bot]"
@@ -149,3 +164,14 @@ jobs:
             echo "WARNING: docs/ exceeds 950 MB! GitHub Pages limit is 1 GB."
             echo "Consider reducing MAX_POSTS_TO_GENERATE in config.py"
           fi
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
