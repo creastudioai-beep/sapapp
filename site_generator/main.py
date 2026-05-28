@@ -3,14 +3,13 @@ Main entry point for the SochiAutoParts static site generator.
 
 Orchestrates the entire build process:
     1. Parse command-line arguments
-    2. (Optional) Parse new posts via --parse / --full flags
-    3. Load all data from local files (telegram_parser output + products + ads)
-    4. Generate all HTML pages (bilingual: Russian and English)
-    5. Print a build summary with file counts and statistics
+    2. Load all data from local files (cached_posts.json + products + ads)
+    3. Generate all HTML pages (bilingual: Russian and English)
+    4. Print a build summary with file counts and statistics
 
-NOTE: All data comes from local sources — telegram_parser for posts,
-local JSON for products and ads. The Cloudflare Worker proxies pages and adds
-region-based affiliate filtering on top.
+NOTE: Posts are now loaded from data/cached_posts.json (downloaded hourly
+by GitHub Actions from an external repo). The Cloudflare Worker proxies
+pages and adds region-based affiliate filtering on top.
 
 Usage:
     python -m site_generator [options]
@@ -19,8 +18,6 @@ Options:
     --output-dir DIR       Output directory (default: output)
     --data-dir DIR         Local data directory (default: data)
     --force-refresh        Force refresh (re-read local data files)
-    --parse               Run incremental Telegram parser (50 latest posts)
-    --full                Run full Telegram parser (all posts up to PARSE_LIMIT)
     --no-pages             Skip page generation (only fetch data)
     --no-sitemaps          Skip sitemap generation
     --no-rss               Skip RSS generation
@@ -105,8 +102,7 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         description=(
             f"{GENERATOR_NAME} v{GENERATOR_VERSION} — "
             "Generates a complete static website for sochiautoparts.ru "
-            "from pipeline data. Archive pages are handled dynamically "
-            "by the Cloudflare Worker."
+            "from cached_posts.json and local data."
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
@@ -159,22 +155,6 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         ),
     )
     parser.add_argument(
-        "--parse",
-        action="store_true",
-        help=(
-            "Run incremental Telegram parser (50 latest posts), "
-            "then generate site. Used by GitHub Actions on hourly builds."
-        ),
-    )
-    parser.add_argument(
-        "--full",
-        action="store_true",
-        help=(
-            "Run full Telegram parser (all posts up to PARSE_LIMIT), "
-            "then generate site. Used by GitHub Actions on daily builds."
-        ),
-    )
-    parser.add_argument(
         "--verbose",
         action="store_true",
         help="Enable verbose (DEBUG-level) output",
@@ -221,7 +201,6 @@ def _remove_sitemaps(output_dir: str) -> int:
         "sitemap-amp.xml",
         "sitemap-news.xml",
         "sitemap-tags.xml",
-        "sitemap-archive.xml",
     ]
 
     for filename in sitemap_patterns:
@@ -407,26 +386,6 @@ def main(argv: Optional[list] = None) -> None:
         GENERATOR_VERSION,
     )
     logger.debug("Arguments: %s", vars(args))
-
-    # ------------------------------------------------------------------
-    # Step 0b: Telegram parser (parse new posts)
-    # ------------------------------------------------------------------
-    if args.full or args.parse:
-        try:
-            from .telegram_parser import parse_telegram_channel
-            channel = CHANNEL_USERNAME
-            if args.full:
-                logger.info("Starting full Telegram parse for @%s", channel)
-                print(f"  Running full Telegram parse for @{channel} (up to 15000 posts)…")
-                parse_telegram_channel(channel, full=True)
-            else:
-                logger.info("Starting incremental Telegram parse for @%s", channel)
-                print(f"  Running incremental Telegram parse for @{channel} (last 50 posts)…")
-                parse_telegram_channel(channel, full=False)
-        except Exception as exc:
-            logger.error("Telegram parse failed: %s", exc)
-            print(f"  WARNING: Telegram parse failed: {exc}")
-            # Continue with build even if parse fails
 
     # ------------------------------------------------------------------
     # Step 1: Load local data

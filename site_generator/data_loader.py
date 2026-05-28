@@ -622,6 +622,84 @@ def _load_telegram_archive(archive_dir: str) -> list:
     return all_posts
 
 
+def _normalize_cached_posts(raw_posts: list) -> list:
+    """Normalize posts from cached_posts.json format.
+
+    The cached_posts.json format uses:
+        - id: "channel/post_number" (e.g. "sochiautoparts/87923")
+        - photo_urls: list of image URLs
+        - video_urls: list of video URLs
+        - text: post text
+        - date: ISO date string
+        - links: list of URLs found in the post
+        - views: view count
+
+    This function converts to the internal format:
+        - id: integer (extracted from "channel/NNNN" string)
+        - media: list of {"type": "photo"|"video", "directUrl": "...", "url": "..."}
+        - title: generated from first line of text
+        - hashtags: extracted from text
+    """
+    normalized = []
+    for post in raw_posts:
+        if not isinstance(post, dict):
+            continue
+
+        # Extract numeric post ID from "channel/NNNN" format
+        raw_id = post.get("id", "")
+        if isinstance(raw_id, str) and "/" in raw_id:
+            try:
+                post_id = int(raw_id.split("/")[-1])
+            except (ValueError, IndexError):
+                post_id = abs(hash(raw_id)) % 1000000
+        elif isinstance(raw_id, (int, float)):
+            post_id = int(raw_id)
+        else:
+            post_id = abs(hash(str(raw_id))) % 1000000
+
+        # Build media list from photo_urls and video_urls
+        media_list = []
+        for photo_url in post.get("photo_urls", []):
+            if isinstance(photo_url, str) and photo_url:
+                media_list.append({"type": "photo", "directUrl": photo_url, "url": photo_url})
+        for video_url in post.get("video_urls", []):
+            if isinstance(video_url, str) and video_url:
+                media_item = {"type": "video", "directUrl": video_url, "url": video_url}
+                media_list.append(media_item)
+
+        # Extract text and generate title
+        text = post.get("text", "") or ""
+        title = ""
+        if text:
+            first_line = text.split("\n")[0].strip()
+            # Strip URLs from title
+            first_line = re.sub(r"https?://\S+", "", first_line).strip()
+            title = first_line[:100] if first_line else f"Пост {post_id}"
+
+        # Extract hashtags from text (broad Unicode coverage)
+        hashtags = []
+        if text:
+            hashtag_matches = re.findall(r"#([\w\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+)", text, re.UNICODE)
+            hashtags = ["#" + h for h in hashtag_matches]
+
+        # Build the normalized post
+        normalized_post = {
+            "id": post_id,
+            "title": title,
+            "text": text,
+            "textWithHashtags": text,  # Keep original text with hashtags
+            "date": post.get("date", ""),
+            "media": media_list,
+            "hashtags": hashtags,
+            "views": post.get("views", 0),
+            "links": post.get("links", []),
+        }
+
+        normalized.append(normalized_post)
+
+    return normalized
+
+
 def _normalize_telegram_media(posts: list) -> list:
     """Normalize media fields from telegram parser output.
 
@@ -794,21 +872,36 @@ def load_data(data_dir: str = "data", force_refresh: bool = False) -> dict:
     result: dict[str, Any] = {}
 
     # ------------------------------------------------------------------
-    # Load posts from telegram_parser output (ONLY source)
+    # Load posts from cached_posts.json (downloaded hourly by GitHub Actions)
     # ------------------------------------------------------------------
-    tg_posts_dir = os.path.join(data_dir, "telegram_posts")
+    cached_posts_path = os.path.join(data_dir, "cached_posts.json")
+    all_posts = []
 
-    telegram_parser_posts = _load_telegram_archive(tg_posts_dir)
-    if telegram_parser_posts:
-        logger.info("Loaded %d posts from telegram parser at %s", len(telegram_parser_posts), tg_posts_dir)
-        telegram_parser_posts = _normalize_telegram_media(telegram_parser_posts)
-        telegram_parser_posts = _validate_and_normalize_posts(telegram_parser_posts)
+    if os.path.isfile(cached_posts_path):
+        raw_posts = _load_local_json(cached_posts_path)
+        if isinstance(raw_posts, list):
+            all_posts = _normalize_cached_posts(raw_posts)
+            logger.info("Loaded %d posts from %s", len(all_posts), cached_posts_path)
+        else:
+            logger.warning("cached_posts.json is not a list, trying telegram_posts directory")
+    else:
+        logger.warning("No cached_posts.json found at %s, trying telegram_posts directory", cached_posts_path)
 
-    result["posts"] = telegram_parser_posts
+    # Fallback: try loading from old telegram_posts directory
+    if not all_posts:
+        tg_posts_dir = os.path.join(data_dir, "telegram_posts")
+        if os.path.isdir(tg_posts_dir):
+            all_posts = _load_telegram_archive(tg_posts_dir)
+            if all_posts:
+                all_posts = _normalize_telegram_media(all_posts)
+                logger.info("Fallback: loaded %d posts from telegram_posts/", len(all_posts))
+
+    all_posts = _validate_and_normalize_posts(all_posts)
+    result["posts"] = all_posts
 
     logger.info(
-        "Loaded %d posts from telegram_parser",
-        len(telegram_parser_posts),
+        "Loaded %d posts total",
+        len(all_posts),
     )
 
     # ------------------------------------------------------------------

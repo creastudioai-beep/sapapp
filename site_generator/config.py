@@ -594,7 +594,11 @@ CURRENT_YEAR: int = 2026  # Updated at build time
 COPYRIGHT_RU: str = f"© {CURRENT_YEAR} {SITE_NAME_RU}"
 COPYRIGHT_EN: str = f"© {CURRENT_YEAR} {SITE_NAME_EN}"
 
-# Telegram parser settings
+# Cached posts data source — downloaded hourly by GitHub Actions
+CACHED_POSTS_URL: str = "https://raw.githubusercontent.com/creastudioai-beep/sap/refs/heads/main/data/cached_posts.json"
+CACHED_POSTS_LOCAL_PATH: str = "data/cached_posts.json"
+
+# Telegram parser settings (kept for backward compatibility, but no longer used)
 TELEGRAM_PARSER_CHANNEL: str = CHANNEL_USERNAME
 TELEGRAM_PARSER_FULL_LIMIT: int = 15000  # Max posts for full daily parse
 TELEGRAM_PARSER_RECENT_LIMIT: int = 50   # Max posts for hourly recent parse

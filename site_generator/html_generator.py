@@ -132,8 +132,7 @@ from .data_loader import (
     extract_first_image,
     format_post_text,
 )
-# NOTE: Archive pages are now generated as real static HTML using pipeline data.
-# The Cloudflare Worker proxies these and adds region-based affiliate filtering.
+# NOTE: Posts are loaded from data/cached_posts.json (downloaded hourly by GitHub Actions).
 
 
 # ---------------------------------------------------------------------------
@@ -1511,6 +1510,7 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
             f'<h3 class="product-card-name">{escape_html(p_name[:80])}</h3>'
             f'<div class="product-card-badges">{available_badge}{feed_badge}</div>'
             f'<div class="product-card-price">{escape_html(price_display)}{f" <s>{escape_html(old_price_display)}</s>" if old_price_display else ""}</div>'
+            f'<div class="product-card-desc">{escape_html((p.get("description","") or "")[:120])}</div>'
             f'<div class="product-card-btn">{buy_text}</div>'
             f'</div>'
             f'</a>'
@@ -1586,6 +1586,7 @@ var isLoading=false;
 
 function renderCard(p){{
   var n=(p.name||"").length>80?(p.name||"").substring(0,80)+"...":(p.name||"");
+  var desc=(p.description||"").length>120?(p.description||"").substring(0,120)+"...":(p.description||"");
   var price=p.price;
   var oldPrice=p.old_price||"";
   var pd=typeof price==="number"?price.toLocaleString("ru-RU")+" "+currency:price+" "+currency;
@@ -1596,13 +1597,18 @@ function renderCard(p){{
   if(!avail)badge='<span class="product-badge badge-unavailable">{"Под заказ" if lang=="ru" else "On order"}</span>';
   else if(oldPrice)badge='<span class="product-badge badge-sale">{"Скидка" if lang=="ru" else "Sale"}</span>';
   var feedBadge=feed?'<span class="product-badge badge-supplier">'+feed+'</span>':'';
+  var pid=p.id||"";
+  var link=pid?'/shop/'+pid:(p.url||"#");
+  var target=pid?'':' target="_blank"';
+  var rel=pid?'':' rel="nofollow noopener sponsored"';
   return '<div class="shop-product-card" data-supplier="'+feed+'">'+
-    '<a href="'+(p.url||"#")+'" target="_blank" rel="nofollow noopener sponsored" style="text-decoration:none;color:inherit;">'+
+    '<a href="'+link+'"'+target+rel+' style="text-decoration:none;color:inherit;">'+
     '<div class="product-card-image"><img src="'+(p.image||"/logo.jpg")+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\\'/logo.jpg\\'"></div>'+
     '<div class="product-card-body">'+
     '<h3 class="product-card-name">'+n+'</h3>'+
     '<div class="product-card-badges">'+badge+feedBadge+'</div>'+
     '<div class="product-card-price">'+pd+(od?' <s>'+od+'</s>':'')+'</div>'+
+    (desc?'<div class="product-card-desc">'+desc+'</div>':'')+
     '<div class="product-card-btn">'+buyText+'</div>'+
     '</div></a></div>';
 }}
