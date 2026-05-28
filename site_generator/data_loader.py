@@ -230,7 +230,9 @@ def _build_product_map(products: list) -> dict:
     """Build product_id -> product dict.
 
     If a product doesn't have an ``id`` field, one is generated using
-    :func:`_generate_product_id` based on name, vendor, and list index.
+    :func:`_generate_product_id` based on name, vendor, feed_id, and
+    list index. The ID format ``{feed_id}-{idx}`` matches the Worker
+    API so that static product pages are found at the same URL path.
 
     Args:
         products: List of product dicts.
@@ -244,7 +246,8 @@ def _build_product_map(products: list) -> dict:
         if not pid:
             name = product.get("name", "")
             vendor = product.get("vendor", product.get("brand", ""))
-            pid = _generate_product_id(name, vendor, idx)
+            feed_id = str(product.get("feed_id", ""))
+            pid = _generate_product_id(name, vendor, idx, feed_id)
             product["id"] = pid
         product_map[str(pid)] = product
     return product_map
@@ -273,20 +276,29 @@ def _build_category_map(products: list) -> dict:
     return category_map
 
 
-def _generate_product_id(name: str, vendor: str, idx: int) -> str:
-    """Generate unique product ID (idx_hash format to prevent collisions).
+def _generate_product_id(name: str, vendor: str, idx: int, feed_id: str = "") -> str:
+    """Generate unique product ID matching Worker API format.
 
-    Format: ``{idx}_{hash_prefix}`` where hash_prefix is the first 8
-    characters of the SHA-256 digest of ``name|vendor|idx``.
+    When feed_id is available, uses ``{feed_id}-{idx}`` format which
+    matches the Worker's getProducts() ID generation. This ensures
+    that static HTML pages at /shop/{id}/index.html have the same
+    ID as the Worker API returns, so product links always resolve.
+
+    Falls back to ``{idx}_{hash_prefix}`` when no feed_id is given.
 
     Args:
         name: Product name.
         vendor: Product vendor/brand.
         idx: Index of the product in the list.
+        feed_id: The feed/supplier ID (e.g. "25860"). When provided,
+            generates ``{feed_id}-{idx}`` matching the Worker API.
 
     Returns:
         A unique string identifier for the product.
     """
+    if feed_id:
+        return f"{feed_id}-{idx}"
+    # Fallback: hash-based ID when no feed_id available
     raw = f"{name}|{vendor}|{idx}"
     hash_hex = hashlib.sha256(raw.encode("utf-8")).hexdigest()[:8]
     return f"{idx}_{hash_hex}"

@@ -38,6 +38,7 @@ from .config import (
     PRODUCTS_PER_PAGE,
     CURRENT_YEAR,
     PRODUCT_CATEGORIES,
+    PRODUCT_CATEGORY_NAMES,
     PRODUCTS_CURRENCY_RU,
     PRODUCTS_CURRENCY_EN,
     ADMITAD_CONFIG,
@@ -724,12 +725,17 @@ def generate_all_pages(data: dict, output_dir: str):
                                     pid = product_id_map.get(global_idx, "")
                                     if not pid:
                                         # Generate ID same way as _generate_product_id
-                                        pname = prod.get("n", prod.get("name", ""))
-                                        pvendor = prod.get("v", prod.get("vendor", ""))
-                                        import hashlib as _hl
-                                        raw = f"{pname}|{pvendor}|{global_idx}"
-                                        hash_hex = _hl.sha256(raw.encode("utf-8")).hexdigest()[:8]
-                                        pid = f"{global_idx}_{hash_hex}"
+                                        # Use {feed_id}-{idx} format to match Worker API
+                                        pfeed_id = prod.get("f", prod.get("feed_id", ""))
+                                        if pfeed_id:
+                                            pid = f"{pfeed_id}-{global_idx}"
+                                        else:
+                                            pname = prod.get("n", prod.get("name", ""))
+                                            pvendor = prod.get("v", prod.get("vendor", ""))
+                                            import hashlib as _hl
+                                            raw = f"{pname}|{pvendor}|{global_idx}"
+                                            hash_hex = _hl.sha256(raw.encode("utf-8")).hexdigest()[:8]
+                                            pid = f"{global_idx}_{hash_hex}"
                                     prod["id"] = pid
                                     prod["product_page"] = f"/shop/{pid}"
                         with open(dest_path, 'w', encoding='utf-8') as f:
@@ -1492,6 +1498,26 @@ def generate_shop_page(data: dict, lang: str, output_dir: str) -> str:
     for sname, scount in suppliers.items():
         supplier_cards += f'<button class="supplier-filter-btn" data-supplier="{escape_html(sname)}">{escape_html(sname)} <span style="opacity:0.7;font-size:0.8em;">({scount})</span></button>\n'
 
+    # Category filter cards — use numeric IDs matching products.json "cat" field
+    # Build from actual categories found in product data
+    product_cats = {}
+    for p in products:
+        cat_id = p.get("category_id") or p.get("categoryId", "")
+        if cat_id:
+            cat_id_str = str(cat_id)
+            if cat_id_str not in product_cats:
+                product_cats[cat_id_str] = 0
+            product_cats[cat_id_str] += 1
+    category_cards = ""
+    for cat_id_str, count in sorted(product_cats.items(), key=lambda x: -x[1]):
+        try:
+            cat_id_int = int(cat_id_str)
+            cat_names = PRODUCT_CATEGORY_NAMES.get(cat_id_int, {})
+        except (ValueError, TypeError):
+            cat_names = {}
+        cat_label = cat_names.get(lang, cat_names.get("ru", f"Категория {cat_id_str}"))
+        category_cards += f'<button class="category-filter-btn" data-category="{escape_html(cat_id_str)}">{escape_html(cat_label)} <span style="opacity:0.7;font-size:0.8em;">({count})</span></button>\n'
+
     # Build initial product grid (first PRODUCTS_PER_PAGE products)
     currency = PRODUCTS_CURRENCY_RU if lang == "ru" else PRODUCTS_CURRENCY_EN
     buy_text = t("shop_buy", lang)
@@ -1629,7 +1655,7 @@ function renderCard(p){{
   var n=(p.name||"").length>80?(p.name||"").substring(0,80)+"...":(p.name||"");
   var desc=(p.description||"").length>120?(p.description||"").substring(0,120)+"...":(p.description||"");
   var price=p.price;
-  var oldPrice=p.old_price||"";
+  var oldPrice=p.oldPrice||p.old_price||"";
   var pd=typeof price==="number"?price.toLocaleString("ru-RU")+" "+currency:price+" "+currency;
   var od=typeof oldPrice==="number"?oldPrice.toLocaleString("ru-RU"):oldPrice;
   var avail=p.available!==false;
@@ -1643,7 +1669,7 @@ function renderCard(p){{
   var link=pid?'/shop/'+pid:(p.url||"#");
   var target=pid?'':' target="_blank"';
   var rel=pid?'':' rel="nofollow noopener sponsored"';
-  var buyUrl=pid&&pfeed?'/api/go/'+encodeURIComponent(pfeed)+'/'+encodeURIComponent(pid):(p.url||'#');
+  var buyUrl=p.url&&p.url!=='#'?p.url:(pid&&pfeed?'/api/go/'+encodeURIComponent(pfeed)+'/'+encodeURIComponent(pid):(p.url||'#'));
   return '<div class="shop-product-card" data-supplier="'+feed+'">'+
     '<a href="'+link+'"'+target+rel+' style="text-decoration:none;color:inherit;">'+
     '<div class="product-card-image"><img src="'+(p.image||"/logo.jpg")+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\\'/logo.jpg\\'"></div>'+
@@ -1751,12 +1777,15 @@ function goToPage(page){{
   var sort=sortSelect?sortSelect.value:"popular";
   var activeSupplier=document.querySelector(".supplier-filter-btn.active");
   var supplier=activeSupplier?activeSupplier.dataset.supplier:"";
+  var activeCat=document.querySelector(".category-filter-btn.active");
+  var category=activeCat?activeCat.dataset.category:"";
   var url="/api/shop/products?page="+page+"&per_page="+PER_PAGE;
   if(q&&q.length>=2)url+="&q="+encodeURIComponent(q);
   if(supplier)url+="&feed="+encodeURIComponent(supplier);
+  if(category)url+="&cat="+encodeURIComponent(category);
   if(sort&&sort!=="popular")url+="&sort="+sort;
   // If page 1 and no filters, use embedded data
-  if(page===1&&!q&&!supplier&&sort==="popular"){{
+  if(page===1&&!q&&!supplier&&!category&&sort==="popular"){{
     isLoading=false;
     if(grid)grid.style.opacity="1";
     renderProducts(initialProducts);
@@ -1793,8 +1822,18 @@ if(searchInput)searchInput.addEventListener("input",function(){{
 if(sortSelect)sortSelect.addEventListener("change",function(){{filterAndSort();}});
 document.querySelectorAll(".supplier-filter-btn").forEach(function(btn){{
   btn.addEventListener("click",function(){{
+    var wasActive=this.classList.contains("active");
     document.querySelectorAll(".supplier-filter-btn").forEach(function(b){{b.classList.remove("active");}});
-    this.classList.toggle("active");
+    if(!wasActive)this.classList.add("active");
+    filterAndSort();
+  }});
+}});
+var catBtns=document.querySelectorAll(".category-filter-btn");
+catBtns.forEach(function(btn){{
+  btn.addEventListener("click",function(){{
+    var wasActive=this.classList.contains("active");
+    catBtns.forEach(function(b){{b.classList.remove("active");}});
+    if(!wasActive)this.classList.add("active");
     filterAndSort();
   }});
 }});
@@ -1802,6 +1841,7 @@ document.getElementById("shopResetFilters")?.addEventListener("click",function()
   if(searchInput)searchInput.value="";
   if(sortSelect)sortSelect.value="popular";
   document.querySelectorAll(".supplier-filter-btn").forEach(function(b){{b.classList.remove("active");}});
+  catBtns.forEach(function(b){{b.classList.remove("active");}});
   filterAndSort();
 }});
 // Initial render with embedded page 1 data
@@ -1828,6 +1868,9 @@ renderProducts(initialProducts);
 </div>
 <div class="shop-suppliers">
   {supplier_cards}
+</div>
+<div class="shop-categories">
+  {category_cards}
 </div>
 <div class="shop-product-count" id="shopPageInfo">{showing_text} 1-{min(total_products, 30)} {of_text} {total_products:,} {products_text}</div>
 <div class="shop-product-grid" id="shopProductGrid">
@@ -1972,12 +2015,18 @@ def generate_category_page(data: dict, category_id: str, lang: str, output_dir: 
     category_map = data.get("category_map", {})
     cat_products = category_map.get(category_id, [])
 
-    # Category name
+    # Category name — try numeric ID first, then string key fallback
     cat_display = category_id.replace("-", " ").title()
-    for cat_key, cat_names in PRODUCT_CATEGORIES.items():
-        if cat_key.lower() == category_id.lower():
+    try:
+        cat_id_int = int(category_id)
+        cat_names = PRODUCT_CATEGORY_NAMES.get(cat_id_int, {})
+        if cat_names:
             cat_display = cat_names.get(lang, cat_names.get("ru", category_id))
-            break
+    except (ValueError, TypeError):
+        for cat_key, cat_names in PRODUCT_CATEGORIES.items():
+            if cat_key.lower() == category_id.lower():
+                cat_display = cat_names.get(lang, cat_names.get("ru", category_id))
+                break
 
     if lang == "en":
         page_url = f"{SITE_URL}/en/shop/category/{category_id}"

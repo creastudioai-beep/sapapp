@@ -166,6 +166,23 @@ PRODUCT_CATEGORIES: dict[str, dict[str, str]] = {
     },
 }
 
+# Numeric category ID → display name mapping (matches products.json "cat" field)
+# Used for shop page category filter buttons and product page breadcrumbs
+PRODUCT_CATEGORY_NAMES: dict[int, dict[str, str]] = {
+    1: {"ru": "Масла и смазки", "en": "Oils & Lubricants"},
+    2: {"ru": "Моторное масло", "en": "Motor Oil"},
+    3: {"ru": "Трансмиссионное масло", "en": "Transmission Oil"},
+    4: {"ru": "Автожидкости", "en": "Auto Fluids"},
+    5: {"ru": "Чернитель шин", "en": "Tire Black"},
+    6: {"ru": "Спецпредложения", "en": "Special Offers"},
+    7: {"ru": "Каталог запчастей", "en": "Parts Catalog"},
+    8: {"ru": "Аксессуары", "en": "Accessories"},
+    9: {"ru": "Инструменты", "en": "Tools"},
+    10: {"ru": "Преобразователь ржавчины", "en": "Rust Converter"},
+    11: {"ru": "Антигравий", "en": "Anti-Gravel"},
+    12: {"ru": "Распродажа", "en": "Clearance"},
+}
+
 # =============================================================================
 # COLORS
 # =============================================================================

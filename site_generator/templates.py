@@ -27,6 +27,7 @@ from .config import (
     ADMITAD_CONFIG,
     BASE_PATH,
     NEWS_KEYWORDS,
+    PRODUCT_CATEGORY_NAMES,
 )
 
 
@@ -1156,7 +1157,7 @@ def render_product_page(
     product_old_price = product.get("old_price", "")
     product_currency = product.get("currency", "RUB")
     product_vendor = product.get("vendor") or product.get("brand", "")
-    product_category = product.get("category", "")
+    product_category = product.get("category") or product.get("category_id", "")
     product_feed_name = product.get("feed_name") or product.get("feedName", "")
     product_feed_id = product.get("feed_id") or product.get("feedId", "")
     product_available = product.get("available", True)
@@ -1196,10 +1197,18 @@ def render_product_page(
     elif product_old_price:
         availability_badge = '<span class="product-badge badge-sale">Скидка</span>'
 
-    # Category badge
+    # Category badge — use PRODUCT_CATEGORY_NAMES for display name
     category_badge = ""
     if product_category:
-        category_badge = f'<span class="product-badge badge-category">{escape_html(str(product_category))}</span>'
+        cat_display = str(product_category)
+        try:
+            cat_id_int = int(product_category)
+            cat_names = PRODUCT_CATEGORY_NAMES.get(cat_id_int, {})
+            if cat_names:
+                cat_display = cat_names.get("ru", cat_display)
+        except (ValueError, TypeError):
+            pass
+        category_badge = f'<span class="product-badge badge-category">{escape_html(cat_display)}</span>'
 
     # Vendor badge
     vendor_badge = ""

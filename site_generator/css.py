@@ -61,8 +61,8 @@ img, video { max-width: 100%; height: auto; display: block; }
   .header-content { gap: 0.5rem; }
   .mobile-menu-btn { display: flex; }
   .main-nav { display: none; width: 100%; flex-direction: column; gap: 0; padding: 0.75rem 0; border-top: 1px solid var(--border-light); order: 10; }
-  .main-nav.open { display: flex; }
-  .main-nav a { padding: 0.625rem 0; font-size: 0.9375rem; width: 100%; }
+  .main-nav.open { display: flex; background: var(--bg-header); backdrop-filter: blur(20px); position: relative; z-index: 1001; }
+  .main-nav a { padding: 0.75rem 0; font-size: 0.9375rem; width: 100%; display: block; cursor: pointer; }
   .controls-group { gap: 0.375rem; }
   .logo { font-size: 1.125rem; gap: 0.5rem; }
   .logo-icon { width: 36px; height: 36px; }
@@ -335,9 +335,12 @@ footer a:hover { color: var(--text-link); }
 .shop-controls{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap}
 .shop-search-input{flex:1;min-width:200px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:0.55rem 0.85rem;font-size:0.9rem;color:var(--text-main);outline:none;transition:border-color 0.15s}
 .shop-search-input:focus{border-color:var(--primary)}
-.shop-suppliers{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem}
+.shop-suppliers{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.5rem}
 .supplier-filter-btn{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:0.4rem 0.85rem;font-size:0.8rem;font-weight:500;color:var(--text-main);cursor:pointer;transition:all 0.15s}
 .supplier-filter-btn:hover,.supplier-filter-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.shop-categories{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem}
+.category-filter-btn{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:0.4rem 0.85rem;font-size:0.8rem;font-weight:500;color:var(--text-sec);cursor:pointer;transition:all 0.15s}
+.category-filter-btn:hover,.category-filter-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
 .shop-product-count{font-size:0.85rem;color:var(--text-muted);margin-bottom:0.75rem}
 .shop-widget-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.75rem}
 .product-card-image{position:relative;width:100%;padding-top:100%;background:var(--bg-body);overflow:hidden}
