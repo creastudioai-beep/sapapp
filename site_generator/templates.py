@@ -444,8 +444,10 @@ def render_popular_tags(tags: list, lang: str = "ru") -> str:
             continue
         if not tag_name:
             continue
-        tag_url = f"{_bp('/tag')}/{url_quote(tag_name)}.html"
-        tags_html_parts.append(f'<a href="{tag_url}" class="footer-tag">#{escape_html(tag_name)}</a>')
+        # Strip leading # from tag_name for display (avoid ##hashtag)
+        tag_display = tag_name.lstrip('#')
+        tag_url = f"{_bp('/tag')}/{url_quote(tag_display)}.html"
+        tags_html_parts.append(f'<a href="{tag_url}" class="footer-tag">#{escape_html(tag_display)}</a>')
 
     tags_html = "".join(tags_html_parts)
     return f"""
